@@ -111,7 +111,7 @@ export default {
       miniVariant: false,
       right: true,
       rightDrawer: false,
-      title: 'Vuetify.js'
+      title: 'ETS_F22_NV'
     }
   }
 }
