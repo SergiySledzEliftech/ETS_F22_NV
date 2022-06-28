@@ -74,3 +74,19 @@ $body-font-family: 'Montserrat';
     color: $secondary;
   }
 }
+
+.v-application {
+  .btn_primary {
+    background: $primary!important;
+    color: white!important;
+    font-size: 18px!important;
+    font-weight: normal;
+    border-color: $primary!important;
+    text-transform: none;
+    letter-spacing: normal;
+    height: 50px!important;
+    padding: 0 20px!important;
+    margin-bottom: 16px;
+  }
+}
+

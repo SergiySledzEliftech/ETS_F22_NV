@@ -8,6 +8,10 @@
     <h5> Title h5 </h5>
     <p> Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin dignissim scelerisque nisi a imperdiet. Ut malesuada vel nunc id suscipit. Nullam dapibus orci a orci faucibus aliquet.</p>
     <a href="#"> Link to</a>
+    <br>
+    <v-btn class="btn_primary" depressed color="primary">
+      Primary button
+    </v-btn>
   </div>
 </template>
 
