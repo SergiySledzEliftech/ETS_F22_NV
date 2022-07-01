@@ -1,20 +1,15 @@
 <template>
   <div>
-    <v-row justify="center" align="center">
-      <h1 class="headline">
-        {{ title }}
-      </h1>
-    </v-row>
-    <TestComp />
+    <Top10Goods />
   </div>
 </template>
 
 <script>
 import { Vue, Component } from 'nuxt-property-decorator'
-import TestComp from '../components/TestComponent'
+import Top10Goods from '~/components/IndexPage/Top10Goods/Top10Goods.vue'
 
 export default @Component({
-  components: { TestComp }
+  components: { Top10Goods }
 })
 
 class Index extends Vue {
