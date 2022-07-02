@@ -11,9 +11,9 @@
 </template>
 
 <script>
-import { Vue, Component } from 'nuxt-property-decorator'
-import HeaderComp from '../components/global/HeaderComponent'
-import FooterComp from '../components/global/FooterComponent'
+import { Vue, Component } from 'nuxt-property-decorator';
+import HeaderComp from '../components/global/HeaderComponent';
+import FooterComp from '../components/global/FooterComponent';
 
 export default @Component({
   components: { HeaderComp, FooterComp }

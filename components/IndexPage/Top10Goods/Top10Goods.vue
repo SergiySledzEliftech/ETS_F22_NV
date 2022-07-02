@@ -8,7 +8,7 @@
       show-arrows-on-hover
     >
       <v-carousel-item
-        v-for="(slide) in nums"
+        v-for="(slide) in 6"
         :key="slide"
       >
         <v-sheet
@@ -17,16 +17,16 @@
           class="d-flex justify-center align-center"
         >
           <div class="d-none d-lg-flex justify-space-around align-center carousel-content-wrapper">
-            <ProductCard />
-            <ProductCard />
-            <ProductCard />
+            <ProductCard :active-hover="false" />
+            <ProductCard :active-hover="false" />
+            <ProductCard :active-hover="false" />
           </div>
           <div class="d-md-flex d-lg-none d-none justify-space-around align-center carousel-content-wrapper">
-            <ProductCard />
-            <ProductCard />
+            <ProductCard :active-hover="false" />
+            <ProductCard :active-hover="false" />
           </div>
           <div class="d-flex d-md-none justify-space-around align-center carousel-content-wrapper">
-            <ProductCard />
+            <ProductCard :active-hover="false" />
           </div>
         </v-sheet>
       </v-carousel-item>
@@ -42,13 +42,7 @@ export default @Component({
   components: { ProductCard }
 })
 
-class Top10Goods extends Vue {
-  data () {
-    return {
-      nums: [1, 2, 3, 4, 5]
-    }
-  }
-}
+class Top10Goods extends Vue {}
 </script>
 
 <style scoped lang="scss">

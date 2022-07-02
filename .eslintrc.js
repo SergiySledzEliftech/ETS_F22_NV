@@ -16,5 +16,9 @@ module.exports = {
   plugins: [
   ],
   // add your custom rules here
-  rules: {}
-}
+  rules: {
+    semi: ['error', 'always'],
+    'vue/no-v-text-v-html-on-component': 1,
+    'no-console': 1
+  }
+};

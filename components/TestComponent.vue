@@ -24,7 +24,7 @@ export default @Component({
 })
 
 class Index extends Vue {
-    title = 'Welcome to the ETS_F22_NV project!';
+    title = 'Welcome to the ETS_F22_NV project!'
 }
 </script>
 
