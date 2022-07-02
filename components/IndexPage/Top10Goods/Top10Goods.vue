@@ -35,8 +35,8 @@
 </template>
 
 <script>
-import { Component, Vue } from 'nuxt-property-decorator'
-import ProductCard from '../ProductCard/ProductCard.vue'
+import { Component, Vue } from 'nuxt-property-decorator';
+import ProductCard from '../ProductCard/ProductCard.vue';
 
 export default @Component({
   components: { ProductCard }
@@ -54,6 +54,7 @@ class Top10Goods extends Vue {}
   h3{
     color: white;
     text-align: center;
+    margin-bottom: 0 !important;
   }
   .carousel-content-wrapper{
     width: 85%;

@@ -35,7 +35,7 @@
     <v-card
       v-else
       class="mx-auto"
-      max-width="304"
+      max-width="304px"
     >
       <v-img
         src="https://upload.wikimedia.org/wikipedia/commons/3/32/Dessert_Spoon.jpg"
@@ -66,7 +66,7 @@
 </template>
 
 <script>
-import { Component, Vue, Prop } from 'nuxt-property-decorator'
+import { Component, Vue, Prop } from 'nuxt-property-decorator';
 
 export default @Component
 

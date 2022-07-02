@@ -16,8 +16,8 @@
 </template>
 
 <script>
-import { Vue, Component } from 'nuxt-property-decorator'
-import TestComp from '../components/TestComponent'
+import { Vue, Component } from 'nuxt-property-decorator';
+import TestComp from '../components/TestComponent';
 
 export default @Component({
   components: { TestComp }

@@ -42,8 +42,8 @@
 </template>
 
 <script>
-import { Component, Vue } from 'nuxt-property-decorator'
-import ProductCard from '../ProductCard/ProductCard.vue'
+import { Component, Vue } from 'nuxt-property-decorator';
+import ProductCard from '../ProductCard/ProductCard.vue';
 
 export default @Component({
   components: { ProductCard }
@@ -60,6 +60,7 @@ class PremiumGoods extends Vue {}
 
   .premium-goods-wrapper{
     padding-top: 80px;
+    padding-bottom: 70px;
   }
 
   .btn-text{
