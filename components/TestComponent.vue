@@ -1,8 +1,5 @@
 <template>
   <div>
-<<<<<<< HEAD
-    <p> Test component </p>
-=======
     <p> Basic components </p>
     <h1> Title h1</h1>
     <h2> Title h2 </h2>
@@ -15,7 +12,6 @@
     <v-btn class="btn_primary" depressed color="primary">
       Primary button
     </v-btn>
->>>>>>> main
   </div>
 </template>
 
