@@ -55,7 +55,7 @@ class PremiumGoods extends Vue {}
 <style scoped>
   h3{
     text-align: center;
-    padding-bottom: 55px;
+    margin-bottom: 55px !important;
   }
 
   .premium-goods-wrapper{

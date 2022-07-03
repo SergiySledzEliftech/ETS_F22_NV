@@ -1,7 +1,7 @@
 <template>
   <div class="news-wrapper">
     <h3>Latest News</h3>
-    <NewsItem />
+    <NewsItem v-if="show" />
   </div>
 </template>
 
@@ -13,13 +13,19 @@ export default @Component({
   components: { NewsItem }
 })
 
-class News extends Vue {}
+class News extends Vue {
+  data () {
+    return {
+      show: true
+    };
+  }
+}
 </script>
 
 <style scoped lang="scss">
   h3{
     text-align: center;
-    padding-bottom: 55px;
+    margin-bottom: 55px !important;
   }
 
   .news-wrapper{
