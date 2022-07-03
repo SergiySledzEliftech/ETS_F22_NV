@@ -1,18 +1,29 @@
 <template>
-  <div>
-    <div class="container">
-      <nuxt />
-    </div>
-  </div>
+  <v-app dark>
+    <HeaderComp/>
+    <v-main>
+      <v-container>
+        <Nuxt />
+      </v-container>
+    </v-main>
+    <FooterComp/>
+  </v-app>
 </template>
 
 <script>
-import { Component, Vue } from 'nuxt-property-decorator'
+import { Vue, Component } from 'nuxt-property-decorator'
+import HeaderComp from '../components/global/HeaderComponent'
+import FooterComp from '../components/global/FooterComponent'
 
 export default @Component({
-  name: 'default',
-  components: {}
+  components: { HeaderComp, FooterComp }
 })
 
-class Default extends Vue {}
+class Index extends Vue {
+    name = 'defaultLayout';
+}
 </script>
+
+<style lang="scss">
+
+</style>

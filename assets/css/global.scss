@@ -1,0 +1,94 @@
+// ---------------------------------------------------------------------------------------------------------------------
+// Fonts
+// ---------------------------------------------------------------------------------------------------------------------
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+
+$body-font-family: 'Montserrat';
+
+.v-application {
+  font-family: $body-font-family, sans-serif !important;
+}
+
+// ---------------------------------------------------------------------------------------------------------------------
+// Basic components
+// ---------------------------------------------------------------------------------------------------------------------
+.v-application {
+  h1 {
+    font-size: 60px;
+    font-weight: 600;
+    line-height: 3.8rem;
+    margin-bottom: 16px;
+    color: $secondary;
+  }
+
+  h2 {
+    font-size: 40px;
+    font-weight: normal;
+    line-height: 3rem;
+    margin-bottom: 16px;
+    color: $secondary;
+  }
+
+  h3 {
+    font-size: 35px;
+    font-weight: normal;
+    line-height: 2rem;
+    margin-bottom: 16px;
+    color: $secondary;
+  }
+
+  h4 {
+    font-size: 24px;
+    font-weight: normal;
+    line-height: 1.4rem;
+    margin-bottom: 16px;
+    color: $secondary;
+  }
+
+  h5 {
+    font-size: 18px;
+    font-weight: bold;
+    line-height: 1.2rem;
+    margin-bottom: 16px;
+    color: $secondary;
+  }
+
+  a {
+    font-size: 18px;
+    font-weight: bold;
+    margin-bottom: 16px;
+    line-height: 1.4rem;
+    text-decoration: none;
+    color: $light;
+  }
+
+  a:hover {
+    color: $primary;
+  }
+
+  p {
+    font-size: 18px;
+    font-weight: normal;
+    line-height: 1.5rem;
+    margin-bottom: 16px;
+    color: $secondary;
+  }
+}
+
+// ---------------------------------------------------------------------------------------------------------------------
+// Button primary
+// ---------------------------------------------------------------------------------------------------------------------
+.v-application {
+  .btn_primary {
+    background: $primary!important;
+    color: white!important;
+    font-size: 18px!important;
+    font-weight: normal;
+    border-color: $primary!important;
+    text-transform: none;
+    letter-spacing: normal;
+    height: 50px!important;
+    padding: 0 20px!important;
+    margin-bottom: 16px;
+  }
+}
