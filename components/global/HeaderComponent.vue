@@ -187,7 +187,7 @@ class Index extends Vue {
     text-rendering: optimizeLegibility;
   }
   .header-container {
-    max-width: 75rem;
+    max-width: 1185px;
     height: auto;
     margin: 0 auto;
     padding: 0 12px;
