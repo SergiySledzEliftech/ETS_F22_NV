@@ -1,7 +1,10 @@
 <template>
   <div class="news-wrapper">
     <h3>Latest News</h3>
-    <NewsItem v-if="show" />
+    <NewsItem />
+    <v-btn color="#E31F26" class="see-all-news-btn">
+      <span class="btn-text">See all news</span>
+    </v-btn>
   </div>
 </template>
 
@@ -13,13 +16,7 @@ export default @Component({
   components: { NewsItem }
 })
 
-class News extends Vue {
-  data () {
-    return {
-      show: true
-    };
-  }
-}
+class News extends Vue {}
 </script>
 
 <style scoped lang="scss">
@@ -31,5 +28,24 @@ class News extends Vue {
   .news-wrapper{
     padding-top: 80px;
     padding-bottom: 70px;
+  }
+
+  .btn-text{
+    font-family: 'Montserrat';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 18px;
+    line-height: 22px;
+
+    text-align: center;
+
+    color: #FFFFFF;
+  }
+
+  .see-all-news-btn{
+    margin-top: 50px;
+    position: absolute;
+    left: 50%;
+    transform: translate(-50%);
   }
 </style>

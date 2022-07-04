@@ -1,6 +1,7 @@
 <template>
   <v-card
     max-width="310px"
+    class="mb-10 ml-5 mr-5"
   >
     <div class="card-header">
       <v-card-title

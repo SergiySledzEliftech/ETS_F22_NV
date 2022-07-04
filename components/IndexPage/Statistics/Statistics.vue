@@ -1,7 +1,7 @@
 <template>
   <div class="statistics-wrapper">
     <h3>Statistics</h3>
-    <div class="d-flex justify-space-between align-center">
+    <div class="d-flex justify-space-between align-center flex-wrap statistics-items-wrapper">
       <StatisticsItem :name="'Users'"/>
       <StatisticsItem :name="'Rent'"/>
       <StatisticsItem :name="'Goods'"/>
@@ -29,5 +29,11 @@ h3{
 .statistics-wrapper{
   padding-top: 80px;
   padding-bottom: 70px;
+}
+
+@media screen and (max-width:1264px){
+  .statistics-items-wrapper{
+    justify-content: space-around !important;
+  }
 }
 </style>
