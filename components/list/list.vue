@@ -17,8 +17,7 @@ export default @Component({
   components: { ListItem, ListViewButtons },
   props: {
     isList: {
-      type: Boolean,
-      required: true
+      type: Boolean
     },
     list: {
       type: Array,
