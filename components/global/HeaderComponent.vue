@@ -187,10 +187,20 @@ class Index extends Vue {
     text-rendering: optimizeLegibility;
   }
   .header-container {
-    max-width: 75rem;
+    max-width: 1185px;
     height: auto;
     margin: 0 auto;
     padding: 0 12px;
+
+    @media (min-width: 960px) {
+      max-width: 900px;
+    }
+    @media (min-width: 1264px){
+      max-width: 1185px;
+    }
+    @media (min-width: 1904px) {
+      max-width: 1785px;
+    }
   }
   .brand {
     font-size: 1.625rem;
@@ -561,9 +571,12 @@ class Index extends Vue {
     display: flex;
     align-items: center;
 
-    @media only screen and (max-width: 992px) {
+    @media only screen and (max-width: 1284px) {
       display: none;
     }
+    /*@media (min-width: 1264px){*/
+    /*  max-width: 1185px;*/
+    /*}*/
 
     a{
       margin-right: 10px;
