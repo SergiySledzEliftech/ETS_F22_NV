@@ -33,7 +33,7 @@
 
       <v-text-field
         v-model="password"
-        :append-icon="show ? 'visibility' : 'visibility_off'"
+        :append-icon="show ? 'mdi-eye' : 'mdi-eye-off'"
         :rules="passwordRules"
         :type="show ? 'text' : 'password'"
         :counter="8"
