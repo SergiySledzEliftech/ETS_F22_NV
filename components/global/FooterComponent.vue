@@ -7,10 +7,10 @@
             GloMaRe
           </h3>
           <p class="footer-text">
-            ООО «Магазин недвижимости»
+            GloMaRe service helps you buy or sell almost anything from hand to hand.
           </p>
           <p class="footer-text">
-            УНП 124764878
+            Lorem Ipsum text
           </p>
           <ul class="footer-social">
             <li>
@@ -23,24 +23,22 @@
               <a href="#" class="footer-facebook" />
             </li>
           </ul>
-          <a href="#" class="footer-link"> Реквизиты </a>
+          <a href="#" class="footer-link"> Requisites </a>
         </div>
         <div class="footer-column">
           <div class="footer-title">
-            г. Гродно
+            Kyiv
           </div>
           <a class="header-phone" href="tel:+375295967676">+375 (29) 596 76 76</a>
           <a class="header-phone" href="tel:+375295967676">+375 (29) 596 76 76</a>
           <a class="header-phone" href="tel:+375295967676">+375 (29) 596 76 76</a>
           <div class="footer-location">
-            230023, г. Гродно, Беларусь,
-            ул. Тимирязева, д. 10/1,
-            офис 4 (БЦ "Августовский")
+            33 Nizhniy Val Street, Kyiv, 02000
           </div>
         </div>
         <div class="footer-column">
           <div class="footer-title">
-            г. Волковыск
+            Chernivtsi
           </div>
           <a class="header-phone" href="tel:+375295967676">+375 (29) 596 76 76</a>
           <a class="header-phone" href="tel:+375295967676">+375 (29) 596 76 76</a>
@@ -48,7 +46,7 @@
         </div>
         <div class="footer-column">
           <div class="footer-title">
-            Время работы:
+            Working hours:
           </div>
           <div class="footer-time">
             Пн – Пт: 09:00 – 19:00
@@ -57,12 +55,12 @@
             Сб: 09:00 – 15:00
           </div>
           <div class="footer-email">
-            info@shoprealty.by
+            info@glomare.com
           </div>
         </div>
       </div>
       <div class="footer-row-copypright">
-        ООО «Магазин недвижимости» - продажа недвижимости 2021 ©
+        &copy; 2022 GloMaRe.com
       </div>
     </div>
   </footer>
