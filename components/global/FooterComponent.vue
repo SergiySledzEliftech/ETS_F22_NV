@@ -92,7 +92,7 @@
       display: flex;
       flex-direction: column;
       width: 25%;
-      padding: 0 20px 0 20px;
+      padding: 0 20px 0 0;
 
       @media only screen and (max-width: 992px) {
         width: 100%;
