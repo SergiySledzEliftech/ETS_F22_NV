@@ -1,15 +1,8 @@
 <template>
   <div>
-    <ListViewButtons :view="toggle_displaying" />
     <ul class="list">
-      <li class="item" :class="{'item-list': toggle_displaying === 'list'}">
-        <ListItem :grid="toggle_displaying === 'list'" />
-      </li>
-      <li class="item" :class="{'item-list': toggle_displaying === 'list'}">
-        <ListItem :grid="toggle_displaying === 'list'" />
-      </li>
-      <li class="item" :class="{'item-list': toggle_displaying === 'list'}">
-        <ListItem :grid="toggle_displaying === 'list'" />
+      <li v-for="item in list" :key="item.id" class="item" :class="{'item-list': isList}">
+        <list-item :grid="isList" :item="item" />
       </li>
     </ul>
   </div>
@@ -17,19 +10,24 @@
 
 <script>
 import { Vue, Component } from 'nuxt-property-decorator'
-import ListItem from './item.vue'
-import ListViewButtons from './displayingButtons.vue'
+import ListItem from './Item.vue'
+import ListViewButtons from './DisplayingButtons.vue'
 export default @Component({
   name: 'items-list',
-  components: { ListItem, ListViewButtons }
+  components: { ListItem, ListViewButtons },
+  props: {
+    isList: {
+      type: Boolean,
+      required: true
+    },
+    list: {
+      type: Array,
+      required: true
+    }
+  }
 })
 
 class ItemsList extends Vue {
-  data () {
-    return {
-      toggle_displaying: 'grid'
-    }
-  }
 }
 </script>
 
@@ -44,7 +42,7 @@ class ItemsList extends Vue {
   flex-wrap: wrap;
   justify-content: space-between;
   .item {
-  width: 400px;
+  width: 360px;
   padding: 20px;
   border-radius: 10px;
   background: $bg;

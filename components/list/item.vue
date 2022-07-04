@@ -1,27 +1,27 @@
 <template>
   <div :class="{'isGrid': grid}">
-    <img src="https://th.bing.com/th/id/R.d9b27dfdff5a2a8182304ed921f7fe67?rik=iH9rCXLTvhfxYg&pid=ImgRaw&r=0" alt="image" class="item_img">
+    <img :src="item.img" alt="image" class="item_img">
     <div class="item_content">
       <h4 class="item_title">
-        Some useful title
+        {{ item.title }}
       </h4>
-      <a href="https://th.bing.com/th/id/R.d9b27dfdff5a2a8182304ed921f7fe67?rik=iH9rCXLTvhfxYg&pid=ImgRaw&r=0" target="_blank" class="item_location">some location</a>
+      <a :href="item.location" target="_blank" class="item_location">some location</a>
       <p>
-        Rating: 0 <v-icon
+        Rating: {{ item.rating }} <v-icon
           size="20"
           color="yellow accent-4"
         >
           mdi-star
         </v-icon>
       </p>
-      <p>Price: <strong>400$</strong></p>
-      <p>Term: <strong>5 days</strong></p>
+      <p>Price: <strong>{{ item.price }}$</strong></p>
+      <p>Term: <strong>{{ item.term }} days</strong></p>
       <div class="item_seller">
         <img
-          src="https://th.bing.com/th/id/OIP.boU0VLtfyLfKIbp_1YIWJgHaFj?pid=ImgDet&rs=1"
+          :src="item.user.avatar"
           alt="avatar"
         >
-        <p>UserName</p>
+        <p>{{ item.user.firstName }} {{ item.user.lastName }}</p>
       </div>
     </div>
   </div>
@@ -35,6 +35,10 @@ export default @Component({
     grid: {
       type: Boolean,
       required: true
+    },
+    item: {
+      type: Object,
+      required: true
     }
   }
 })
@@ -46,8 +50,8 @@ class ListItem extends Vue {
 
     .item_img {
       display: block;
-      width: 360px;
-      height: 270px;
+      width: 320px;
+      height: 240px;
       object-fit: cover;
     }
     .item_location {

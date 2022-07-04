@@ -1,7 +1,7 @@
 <template>
   <div class="list_view_btns">
     <p>Displaying:</p>
-    <v-btn-toggle v-model="view">
+    <v-btn-toggle v-model="btnValue" @change="changeView">
       <v-btn value="grid">
         <v-icon>mdi-view-grid-outline</v-icon>
       </v-btn>
@@ -17,9 +17,18 @@ import { Vue, Component } from 'nuxt-property-decorator'
 export default @Component({
   name: 'list-view-buttons',
   props: {
-    view: {
-      type: String,
-      required: true
+    modelValue: {
+      type: String
+    }
+  },
+  data () {
+    return {
+      btnValue: this.modelValue
+    }
+  },
+  methods: {
+    changeView (event) {
+      this.$emit('update:modelValue', event.target.value)
     }
   }
 })
@@ -32,6 +41,7 @@ class ListViewButtons extends Vue {
 <style lang="scss" scoped>
 .list_view_btns {
   display: flex;
+  justify-content: flex-end;
   align-items: center;
   padding: 20px;
 

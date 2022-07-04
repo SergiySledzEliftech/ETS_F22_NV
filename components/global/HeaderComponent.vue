@@ -105,7 +105,7 @@ export default @Component({
     this.$nextTick(function () {
       // Код, который будет запущен только после
       // отрисовки всех представлений
-      console.log('Start')
+      // console.log('Start')
       const navbarMenu = document.getElementById('navbar')
       const burgerMenu = document.getElementById('burger')
       const overlayMenu = document.getElementById('overlay')
