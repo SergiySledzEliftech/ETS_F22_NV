@@ -1,16 +1,16 @@
 <template>
-  <my-ads />
+  <my-ads-list />
 </template>
 
 <script>
 import { Vue, Component } from 'nuxt-property-decorator'
-import MyAds from '~/components/profile/MyAds'
+import MyAdsList from '~/components/profile/MyAdsList'
 
 export default @Component({
   name: 'ads',
   layout: 'profile',
   components: {
-    MyAds
+    MyAdsList
   }
 })
 

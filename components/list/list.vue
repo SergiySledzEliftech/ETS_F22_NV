@@ -2,7 +2,8 @@
   <div>
     <ul class="list">
       <li v-for="item in list" :key="item.id" class="item" :class="{'item-list': isList}">
-        <list-item :grid="isList" :item="item" />
+        <list-item :grid="toggle_displaying === 'list'" :item="item" />
+        <slot />
       </li>
     </ul>
   </div>
@@ -10,11 +11,8 @@
 
 <script>
 import { Vue, Component } from 'nuxt-property-decorator'
-import ListItem from './Item.vue'
-import ListViewButtons from './DisplayingButtons.vue'
 export default @Component({
   name: 'items-list',
-  components: { ListItem, ListViewButtons },
   props: {
     isList: {
       type: Boolean
@@ -35,11 +33,11 @@ class ItemsList extends Vue {
   .list {
   list-style-type: none;
   padding: 0 0 30px;
-  margin: 0;
+  margin: 20px 0 0;
   width: 100%;
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: space-between;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 15px;
   .item {
   width: 360px;
   padding: 20px;

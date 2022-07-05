@@ -5,17 +5,21 @@
       <h4 class="item_title">
         {{ item.title }}
       </h4>
-      <a :href="item.location" target="_blank" class="item_location">some location</a>
-      <p>
-        Rating: {{ item.rating }} <v-icon
-          size="20"
-          color="yellow accent-4"
-        >
-          mdi-star
-        </v-icon>
-      </p>
-      <p>Price: <strong>{{ item.price }}$</strong></p>
-      <p>Term: <strong>{{ item.term }} days</strong></p>
+      <a :href="item.location" target="_blank" class="item_location">
+        <v-icon size="20" color="#C10015">mdi-map-marker-outline</v-icon>some location</a>
+      <div class="item_details">
+        <p>
+          Rating:<span>{{ item.rating }} <v-icon
+            size="20"
+            color="yellow accent-4"
+          >
+            mdi-star
+          </v-icon>
+          </span>
+        </p>
+        <p>Price:<span>{{ item.price }}$</span></p>
+        <p>Term:<span>{{ item.term }} days</span></p>
+      </div>
       <div class="item_seller">
         <img
           :src="item.user.avatar"
@@ -56,15 +60,34 @@ class ListItem extends Vue {
     }
     .item_location {
       display: block;
-      margin-top: 20px;
+      margin-top: 10px;
     }
 
     .item_title {
       margin-top: 10px;
+      margin-bottom: 0;
+    }
+    .item_details {
+      display: flex;
+      justify-content: space-between;
+      border-top: 2px solid rgba($light, 0.4);
+      border-bottom: 2px solid rgba($light, 0.4);
+      p {
+        padding: 10px 3px 6px;
+        margin: 0;
+      }
+      span {
+        display: block;
+        text-align: center;
+        padding-top: 5px;
+        color: $negative;
+        font-weight: 600;
+      }
     }
     .item_seller {
       display: flex;
       align-items: center;
+      margin-top: 6px;
       img {
         width: 40px;
         height: 40px;
@@ -72,7 +95,7 @@ class ListItem extends Vue {
         border-radius: 50%;
       }
       p {
-        margin: 0 0 0 15px;
+        margin: 0 0 0 5px;
       }
     }
 
