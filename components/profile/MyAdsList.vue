@@ -1,9 +1,11 @@
 <template>
   <div>
-    <ListViewButtons :model-value="toggle_displaying" @update="changeView" />
+    <ListViewButtons :model-value="toggleDisplaying" @update="changeView" />
 
-    <items-list :is-list="toggle_displaying === 'list'" :list="list">
-      <div>some buttons</div>
+    <items-list :is-list="toggleDisplaying === 'list'" :list="list">
+      <div class="buttons">
+        here will be buttons
+      </div>
     </items-list>
   </div>
 </template>
@@ -54,18 +56,18 @@ class MyAdsList extends Vue {
     },
     {
       id: 3,
-      title: 'Some useful title 2',
-      price: 400,
-      location: 'https://th.bing.com/th/id/R.d9b27dfdff5a2a8182304ed921f7fe67?rik=iH9rCXLTvhfxYg&pid=ImgRaw&r=0',
-      img: 'https://images.ctfassets.net/hrltx12pl8hq/7yQR5uJhwEkRfjwMFJ7bUK/dc52a0913e8ff8b5c276177890eb0129/offset_comp_772626-opt.jpg?fit=fill&w=800&h=300',
-      term: 3,
+      title: 'Some useful title 3',
+      price: 600,
+      location: 'https://images.ctfassets.net/hrltx12pl8hq/7yQR5uJhwEkRfjwMFJ7bUK/dc52a0913e8ff8b5c276177890eb0129/offset_comp_772626-opt.jpg?fit=fill&w=800&h=300',
+      img: 'https://cdn.pixabay.com/photo/2015/04/23/22/00/tree-736885__480.jpg',
+      term: 2,
       user: {
         userId: 12,
-        avatar: 'https://img-19.commentcamarche.net/cI8qqj-finfDcmx6jMK6Vr-krEw=/1500x/smart/b829396acc244fd484c5ddcdcb2b08f3/ccmcms-commentcamarche/20494859.jpg',
+        avatar: 'https://images.ctfassets.net/hrltx12pl8hq/qGOnNvgfJIe2MytFdIcTQ/429dd7e2cb176f93bf9b21a8f89edc77/Images.jpg',
         firstName: 'Some',
-        lastName: 'Another User'
+        lastName: 'Unknown User'
       },
-      rating: 4.5
+      rating: 4.7
     }
 
   ];
@@ -77,4 +79,10 @@ changeView = function (value) {
 </script>
 
 <style scoped>
+.buttons {
+  padding: 5px;
+  text-align: center;
+  margin-top: 10px;
+  border: 1px dashed rgba($light, 0.5);
+}
 </style>

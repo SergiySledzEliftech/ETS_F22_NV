@@ -2,7 +2,7 @@
   <div>
     <ul class="list">
       <li v-for="item in list" :key="item.id" class="item" :class="{'item-list': isList}">
-        <list-item :grid="toggle_displaying === 'list'" :item="item" />
+        <list-item :grid="isList" :item="item" />
         <slot />
       </li>
     </ul>
