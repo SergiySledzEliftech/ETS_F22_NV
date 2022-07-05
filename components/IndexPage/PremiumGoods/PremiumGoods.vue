@@ -48,6 +48,7 @@ class Top10Goods extends Vue {}
   .carousel-wrapper{
     padding-top: 80px;
     background-color: $secondary;
+    margin-bottom: 100px;
   }
 
   h3{

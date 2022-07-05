@@ -75,6 +75,7 @@ class PremiumGoods extends Vue {
     padding-top: 80px;
     padding-bottom: 80px;
     background: $bg;
+    margin-bottom: 100px;
   }
 
   .btn-red-text{
