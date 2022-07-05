@@ -4,10 +4,8 @@
     <div class="d-flex d-lg-none">
       <v-carousel
         cycle
-        height="400"
+        height="420"
         :show-arrows="false"
-        hide-delimiters
-        progress-color="#E31F26"
       >
         <v-carousel-item
           v-for="el in 5"
@@ -65,7 +63,7 @@ class PremiumGoods extends Vue {
 }
 </script>
 
-<style scoped lang="scss">
+<style lang="scss">
   h3{
     text-align: center;
     margin-bottom: 40px !important;
