@@ -1,36 +1,50 @@
 <template>
-  <div class="carousel-wrapper">
+  <div class="top-goods-wrapper">
     <h3>Top-10 Goods</h3>
-    <v-carousel
-      cycle
-      height="500px"
-      hide-delimiter-background
-      show-arrows-on-hover
-    >
-      <v-carousel-item
-        v-for="(slide) in 6"
-        :key="slide"
+    <div class="d-flex d-lg-none">
+      <v-carousel
+        cycle
+        height="400"
+        :show-arrows="false"
+        hide-delimiters
+        progress-color="#E31F26"
       >
-        <v-sheet
-          color="#213342"
-          height="100%"
-          class="d-flex justify-center align-center"
+        <v-carousel-item
+          v-for="el in 5"
+          :key="el"
         >
-          <div class="d-none d-lg-flex justify-space-around align-center carousel-content-wrapper">
-            <ProductCard :active-hover="false" />
-            <ProductCard :active-hover="false" />
-            <ProductCard :active-hover="false" />
-          </div>
-          <div class="d-md-flex d-lg-none d-none justify-space-around align-center carousel-content-wrapper">
-            <ProductCard :active-hover="false" />
-            <ProductCard :active-hover="false" />
-          </div>
-          <div class="d-flex d-md-none justify-space-around align-center carousel-content-wrapper">
-            <ProductCard :active-hover="false" />
-          </div>
-        </v-sheet>
-      </v-carousel-item>
-    </v-carousel>
+          <v-sheet
+            color="#F9F9FA"
+            height="100%"
+          >
+            <div class="d-md-flex d-none align-center justify-space-around">
+              <ProductCard :active-hover="true"/>
+              <ProductCard :active-hover="true"/>
+            </div>
+            <div class="d-flex d-md-none align-center justify-space-around">
+              <ProductCard :active-hover="true"/>
+            </div>
+          </v-sheet>
+        </v-carousel-item>
+      </v-carousel>
+    </div>
+    <div class="d-none d-lg-flex align-center flex-wrap justify-space-around">
+      <div v-for="i in (showAll ? 10 : 6)" :key="i" class="mb-6 d-flex d-xl-none">
+        <ProductCard :active-hover="true" v-if="!showAll"/>
+        <ProductCard :active-hover="true" v-else class="changed-card"/>
+      </div>
+      <div v-for="i in 10" :key="i" class="mb-6 d-none d-xl-flex">
+        <ProductCard :active-hover="true" />
+      </div>
+    </div>
+    <div class="buttons-wrapper d-flex align-center justify-space-around mx-auto">
+      <v-btn color="#E31F26">
+        <span class="btn-white-text">See Other Goods</span>
+      </v-btn>
+      <v-btn color="white" class="button d-lg-flex d-none d-xl-none" @click="showAll = !showAll">
+        <span class="btn-red-text">{{showAll ? 'Hide' : 'See'}} All Top Goods</span>
+      </v-btn>
+    </div>
   </div>
 </template>
 
@@ -42,28 +56,51 @@ export default @Component({
   components: { ProductCard }
 })
 
-class Top10Goods extends Vue {}
+class PremiumGoods extends Vue {
+  data () {
+    return {
+      showAll: false
+    };
+  }
+}
 </script>
 
 <style scoped lang="scss">
-  .carousel-wrapper{
-    padding-top: 40px;
-    background-color: $secondary;
-  }
-
   h3{
-    color: white;
     text-align: center;
-    margin-bottom: 0 !important;
-  }
-  .carousel-content-wrapper{
-    width: 85%;
-    height: 100%;
+    margin-bottom: 40px !important;
   }
 
-  @media screen and (max-width: 350px){
-    .carousel-content-wrapper{
-      width: 100%;
-    }
+  .top-goods-wrapper{
+    padding-top: 80px;
+    padding-bottom: 80px;
+    background: $bg;
+  }
+
+  .btn-red-text{
+    font-family: 'Montserrat';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 20px;
+    text-align: center;
+
+    color: #E31F26;
+  }
+
+  .btn-white-text{
+    font-family: 'Montserrat';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 20px;
+    text-align: center;
+
+    color: white;
+  }
+
+  .buttons-wrapper{
+    margin-top: 40px;
+    width: 50%;
   }
 </style>

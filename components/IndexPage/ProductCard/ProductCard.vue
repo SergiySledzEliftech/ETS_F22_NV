@@ -3,7 +3,7 @@
     <v-hover v-if="activeHover" v-slot="{ hover }">
       <v-card
         class="mx-auto"
-        max-width="304"
+        max-width="304px"
         :elevation="hover ? 10 : 2"
       >
         <v-img

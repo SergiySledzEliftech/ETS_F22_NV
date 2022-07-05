@@ -1,15 +1,15 @@
 <template>
-  <div class="column tooltip tooltip--top" style="height: 10%" :data-tooltip="`${propHeight}0%`" v-if="propHeight===1"/>
-  <div class="column tooltip tooltip--top" style="height: 20%" :data-tooltip="`${propHeight}0%`" v-else-if="propHeight===2"/>
-  <div class="column tooltip tooltip--top" style="height: 30%" :data-tooltip="`${propHeight}0%`" v-else-if="propHeight===3"/>
-  <div class="column tooltip tooltip--top" style="height: 40%" :data-tooltip="`${propHeight}0%`" v-else-if="propHeight===4"/>
-  <div class="column tooltip tooltip--top" style="height: 50%" :data-tooltip="`${propHeight}0%`" v-else-if="propHeight===5"/>
-  <div class="column tooltip tooltip--top" style="height: 60%" :data-tooltip="`${propHeight}0%`" v-else-if="propHeight===6"/>
-  <div class="column tooltip tooltip--top" style="height: 70%" :data-tooltip="`${propHeight}0%`" v-else-if="propHeight===7"/>
-  <div class="column tooltip tooltip--top" style="height: 80%" :data-tooltip="`${propHeight}0%`" v-else-if="propHeight===8"/>
-  <div class="column tooltip tooltip--top" style="height: 90%" :data-tooltip="`${propHeight}0%`" v-else-if="propHeight===9"/>
-  <div class="column tooltip tooltip--top" style="height: 100%" :data-tooltip="`${propHeight}0%`" v-else-if="propHeight===10"/>
-  <div class="column tooltip tooltip--top" style="height: 0%" :data-tooltip="`${propHeight}0%`" v-else/>
+  <div v-if="propHeight===1" class="column tooltip tooltip--top" style="height: 10%" :data-tooltip="`${propHeight}0%`" />
+  <div v-else-if="propHeight===2" class="column tooltip tooltip--top" style="height: 20%" :data-tooltip="`${propHeight}0%`" />
+  <div v-else-if="propHeight===3" class="column tooltip tooltip--top" style="height: 30%" :data-tooltip="`${propHeight}0%`" />
+  <div v-else-if="propHeight===4" class="column tooltip tooltip--top" style="height: 40%" :data-tooltip="`${propHeight}0%`" />
+  <div v-else-if="propHeight===5" class="column tooltip tooltip--top" style="height: 50%" :data-tooltip="`${propHeight}0%`" />
+  <div v-else-if="propHeight===6" class="column tooltip tooltip--top" style="height: 60%" :data-tooltip="`${propHeight}0%`" />
+  <div v-else-if="propHeight===7" class="column tooltip tooltip--top" style="height: 70%" :data-tooltip="`${propHeight}0%`" />
+  <div v-else-if="propHeight===8" class="column tooltip tooltip--top" style="height: 80%" :data-tooltip="`${propHeight}0%`" />
+  <div v-else-if="propHeight===9" class="column tooltip tooltip--top" style="height: 90%" :data-tooltip="`${propHeight}0%`" />
+  <div v-else-if="propHeight===10" class="column tooltip tooltip--top" style="height: 100%" :data-tooltip="`${propHeight}0%`" />
+  <div v-else class="column tooltip tooltip--top" style="height: 0%" :data-tooltip="`${propHeight}0%`" />
 </template>
 
 <script>

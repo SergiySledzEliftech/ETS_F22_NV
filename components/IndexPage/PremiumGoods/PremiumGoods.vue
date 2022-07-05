@@ -1,43 +1,35 @@
 <template>
-  <div class="premium-goods-wrapper">
-    <h3>Premium goods</h3>
-    <div class="d-flex d-lg-none">
-      <v-sheet
-        class="mx-auto"
-        elevation="8"
-        max-width="100%"
+  <div class="carousel-wrapper">
+    <h3>Premium Goods</h3>
+    <v-carousel
+      cycle
+      height="500px"
+      hide-delimiters
+    >
+      <v-carousel-item
+        v-for="(slide) in 6"
+        :key="slide"
       >
-        <v-slide-group
-          class="pa-4"
-          center-active
-          show-arrows
+        <v-sheet
+          color="#213342"
+          height="100%"
+          class="d-flex justify-center align-center"
         >
-          <v-slide-item
-            v-for="n in 100"
-            :key="n"
-            v-slot="{ toggle }"
-          >
-            <div
-              class="ml-7 mr-7 pt-3 pr-3 pl-3 pb-3"
-              @click="toggle"
-            >
-              <ProductCard :active-hover="true" />
-            </div>
-          </v-slide-item>
-        </v-slide-group>
-      </v-sheet>
-    </div>
-    <div class="d-none d-lg-flex align-center flex-wrap justify-space-between">
-      <div v-for="i in 6" :key="i" class="mb-6 d-flex d-xl-none">
-        <ProductCard :active-hover="true" />
-      </div>
-      <div v-for="i in 10" :key="i" class="mb-6 d-none d-xl-flex">
-        <ProductCard :active-hover="true" />
-      </div>
-    </div>
-    <v-btn color="#E31F26" class="button">
-      <span class="btn-text">See All Premium Goods</span>
-    </v-btn>
+          <div class="d-none d-lg-flex justify-space-around align-center carousel-content-wrapper">
+            <ProductCard :active-hover="false" />
+            <ProductCard :active-hover="false" />
+            <ProductCard :active-hover="false" />
+          </div>
+          <div class="d-md-flex d-lg-none d-none justify-space-around align-center carousel-content-wrapper">
+            <ProductCard :active-hover="false" />
+            <ProductCard :active-hover="false" />
+          </div>
+          <div class="d-flex d-md-none justify-space-around align-center carousel-content-wrapper">
+            <ProductCard :active-hover="false" />
+          </div>
+        </v-sheet>
+      </v-carousel-item>
+    </v-carousel>
   </div>
 </template>
 
@@ -49,34 +41,28 @@ export default @Component({
   components: { ProductCard }
 })
 
-class PremiumGoods extends Vue {}
+class Top10Goods extends Vue {}
 </script>
 
-<style scoped>
-  h3{
-    text-align: center;
-    margin-bottom: 55px !important;
-  }
-
-  .premium-goods-wrapper{
+<style scoped lang="scss">
+  .carousel-wrapper{
     padding-top: 80px;
-    padding-bottom: 70px;
+    background-color: $secondary;
   }
 
-  .btn-text{
-    font-family: 'Montserrat';
-    font-style: normal;
-    font-weight: 400;
-    font-size: 16px;
-    line-height: 20px;
+  h3{
+    color: white;
     text-align: center;
-
-    color: #FFFFFF;
+    margin-bottom: 5px !important;
+  }
+  .carousel-content-wrapper{
+    width: 85%;
+    height: 100%;
   }
 
-  .button{
-    margin-top: 50px;
-    left: 50%;
-    transform: translate(-50%);
+  @media screen and (max-width: 350px){
+    .carousel-content-wrapper{
+      width: 100%;
+    }
   }
 </style>

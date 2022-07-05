@@ -1,7 +1,7 @@
 <template>
   <div>
-    <PremiumGoods />
     <Top10Goods />
+    <PremiumGoods />
     <News />
     <Statistics />
     <Partners />

@@ -1,11 +1,11 @@
 <template>
-  <div>
+  <div class="partners-wrapper">
     <h3>Our partners</h3>
     <div class="d-flex align-center flex-wrap justify-space-around partners-wrapper">
-    <PartnersItem :url="'https://preview.redd.it/2ssi8ft315b71.png?auto=webp&s=0fbae78f60d85a7c1a1ca510cdc2baaf0852dd9d'"/>
-    <PartnersItem :url="'https://upload.wikimedia.org/wikipedia/commons/thumb/6/6a/JavaScript-logo.png/600px-JavaScript-logo.png'"/>
-    <PartnersItem :url="'https://upload.wikimedia.org/wikipedia/commons/f/f1/Vue.png'"/>
-  </div>
+      <PartnersItem :url="'https://preview.redd.it/2ssi8ft315b71.png?auto=webp&s=0fbae78f60d85a7c1a1ca510cdc2baaf0852dd9d'" />
+      <PartnersItem :url="'https://upload.wikimedia.org/wikipedia/commons/thumb/6/6a/JavaScript-logo.png/600px-JavaScript-logo.png'" />
+      <PartnersItem :url="'https://upload.wikimedia.org/wikipedia/commons/f/f1/Vue.png'" />
+    </div>
   </div>
 </template>
 
@@ -23,6 +23,11 @@ class Partners extends Vue {}
 <style scoped lang="scss">
   h3{
     text-align: center !important;
-    margin-bottom: 55px !important;
+    margin-bottom: 50px !important;
+  }
+
+  .partners-wrapper{
+    padding-top: 80px;
+    padding-bottom: 80px;
   }
 </style>

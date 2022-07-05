@@ -12,17 +12,17 @@
     </div>
     <div class="statistics-wrapper">
       <div class="markup">
-        <hr />
-        <hr />
-        <hr />
-        <hr />
-        <hr />
-        <hr />
-        <hr />
-        <hr />
-        <hr />
-        <hr />
-        <hr />
+        <hr>
+        <hr>
+        <hr>
+        <hr>
+        <hr>
+        <hr>
+        <hr>
+        <hr>
+        <hr>
+        <hr>
+        <hr>
       </div>
       <div class="markup-numbers">
         <span>0</span>
@@ -38,11 +38,11 @@
         <span>100</span>
       </div>
       <div class="statistics">
-        <Column :prop-height="6"/>
-        <Column :prop-height="1"/>
-        <Column :prop-height="3"/>
-        <Column :prop-height="10"/>
-        <Column :prop-height="8"/>
+        <Column :prop-height="6" />
+        <Column :prop-height="1" />
+        <Column :prop-height="3" />
+        <Column :prop-height="10" />
+        <Column :prop-height="8" />
       </div>
     </div>
   </v-card>

@@ -1,12 +1,13 @@
 <template>
   <a href="#">
     <v-card class="partners-item-wrapper ml-5 mr-5 mb-5">
-    <v-img
-    :src="url"
-    width="150px"
-    height="150px"
-    class="partners-item-img"/>
-  </v-card>
+      <v-img
+        :src="url"
+        width="150px"
+        height="150px"
+        class="partners-item-img"
+      />
+    </v-card>
   </a>
 </template>
 
