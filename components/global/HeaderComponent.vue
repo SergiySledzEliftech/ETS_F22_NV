@@ -81,9 +81,13 @@
               <img src="~/assets/img/whatsapp.png">
             </a>
           </div>
-          <v-btn class="btn_primary" depressed color="primary">
-            Sign in
-          </v-btn>
+          <nuxt-link
+            :to="{path: '/auth', hash: '#signin'}"
+          >
+            <v-btn class="btn_primary" depressed color="primary">
+              Sign in
+            </v-btn>
+          </nuxt-link>
           <button id="burger" type="button" class="burger">
             <span class="burger-line" />
             <span class="burger-line" />
