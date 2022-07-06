@@ -63,7 +63,7 @@ class PremiumGoods extends Vue {
 }
 </script>
 
-<style lang="scss">
+<style scoped lang="scss">
   h3{
     text-align: center;
     margin-bottom: 40px !important;

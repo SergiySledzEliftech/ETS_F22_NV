@@ -22,7 +22,7 @@ class Column extends Vue {
 }
 </script>
 
-<style>
+<style scoped lang="scss">
   .column{
     background-color: #E31F26;
     width: 40px;
