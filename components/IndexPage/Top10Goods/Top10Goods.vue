@@ -16,11 +16,11 @@
             height="100%"
           >
             <div class="d-md-flex d-none align-center justify-space-around">
-              <ProductCard :active-hover="true"/>
-              <ProductCard :active-hover="true"/>
+              <ProductCard :active-hover="true" />
+              <ProductCard :active-hover="true" />
             </div>
             <div class="d-flex d-md-none align-center justify-space-around">
-              <ProductCard :active-hover="true"/>
+              <ProductCard :active-hover="true" />
             </div>
           </v-sheet>
         </v-carousel-item>
@@ -28,8 +28,8 @@
     </div>
     <div class="d-none d-lg-flex align-center flex-wrap justify-space-around">
       <div v-for="i in (showAll ? 10 : 6)" :key="i" class="mb-6 d-flex d-xl-none">
-        <ProductCard :active-hover="true" v-if="!showAll"/>
-        <ProductCard :active-hover="true" v-else class="changed-card"/>
+        <ProductCard v-if="!showAll" :active-hover="true" />
+        <ProductCard v-else :active-hover="true" class="changed-card" />
       </div>
       <div v-for="i in 10" :key="i" class="mb-6 d-none d-xl-flex">
         <ProductCard :active-hover="true" />
@@ -39,8 +39,16 @@
       <v-btn color="#E31F26">
         <span class="btn-white-text">See Other Goods</span>
       </v-btn>
-      <v-btn color="white" class="button d-lg-flex d-none d-xl-none" @click="showAll = !showAll">
-        <span class="btn-red-text">{{showAll ? 'Hide' : 'See'}} All Top Goods</span>
+      <v-btn
+        color="white"
+        class="button d-lg-flex d-none d-xl-none"
+        @click="()=>{
+          showAll = !showAll
+          scrollTop()
+          return null
+        }"
+      >
+        <span class="btn-red-text">{{ showAll ? 'Hide' : 'See' }} All Top Goods</span>
       </v-btn>
     </div>
   </div>
@@ -59,6 +67,12 @@ class PremiumGoods extends Vue {
     return {
       showAll: false
     };
+  }
+
+  scrollTop () {
+    if (!this.showAll) {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
   }
 }
 </script>

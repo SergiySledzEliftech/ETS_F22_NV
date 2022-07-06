@@ -1,24 +1,25 @@
 <template>
-    <v-hover v-slot="{ hover }">
-      <v-card
-        class="mx-auto product-card"
-        max-width="304px"
-        height="304px"
-        :elevation="hover && activeHover ? 10 : 2"
-      >
-        <v-img
-          class="product-card-img"
-          src="https://www.industrialempathy.com/img/remote/ZiClJf-1920w.jpg"
-          height="100%"
-          width="100%"
-        />
+  <v-hover v-slot="{ hover }">
+    <v-card
+      class="mx-auto product-card"
+      max-width="304px"
+      height="304px"
+      :elevation="hover && activeHover ? 10 : 2"
+    >
+      <v-img
+        class="product-card-img"
+        src="https://www.industrialempathy.com/img/remote/ZiClJf-1920w.jpg"
+        height="100%"
+        width="100%"
+      />
 
-        <v-card-title
-          class="product-card-title">
-          Interesting thing to rent
-        </v-card-title>
-      </v-card>
-    </v-hover>
+      <v-card-title
+        class="product-card-title"
+      >
+        Interesting thing to rent
+      </v-card-title>
+    </v-card>
+  </v-hover>
 </template>
 
 <script>

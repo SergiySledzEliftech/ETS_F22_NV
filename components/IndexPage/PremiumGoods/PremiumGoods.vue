@@ -3,7 +3,7 @@
     <h3>Premium Goods</h3>
     <v-carousel
       cycle
-      height="500px"
+      height="450px"
       hide-delimiters
     >
       <v-carousel-item
