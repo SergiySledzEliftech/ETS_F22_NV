@@ -72,6 +72,14 @@ $body-font-family: 'Montserrat';
     // margin-bottom: 16px;
     color: $secondary;
   }
+
+  .red-txt{
+    color: $primary;
+  }
+  .hidden{
+    display: none;
+    overflow: hidden;
+  }
 }
 
 // ---------------------------------------------------------------------------------------------------------------------

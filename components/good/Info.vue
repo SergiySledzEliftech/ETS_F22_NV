@@ -97,7 +97,7 @@ a{
   font-weight: 500;
 }
 .info{
-  margin-top: 100px;
+  margin-top: 30px;
   .info-wrapper{
     display: flex;
     background: #fff;
@@ -162,6 +162,11 @@ a{
       width: 210px;
       height: 50px;
       border-radius: 5px;
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1) 0s;
+      &:hover{
+        opacity: 0.85;
+        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1) 0s;
+      }
     }
     .good__status{
       position: absolute;
@@ -185,9 +190,6 @@ a{
     }
   }
 
-}
-.red-txt{
-  color: $primary;
 }
 
 </style>
