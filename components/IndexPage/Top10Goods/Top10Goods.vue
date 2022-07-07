@@ -16,23 +16,27 @@
             height="100%"
           >
             <div class="d-md-flex d-none align-center justify-space-around">
-              <ProductCard :active-hover="true" />
-              <ProductCard :active-hover="true" />
+              <ProductCard />
+              <ProductCard />
             </div>
             <div class="d-flex d-md-none align-center justify-space-around">
-              <ProductCard :active-hover="true" />
+              <ProductCard />
             </div>
           </v-sheet>
         </v-carousel-item>
       </v-carousel>
     </div>
     <div class="d-none d-lg-flex align-center flex-wrap justify-space-around">
-      <div v-for="i in (showAll ? 10 : 6)" :key="i" class="mb-6 d-flex d-xl-none">
-        <ProductCard v-if="!showAll" :active-hover="true" />
-        <ProductCard v-else :active-hover="true" class="changed-card" />
+      <div v-for="i in 6" :key="i" class="mb-6 d-flex d-xl-none">
+        <ProductCard />
+      </div>
+      <div class="other-top-goods" :class="{ otherTopGoodsShow : showAll }">
+        <div v-for="i in 4" :key="i" class="mb-6 d-flex d-xl-none">
+          <ProductCard />
+        </div>
       </div>
       <div v-for="i in 10" :key="i" class="mb-6 d-none d-xl-flex">
-        <ProductCard :active-hover="true" />
+        <ProductCard />
       </div>
     </div>
     <div class="buttons-wrapper d-flex align-center justify-space-around mx-auto">
@@ -115,5 +119,22 @@ class PremiumGoods extends Vue {
   .buttons-wrapper{
     margin-top: 40px;
     width: 50%;
+  }
+
+  .other-top-goods{
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    flex-wrap: wrap;
+    height: 0px;
+    opacity: 0;
+
+    transition: height 1s;
+  }
+
+  .otherTopGoodsShow{
+    height: 660px !important;
+    opacity: 1 !important;
+    transition: opacity 1s;
   }
 </style>
