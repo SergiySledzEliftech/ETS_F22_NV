@@ -1,5 +1,5 @@
 <template>
-  <div class="comments-list">
+  <div >
 
   </div>
 </template>
@@ -8,13 +8,13 @@
 import { Vue, Component } from 'nuxt-property-decorator'
 
 export default @Component({
-  name: 'Comments',
+  name: 'MyCommentsPage',
   components: {
 
   }
 })
 
-class Comments extends Vue {
+class MyCommentsPage extends Vue {
 
 }
 </script>

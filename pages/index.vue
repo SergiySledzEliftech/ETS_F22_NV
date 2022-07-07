@@ -9,27 +9,33 @@
       ></v-progress-circular>
     </div>
     <div v-if="!loading">
+      <comment-item />
       <Info />
-      <Description />
-      <Comments />
-      <Recommendations />
-      <SharingBlock />
+      <description />
+      <new-comment />
+      <comments />
+      <recommendations />
+      <sharing-block />
     </div>
   </div>
 </template>
 
 <script>
 import { Vue, Component } from 'nuxt-property-decorator'
+import CommentItem from '~/components/good/CommentItem'
 import Info from '~/components/good/Info'
 import Description from '~/components/good/Description'
-import Comments from '~/components/good/Comments'
 import SharingBlock from '~/components/good/SharingBlock'
 import Recommendations from '~/components/good/Recommendations'
+import Comments from '~/components/good/Comments'
+import NewComment from '~/components/good/NewComment'
 
 export default @Component({
   components: {
+    CommentItem,
     Info,
     Description,
+    NewComment,
     Comments,
     Recommendations,
     SharingBlock

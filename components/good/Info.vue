@@ -191,5 +191,9 @@ a{
   }
 
 }
-
+.carousel{
+    ::v-deep .v-carousel__controls__item .v-icon{
+      color: #C10015;
+    }
+}
 </style>

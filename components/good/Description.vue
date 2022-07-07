@@ -25,89 +25,86 @@
       </div>
     </div>
     <div class="description__tables">
-      <template>
-        <v-container class="lighten-5">
-          <v-row>
-            <v-col sm="5" class="pa-0 mr-8">
-              <v-card
-                class=""
-                outlined
-                tile
-                style="border: 0"
-              >
-                <div class="description__tables-table description__params">
-                  <h3 class="description__item-title">Good's properties</h3>
-                  <v-simple-table>
-                    <template v-slot:default>
-                      <tbody>
-                      <tr
-                        v-for="prop in goodProps.goodParams"
-                        :key="prop"
-                        class="table-row"
-                      >
-                        <td style="border: 0">{{ prop.name }}</td>
-                        <td style="border: 0">{{ prop.value }}</td>
-                      </tr>
-                      </tbody>
-                    </template>
-                  </v-simple-table>
-                </div>
-              </v-card>
-            </v-col>
-            <v-col sm="5" class="pa-0 ml-8">
-              <v-card
-                class="mb-11"
-                outlined
-                tile
-                style="border: 0"
-              >
-                <div class="description__tables-table description__location">
-                  <h3 class="description__item-title">Location</h3>
-                  <v-simple-table>
-                    <template v-slot:default>
-                      <tbody>
-                      <tr
-                        v-for="prop in goodProps.goodLocation"
-                        :key="prop"
-                        class="table-row"
-                      >
-                        <td style="border: 0">{{ prop.name }}</td>
-                        <td style="border: 0">{{ prop.value }}</td>
-                      </tr>
-                      </tbody>
-                    </template>
-                  </v-simple-table>
-                </div>
-              </v-card>
-              <v-card
-                class=""
-                outlined
-                tile
-                style="border: 0"
-              >
-                <div class="description__tables-table description__another">
-                  <h3 class="description__item-title">Another</h3>
-                  <v-simple-table>
-                    <template v-slot:default>
-                      <tbody>
-                      <tr
-                        v-for="prop in goodProps.goodAnotherProps"
-                        :key="prop"
-                        class="table-row "
-                      >
-                        <td style="border: 0">{{ prop.name }}</td>
-                        <td style="border: 0">{{ prop.value }}</td>
-                      </tr>
-                      </tbody>
-                    </template>
-                  </v-simple-table>
-                </div>
-              </v-card>
-            </v-col>
-          </v-row>
-        </v-container>
-      </template>
-
+      <v-container class="lighten-5">
+        <v-row>
+          <v-col sm="5" class="pa-0 mr-8">
+            <v-card
+              class=""
+              outlined
+              tile
+              style="border: 0"
+            >
+              <div class="description__tables-table description__params">
+                <h3 class="description__item-title">Good's properties</h3>
+                <v-simple-table>
+                  <template v-slot:default>
+                    <tbody>
+                    <tr
+                      v-for="prop in goodProps.goodParams"
+                      :key="prop"
+                      class="table-row"
+                    >
+                      <td style="border: 0">{{ prop.name }}</td>
+                      <td style="border: 0">{{ prop.value }}</td>
+                    </tr>
+                    </tbody>
+                  </template>
+                </v-simple-table>
+              </div>
+            </v-card>
+          </v-col>
+          <v-col sm="5" class="pa-0 ml-8">
+            <v-card
+              class="mb-11"
+              outlined
+              tile
+              style="border: 0"
+            >
+              <div class="description__tables-table description__location">
+                <h3 class="description__item-title">Location</h3>
+                <v-simple-table>
+                  <template v-slot:default>
+                    <tbody>
+                    <tr
+                      v-for="prop in goodProps.goodLocation"
+                      :key="prop"
+                      class="table-row"
+                    >
+                      <td style="border: 0">{{ prop.name }}</td>
+                      <td style="border: 0">{{ prop.value }}</td>
+                    </tr>
+                    </tbody>
+                  </template>
+                </v-simple-table>
+              </div>
+            </v-card>
+            <v-card
+              class=""
+              outlined
+              tile
+              style="border: 0"
+            >
+              <div class="description__tables-table description__another">
+                <h3 class="description__item-title">Another</h3>
+                <v-simple-table>
+                  <template v-slot:default>
+                    <tbody>
+                    <tr
+                      v-for="prop in goodProps.goodAnotherProps"
+                      :key="prop"
+                      class="table-row "
+                    >
+                      <td style="border: 0">{{ prop.name }}</td>
+                      <td style="border: 0">{{ prop.value }}</td>
+                    </tr>
+                    </tbody>
+                  </template>
+                </v-simple-table>
+              </div>
+            </v-card>
+          </v-col>
+        </v-row>
+      </v-container>
     </div>
   </div>
 </template>
