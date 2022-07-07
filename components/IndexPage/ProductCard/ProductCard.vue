@@ -4,7 +4,7 @@
       class="mx-auto product-card"
       max-width="304px"
       height="304px"
-      :elevation="hover && activeHover ? 10 : 2"
+      :elevation="hover  ? 16 : 2"
     >
       <v-img
         class="product-card-img"
@@ -23,13 +23,11 @@
 </template>
 
 <script>
-import { Component, Vue, Prop } from 'nuxt-property-decorator';
+import { Component, Vue } from 'nuxt-property-decorator';
 
 export default @Component
 
-class ProductCard extends Vue {
-  @Prop({ required: true, type: Boolean })activeHover
-}
+class ProductCard extends Vue {}
 </script>
 
 <style scoped lang="scss">

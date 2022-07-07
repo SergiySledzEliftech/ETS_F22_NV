@@ -38,11 +38,11 @@
         <span>100</span>
       </div>
       <div class="statistics">
-        <Column :prop-height="6" />
-        <Column :prop-height="1" />
-        <Column :prop-height="3" />
+        <Column :prop-height="60" />
         <Column :prop-height="10" />
-        <Column :prop-height="8" />
+        <Column :prop-height="30" />
+        <Column :prop-height="100" />
+        <Column :prop-height="80" />
       </div>
     </div>
   </v-card>

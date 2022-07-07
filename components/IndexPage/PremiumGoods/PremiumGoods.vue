@@ -16,16 +16,16 @@
           class="d-flex justify-center align-center"
         >
           <div class="d-none d-lg-flex justify-space-around align-center carousel-content-wrapper">
-            <ProductCard :active-hover="false" />
-            <ProductCard :active-hover="false" />
-            <ProductCard :active-hover="false" />
+            <ProductCard />
+            <ProductCard />
+            <ProductCard />
           </div>
           <div class="d-md-flex d-lg-none d-none justify-space-around align-center carousel-content-wrapper">
-            <ProductCard :active-hover="false" />
-            <ProductCard :active-hover="false" />
+            <ProductCard />
+            <ProductCard />
           </div>
           <div class="d-flex d-md-none justify-space-around align-center carousel-content-wrapper">
-            <ProductCard :active-hover="false" />
+            <ProductCard />
           </div>
         </v-sheet>
       </v-carousel-item>
