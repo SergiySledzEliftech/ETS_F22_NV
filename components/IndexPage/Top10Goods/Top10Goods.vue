@@ -30,8 +30,8 @@
       <div v-for="i in 6" :key="i" class="mb-6 d-flex d-xl-none">
         <ProductCard />
       </div>
-      <div class="other-top-goods" :class="{ otherTopGoodsShow : showAll }">
-        <div v-for="i in 4" :key="i" class="mb-6 d-flex d-xl-none">
+      <div class="other-top-goods d-xl-none" :class="{ otherTopGoodsShow : showAll }">
+        <div v-for="i in 4" :key="i" class="mb-6">
           <ProductCard />
         </div>
       </div>
