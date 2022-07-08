@@ -2,7 +2,7 @@
   <v-app>
     <v-form ref="form" v-model="valid" lazy-validation>
       <v-text-field
-        v-model="email"
+        v-model="loginInfo.email"
         :rules="emailRules"
         label="E-mail"
         type="text"
@@ -11,7 +11,7 @@
         solo
       />
       <v-text-field
-        v-model="password"
+        v-model="loginInfo.password"
         :append-icon="show ? 'mdi-eye' : 'mdi-eye-off'"
         :rules="passwordRules"
         :type="show ? 'text' : 'password'"
@@ -23,22 +23,15 @@
         @click:append="show = !show"
       />
 
-      <v-btn :disabled="!valid" class="btn_primary mt-4" width="100%" @click="validate">
+      <v-btn :disabled="!valid" class="btn_secondary mt-4" width="100%" @click="validateFunction(loginInfo)">
         Sign In
       </v-btn>
-      <!--
-        <v-btn color="error" class="mr-4" @click="reset">
-          Reset Form
-        </v-btn>
-
-        <v-btn color="warning" @click="resetValidation">
-          Reset Validation
-        </v-btn> -->
     </v-form>
   </v-app>
 </template>
 <script>
 import { Component, Vue } from 'nuxt-property-decorator'
+
 export default
   @Component({
     name: 'LoginComponent'
@@ -46,8 +39,11 @@ export default
 
 class LoginComponent extends Vue {
     valid = true;
-    password = '';
-    email = '';
+    loginInfo = {
+      email: 'libra@gmail.com',
+      password: '12345678'
+    }
+
     show = false;
     emailRules = [
       v => !!v || 'E-mail is required',
@@ -59,38 +55,18 @@ class LoginComponent extends Vue {
       v => (v && v.length >= 8) || 'Password must be at least 8 characters'
     ];
 
-    validate () {
-      this.$refs.form.validate()
-    }
-
-    reset () {
-      this.$refs.form.reset()
-    }
-
-    resetValidation () {
-      this.$refs.form.resetValidation()
+    validateFunction (loginInfo) {
+      if (this.$refs.form.validate()) {
+        this.$auth.loginWith('local', {
+          data: loginInfo
+        })
+      }
+      console.log(loginInfo)
     }
   }
 </script>
 
-<style scoped>
-.container {
-    width: 40%;
-    height: auto;
-}
-
-.btn_primary {
-  background: #E31F26!important;
-  color: white!important;
-  font-size: 18px!important;
-  font-weight: normal;
-  border-color: #E31F26!important;
-  text-transform: none;
-  letter-spacing: normal;
-  height: 50px!important;
-  padding: 0 20px!important;
-  margin-bottom: 16px;
-}
+<style lang="scss" scoped>
 .input-form {
   height: 50px;
   background: #FFFFFF;

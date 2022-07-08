@@ -20,7 +20,15 @@
         class="input-form mb-6"
         solo
       />
-
+      <v-text-field
+        v-model="phone"
+        :rules="phoneRules"
+        label="Phone Number"
+        type="text"
+        required
+        class="input-form mb-6"
+        solo
+      />
       <v-text-field
         v-model="email"
         :rules="emailRules"
@@ -44,24 +52,17 @@
         @click:append="show = !show"
       />
       <v-checkbox
-        v-model="ex4"
+        v-model="checkbox"
+        :rules="checkRules"
         label="I agree with rules"
         color="#E31F26"
         value="red"
         hide-details
         class="mb-2"
       />
-      <v-btn :disabled="!valid" class="btn_primary mt-4" width="100%" @click="validate">
+      <v-btn :disabled="!valid" class="btn_secondary mt-4" width="100%" @click="validateFunction">
         Sign Up
       </v-btn>
-      <!--
-        <v-btn color="error" class="mr-4" @click="reset">
-          Reset Form
-        </v-btn>
-
-        <v-btn color="warning" @click="resetValidation">
-          Reset Validation
-        </v-btn> -->
     </v-form>
   </v-app>
 </template>
@@ -77,9 +78,11 @@ class RegisterComponent extends Vue {
     valid = true;
     firstName = '';
     lastName = '';
+    phone = '';
     password = '';
     show = false;
     email = '';
+    checkbox = false;
     firstNameRules = [
       v => !!v || 'First name is required',
       v => (v && v.length <= 10) || 'First name must be valid'
@@ -87,6 +90,11 @@ class RegisterComponent extends Vue {
 
     lastNameRules = [
       v => !!v || 'Last Name is required',
+      v => (v && v.length <= 10) || 'Last name must be valid'
+    ];
+
+    phoneRules = [
+      v => !!v || 'Phone Number is required',
       v => (v && v.length <= 10) || 'Last name must be valid'
     ];
 
@@ -100,38 +108,17 @@ class RegisterComponent extends Vue {
       v => (v && v.length >= 8) || 'Password must be at least 8 characters'
     ];
 
-    validate () {
+    checkRules = [
+      value => !!value || 'You must accept rules to continue'
+    ];
+
+    validateFunction () {
       this.$refs.form.validate()
-    }
-
-    reset () {
-      this.$refs.form.reset()
-    }
-
-    resetValidation () {
-      this.$refs.form.resetValidation()
     }
   }
 </script>
 
-<style scoped>
-.container {
-    width: 40%;
-    height: auto;
-}
-
-.btn_primary {
-  background: #E31F26!important;
-  color: white!important;
-  font-size: 18px!important;
-  font-weight: normal;
-  border-color: #E31F26!important;
-  text-transform: none;
-  letter-spacing: normal;
-  height: 50px!important;
-  padding: 0 20px!important;
-  margin-bottom: 16px;
-}
+<style lang="scss" scoped>
 .input-form {
   height: 50px;
   background: #FFFFFF;

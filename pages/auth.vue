@@ -2,15 +2,14 @@
   <v-app>
     <v-container>
       <v-row>
-        <v-col cols="12" sm="8" md="6" class="mx-auto card-text" height="fit-content">
-          <v-card class="tabCard">
+        <v-col cols="12" sm="8" md="6" class="mx-auto">
+          <v-card class="tab-card">
             <v-tabs
               v-model="tab"
               background-color="#F9F9FA"
               dark
               color="#E31F26"
             >
-              <!-- <nuxt-link :to="{path: '/auth', hash: '#signin'}" class="tab-sign-in"> -->
               <v-tab
                 id="signin"
                 color="#E31F26"
@@ -19,8 +18,6 @@
               >
                 Sign in
               </v-tab>
-              <!-- </nuxt-link> -->
-              <!-- <nuxt-link :to="{path: '/auth', hash: '#signup'}" class="tab-sign-up"> -->
               <v-tab
                 id="signup"
                 color="#E31F26"
@@ -29,7 +26,6 @@
               >
                 Sign Up
               </v-tab>
-              <!-- </nuxt-link> -->
             </v-tabs>
             <v-tabs-items v-model="tab">
               <v-tab-item>
@@ -60,77 +56,82 @@ import Router from 'vue-router'
 import RegisterComponent from '../components/RegisterComponent'
 import LoginComponent from '../components/LoginComponent'
 Vue.use(Router)
-export default @Component({
+export default
+@Component({
   components: { LoginComponent, RegisterComponent }
 })
-
 class Auth extends Vue {
-  tab = null;
+  tab = 0;
   mounted () {
+    // setTimeout(() => {
+    //   this.tab = 1
+    // }, 4000)
     this.addHashToLocation('signin')
   }
+
+  // get signin () {
+  //   console.log(this.$route.fullPath)
+  //   return this.$route.fullPath
+  // }
 
   addHashToLocation (params) {
     history.pushState(
       {},
       null,
-        `${this.$route.path}#${encodeURIComponent(params)}`
+      `${this.$route.path}#${encodeURIComponent(params)}`
     )
   }
+
+  // @Watch(this.signin)
+  // onChangeHash () {
+  //   console.log('kkkkk')
+  //   this.tab = 0
+  // }
 }
 </script>
-<style scoped>
-
+<style lang="scss" scoped>
 .v-window {
   overflow: hidden !important;
   border-bottom: 5px;
   border-radius: 30px;
 }
-.v-application--wrap {
-  flex: 1 1 auto;
-  -webkit-backface-visibility: hidden;
-  backface-visibility: hidden;
+.container {
+  height: 100vh;
   display: flex;
-  flex-direction: column;
-  min-height: 50vh !important;
-  max-width: 100%;
-  position: relative;
+  justify-content: center;
+  align-items: center;
 }
-div.v-tabs-slider{
-  color: #E31F26 !important;
+div.v-tabs-slider {
+  color: #e31f26 !important;
 }
-.tabCard {
-  border-radius: 30px 10px 30px 30px !important;
+.tab-card {
+  border-radius: 30px !important;
   box-shadow: 0px 0px 10px rgba(33, 33, 33, 0.25) !important;
 }
-.v-card__subtitle, .v-card__text, .v-card__title {
+.v-card__subtitle,
+.v-card__text,
+.v-card__title {
   padding-right: 50px !important;
   padding-left: 50px !important;
 }
 .v-tab {
-  color:#213342 !important;
+  color: #213342 !important;
   width: 100% !important;
- }
-/* .tab-sign-in:not(:focus)::before {
-  border-radius: 30px 0px 0px 0px;
 }
-.tab-sign-up:not(:focus)::before {
-  border-radius: 0px 10px 0px 0px;
-} */
 .tab-sign-in {
   border-radius: 30px 0px 0px 0px !important;
-  width:50%;
+  width: 50%;
   height: 48px;
- }
- .tab-sign-in:before{
+}
+.tab-sign-in:before {
   border-radius: 30px 0px 0px 0px;
- }
+}
 .tab-sign-up {
-  border-radius: 0px 10px 0px 0px !important;
-  width:50%;
+  border-radius: 0px 30px 0px 0px !important;
+  width: 50%;
   height: 48px;
- }
- .tab-sign-up:before {
-  border-radius: 0px 10px 0px 0px;
+}
+.tab-sign-up:before {
+  border-radius: 0px 30px 0px 0px;
 }
 </style>
