@@ -56,7 +56,7 @@
           <v-menu offset-y>
             <template #activator="{ on, attrs }">
               <div class="header-city" v-bind="attrs" v-on="on">
-                {{ curentCity }}
+                {{ selectedCity }}
               </div>
             </template>
             <v-list>
@@ -97,13 +97,14 @@
   </div>
 </template>
 <script>
-import { Vue, Component } from 'nuxt-property-decorator'
+import { Vue, Component, namespace } from 'nuxt-property-decorator'
 import TestComp from '../../components/TestComponent'
+
+const { State, Mutation } = namespace('global')
 
 export default @Component({
   components: { TestComp },
   data: () => ({
-    curentCity: 'Kyiv',
     itemsCity: [
       { title: 'Kyiv' },
       { title: 'Kharkiv' },
@@ -115,74 +116,73 @@ export default @Component({
 })
 
 class Index extends Vue {
-    title = 'Welcome to the ETS_F22_NV project!';
+  // При першому завантаженні сторінки назву міста завантажуємо з VUEX store
+  @Mutation changeCity
+  @State selectedCity
 
-    mounted () {
-      this.$nextTick(function () {
-        // Код, который будет запущен только после
-        // отрисовки всех представлений
-        console.log('Start')
-        const navbarMenu = document.getElementById('navbar')
-        const burgerMenu = document.getElementById('burger')
-        const overlayMenu = document.getElementById('overlay')
+  title = 'Welcome to the ETS_F22_NV project!';
 
-        // Toggle Menu Function
-        burgerMenu.addEventListener('click', toggleMenu)
-        overlayMenu.addEventListener('click', toggleMenu)
+  mounted () {
+    this.$nextTick(function () {
+      // Код, который будет запущен только после
+      // отрисовки всех представлений
+      console.log('Start')
+      const navbarMenu = document.getElementById('navbar')
+      const burgerMenu = document.getElementById('burger')
+      const overlayMenu = document.getElementById('overlay')
 
-        function toggleMenu () {
-          navbarMenu.classList.toggle('active')
-          overlayMenu.classList.toggle('active')
-        }
+      // Toggle Menu Function
+      burgerMenu.addEventListener('click', toggleMenu)
+      overlayMenu.addEventListener('click', toggleMenu)
 
-        // Collapse SubMenu Function
-        navbarMenu.addEventListener('click', (e) => {
-          if (e.target.hasAttribute('data-toggle') && window.innerWidth <= 992) {
-            e.preventDefault()
-            const menuItemHasChildren = e.target.parentElement
+      function toggleMenu () {
+        navbarMenu.classList.toggle('active')
+        overlayMenu.classList.toggle('active')
+      }
 
-            // If menu-item-child is Expanded, then Collapse It
-            if (menuItemHasChildren.classList.contains('active')) {
-              collapseSubMenu()
-            } else {
-              // Collapse the Existing Expanded menu-item-child
-              if (navbarMenu.querySelector('.menu-item-child.active')) {
-                collapseSubMenu()
-              }
-              // Expanded the New menu-item-child
-              menuItemHasChildren.classList.add('active')
-              const subMenu = menuItemHasChildren.querySelector('.sub-menu')
-              subMenu.style.maxHeight = subMenu.scrollHeight + 'px'
-            }
-          }
-        })
+      // Collapse SubMenu Function
+      navbarMenu.addEventListener('click', (e) => {
+        if (e.target.hasAttribute('data-toggle') && window.innerWidth <= 992) {
+          e.preventDefault()
+          const menuItemHasChildren = e.target.parentElement
 
-        function collapseSubMenu () {
-          navbarMenu.querySelector('.menu-item-child.active .sub-menu').removeAttribute('style')
-          navbarMenu.querySelector('.menu-item-child.active').classList.remove('active')
-        }
-
-        // Fixed Resize Screen Function
-        window.addEventListener('resize', () => {
-          if (this.innerWidth > 992) {
-            // If navbarMenu is Open, then Close It
-            if (navbarMenu.classList.contains('active')) {
-              toggleMenu()
-            }
-
-            // If menu-item-child is Expanded, then Collapse It
+          // If menu-item-child is Expanded, then Collapse It
+          if (menuItemHasChildren.classList.contains('active')) {
+            collapseSubMenu()
+          } else {
+            // Collapse the Existing Expanded menu-item-child
             if (navbarMenu.querySelector('.menu-item-child.active')) {
               collapseSubMenu()
             }
+            // Expanded the New menu-item-child
+            menuItemHasChildren.classList.add('active')
+            const subMenu = menuItemHasChildren.querySelector('.sub-menu')
+            subMenu.style.maxHeight = subMenu.scrollHeight + 'px'
           }
-        })
+        }
       })
-    }
 
-    // Функція для вибору міста
-    changeCity (e) {
-      this.curentCity = e.target.innerText
-    }
+      function collapseSubMenu () {
+        navbarMenu.querySelector('.menu-item-child.active .sub-menu').removeAttribute('style')
+        navbarMenu.querySelector('.menu-item-child.active').classList.remove('active')
+      }
+
+      // Fixed Resize Screen Function
+      window.addEventListener('resize', () => {
+        if (this.innerWidth > 992) {
+          // If navbarMenu is Open, then Close It
+          if (navbarMenu.classList.contains('active')) {
+            toggleMenu()
+          }
+
+          // If menu-item-child is Expanded, then Collapse It
+          if (navbarMenu.querySelector('.menu-item-child.active')) {
+            collapseSubMenu()
+          }
+        }
+      })
+    })
+  }
 }
 </script>
 
