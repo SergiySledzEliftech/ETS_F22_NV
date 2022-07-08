@@ -70,19 +70,19 @@
               <div class="login-profile">
                 <v-btn
                   v-if="isLogin"
-                  class="ma-2 btn-red"
-                  outlined
-                  color="indigo"
-                >
-                  Sign in
-                </v-btn>
-                <v-btn
-                  v-else
                   class="ma-2"
                   outlined
                   color="indigo"
                 >
                   Profile
+                </v-btn>
+                <v-btn
+                  v-else
+                  class="ma-2 btn-red"
+                  outlined
+                  color="indigo"
+                >
+                  Sign in
                 </v-btn>
               </div>
             </div>
@@ -124,19 +124,19 @@
           <div class="login-profile">
             <v-btn
               v-if="isLogin"
-              class="ma-2 btn-red"
-              outlined
-              color="indigo"
-            >
-              Sign in
-            </v-btn>
-            <v-btn
-              v-else
               class="ma-2"
               outlined
               color="indigo"
             >
               Profile
+            </v-btn>
+            <v-btn
+              v-else
+              class="ma-2 btn-red"
+              outlined
+              color="indigo"
+            >
+              Sign in
             </v-btn>
           </div>
 
@@ -344,8 +344,8 @@ class Index extends Vue {
       outline: none;
       color: black;
       text-transform: capitalize;
-      -webkit-transition: all 0.35s ease;
-      transition: all 0.35s ease;
+      -webkit-transition: all 0.2s ease;
+      transition: all 0.2s ease;
       margin-bottom: 0;
     }
 
@@ -367,13 +367,15 @@ class Index extends Vue {
       content: "";
       top: 50%;
       left: 50%;
-      width: 100%;
-      height: 2px;
-      background: black;
+      width: 10px;
+      height: 4px;
+      /*height: 2px;*/
+      /*background: black;*/
+      background-image: url("~assets/img/arrow-dark.png");
       -webkit-transform: translate(-50%, -50%);
       transform: translate(-50%, -50%);
-      -webkit-transition: all 0.35s ease;
-      transition: all 0.35s ease;
+      -webkit-transition: all 0.2s ease;
+      transition: all 0.2s ease;
     }
 
     .header .menu > .menu-item:hover > a {
@@ -382,12 +384,20 @@ class Index extends Vue {
 
     .header .menu > .menu-item:hover > a .expand::before, .header .menu > .menu-item:hover > a .expand::after {
       color: $primary;
-    }
+      background-image: url("~assets/img/arrow-red.png");
 
-    .header .menu > .menu-item > a .expand::after {
-      -webkit-transform: translate(-50%, -50%) rotate(-90deg);
-      transform: translate(-50%, -50%) rotate(-90deg);
-    }
+      /*
+     -webkit-transform: translate(-50%, -50%) rotate(-90deg);
+     transform: translate(-50%, -50%) rotate(-90deg);
+        */
+   }
+
+   /*
+   .header .menu > .menu-item > a .expand::after {
+     -webkit-transform: translate(-50%, -50%) rotate(-90deg);
+     transform: translate(-50%, -50%) rotate(-90deg);
+   }
+   */
 
     .header .menu > .menu-item > .sub-menu > .menu-item > a:hover {
       color: $primary;
@@ -410,8 +420,8 @@ class Index extends Vue {
       box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
       -webkit-transform: translateY(1rem);
       transform: translateY(1rem);
-      -webkit-transition: all 0.35s ease;
-      transition: all 0.35s ease;
+      -webkit-transition: all 0.2s ease;
+      transition: all 0.2s ease;
     }
 
     .header .menu > .menu-item > .sub-menu > .menu-item {
@@ -427,8 +437,8 @@ class Index extends Vue {
       padding: 0.5rem 1.25rem;
       color: black;
       text-transform: capitalize;
-      -webkit-transition: all 0.35s ease;
-      transition: all 0.35s ease;
+      -webkit-transition: all 0.2s ease;
+      transition: all 0.2s ease;
     }
 
     .header .burger {
@@ -444,8 +454,8 @@ class Index extends Vue {
       background: none;
       -webkit-transform: rotate(0deg);
       transform: rotate(0deg);
-      -webkit-transition: all 0.35s ease;
-      transition: all 0.35s ease;
+      -webkit-transition: all 0.2s ease;
+      transition: all 0.2s ease;
     }
 
     .header .burger-line {
@@ -487,8 +497,8 @@ class Index extends Vue {
       opacity: 0;
       visibility: hidden;
       background: rgba(0, 0, 0, 0.65);
-      -webkit-transition: all 0.35s ease;
-      transition: all 0.35s ease;
+      -webkit-transition: all 0.2s ease;
+      transition: all 0.2s ease;
     }
 
     @media only screen and (min-width: 993px) {
@@ -523,8 +533,8 @@ class Index extends Vue {
         background: white;
         -webkit-box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
         box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
-        -webkit-transition: all 0.5s ease;
-        transition: all 0.5s ease;
+        -webkit-transition: all 0.2s ease;
+        transition: all 0.2s ease;
       }
       .header .navbar.active {
         left: 0rem;
@@ -565,9 +575,9 @@ class Index extends Vue {
         }
 
       }
-      .header .menu > .menu-item > a .expand::before, .header .menu > .menu-item > a .expand::after {
-        background: black;
-      }
+      /*.header .menu > .menu-item > a .expand::before, .header .menu > .menu-item > a .expand::after {*/
+      /*  background: black;*/
+      /*}*/
       .header .menu > .menu-item-child.active > a .expand:after {
         -webkit-transform: translate(-50%, -50%) rotate(0deg);
         transform: translate(-50%, -50%) rotate(0deg);
@@ -589,6 +599,10 @@ class Index extends Vue {
         box-shadow: none;
         -webkit-transform: translateY(0px);
         transform: translateY(0px);
+
+        @media only screen and (max-width: 992px) {
+          padding-left: 16px;
+        }
       }
       .header .menu > .menu-item > .sub-menu > .menu-item > a {
         padding: 0.625rem 2rem;
