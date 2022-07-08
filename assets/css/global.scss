@@ -107,3 +107,7 @@ $body-font-family: 'Montserrat';
     min-height: fit-content !important;
   }
 }
+
+.v-main__wrap {
+  min-height: calc(100vh - 64px);
+}
