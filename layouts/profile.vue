@@ -6,7 +6,7 @@
         <h3>
           Profile
         </h3>
-        <v-tabs class="tabs" color="#E31F26" centered>
+        <v-tabs class="tabs" color="#E31F26" right>
           <v-tab v-for="(tab, index) in tabs" :key="index" :to="tab.route" exact>
             <v-icon left>
               mdi-{{ tab.icon }}
@@ -26,13 +26,11 @@
 import { Vue, Component } from 'nuxt-property-decorator'
 import HeaderComp from '../components/global/HeaderComponent'
 import FooterComp from '../components/global/FooterComponent'
-import comp from '~/components/profile'
 
 export default @Component({
   components: {
     HeaderComp,
-    FooterComp,
-    ...comp
+    FooterComp
   }
 })
 

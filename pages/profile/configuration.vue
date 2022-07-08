@@ -1,20 +1,20 @@
 <template>
-  <my-config />
+  <p>
+    my config here
+  </p>
 </template>
 
 <script>
 import { Vue, Component } from 'nuxt-property-decorator'
-import MyConfig from '~/components/profile/MyConfig'
 
 export default @Component({
   name: 'config',
   layout: 'profile',
   components: {
-    MyConfig
   }
 })
 
-class ads extends Vue {
+class Config extends Vue {
 
 }
 
