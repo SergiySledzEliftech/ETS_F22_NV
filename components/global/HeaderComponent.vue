@@ -51,6 +51,41 @@
                 <a href="#">About</a>
               </li>
             </ul>
+
+            <div class="header-social-mobile">
+              <div class="header-social">
+                <a class="header-viber" href="#">
+                  <img src="~/assets/img/viber.png">
+                </a>
+                <a class="header-telegram" href="#">
+                  <img src="~/assets/img/telegram.png">
+                </a>
+                <a class="header-watsapp" href="#">
+                  <img src="~/assets/img/whatsapp.png">
+                </a>
+              </div>
+            </div>
+
+            <div class="login-profile-mobile">
+              <div class="login-profile">
+                <v-btn
+                  v-if="isLogin"
+                  class="ma-2 btn-red"
+                  outlined
+                  color="indigo"
+                >
+                  Sign in
+                </v-btn>
+                <v-btn
+                  v-else
+                  class="ma-2"
+                  outlined
+                  color="indigo"
+                >
+                  Profile
+                </v-btn>
+              </div>
+            </div>
           </nav>
 
           <v-menu offset-y>
@@ -82,9 +117,29 @@
               <img src="~/assets/img/whatsapp.png">
             </a>
           </div>
-          <v-btn class="btn_primary" depressed color="primary">
-            Sign in
-          </v-btn>
+          <!--          <v-btn v-if="isLogin" class="btn_primary" depressed color="primary">-->
+          <!--            Sign in-->
+          <!--          </v-btn>-->
+
+          <div class="login-profile">
+            <v-btn
+              v-if="isLogin"
+              class="ma-2 btn-red"
+              outlined
+              color="indigo"
+            >
+              Sign in
+            </v-btn>
+            <v-btn
+              v-else
+              class="ma-2"
+              outlined
+              color="indigo"
+            >
+              Profile
+            </v-btn>
+          </div>
+
           <button id="burger" type="button" class="burger">
             <span class="burger-line" />
             <span class="burger-line" />
@@ -117,8 +172,11 @@ export default @Component({
 
 class Index extends Vue {
   // При першому завантаженні сторінки назву міста завантажуємо з VUEX store
-  @Mutation changeCity
   @State selectedCity
+  @Mutation changeCity
+
+  @State isLogin
+  @Mutation changeStatusAuth
 
   title = 'Welcome to the ETS_F22_NV project!';
 
@@ -552,6 +610,41 @@ class Index extends Vue {
       }
     }
 
+    .btn-red{
+      border-color: red;
+      color: red!important;
+    }
+
+    .login-profile{
+      display: block!important;
+
+      @media only screen and (max-width: 992px) {
+        display: none!important;
+      }
+    }
+
+    .login-profile-mobile {
+      @media only screen and (max-width: 992px) {
+        position: absolute;
+        bottom: 10px;
+        right: 25px;
+      }
+
+      @media only screen and (max-width: 520px) {
+        position: absolute;
+        bottom: 60px;
+        left: 23px;
+      }
+
+      .login-profile{
+        display: none!important;
+
+        @media only screen and (max-width: 992px) {
+          display: block!important;
+        }
+      }
+    }
+
     // Phone
     .header-city {
       position: relative;
@@ -561,6 +654,10 @@ class Index extends Vue {
       margin-right: 10px;
       color: $secondary;
       font-size: 20px;
+
+      @media only screen and (max-width: 992px) {
+        width: auto;
+      }
 
       &:hover {
         color: $primary;
@@ -586,13 +683,29 @@ class Index extends Vue {
       display: flex;
       align-items: center;
 
-      @media only screen and (max-width: 1284px) {
+      @media only screen and (max-width: 992px) {
         display: none;
       }
 
       a {
         margin-right: 10px;
         margin-bottom: 0;
+      }
+    }
+
+    .header-social-mobile {
+      @media only screen and (max-width: 992px) {
+        position: absolute;
+        left: 30px;
+        bottom: 16px;
+      }
+
+      .header-social{
+        display: none!important;
+
+        @media only screen and (max-width: 992px) {
+          display: block!important;
+        }
       }
     }
 

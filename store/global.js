@@ -1,9 +1,13 @@
 export const state = () => ({
-  selectedCity: 'Kyiv'
+  selectedCity: 'Kyiv',
+  isLogin: false
 })
 
 export const mutations = {
   changeCity (state, newCity) {
     state.selectedCity = newCity.target.innerText
+  },
+  changeStatusAuth (state, newStatus) {
+    this.isLogin = newStatus
   }
 }
