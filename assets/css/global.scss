@@ -92,3 +92,7 @@ $body-font-family: 'Montserrat';
     margin-bottom: 16px;
   }
 }
+
+.v-main__wrap {
+  min-height: calc(100vh - 64px);
+}
