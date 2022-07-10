@@ -129,12 +129,11 @@ class PremiumGoods extends Vue {
     height: 0px;
     opacity: 0;
 
-    transition: height 1s;
+    transition: 1s;
   }
 
   .otherTopGoodsShow{
     height: 660px !important;
     opacity: 1 !important;
-    transition: opacity 1s;
   }
 </style>
