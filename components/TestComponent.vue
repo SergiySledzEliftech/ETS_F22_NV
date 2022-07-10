@@ -16,7 +16,7 @@
       Primary button
     </v-btn>
     <div v-for="prod in testProducts" :key="prod.id">
-      <div style="border: 1px solid orangered">
+      <div style="border: 1px solid var(--secondary)">
         <div>ID: {{ prod._id }} </div>
         <div>Name:  {{ prod.name }} </div>
         <div>Price: {{ prod.price }} </div>
