@@ -36,6 +36,21 @@ export default @Component({
 
 class Profile extends Vue {
   name = 'profile';
+  data = {
+    id: 1,
+    name: 'John',
+    lastName: 'Doe',
+    nickname: 'GloMaRe',
+    avatar: 'https://avatars.githubusercontent.com/u/17836236',
+    email: 'JohnDoe@glomail.com',
+    phone: '0987773377',
+    optionalPhone: '0677773377',
+    address: 'Ukraine, Kyiv, Bohdana Khmelnytskogo St., 3',
+    locationX: '50.44469383287712',
+    locationY: '30.52002110354918',
+    rating: 10
+  };
+
   tabs = [
     { title: 'My Ads', route: '/profile', icon: 'account-filter' },
     { title: 'My Rent', route: '/profile/rent', icon: 'home-clock' },

@@ -9,9 +9,7 @@ import { Vue, Component } from 'nuxt-property-decorator'
 
 export default @Component({
   name: 'config',
-  layout: 'profile',
-  components: {
-  }
+  layout: 'profile'
 })
 
 class Config extends Vue {

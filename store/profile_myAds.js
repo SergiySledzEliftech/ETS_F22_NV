@@ -1,22 +1,7 @@
-<template>
-  <div>
-    <ProfileFavs :list="fav" />
-  </div>
-</template>
-
-<script>
-import { Vue, Component } from 'nuxt-property-decorator'
-import ProfileFavs from '@/components/profile/ProfileFavs.vue'
-export default @Component({
-  name: 'Favorites',
-  layout: 'profile',
-  components: { ProfileFavs }
-})
-
-class Favorites extends Vue {
-  fav = [
+export const state = () => ({
+  itemsData: [
     {
-      id: 2,
+      id: 1,
       title: 'Some useful title 1',
       price: 300,
       location: 'https://th.bing.com/th/id/R.d9b27dfdff5a2a8182304ed921f7fe67?rik=iH9rCXLTvhfxYg&pid=ImgRaw&r=0',
@@ -31,7 +16,7 @@ class Favorites extends Vue {
       rating: 4
     },
     {
-      id: 1,
+      id: 2,
       title: 'Some useful title 2',
       price: 400,
       location: 'https://th.bing.com/th/id/R.d9b27dfdff5a2a8182304ed921f7fe67?rik=iH9rCXLTvhfxYg&pid=ImgRaw&r=0',
@@ -44,16 +29,32 @@ class Favorites extends Vue {
         lastName: 'Another User'
       },
       rating: 4.5
+    },
+    {
+      id: 3,
+      title: 'Some useful title 3',
+      price: 600,
+      location: 'https://images.ctfassets.net/hrltx12pl8hq/7yQR5uJhwEkRfjwMFJ7bUK/dc52a0913e8ff8b5c276177890eb0129/offset_comp_772626-opt.jpg?fit=fill&w=800&h=300',
+      img: 'https://cdn.pixabay.com/photo/2015/04/23/22/00/tree-736885__480.jpg',
+      term: 2,
+      user: {
+        userId: 12,
+        avatar: 'https://images.ctfassets.net/hrltx12pl8hq/qGOnNvgfJIe2MytFdIcTQ/429dd7e2cb176f93bf9b21a8f89edc77/Images.jpg',
+        firstName: 'Some',
+        lastName: 'Unknown User'
+      },
+      rating: 4.7
     }
-  ]
-}
+  ],
+  view: 'grid'
+})
 
-</script>
-
-<style scoped lang="scss">
-.btn {
-  position: absolute;
-  top: 5px;
-  right: 5px;
+export const mutations = {
+  deleteItem (state, id) {
+    state.itemsData = state.itemsData.filter(el => el.id !== id)
+  },
+  changeView (state) {
+    const v = state.view === 'grid' ? 'list' : 'grid'
+    state.view = v
+  }
 }
-</style>

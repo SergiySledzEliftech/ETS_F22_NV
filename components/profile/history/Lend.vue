@@ -1,16 +1,12 @@
 <template>
   <div>
-    <items-list :list="list">
-      <div class="buttons">
-        here will be buttons
-      </div>
-    </items-list>
+    <items-list :list="list" />
   </div>
 </template>
 
 <script>
 import { Vue, Component } from 'nuxt-property-decorator'
-import ItemsList from '@/components/list/List.vue'
+import ItemsList from '@/components/list/ItemsList.vue'
 
 export default @Component({
   name: 'lend',
