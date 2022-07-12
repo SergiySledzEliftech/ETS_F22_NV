@@ -63,16 +63,16 @@
               <div class="description__tables-table description__location">
                 <h3 class="description__item-title">Location</h3>
                 <v-simple-table>
-                  <template v-slot:default>
+                  <template>
                     <tbody>
-                    <tr
-                      v-for="prop in goodProps.goodLocation"
-                      :key="prop"
-                      class="table-row"
-                    >
-                      <td style="border: 0">{{ prop.name }}</td>
-                      <td style="border: 0">{{ prop.value }}</td>
-                    </tr>
+                      <tr
+                        v-for="prop in goodProps.goodLocation"
+                        :key="prop"
+                        class="table-row"
+                      >
+                        <td style="border: 0">{{ prop.name }}</td>
+                        <td style="border: 0">{{ prop.value }}</td>
+                      </tr>
                     </tbody>
                   </template>
                 </v-simple-table>
@@ -245,5 +245,14 @@ class Description extends Vue {
     background: $bg;
   }
 }
-
+tbody {
+  tr{
+    &:hover:nth-child(even) {
+      background-color: $bg !important;
+    }
+    &:hover:nth-child(odd){
+      background-color: #fff !important;
+    }
+  }
+}
 </style>

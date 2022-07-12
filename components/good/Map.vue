@@ -1,41 +1,25 @@
 <template>
   <div>
-    <div class="google-map" ref="googleMap" style="height: 300px; width: 300px;"></div>
+    <iframe
+      src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d12231.209376627701!2d35.048986790194945!3d48.44425437001344!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x40dbe32dca8e7e2d%3A0x98d4c7bc5179934a!2z0JTQvdC10L_RgNC-0L_QtdGC0YDQvtCy0YHQutC40Lkg0LPQvtGB0YPQtNCw0YDRgdGC0LLQtdC90L3Ri9C5INGD0L3QuNCy0LXRgNGB0LjRgtC10YIg0LLQvdGD0YLRgNC10L3QvdC40YUg0LTQtdC7!5e0!3m2!1sru!2sua!4v1657624276685!5m2!1sru!2sua"
+      style="border: 0; border-radius: 10px; max-width: 610px; height: 335px; width: 100%"
+      allowfullscreen=""
+      loading="lazy"
+      referrerpolicy="no-referrer-when-downgrade"
+    />
   </div>
 </template>
 
 <script>
 import { Component, Vue } from 'nuxt-property-decorator'
-import GoogleMapsApiLoader from 'google-maps-api-loader'
 
 export default @Component({
-  name: 'Description',
-  components: {},
-  props: {
-    mapConfig: Object,
-    apiKey: String
-  },
-  data () {
-    return {
-      google: null,
-      map: null
-    }
-  },
-  async mounted () {
-    this.google = await GoogleMapsApiLoader({
-      apiKey: this.apiKey
-    })
-    this.initializeMap()
-  },
-  methods: {
-    initializeMap () {
-      const mapContainer = this.$refs.googleMap
-      this.map = new this.google.maps.Map(mapContainer, this.mapConfig)
-    }
-  }
+  name: 'Map',
+  components: {}
 })
 
-class Map extends Vue {}
+class Map extends Vue {
+}
 </script>
 
-<style></style>
+<style lang="scss" scoped></style>

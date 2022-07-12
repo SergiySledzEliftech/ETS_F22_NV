@@ -7,41 +7,49 @@
       class="form-container"
     >
       <v-rating
-          v-model="rating"
-          color="yellow darken-3"
-          background-color="grey darken-1"
-          half-increments
-          hover
-          large
-          class="mb-2"
-      ></v-rating>
-      <p class="comment-subtitle mt-2 mb-1 ml-2" style="font-size: 16px">Advantages</p>
+        v-model="rating"
+        color="yellow darken-3"
+        background-color="grey darken-1"
+        half-increments
+        hover
+        large
+        class="mb-2"
+      />
+      <p class="comment-subtitle mt-1 mb-1 ml-2" style="font-size: 16px">
+        Advantages
+      </p>
       <v-text-field
-        solo
-        flat
-        outlined
-        single-line
         v-model="advantages"
-        :rules="advantagesRules"
-      ></v-text-field>
-      <p class="comment-subtitle mt-2 mb-1 ml-2" style="font-size: 16px">Disadvantages</p>
-      <v-text-field
         solo
         flat
         outlined
         single-line
+        counter="150"
+        :rules="advantagesRules"
+      />
+      <p class="comment-subtitle mt-1 mb-1 ml-2" style="font-size: 16px">
+        Disadvantages
+      </p>
+      <v-text-field
         v-model="disadvantages"
-        :rules="disadvantagesRules"
-      ></v-text-field>
-      <p class="comment-subtitle mt-2 mb-1 ml-2" style="font-size: 16px">Comment</p>
-      <v-textarea
         solo
         flat
         outlined
+        single-line
+        counter="150"
+        :rules="disadvantagesRules"
+      />
+      <p class="comment-subtitle mt-1 mb-1 ml-2" style="font-size: 16px">
+        Comment
+      </p>
+      <v-textarea
         v-model="comment"
+        solo
+        flat
+        outlined
         :rules="commentRules"
         type="string"
-      ></v-textarea>
+      />
       <div class="mt-3">
         <v-btn
           :disabled="!valid"
@@ -73,13 +81,13 @@ export default @Component({
   data: () => ({
     valid: true,
     advantages: '',
-    rating: 0,
+    rating: -1,
     advantagesRules: [
-      v => (v && v.length <= 50) || (v.length === 0) || 'Advantages must be less than 50 characters'
+      v => (v && v.length <= 50) || (v.length === 0) || 'Advantages must be less than 150 characters'
     ],
     disadvantages: '',
     disadvantagesRules: [
-      v => (v && v.length <= 50) || (v.length === 0) || 'Disadvantages must be less than 50 characters'
+      v => (v && v.length <= 50) || (v.length === 0) || 'Disadvantages must be less than 150 characters'
     ],
     comment: '',
     commentRules: [
@@ -88,6 +96,9 @@ export default @Component({
   }),
   methods: {
     validate () {
+      if (this.advantages === '' && this.disadvantages === '' && this.comment === '') {
+        alert('There must be some text in your comment')
+      }
       this.$refs.form.validate()
     },
     reset () {
@@ -103,7 +114,7 @@ class NewComment extends Vue {
 
 <style lang="scss" scoped>
 .new-comment__form{
-  margin-top: 60px;
+  margin: 30px 0;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -118,7 +129,7 @@ class NewComment extends Vue {
 }
 .v-text-field{
   ::v-deep .v-text-field__details{
-    display: none;
+    margin: 0;
   }
   ::v-deep .v-input__slot{
     min-height: 40px;

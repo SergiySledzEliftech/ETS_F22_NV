@@ -6,13 +6,14 @@
         :width="6"
         color="teal"
         indeterminate
-      ></v-progress-circular>
+      />
     </div>
     <div v-if="!loading">
+      <new-comment />
+      <Carousel />
+      <Map />
       <comment-item />
       <Info />
-      <description />
-      <new-comment />
       <comments />
       <recommendations />
       <sharing-block />
@@ -22,6 +23,8 @@
 
 <script>
 import { Vue, Component } from 'nuxt-property-decorator'
+import Carousel from '~/components/good/Carousel/Carousel'
+import Map from '~/components/good/Map'
 import CommentItem from '~/components/good/CommentItem'
 import Info from '~/components/good/Info'
 import Description from '~/components/good/Description'
@@ -32,6 +35,8 @@ import NewComment from '~/components/good/NewComment'
 
 export default @Component({
   components: {
+    Carousel,
+    Map,
     CommentItem,
     Info,
     Description,
