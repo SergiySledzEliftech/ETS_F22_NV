@@ -1,6 +1,6 @@
 export const state = () => ({
   selectedCity: 'Kyiv',
-  isLogin: false
+  isLogin: true
 })
 
 export const mutations = {

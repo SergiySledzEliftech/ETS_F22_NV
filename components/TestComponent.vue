@@ -15,13 +15,65 @@
     <v-btn class="btn_primary" depressed color="primary">
       Primary button
     </v-btn>
+
+    <template>
+      <v-form action="" method="post" @submit.prevent="addTestProduct">
+        <v-container>
+          <h5> Форма для додавання тестового товару до бази монго (https://glomare.herokuapp.com/test-product)</h5>
+          <v-row>
+            <v-col
+              cols="12"
+              md="4"
+            >
+              <v-text-field
+                v-model="testProductData.name"
+                label="First name"
+                required
+              />
+            </v-col>
+
+            <v-col
+              cols="12"
+              md="4"
+            >
+              <v-text-field
+                v-model="testProductData.price"
+                label="Price"
+                required
+              />
+            </v-col>
+
+            <v-col
+              cols="12"
+              md="4"
+            >
+              <v-checkbox
+                v-model="testProductData.isAvailable"
+                label="isAvailable"
+              />
+            </v-col>
+            <v-col
+              cols="12"
+              md="4"
+            >
+              <input class="btn_primary" type="submit" value="add">
+            </v-col>
+          </v-row>
+        </v-container>
+      </v-form>
+    </template>
+
     <div v-for="prod in testProducts" :key="prod.id">
       <div style="border: 1px solid var(--secondary)">
-        <div>ID: {{ prod._id }} </div>
-        <div>Name:  {{ prod.name }} </div>
-        <div>Price: {{ prod.price }} </div>
-        <div>Available: {{ prod.isAvailable }} </div>
+        <div>ID: {{ prod._id }}</div>
+        <div>Name: {{ prod.name }}</div>
+        <div>Price: {{ prod.price }}</div>
+        <div>Available: {{ prod.isAvailable }}</div>
       </div>
+
+      <v-btn class="btn_primary" depressed color="primary" @click="deleteTestProduct(prod._id)">
+        Delete
+      </v-btn>
     </div>
   </div>
 </template>
@@ -41,14 +93,21 @@ class Index extends Vue {
     title = 'Welcome to the ETS_F22_NV project!';
     testProducts = [];
 
+    testProductData = {
+      name: '',
+      price: '',
+      isAvailable: false
+    };
+
     async mounted () {
       console.log(serverApiUrl)
       console.log(await this.$axios(`${serverApiUrl}test-product`))
-      await this.callAPI()
+      await this.GetAllTestProducts()
     }
 
+    // Отримати всі товари з бази
     // https://glomare.herokuapp.com/test-product
-    async callAPI () {
+    async GetAllTestProducts () {
       try {
         const daraProduct = await this.$axios(`${serverApiUrl}test-product`)
         this.testProducts = daraProduct.data
@@ -57,6 +116,44 @@ class Index extends Vue {
         this.error = error.message
         consoleError(error.message)
       }
+    }
+
+    // Додавання товару
+    async addTestProduct () {
+      await this.$axios({
+        method: 'post',
+        url: `${serverApiUrl}test-product`,
+        data: {
+          name: this.testProductData.name,
+          price: this.testProductData.price,
+          isAvailable: this.testProductData.isAvailable
+        }
+      })
+        .then((response) => {
+          console.log(response)
+          this.testProductData.name = ''
+          this.testProductData.price = ''
+          this.testProductData.isAvailable = ''
+          location.reload()
+        })
+        .catch((err) => {
+          console.log(err)
+        })
+    }
+
+    // Выдалення товару
+    async deleteTestProduct (idProduct) {
+      await this.$axios({
+        method: 'delete',
+        url: `${serverApiUrl}test-product/${idProduct}`
+      })
+        .then((response) => {
+          console.log(response)
+          location.reload()
+        })
+        .catch((err) => {
+          console.log(err)
+        })
     }
 }
 </script>

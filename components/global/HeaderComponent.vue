@@ -625,8 +625,8 @@ class Index extends Vue {
     }
 
     .btn-red{
-      border-color: red;
-      color: red!important;
+      border-color: $primary!important;
+      color: $primary!important;
     }
 
     .login-profile{
