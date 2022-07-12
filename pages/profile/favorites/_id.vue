@@ -6,7 +6,7 @@
 
 <script>
 import { Vue, Component } from 'nuxt-property-decorator'
-import ItemsList from '@/components/list/List.vue'
+import ItemsList from '~/components/list/list.vue'
 
 export default @Component({
   name: 'Favorites',

@@ -18,10 +18,10 @@
 
 <script>
 import { Vue, Component } from 'nuxt-property-decorator'
-import ItemsList from '@/components/list/List.vue'
-import Borrow from '@/components/profile/history/Borrow.vue'
-import Lend from '@/components/profile/history/Lend.vue'
-import DisplayingButtons from '@/components/list/DisplayingButtons.vue'
+import ItemsList from '~/components/list/list.vue'
+import Borrow from '~/components/profile/history/Borrow.vue'
+import Lend from '~/components/profile/history/Lend.vue'
+import DisplayingButtons from '~/components/list/displayingButtons.vue'
 
 export default @Component({
   name: 'rent',
