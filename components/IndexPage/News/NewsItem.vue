@@ -67,17 +67,16 @@ class NewsItem extends Vue {
   }
 
   .showAllContent{
-    height: 90vh !important;
+    height: 85vh !important;
 
     flex-direction: column;
     .news-item-text{
-      height: 70% !important;
+      height: auto!important;
       min-width: 100% !important;
     }
     .news-item-img{
       height: 25% !important;
       min-width: 100% !important;
-      margin-bottom: 5% !important;
     }
   }
 

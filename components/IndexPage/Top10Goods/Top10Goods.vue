@@ -4,7 +4,7 @@
     <div class="d-flex d-lg-none">
       <v-carousel
         cycle
-        height="420"
+        height="420px"
         :show-arrows="false"
       >
         <v-carousel-item
@@ -26,16 +26,16 @@
         </v-carousel-item>
       </v-carousel>
     </div>
-    <div class="d-none d-lg-flex align-center flex-wrap justify-space-around">
+    <div class="d-none d-lg-flex align-center flex-wrap justify-space-around six-elements">
       <div v-for="i in 6" :key="i" class="mb-6 d-flex d-xl-none">
         <ProductCard />
       </div>
-      <div class="other-top-goods d-xl-none" :class="{ otherTopGoodsShow : showAll }">
+      <div class="other-top-goods d-xl-none six-elements" :class="{ otherTopGoodsShow : showAll }">
         <div v-for="i in 4" :key="i" class="mb-6">
           <ProductCard />
         </div>
       </div>
-      <div v-for="i in 10" :key="i" class="mb-6 d-none d-xl-flex">
+      <div v-for="i in 10" :key="i" class="mb-6 d-none d-xl-flex ten-elements">
         <ProductCard />
       </div>
     </div>
@@ -84,10 +84,10 @@ class PremiumGoods extends Vue {
   }
 
   .top-goods-wrapper{
+    margin-top: -10px;
     padding-top: 80px;
     padding-bottom: 80px;
     background: $bg;
-    margin-bottom: 100px;
   }
 
   .btn-red-text{
@@ -131,5 +131,17 @@ class PremiumGoods extends Vue {
   .otherTopGoodsShow{
     height: 660px !important;
     opacity: 1 !important;
+  }
+
+  .six-elements{
+    div{
+      margin-bottom: 50px;
+    }
+  }
+
+  .ten-elements{
+    div{
+      margin-bottom: 20px;
+    }
   }
 </style>

@@ -26,7 +26,6 @@ h3{
 }
 
 .statistics-wrapper{
-  padding-top: 80px;
-  padding-bottom: 80px;
+  padding-bottom: 10px;
 }
 </style>

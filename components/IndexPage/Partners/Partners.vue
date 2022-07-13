@@ -32,7 +32,6 @@ class Partners extends Vue {
   }
 
   .partners-wrapper{
-    padding-top: 80px;
-    padding-bottom: 80px;
+    padding-bottom: 10px;
   }
 </style>

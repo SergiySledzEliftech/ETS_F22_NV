@@ -40,15 +40,4 @@ class PartnersItem extends Vue {
     cursor: pointer;
     padding: 25px;
   }
-
-  .partners-item-wrapper:hover{
-    .partners-item-img{
-      filter: none;
-    }
-  }
-
-  .partners-item-img{
-    filter: grayscale(100%);
-    transition: 500ms;
-  }
 </style>
