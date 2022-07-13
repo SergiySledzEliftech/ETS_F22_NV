@@ -111,10 +111,11 @@
 
 <script>
 import { Vue, Component } from 'nuxt-property-decorator'
-import Map from './Map'
+import Map from '../../components/good/Map'
 
 export default @Component({
   name: 'Description',
+  layout: 'good',
   components: {
     Map
   }
@@ -222,7 +223,7 @@ class Description extends Vue {
         top: 15%;
         width: 11px;
         height: 16px;
-        background-image: url("../../assets/img/good-page/arrowDown.svg");
+        background-image: url("assets/img/good-page/arrowDown.svg");
       }
       &:hover{
         opacity: 0.85;

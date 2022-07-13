@@ -21,7 +21,7 @@
 <script>
 import { Vue, Component } from 'nuxt-property-decorator'
 import Info from '~/components/good/Info'
-import Description from '~/components/good/Description'
+import Description from '~/pages/Tabs'
 import Comments from '~/components/good/Comments'
 import SharingBlock from '~/components/good/SharingBlock'
 import Recommendations from '~/components/good/Recommendations'
@@ -43,22 +43,11 @@ export default @Component({
   },
   created () {
     this.loading = false
-  },
-  beforeDestroy () {
-    clearInterval(this.interval)
-  },
-  mounted () {
-    this.progressInterval = setInterval(() => {
-      if (this.value === 100) {
-        return (this.value = 0)
-      }
-      this.value += 10
-    }, 1000)
   }
 })
 
 class Index extends Vue {
-  title = 'Goods page';
+  title = 'GoodsPage';
 }
 </script>
 

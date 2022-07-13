@@ -9,14 +9,14 @@
       />
     </div>
     <div v-if="!loading">
-      <new-comment />
       <Carousel />
-      <Map />
-      <comment-item />
       <Info />
+      <description />
+      <sharing-block />
+      <new-comment />
+      <comment-item />
       <comments />
       <recommendations />
-      <sharing-block />
     </div>
   </div>
 </template>
@@ -27,7 +27,7 @@ import Carousel from '~/components/good/Carousel/Carousel'
 import Map from '~/components/good/Map'
 import CommentItem from '~/components/good/CommentItem'
 import Info from '~/components/good/Info'
-import Description from '~/components/good/Description'
+import Description from '~/pages/Tabs'
 import SharingBlock from '~/components/good/SharingBlock'
 import Recommendations from '~/components/good/Recommendations'
 import Comments from '~/components/good/Comments'
