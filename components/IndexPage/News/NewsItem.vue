@@ -33,7 +33,7 @@
 </template>
 
 <script>
-import { Component, Vue, Prop } from 'nuxt-property-decorator';
+import { Component, Vue, Prop, Provide } from 'nuxt-property-decorator';
 
 export default @Component
 
@@ -42,11 +42,7 @@ class NewsItem extends Vue {
   @Prop({ type: String, required: true }) newsItemTitle
   @Prop({ type: String, required: true }) newsItemArticle
 
-  data () {
-    return {
-      showAllContent: false
-    };
-  }
+  @Provide() showAllContent = false
 
   scroll () {
     document.getElementById('news-header').scrollIntoView();

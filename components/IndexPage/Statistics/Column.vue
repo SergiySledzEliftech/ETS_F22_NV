@@ -1,17 +1,18 @@
 <template>
   <v-tooltip top color="black">
-    <template v-slot:activator="{ on, attrs }">
-    <v-card
-      v-bind="attrs"
-      v-on="on"
-      class="column"
-      min-width="40"
-      color="#E31F26"
-      :height="`${propHeight}%`" >
-        <div class="animation-div"/>
+    <template #activator="{ on, attrs }">
+      <v-card
+        v-bind="attrs"
+        class="column"
+        min-width="40"
+        color="#E31F26"
+        :height="`${propHeight}%`"
+        v-on="on"
+      >
+        <div class="animation-div" />
       </v-card>
     </template>
-    <span>{{propHeight}}%</span>
+    <span>{{ propHeight }}%</span>
   </v-tooltip>
 </template>
 

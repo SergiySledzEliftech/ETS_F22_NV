@@ -11,45 +11,21 @@
       </v-card-title>
     </div>
     <div class="statistics-wrapper">
-      <div class="markup">
-        <hr>
-        <hr>
-        <hr>
-        <hr>
-        <hr>
-        <hr>
-        <hr>
-        <hr>
-        <hr>
-        <hr>
-        <hr>
+      <div class="markup d-flex flex-column justify-space-between">
+        <hr v-for="i in 11" :key="i">
       </div>
-      <div class="markup-numbers">
-        <span>0</span>
-        <span>10</span>
-        <span>20</span>
-        <span>30</span>
-        <span>40</span>
-        <span>50</span>
-        <span>60</span>
-        <span>70</span>
-        <span>80</span>
-        <span>90</span>
-        <span>100</span>
+      <div class="markup-numbers d-flex flex-column-reverse justify-space-between">
+        <span v-for="i in 11" :key="i">{{(i+"0")-10}}</span>
       </div>
-      <div class="statistics">
-        <Column :prop-height="60" />
-        <Column :prop-height="10" />
-        <Column :prop-height="30" />
-        <Column :prop-height="100" />
-        <Column :prop-height="80" />
+      <div class="statistics d-flex align-end justify-space-between">
+        <Column v-for="(el, index) of statisticsValue"  :key="index" :prop-height="el" />
       </div>
     </div>
   </v-card>
 </template>
 
 <script>
-import { Component, Vue, Prop } from 'nuxt-property-decorator';
+import { Component, Vue, Prop, Provide } from 'nuxt-property-decorator';
 import Column from './Column.vue';
 
 export default @Component({
@@ -58,6 +34,7 @@ export default @Component({
 
 class StatisticsItem extends Vue {
   @Prop() name
+  @Provide() statisticsValue = [65, 21, 59, 92, 22]
 }
 </script>
 
@@ -82,9 +59,6 @@ class StatisticsItem extends Vue {
   width: 270px;
   height: 180px;
 
-  display: flex;
-  align-items: flex-end;
-  justify-content: space-between;
   position: absolute;
   z-index: 10;
 }
@@ -95,9 +69,6 @@ class StatisticsItem extends Vue {
   left: 0;
   bottom: 0;
   position: absolute;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
 }
 
 .markup-numbers{
@@ -107,9 +78,6 @@ class StatisticsItem extends Vue {
   width: 20px;
   left: 3px;
   bottom: 0;
-  display: flex;
-  flex-direction: column-reverse;
-  justify-content: space-between;
 
   span{
     font-size: 10px;

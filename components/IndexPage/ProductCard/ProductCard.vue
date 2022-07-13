@@ -4,7 +4,7 @@
       class="mx-auto product-card"
       max-width="304px"
       height="304px"
-      :elevation="hover  ? 16 : 2"
+      :elevation="hover ? 16 : 2"
     >
       <v-img
         class="product-card-img"

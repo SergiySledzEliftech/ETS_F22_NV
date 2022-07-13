@@ -59,7 +59,7 @@
 </template>
 
 <script>
-import { Component, Vue } from 'nuxt-property-decorator';
+import { Component, Vue, Provide } from 'nuxt-property-decorator';
 import ProductCard from '../ProductCard/ProductCard.vue';
 
 export default @Component({
@@ -67,11 +67,7 @@ export default @Component({
 })
 
 class PremiumGoods extends Vue {
-  data () {
-    return {
-      showAll: false
-    };
-  }
+  @Provide() showAll = false
 
   scrollTop () {
     if (!this.showAll) {
