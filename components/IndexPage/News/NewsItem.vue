@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div :class="{rotateY : rotateY}" class="news-item-wrapper">
     <v-card
       class="d-flex d-align-center justify-space-between card"
       :class="{showAllContent : showAllContent}"
@@ -28,6 +28,16 @@
           >
             <span class="btn-text">{{ showAllContent ? 'Hide' : 'Details' }}</span>
           </v-btn>
+          <v-btn
+            text
+            color="#E31F26"
+            @click="function(){
+              rotateY = !rotateY
+              return null
+            }"
+          >
+            <span class="btn-text">Next</span>
+          </v-btn>
         </div>
       </div>
     </v-card>
@@ -45,6 +55,7 @@ class NewsItem extends Vue {
   @Prop({ type: String, required: true }) newsItemArticle
 
   @Provide() showAllContent = false
+  @Provide() rotateY = false
 
   scroll () {
     document.getElementById('news-header').scrollIntoView();
@@ -73,7 +84,7 @@ class NewsItem extends Vue {
     .news-item-text{
       height: auto !important;
       min-width: 100% !important;
-      transform: rotateX(180deg);
+      transform: rotateX(180deg) !important;
       border-radius: 0px 0px 30px 30px !important;
 
       .article-content{
@@ -84,7 +95,7 @@ class NewsItem extends Vue {
     .news-item-img{
       min-width: 100% !important;
       height: 300px !important;
-      transform: rotateX(180deg);
+      transform: rotateX(180deg) !important;
       border-radius: 30px 30px 0px 0px !important;
     }
   }
@@ -123,5 +134,18 @@ class NewsItem extends Vue {
 
   .btn-wrapper{
     width: 100%;
+  }
+
+  .news-item-wrapper{
+    transition: transform 0.5s;
+    transform-style: preserve-3d;
+    transform: rotateY(0deg);
+  }
+
+  .rotateY{
+    transform: rotateY(360deg);
+    .news-item-text, .news-item-img{
+      transform:  rotateX(360deg);
+    }
   }
 </style>
