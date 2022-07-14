@@ -2,8 +2,8 @@
   <div>
     <v-card
       class="d-flex d-align-center justify-space-between card"
-      height="400px"
       :class="{showAllContent : showAllContent}"
+      :height="showAllContent ? 'auto' : '400px'"
     >
       <v-img
         :src="img"
@@ -16,17 +16,19 @@
         <div class="article-content">
           <p>{{ newsItemArticle }}</p>
         </div>
-        <v-btn
-          text
-          color="#E31F26"
-          @click="()=>{
-            showAllContent = !showAllContent
-            scroll ()
-            return null
-          }"
-        >
-          <span class="btn-text">{{ showAllContent ? 'Hide' : 'Details' }}</span>
-        </v-btn>
+        <div class="d-flex align-center justify-space-between btn-wrapper">
+          <v-btn
+            text
+            color="#E31F26"
+            @click="function(){
+              showAllContent = !showAllContent
+              scroll ()
+              return null
+            }"
+          >
+            <span class="btn-text">{{ showAllContent ? 'Hide' : 'Details' }}</span>
+          </v-btn>
+        </div>
       </div>
     </v-card>
   </div>
@@ -62,21 +64,28 @@ class NewsItem extends Vue {
   .card{
     border: none !important;
     box-shadow: none !important;
-
-    transition: height 0.6s;
+    transition: transform 0.5s;
+    transform-style: preserve-3d;
   }
-
   .showAllContent{
-    height: 85vh !important;
-
-    flex-direction: column;
+    flex-direction: column-reverse;
+    transform: rotateX(180deg);
     .news-item-text{
-      height: auto!important;
+      height: auto !important;
       min-width: 100% !important;
+      transform: rotateX(180deg);
+      border-radius: 0px 0px 30px 30px !important;
+
+      .article-content{
+        height: auto;
+        overflow: visible;
+      }
     }
     .news-item-img{
-      height: 25% !important;
       min-width: 100% !important;
+      height: 300px !important;
+      transform: rotateX(180deg);
+      border-radius: 30px 30px 0px 0px !important;
     }
   }
 
@@ -95,20 +104,24 @@ class NewsItem extends Vue {
     overflow: scroll;
     overflow-x: hidden;
   }
-  /* width */
+
   ::-webkit-scrollbar {
     width: 10px;
   }
-  /* Track */
+
   ::-webkit-scrollbar-track {
     background: #dedede;
   }
-  /* Handle */
+
   ::-webkit-scrollbar-thumb {
     background: #888;
   }
-  /* Handle on hover */
+
   ::-webkit-scrollbar-thumb:hover {
     background: #555;
+  }
+
+  .btn-wrapper{
+    width: 100%;
   }
 </style>

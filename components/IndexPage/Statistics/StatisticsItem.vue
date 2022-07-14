@@ -15,10 +15,10 @@
         <hr v-for="i in 11" :key="i">
       </div>
       <div class="markup-numbers d-flex flex-column-reverse justify-space-between">
-        <span v-for="i in 11" :key="i">{{(i+"0")-10}}</span>
+        <span v-for="i in 11" :key="i">{{ (i+"0")-10 }}</span>
       </div>
       <div class="statistics d-flex align-end justify-space-between">
-        <Column v-for="(el, index) of statisticsValue"  :key="index" :prop-height="el" />
+        <Column v-for="(el, index) of statisticsValue" :key="index" :prop-height="el" />
       </div>
     </div>
   </v-card>
