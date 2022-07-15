@@ -9,22 +9,22 @@
       </li>
       <li class="sharing__item">
         <a href="#" class="sharing__item-link">
-          <img src="~/assets/img/good-page/telegram.svg" width="40px" height="40px" alt="telegram" class="sharing__item-img">
+          <img src="~/assets/img/good-page/telegram.svg" alt="telegram" class="sharing__item-img">
         </a>
       </li>
       <li class="sharing__item">
         <a href="#" class="sharing__item-link">
-          <img src="~/assets/img/good-page/twitter.svg" width="40px" height="40px" alt="twitter" class="sharing__item-img">
+          <img src="~/assets/img/good-page/twitter.svg" alt="twitter" class="sharing__item-img">
         </a>
       </li>
       <li class="sharing__item">
         <a href="#" class="sharing__item-link">
-          <img src="~/assets/img/good-page/viber.svg" width="40px" height="40px" alt="viber" class="sharing__item-img">
+          <img src="~/assets/img/good-page/viber.svg" alt="viber" class="sharing__item-img">
         </a>
       </li>
       <li class="sharing__item">
         <a href="#" class="sharing__item-link">
-          <img src="~/assets/img/good-page/vk.svg" width="40px" height="40px" alt="vk" class="sharing__item-img">
+          <img src="~/assets/img/good-page/vk.svg" alt="vk" class="sharing__item-img">
         </a>
       </li>
       <li class="sharing__item">
@@ -59,8 +59,8 @@ ul, li{
   list-style-type: none;
 }
 .sharing{
-  margin-top: 60px;
-  padding: 60px 0;
+  margin-top: 30px;
+  padding: 60px;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -68,13 +68,34 @@ ul, li{
   gap: 20px;
   background: $bg;
   border-radius: 10px;
+  @media only screen and (max-width: 1264px) {
+    display: flex;
+    gap: calc(5px + (20 - 5) * (100vw - 320px) / (1280 - 320));
+    padding: calc(20px + (60 - 20) * (100vw - 320px) / (1280 - 320));
+  }
   .sharing-title{
+    text-align: center;
     font-size: 35px;
     line-height: 100%;
+    margin: 0;
+    @media only screen and (max-width: 1264px) {
+      font-size: calc(20px + (35 - 20) * (100vw - 320px) / (1280 - 320));
+    }
   }
   .sharing__list{
     display: flex;
     gap: 20px;
+    @media only screen and (max-width: 1264px) {
+      gap: calc(10px + (20 - 10) * (100vw - 320px) / (1280 - 320));
+    }
+  }
+  .sharing__item img{
+    width: 40px;
+    height: 40px;
+    @media only screen and (max-width: 1264px) {
+      width: calc(20px + (40 - 20) * (100vw - 320px) / (1280 - 320));
+      height: calc(20px + (40 - 20) * (100vw - 320px) / (1280 - 320));
+    }
   }
 }
 </style>

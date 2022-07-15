@@ -1,6 +1,6 @@
 <template>
   <div class="comments-list">
-    asdffa
+    Here will be the list of comments
   </div>
 </template>
 

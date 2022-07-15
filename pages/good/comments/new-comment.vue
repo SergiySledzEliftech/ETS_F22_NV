@@ -8,15 +8,13 @@
 import { Vue, Component } from 'nuxt-property-decorator'
 import NewComment from '~/components/good/NewComment'
 
-export default @Component({
-  name: 'NewCommentPage',
-  layout: 'good',
+export default @Component ({
+  name: 'NewCommentTab',
   components: {
     NewComment
   }
 })
-
-class NewCommentPage extends Vue {
+class NewCommentTab extends Vue {
 
 }
 </script>

@@ -6,31 +6,38 @@
         :width="6"
         color="teal"
         indeterminate
-      ></v-progress-circular>
+      />
     </div>
     <div v-if="!loading">
       <Info />
-      <Description />
-      <Comments />
-      <Recommendations />
-      <SharingBlock />
+      <v-tabs class="tabs" color="#E31F26" left>
+        <v-tab to="/good/" nuxt exact>
+          Description
+        </v-tab>
+        <v-tab to="/good/comments/" nuxt>
+          Comments
+        </v-tab>
+      </v-tabs>
+      <nuxt-child />
+      <recommendations />
+      <sharing-block />
     </div>
   </div>
 </template>
 
 <script>
 import { Vue, Component } from 'nuxt-property-decorator'
+import Carousel from '~/components/good/Carousel/Carousel'
+import Map from '~/components/good/Map'
 import Info from '~/components/good/Info'
-import Description from '~/pages/Tabs'
-import Comments from '~/components/good/Comments'
 import SharingBlock from '~/components/good/SharingBlock'
 import Recommendations from '~/components/good/Recommendations'
 
 export default @Component({
   components: {
+    Carousel,
+    Map,
     Info,
-    Description,
-    Comments,
     Recommendations,
     SharingBlock
   },
@@ -47,18 +54,35 @@ export default @Component({
 })
 
 class Index extends Vue {
-  title = 'GoodsPage';
+  title = 'Good page';
+  name = 'goodPage'
 }
 </script>
 
 <style lang="scss">
+@import "./assets/css/good-media";
+
 .container{
-  max-width: 75rem;
+  padding: 0;
+  margin: 0 auto;
+  max-width: 1280px;
+  @media only screen and (max-width: 1310px) {
+    padding: 0 12px;
+  }
 }
 .progress-circular{
   display: flex;
   height: 70vh;
   justify-content: center;
   align-items: center;
+}
+.tabs {
+  margin-top: 30px;
+  height: 100%;
+  font-size: 14px;
+  font-weight: 500;
+  &:hover{
+    background-color: #aaaaaa2b;
+  }
 }
 </style>

@@ -83,7 +83,7 @@ import { Vue, Component } from 'nuxt-property-decorator'
 // import { consoleError } from 'vuetify'
 import { consoleError } from 'vuetify'
 import TestComp from '../components/TestComponent'
-import { serverApiUrl } from '../settings/config'
+import { serverApiUrl } from '~/settings/config'
 
 export default @Component({
   components: { TestComp }

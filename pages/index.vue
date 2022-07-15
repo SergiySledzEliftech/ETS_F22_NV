@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="container">
     <div v-if="loading" class="text-center progress-circular">
       <v-progress-circular
         :size="60"
@@ -9,41 +9,18 @@
       />
     </div>
     <div v-if="!loading">
-      <Carousel />
-      <Info />
-      <description />
-      <sharing-block />
-      <new-comment />
-      <comment-item />
-      <comments />
-      <recommendations />
+      <test-component />
     </div>
   </div>
 </template>
 
 <script>
 import { Vue, Component } from 'nuxt-property-decorator'
-import Carousel from '~/components/good/Carousel/Carousel'
-import Map from '~/components/good/Map'
-import CommentItem from '~/components/good/CommentItem'
-import Info from '~/components/good/Info'
-import Description from '~/pages/Tabs'
-import SharingBlock from '~/components/good/SharingBlock'
-import Recommendations from '~/components/good/Recommendations'
-import Comments from '~/components/good/Comments'
-import NewComment from '~/components/good/NewComment'
+import TestComponent from '~/components/TestComponent'
 
 export default @Component({
   components: {
-    Carousel,
-    Map,
-    CommentItem,
-    Info,
-    Description,
-    NewComment,
-    Comments,
-    Recommendations,
-    SharingBlock
+    TestComponent
   },
   data () {
     return {
@@ -54,29 +31,15 @@ export default @Component({
   },
   created () {
     this.loading = false
-  },
-  beforeDestroy () {
-    clearInterval(this.interval)
-  },
-  mounted () {
-    this.progressInterval = setInterval(() => {
-      if (this.value === 100) {
-        return (this.value = 0)
-      }
-      this.value += 10
-    }, 1000)
   }
 })
 
 class Index extends Vue {
-  title = 'Goods page';
+  title = 'IndexPage';
 }
 </script>
 
 <style lang="scss">
-.container{
-  max-width: 75rem;
-}
 .progress-circular{
   display: flex;
   height: 70vh;

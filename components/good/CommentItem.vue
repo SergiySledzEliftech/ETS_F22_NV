@@ -1,5 +1,5 @@
 <template>
-  <div >
+  <div class="card-item">
     <v-card
       flat
       class=""
@@ -8,7 +8,6 @@
         border-radius: 5px;
         box-shadow: 0 0 2px rgba(33, 33, 33, 0.25);
       "
-      max-width="600"
     >
       <v-card-title class="py-2 pr-2" style="display:flex; align-items:center;">
         <v-avatar size="40">

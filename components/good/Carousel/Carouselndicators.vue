@@ -29,16 +29,20 @@ class CarouselIndicators extends Vue {
 .carousel__indicators{
   margin-top: 20px;
   display: flex;
-  gap: 13px;
-  .carousel__indicators-item > img{
-    max-width: 150px;
+  gap: 15px;
+  .carousel__indicators-item{
     height: 110px;
+    max-width: 140px;
+  }
+  .carousel__indicators-item > img{
+    width: 100%;
+    height: 100%;
     border-radius: 10px;
     opacity: 1;
     transition: all 0.25s linear;
     &:hover{
       background: rgba(255, 255, 255, 0.2);
-      box-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
+      box-shadow: rgba(3, 126, 214, 0.3) 0 0 5px 5px;
       transition: all 0.25s linear;
       cursor: pointer;
     }

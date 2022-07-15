@@ -27,9 +27,9 @@
     <div class="description__tables">
       <v-container class="lighten-5">
         <v-row>
-          <v-col sm="5" class="pa-0 mr-8">
+          <v-col class="pa-0" style="margin-right: 60px">
             <v-card
-              class=""
+              class="description__tables-table"
               outlined
               tile
               style="border: 0"
@@ -53,33 +53,33 @@
               </div>
             </v-card>
           </v-col>
-          <v-col sm="5" class="pa-0 ml-8">
+          <v-col class="pa-0 ">
             <v-card
-              class="mb-11"
+              class="mb-11 description__tables-table"
               outlined
               tile
               style="border: 0"
             >
-              <div class="description__tables-table description__location">
+              <div class="description__location">
                 <h3 class="description__item-title">Location</h3>
                 <v-simple-table>
                   <template>
                     <tbody>
-                      <tr
-                        v-for="prop in goodProps.goodLocation"
-                        :key="prop"
-                        class="table-row"
-                      >
-                        <td style="border: 0">{{ prop.name }}</td>
-                        <td style="border: 0">{{ prop.value }}</td>
-                      </tr>
+                    <tr
+                      v-for="prop in goodProps.goodLocation"
+                      :key="prop"
+                      class="table-row"
+                    >
+                      <td style="border: 0">{{ prop.name }}</td>
+                      <td style="border: 0">{{ prop.value }}</td>
+                    </tr>
                     </tbody>
                   </template>
                 </v-simple-table>
               </div>
             </v-card>
             <v-card
-              class=""
+              class="description__tables-table"
               outlined
               tile
               style="border: 0"
@@ -111,17 +111,13 @@
 
 <script>
 import { Vue, Component } from 'nuxt-property-decorator'
-import Map from '../../components/good/Map'
+import Map from '~/components/good/Map'
 
 export default @Component({
   name: 'Description',
-  layout: 'good',
   components: {
     Map
-  }
-})
-
-class Description extends Vue {
+  },
   data () {
     return {
       goodProps: {
@@ -186,18 +182,19 @@ class Description extends Vue {
       }
     }
   }
-}
+})
+class Description extends Vue {}
 </script>
 
 <style lang="scss" scoped>
 .description{
-  margin-top: 60px;
+  margin-top: 30px;
   .description__common{
     display: flex;
     gap: 60px;
     margin-bottom: 60px;
     .description__common-item{
-      flex: 0 1 45%;
+      width: 100%;
     }
     .description__item-text{
       margin-bottom: 10px;
@@ -240,6 +237,7 @@ class Description extends Vue {
   .description__item-title{
     margin-bottom: 20px;
   }
+
 }
 .table-row{
   &:nth-child(even){

@@ -1,0 +1,35 @@
+@import "good-breakpoints";
+
+@mixin bp-1920() {
+  @media (max-width: $breakpoint_1920) {
+    @content;
+  }
+}
+@mixin bp-1400() {
+  @media (max-width: $breakpoint_1400) {
+    @content;
+  }
+}
+@mixin bp-1264() {
+  @media (max-width: $breakpoint_1264) {
+    @content;
+  }
+}
+@mixin bp-960() {
+  @media (max-width: $breakpoint_960) {
+    @content;
+  }
+}
+@mixin bp-320() {
+  @media (max-width: $breakpoint_320) {
+    @content;
+  }
+}
+
+@mixin responsive-value($property, $startSize, $minSize, $maxWidthContainer) {
+  $addSize: $startSize - $minSize;
+  #{$property}: $startSize + px;
+  @media (max-width: #{$maxWidthContainer + px}) {
+    #{$property}: calc(#{$minSize + px} + #{$addSize} * ((100vw - 320px) / #{$maxWidthContainer - 320}));
+  }
+}

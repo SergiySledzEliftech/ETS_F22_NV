@@ -1,33 +1,4 @@
 <template>
-  <!--
-  <div class="carousel">
-    <div class="carousel-wrapper">
-      <div class="carousel__top">
-        <div class="carousel__top-list">
-          <img
-            v-for="(image, index) in images"
-            :key="index"
-            :src=" require('~/assets/img/good-page/' + image ) "
-            alt=""
-            v-show="currentSlide === index"
-            class="carousel__top-img">
-        </div>
-        <button class="btn-next" @click="nextSlide"></button>
-        <button class="btn-prev" @click="prevSlide"></button>
-        <button class="btn-fullscreen" @click="fullScreenSlide"></button>
-      </div>
-      <div class="carousel__bottom-list">
-        <img
-          v-for="(image, index) in images"
-          :key="index"
-          :src=" require('~/assets/img/good-page/' + image ) "
-          alt=""
-          @click="switchToSlide"
-          class="carousel__list-item">
-      </div>
-    </div>
-  </div>
-  -->
   <div class="carousel">
     <div class="carousel-inner">
       <carousel-item
@@ -105,21 +76,6 @@ export default @Component({
         this.prev(step, true)
       }
     },
-    fillIndicatorsArr (firstSlideIndex = 0) {
-      if (firstSlideIndex + this.indicatorsAmount - 1 > this.slides.length - 1) {
-        const lastSlidesAmount = this.slides.length - firstSlideIndex
-        for (let i = 0; i < lastSlidesAmount; i++) {
-          this.indicatorsArr[i] = this.slides[firstSlideIndex++]
-        }
-        for (let i = 0; i < this.indicatorsAmount - this.lastIndicatorIndex - 1; i++) {
-          this.indicatorsArr[this.lastIndicatorIndex] = this.slides[i]
-        }
-      } else {
-        for (let i = 0; i < this.indicatorsAmount - 1; i++) {
-          this.indicatorsArr[i] = this.slides[firstSlideIndex++]
-        }
-      }
-    },
     changeIndicatorsArr (switcher) {
       if (!switcher) {
         if (this.direction === 'right') {
@@ -170,80 +126,12 @@ class Carousel extends Vue {
 </script>
 
 <style lang="scss" scoped>
-.carousel-wrapper{
-  display: flex;
-  flex-direction: column;
-  gap: 30px;
-  .carousel__top{
-    position: relative;
-    display: flex;
-    overflow: hidden;
-    .carousel__top-list{
-      max-width: 640px;
-      .carousel__top-img{
-        border-radius: 10px;
-        width: 640px;
-        height: 100%;
-      }
-    }
-    .btn-next,
-    .btn-prev,
-    .btn-fullscreen{
-      position: absolute;
-      background: #fff;
-      border-radius: 50%;
-      background: rgba(255, 255, 255, 0.8);
-      box-shadow: 0 0 5px rgba(119, 152, 181, 0.25);
-      transition: all 0.25s linear;
-      &:hover{
-        background: rgba(255, 255, 255, 0.9);
-        box-shadow: 0 0 5px rgba(119, 152, 181, 0.5);
-        transition: all 0.25s linear;
-      }
-    }
-    .btn-next,
-    .btn-prev{
-      width: 60px;
-      height: 60px;
-    }
-    .btn-next{
-      top: 45%;
-      right: 10px;
-    }
-    .btn-prev{
-      top: 45%;
-      left: 10px;
-    }
-    .btn-fullscreen{
-      width: 40px;
-      height: 40px;
-      top: 10px;
-      right: 10px;
-    }
-  }
-  .carousel__bottom-list{
-    display: flex;
-    justify-content: space-around;
-    gap: 14px;
-    .carousel__list-item{
-      max-width: 150px;
-      height: 110px;
-      border-radius: 10px;
-      transition: all 0.25s linear;
-      &:hover{
-        background: rgba(255, 255, 255, 0.2);
-        box-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
-        transition: all 0.25s linear;
-        cursor: pointer;
-      }
-    }
-  }
-}
 .carousel {
   display: flex;
   flex-direction: column;
   justify-content: center;
-  width: 640px;
+  max-width: 610px;
+  width: 100%;
 }
 .carousel-inner {
   position: relative;

@@ -30,11 +30,12 @@ class CarouselItem extends Vue {
 
 <style lang="scss" scoped>
 .carousel-item {
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
+  width: 100%;
+  img{
+    max-width: 610px;
+    height: 100%;
+    aspect-ratio: 610 / 400;
+  }
 }
 .slide-in-enter-active,
 .slide-in-leave-active,

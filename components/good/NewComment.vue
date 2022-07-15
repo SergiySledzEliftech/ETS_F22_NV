@@ -114,14 +114,11 @@ class NewComment extends Vue {
 
 <style lang="scss" scoped>
 .new-comment__form{
-  margin: 30px 0;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
+  margin: 30px 0 0;
 }
 .form-container{
-  width: 600px;
+  margin: 0 auto;
+  max-width: 800px;
   padding: 30px;
   border: 1px solid #d7d7d7;
   border-radius: 5px;
