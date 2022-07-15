@@ -3,7 +3,7 @@
     <v-tooltip top>
       <template #activator="{ on, attrs }">
         <v-card
-          class="partners-item-wrapper ml-5 mr-5 mb-5"
+          class="partners-item-wrapper ml-5 mr-5 mb-5 d-none d-md-flex"
           min-width="150px"
           height="150px"
           color="#F9F9FA"
@@ -20,6 +20,23 @@
       </template>
       <span>{{ companyName }}</span>
     </v-tooltip>
+      <v-card
+        class="partners-item-wrapper ml-5 mr-5 mb-5 d-md-none"
+        min-width="150px"
+        color="#F9F9FA"
+      >
+        <v-img
+          :src="url"
+          width="100px"
+          height="100px"
+          class="partners-item-img"
+          v-bind="attrs"
+          v-on="on"
+        />
+        <div class="d-flex align-center justify-center mt-2">
+          <span class="partner-title"> {{ companyName }} </span>
+        </div>
+      </v-card>
   </a>
 </template>
 
@@ -39,5 +56,6 @@ class PartnersItem extends Vue {
     background-color: $bg;
     cursor: pointer;
     padding: 25px;
+    padding-bottom: 10px;
   }
 </style>
