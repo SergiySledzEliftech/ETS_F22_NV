@@ -55,6 +55,7 @@ import { Vue, Component } from 'nuxt-property-decorator'
 import Router from 'vue-router'
 import RegisterComponent from '../components/RegisterComponent'
 import LoginComponent from '../components/LoginComponent'
+
 Vue.use(Router)
 export default
 @Component({
@@ -63,16 +64,8 @@ export default
 class Auth extends Vue {
   tab = 0;
   mounted () {
-    // setTimeout(() => {
-    //   this.tab = 1
-    // }, 4000)
     this.addHashToLocation('signin')
   }
-
-  // get signin () {
-  //   console.log(this.$route.fullPath)
-  //   return this.$route.fullPath
-  // }
 
   addHashToLocation (params) {
     history.pushState(
@@ -81,22 +74,16 @@ class Auth extends Vue {
       `${this.$route.path}#${encodeURIComponent(params)}`
     )
   }
-
-  // @Watch(this.signin)
-  // onChangeHash () {
-  //   console.log('kkkkk')
-  //   this.tab = 0
-  // }
 }
 </script>
 <style lang="scss" scoped>
 .v-window {
   overflow: hidden !important;
   border-bottom: 5px;
-  border-radius: 30px;
+  border-radius: 10px;
 }
 .container {
-  height: 100vh;
+  margin-top: 50px;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -105,33 +92,33 @@ div.v-tabs-slider {
   color: #e31f26 !important;
 }
 .tab-card {
-  border-radius: 30px !important;
+  border-radius: 10px !important;
   box-shadow: 0px 0px 10px rgba(33, 33, 33, 0.25) !important;
 }
 .v-card__subtitle,
 .v-card__text,
 .v-card__title {
-  padding-right: 50px !important;
-  padding-left: 50px !important;
+  padding-right: 20px !important;
+  padding-left: 20px !important;
 }
 .v-tab {
   color: #213342 !important;
   width: 100% !important;
 }
 .tab-sign-in {
-  border-radius: 30px 0px 0px 0px !important;
+  border-radius: 10px 0px 0px 0px !important;
   width: 50%;
   height: 48px;
 }
 .tab-sign-in:before {
-  border-radius: 30px 0px 0px 0px;
+  border-radius: 10px 0px 0px 0px;
 }
 .tab-sign-up {
-  border-radius: 0px 30px 0px 0px !important;
+  border-radius: 0px 10px 0px 0px !important;
   width: 50%;
   height: 48px;
 }
 .tab-sign-up:before {
-  border-radius: 0px 30px 0px 0px;
+  border-radius: 0px 10px 0px 0px;
 }
 </style>

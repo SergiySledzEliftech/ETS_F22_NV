@@ -2,7 +2,7 @@
   <v-app>
     <v-form ref="form" v-model="valid" lazy-validation>
       <v-text-field
-        v-model="firstName"
+        v-model="registerInfo.first_name"
         :rules="firstNameRules"
         label="First Name"
         type="text"
@@ -12,7 +12,7 @@
       />
 
       <v-text-field
-        v-model="lastName"
+        v-model="registerInfo.last_name"
         :rules="lastNameRules"
         label="Last Name"
         type="text"
@@ -21,7 +21,7 @@
         solo
       />
       <v-text-field
-        v-model="phone"
+        v-model="registerInfo.phone"
         :rules="phoneRules"
         label="Phone Number"
         type="text"
@@ -30,7 +30,7 @@
         solo
       />
       <v-text-field
-        v-model="email"
+        v-model="registerInfo.email"
         :rules="emailRules"
         label="E-mail"
         type="text"
@@ -40,14 +40,14 @@
       />
 
       <v-text-field
-        v-model="password"
+        v-model="registerInfo.password"
         :append-icon="show ? 'mdi-eye' : 'mdi-eye-off'"
         :rules="passwordRules"
         :type="show ? 'text' : 'password'"
         :counter="8"
         label="Password"
         required
-        class="input-form mb-2"
+        class="input-form mb-6"
         solo
         @click:append="show = !show"
       />
@@ -58,9 +58,9 @@
         color="#E31F26"
         value="red"
         hide-details
-        class="mb-2"
+        class="mb-2 mt-8"
       />
-      <v-btn :disabled="!valid" class="btn_secondary mt-4" width="100%" @click="validateFunction">
+      <v-btn :disabled="!valid" class="btn_secondary mt-4 btn" @click="validateFunction">
         Sign Up
       </v-btn>
     </v-form>
@@ -75,13 +75,18 @@ export default
   })
 
 class RegisterComponent extends Vue {
+  registerInfo = {
+    first_name: '',
+    last_name: '',
+    phone: '',
+    email: '',
+    password: ''
+  }
+
     valid = true;
-    firstName = '';
-    lastName = '';
-    phone = '';
-    password = '';
+
     show = false;
-    email = '';
+
     checkbox = false;
     firstNameRules = [
       v => !!v || 'First name is required',
@@ -95,17 +100,17 @@ class RegisterComponent extends Vue {
 
     phoneRules = [
       v => !!v || 'Phone Number is required',
-      v => (v && v.length <= 10) || 'Last name must be valid'
+      v => /\(?([0-9]{3})\)?([ .-]?)([0-9]{3})\2([0-9]{4})/.test(v) || 'Please enter valid phone number'
     ];
 
     emailRules = [
       v => !!v || 'E-mail is required',
-      v => /.+@.+\..+/.test(v) || 'E-mail must be valid'
+      v => /[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?/g.test(v) || 'E-mail must be valid'
     ];
 
     passwordRules = [
       v => !!v || 'Password is required',
-      v => (v && v.length >= 8) || 'Password must be at least 8 characters'
+      v => /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])[0-9a-zA-Z]{8,}$/.test(v) || 'Password must be at least 8 characters, contain at least one lower case, one upper case and one digit'
     ];
 
     checkRules = [
@@ -113,7 +118,16 @@ class RegisterComponent extends Vue {
     ];
 
     validateFunction () {
-      this.$refs.form.validate()
+      if (this.$refs.form.validate()) {
+        this.$axios.post('http://localhost:8000/auth/signup', this.registerInfo)
+          .then(function (response) {
+            console.log(response)
+          })
+          .catch(function (error) {
+            console.log(error)
+          })
+        console.log(this.registerInfo)
+      }
     }
   }
 </script>
@@ -126,6 +140,10 @@ class RegisterComponent extends Vue {
   border-radius: 10px;
   padding-bottom: 30px !important;
   border-color: #fff !important;
+  }
+  .btn {
+    display: block;
+    margin: 0 auto;
   }
 
 </style>

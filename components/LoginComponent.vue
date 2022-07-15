@@ -18,12 +18,12 @@
         :counter="8"
         label="Password"
         required
-        class="input-form mb-2"
+        class="input-form mb-6"
         solo
         @click:append="show = !show"
       />
 
-      <v-btn :disabled="!valid" class="btn_secondary mt-4" width="100%" @click="validateFunction(loginInfo)">
+      <v-btn :disabled="!valid" class="btn_secondary mt-8 btn" @click="validateFunction()">
         Sign In
       </v-btn>
     </v-form>
@@ -40,8 +40,8 @@ export default
 class LoginComponent extends Vue {
     valid = true;
     loginInfo = {
-      email: 'libra@gmail.com',
-      password: '12345678'
+      email: '',
+      password: ''
     }
 
     show = false;
@@ -52,16 +52,19 @@ class LoginComponent extends Vue {
 
     passwordRules = [
       v => !!v || 'Password is required',
-      v => (v && v.length >= 8) || 'Password must be at least 8 characters'
+      v => /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])[0-9a-zA-Z]{8,}$/.test(v) || 'Password must be at least 8 characters, contain at least one lower case, one upper case and one digit'
     ];
 
-    validateFunction (loginInfo) {
+    async validateFunction () {
       if (this.$refs.form.validate()) {
-        this.$auth.loginWith('local', {
-          data: loginInfo
-        })
+        try {
+          const response = await this.$auth.loginWith('local', { data: this.loginInfo })
+          console.log(response)
+        } catch (error) {
+          console.log(error)
+        }
       }
-      console.log(loginInfo)
+      console.log(this.loginInfo)
     }
   }
 </script>
@@ -74,6 +77,10 @@ class LoginComponent extends Vue {
   border-radius: 10px;
   padding-bottom: 30px !important;
   border-color: #fff !important;
+  }
+  .btn {
+    display: block;
+    margin: 0 auto;
   }
 
 </style>

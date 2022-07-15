@@ -130,13 +130,14 @@
             >
               Profile
             </v-btn>
+
             <v-btn
               v-else
               class="ma-2 btn-red"
               outlined
               color="indigo"
             >
-              Sign in
+                Sign in
             </v-btn>
           </div>
 
