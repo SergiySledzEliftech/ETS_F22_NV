@@ -23,30 +23,30 @@
               <a href="#" class="footer-facebook" />
             </li>
           </ul>
-          <a href="#" class="footer-link"> Requisites </a>
+          <a href="#" class="footer-link-help"> Help and Feedback </a>
         </div>
         <div class="footer-column">
           <div class="footer-title">
-            Kyiv
+            Services
           </div>
-          <a class="header-phone" href="tel:+375295967676">+375 (29) 596 76 76</a>
-          <a class="header-phone" href="tel:+375295967676">+375 (29) 596 76 76</a>
-          <a class="header-phone" href="tel:+375295967676">+375 (29) 596 76 76</a>
-          <div class="footer-location">
-            33 Nizhniy Val Street, Kyiv, 02000
-          </div>
+          <a href="#" class="footer-link"> Mobile applications </a>
+          <a href="#" class="footer-link"> GloMaRe Premium </a>
+          <a href="#" class="footer-link"> Paid services </a>
+          <a href="#" class="footer-link"> Gift certificates </a>
         </div>
         <div class="footer-column">
           <div class="footer-title">
-            Chernivtsi
+            To partners
           </div>
-          <a class="header-phone" href="tel:+375295967676">+375 (29) 596 76 76</a>
-          <a class="header-phone" href="tel:+375295967676">+375 (29) 596 76 76</a>
-          <a class="header-phone" href="tel:+375295967676">+375 (29) 596 76 76</a>
+          <a href="#" class="footer-link"> Cooperation with us </a>
+          <a href="#" class="footer-link"> Franchising </a>
+          <a href="#" class="footer-link"> Delivery: rules and promotions </a>
+          <a href="#" class="footer-link"> Privacy policy </a>
+          <a href="#" class="footer-link"> Safety rules </a>
         </div>
         <div class="footer-column">
           <div class="footer-title">
-            Working hours:
+            Contacts:
           </div>
           <div class="footer-time">
             Пн – Пт: 09:00 – 19:00
@@ -56,6 +56,10 @@
           </div>
           <div class="footer-email">
             info@glomare.com
+          </div>
+          <a class="header-phone" href="tel:+375295967676">+375 (29) 596 76 76</a>
+          <div class="footer-location">
+            33 Nizhniy Val Street, Kyiv, 02000
           </div>
         </div>
       </div>
@@ -70,7 +74,7 @@
   footer{
     background: $secondary;
     color: white;
-    padding: 90px 20px 20px 20px;
+    padding: 50px 20px 20px 20px;
 
     @media only screen and (max-width: 992px) {
       padding: 20px 0;
@@ -78,29 +82,52 @@
 
     .footer-row{
       display: flex;
-      margin-bottom: 120px;
+      margin-bottom: 50px;
 
+      @media only screen and (max-width: 1264px) {
+        flex-wrap: wrap;
+        margin-bottom: 10px;
+      }
       @media only screen and (max-width: 992px) {
         flex-direction: column;
-        margin-bottom: 40px;
       }
     }
 
     .footer-column{
       display: flex;
       flex-direction: column;
-      width: 25%;
+      width: 20%;
       padding: 0 20px 0 0;
+
+      @media only screen and (max-width: 1264px) {
+        width: 50%;
+        margin-bottom: 20px;
+      }
 
       @media only screen and (max-width: 992px) {
         width: 100%;
-        margin-bottom: 20px;
-        padding: 0 0 0 20px;
       }
 
       &:first-child{
+        width: 40%;
+
+        @media only screen and (max-width: 1264px) {
+          width: 50%;
+        }
+
         @media only screen and (max-width: 992px) {
           padding: 0;
+          width: 100%;
+        }
+      }
+
+      &:nth-child(2){
+        @media only screen and (max-width: 1264px) {
+          margin-top: 50px;
+        }
+
+        @media only screen and (max-width: 992px) {
+          margin-top: 0;
         }
       }
     }
@@ -113,10 +140,12 @@
     }
     .footer-title{
       margin-bottom: 10px;
-      margin-left: -16px;
       font-weight: bold;
     }
     .footer-link{
+
+    }
+    .footer-link-help{
       text-decoration: underline;
     }
     .footer-social{
@@ -164,6 +193,7 @@
     }
 
     .header-phone{
+      margin-left: 16px;
       position: relative;
 
       &:before{
@@ -179,6 +209,8 @@
 
     .footer-location{
       position: relative;
+      margin-left: 16px;
+      margin-bottom: 10px;
 
       &:before{
         content: "";
@@ -192,6 +224,8 @@
     }
     .footer-time{
       position: relative;
+      margin-left: 16px;
+      margin-bottom: 10px;
 
       &:before{
         content: "";
@@ -205,6 +239,8 @@
     }
     .footer-email{
       position: relative;
+      margin-left: 16px;
+      margin-bottom: 10px;
 
       &:before{
         content: "";
@@ -218,16 +254,8 @@
     }
 
     .footer-row-copypright{
-      position: relative;
-      &:before{
-        content: "";
-        position: absolute;
-        top: -28px;
-        left: 0;
-        width: 100%;
-        height: 20px;
-        background-image: url("~assets/img/line.png");
-      }
+      font-size: 0.75rem;
+      text-align: center;
     }
   }
 
