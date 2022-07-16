@@ -1,23 +1,24 @@
 <template>
   <div>
-    <v-row justify="center" align="center">
-      <h1 class="headline">
-        {{ title }}
-      </h1>
-    </v-row>
-    <TestComp />
+    <Top10Goods />
+    <PremiumGoods />
+    <News />
+    <Statistics />
+    <Partners />
   </div>
 </template>
 
 <script>
 import { Vue, Component } from 'nuxt-property-decorator'
-import TestComp from '../components/TestComponent'
+import Top10Goods from '~/components/IndexPage/Top10Goods/Top10Goods.vue'
+import PremiumGoods from '~/components/IndexPage/PremiumGoods/PremiumGoods.vue'
+import News from '~/components/IndexPage/News/News.vue'
+import Statistics from '~/components/IndexPage/Statistics/Statistics.vue'
+import Partners from '~/components/IndexPage/Partners/Partners.vue'
 
 export default @Component({
-  components: { TestComp }
+  components: { Top10Goods, PremiumGoods, News, Statistics, Partners }
 })
 
-class Index extends Vue {
-  title = 'Welcome to the ETS_F22_NV project!';
-}
+class Index extends Vue {}
 </script>
