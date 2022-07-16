@@ -21,10 +21,7 @@
         <v-container>
           <h5> Форма для додавання тестового товару до бази монго (https://glomare.herokuapp.com/test-product)</h5>
           <v-row>
-            <v-col
-              cols="12"
-              md="4"
-            >
+            <v-col cols="12" md="4">
               <v-text-field
                 v-model="testProductData.name"
                 label="First name"
@@ -32,10 +29,7 @@
               />
             </v-col>
 
-            <v-col
-              cols="12"
-              md="4"
-            >
+            <v-col cols="12" md="4">
               <v-text-field
                 v-model="testProductData.price"
                 label="Price"
@@ -43,19 +37,14 @@
               />
             </v-col>
 
-            <v-col
-              cols="12"
-              md="4"
-            >
+            <v-col cols="12" md="4">
               <v-checkbox
                 v-model="testProductData.isAvailable"
                 label="isAvailable"
               />
             </v-col>
-            <v-col
-              cols="12"
-              md="4"
-            >
+
+            <v-col cols="12" md="4">
               <input class="btn_primary" type="submit" value="add">
             </v-col>
           </v-row>
