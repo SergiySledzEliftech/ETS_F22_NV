@@ -9,9 +9,9 @@
 </template>
 
 <script>
-import { Component, Vue, Provide } from 'nuxt-property-decorator';
-import NewsItem from './NewsItem.vue';
-import NewsItemMobile from './NewsItemMobile.vue';
+import { Component, Vue, Provide } from 'nuxt-property-decorator'
+import NewsItem from './NewsItem.vue'
+import NewsItemMobile from './NewsItemMobile.vue'
 
 export default @Component({
   components: { NewsItem, NewsItemMobile }

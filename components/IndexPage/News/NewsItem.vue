@@ -45,7 +45,7 @@
 </template>
 
 <script>
-import { Component, Vue, Prop, Provide } from 'nuxt-property-decorator';
+import { Component, Vue, Prop, Provide } from 'nuxt-property-decorator'
 
 export default @Component
 
@@ -58,7 +58,7 @@ class NewsItem extends Vue {
   @Provide() rotateY = false
 
   scroll () {
-    document.getElementById('news-header').scrollIntoView();
+    document.getElementById('news-header').scrollIntoView()
   }
 }
 </script>

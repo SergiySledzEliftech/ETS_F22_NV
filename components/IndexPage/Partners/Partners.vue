@@ -12,8 +12,8 @@
 </template>
 
 <script>
-import { Component, Provide, Vue } from 'nuxt-property-decorator';
-import PartnersItem from './PartnersItem.vue';
+import { Component, Provide, Vue } from 'nuxt-property-decorator'
+import PartnersItem from './PartnersItem.vue'
 
 export default @Component({
   components: { PartnersItem }

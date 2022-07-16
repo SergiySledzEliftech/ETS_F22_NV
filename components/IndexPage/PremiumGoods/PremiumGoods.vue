@@ -31,8 +31,8 @@
 </template>
 
 <script>
-import { Component, Vue } from 'nuxt-property-decorator';
-import ProductCard from '../ProductCard/ProductCard.vue';
+import { Component, Vue } from 'nuxt-property-decorator'
+import ProductCard from '../ProductCard/ProductCard.vue'
 
 export default @Component({
   components: { ProductCard }

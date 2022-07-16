@@ -9,8 +9,8 @@
 </template>
 
 <script>
-import { Component, Vue } from 'nuxt-property-decorator';
-import StatisticsItem from './StatisticsItem.vue';
+import { Component, Vue } from 'nuxt-property-decorator'
+import StatisticsItem from './StatisticsItem.vue'
 
 export default @Component({
   components: { StatisticsItem }

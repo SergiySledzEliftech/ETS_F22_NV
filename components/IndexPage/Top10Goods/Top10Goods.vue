@@ -59,8 +59,8 @@
 </template>
 
 <script>
-import { Component, Vue, Provide } from 'nuxt-property-decorator';
-import ProductCard from '../ProductCard/ProductCard.vue';
+import { Component, Vue, Provide } from 'nuxt-property-decorator'
+import ProductCard from '../ProductCard/ProductCard.vue'
 
 export default @Component({
   components: { ProductCard }
@@ -71,7 +71,7 @@ class PremiumGoods extends Vue {
 
   scrollTop () {
     if (!this.showAll) {
-      window.scrollTo({ top: 0, behavior: 'smooth' });
+      window.scrollTo({ top: 0, behavior: 'smooth' })
     }
   }
 }

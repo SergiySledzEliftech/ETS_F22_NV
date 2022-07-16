@@ -25,8 +25,8 @@
 </template>
 
 <script>
-import { Component, Vue, Prop, Provide } from 'nuxt-property-decorator';
-import Column from './Column.vue';
+import { Component, Vue, Prop, Provide } from 'nuxt-property-decorator'
+import Column from './Column.vue'
 
 export default @Component({
   components: { Column }
