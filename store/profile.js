@@ -171,11 +171,17 @@ export const state = () => ({
 
 })
 
+export const actions = {
+  deleteElem ({ commit }, id) {
+    commit('deleteItem', id)
+  }
+}
+
 export const mutations = {
   changeView (state) {
     state.view = state.view === 'grid' ? 'list' : 'grid'
   },
   deleteItem (state, id) {
-    state.data = state.data.filter(item => item.id !== id)
+    state.dataAds = state.dataAds.filter(item => item.id !== id)
   }
 }

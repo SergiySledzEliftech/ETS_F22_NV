@@ -16,7 +16,7 @@
             </v-tooltip>
             <v-tooltip bottom>
               <template #activator="{on,attrs}">
-                <v-btn v-bind="attrs" icon small v-on="on" @click.prevent="$commit('changeView', item.id)">
+                <v-btn v-bind="attrs" icon small v-on="on" @click.prevent="deleteElem(item.id)">
                   <v-icon :class="view">
                     mdi-trash-can
                   </v-icon>
@@ -35,7 +35,7 @@
 import { Vue, Component, namespace } from 'nuxt-property-decorator'
 import ItemsList from '~/components/list/ItemsList.vue'
 import SingleItem from '~/components/list/SingleItem.vue'
-const { State, Mutation } = namespace('profile')
+const { State, Action } = namespace('profile')
 
 export default @Component({
   name: 'profile-ads',
@@ -44,7 +44,7 @@ export default @Component({
 class ProfileAds extends Vue {
   @State dataAds
   @State view
-  @Mutation deleteItem
+  @Action deleteElem
 }
 
 </script>
