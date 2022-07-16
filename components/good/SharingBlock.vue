@@ -1,6 +1,8 @@
 <template>
   <div class="sharing">
-    <p class="sharing-title">Share on social networks</p>
+    <p class="sharing-title">
+      Share on social networks
+    </p>
     <ul class="sharing__list">
       <li class="sharing__item">
         <a href="#" class="sharing__item-link">
@@ -52,6 +54,11 @@ class SharingBlock extends Vue {
 </script>
 
 <style lang="scss" scoped>
+@import "assets/css/good-media.scss";
+
+.container{
+  padding: 0;
+}
 ul, li{
   margin: 0;
   padding: 0;
@@ -60,42 +67,27 @@ ul, li{
 }
 .sharing{
   margin-top: 30px;
-  padding: 60px;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  gap: 20px;
+  @include responsive-value("gap", 20, 10, $bp_laptop);
+  @include responsive-value("padding", 60, 20, $bp_laptop);
   background: $bg;
   border-radius: 10px;
-  @media only screen and (max-width: 1264px) {
-    display: flex;
-    gap: calc(5px + (20 - 5) * (100vw - 320px) / (1280 - 320));
-    padding: calc(20px + (60 - 20) * (100vw - 320px) / (1280 - 320));
-  }
   .sharing-title{
     text-align: center;
-    font-size: 35px;
     line-height: 100%;
     margin: 0;
-    @media only screen and (max-width: 1264px) {
-      font-size: calc(20px + (35 - 20) * (100vw - 320px) / (1280 - 320));
-    }
+    @include responsive-value("font-size", 35, 20, $bp_laptop);
   }
   .sharing__list{
     display: flex;
-    gap: 20px;
-    @media only screen and (max-width: 1264px) {
-      gap: calc(10px + (20 - 10) * (100vw - 320px) / (1280 - 320));
-    }
+    @include responsive-value("gap", 20, 10, $bp_laptop);
   }
   .sharing__item img{
-    width: 40px;
-    height: 40px;
-    @media only screen and (max-width: 1264px) {
-      width: calc(20px + (40 - 20) * (100vw - 320px) / (1280 - 320));
-      height: calc(20px + (40 - 20) * (100vw - 320px) / (1280 - 320));
-    }
+    @include responsive-value("width", 40, 20, $bp_laptop);
+    @include responsive-value("height", 40, 20, $bp_laptop);
   }
 }
 </style>

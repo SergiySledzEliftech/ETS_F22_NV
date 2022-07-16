@@ -1,8 +1,14 @@
 <template>
   <div>
-    <button class="carousel-control btn-next" @click="$emit('next')"></button>
-    <button class="carousel-control btn-prev" @click="$emit('prev')"></button>
-    <button class="carousel-control btn-fullscreen" @click="$emit('fullScreen')"></button>
+    <button class="carousel-control btn-next" @click="$emit('next')">
+      <svg />
+    </button>
+    <button class="carousel-control btn-prev" @click="$emit('prev')">
+      <svg />
+    </button>
+    <button class="carousel-control btn-fullscreen" @click="$emit('fullScreen')">
+      <svg />
+    </button>
   </div>
 </template>
 

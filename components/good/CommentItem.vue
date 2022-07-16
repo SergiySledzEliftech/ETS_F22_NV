@@ -19,8 +19,10 @@
         <p class="ma-0 ml-2">
           John Doe
         </p>
-        <v-spacer></v-spacer>
-        <p class="ma-0 mr-1" style="font-size: 14px;">07.07.2022</p>
+        <v-spacer />
+        <p class="ma-0 mr-1" style="font-size: 14px;">
+          07.07.2022
+        </p>
         <v-card-actions
           class="pa-0"
         >
@@ -34,7 +36,7 @@
         </v-card-actions>
       </v-card-title>
 
-      <v-divider></v-divider>
+      <v-divider />
 
       <v-card-text class="mt-2 py-0">
         <v-rating
@@ -44,7 +46,7 @@
           half-increments
           readonly
           size="20"
-        ></v-rating>
+        />
         <p class="ma-0 mt-2 fs-14">
           Мав до цього 24 дюймовий вигнутий Самсунг.
           Взяв цей монітор як основний, Самсунг поставив поруч.
@@ -55,14 +57,18 @@
         </p>
       </v-card-text>
 
-      <v-card-title class="py-0 pt-2 fs-16">Advantages</v-card-title>
+      <v-card-title class="py-0 pt-2 fs-16">
+        Advantages
+      </v-card-title>
       <v-card-text class="py-0">
         <p class="ma-0 fs-14">
           Мав до цього 24 дюймовий вигнутий Самсунг.
           Взяв цей монітор як основний, Самсунг поставив поруч.
         </p>
       </v-card-text>
-      <v-card-title class="py-0 pt-2 fs-16">Disadvantages</v-card-title>
+      <v-card-title class="py-0 pt-2 fs-16">
+        Disadvantages
+      </v-card-title>
       <v-card-text class="py-0">
         <p class="ma-0 fs-14">
           Мав до цього 24 дюймовий вигнутий Самсунг.
@@ -79,9 +85,13 @@
             icon
             color="blue lighten-1"
           >
-            <v-icon size="18">mdi-thumb-up</v-icon>
+            <v-icon size="18">
+              mdi-thumb-up
+            </v-icon>
           </v-btn>
-          <p class="fs-14 ma-0 mr-2">2</p>
+          <p class="fs-14 ma-0 mr-2">
+            2
+          </p>
           <v-btn
             class="ma-0 mr-1"
             style="width: 30px; height: 30px"
@@ -89,9 +99,13 @@
             icon
             color="red lighten-1"
           >
-            <v-icon size="18">mdi-thumb-down</v-icon>
+            <v-icon size="18">
+              mdi-thumb-down
+            </v-icon>
           </v-btn>
-          <p class="fs-14 ma-0">0</p>
+          <p class="fs-14 ma-0">
+            0
+          </p>
         </v-row>
       </v-card-actions>
     </v-card>

@@ -15,7 +15,7 @@
         large
         class="mb-2"
       />
-      <p class="comment-subtitle mt-1 mb-1 ml-2" style="font-size: 16px">
+      <p class="comment-subtitle mt-1 mb-1 ml-2">
         Advantages
       </p>
       <v-text-field
@@ -27,7 +27,7 @@
         counter="150"
         :rules="advantagesRules"
       />
-      <p class="comment-subtitle mt-1 mb-1 ml-2" style="font-size: 16px">
+      <p class="comment-subtitle mt-1 mb-1 ml-2">
         Disadvantages
       </p>
       <v-text-field
@@ -39,7 +39,7 @@
         counter="150"
         :rules="disadvantagesRules"
       />
-      <p class="comment-subtitle mt-1 mb-1 ml-2" style="font-size: 16px">
+      <p class="comment-subtitle mt-1 mb-1 ml-2">
         Comment
       </p>
       <v-textarea
@@ -47,21 +47,21 @@
         solo
         flat
         outlined
+        no-resize
+        counter="2000"
         :rules="commentRules"
         type="string"
       />
-      <div class="mt-3">
+      <div class="mt-3 btn-group">
         <v-btn
           :disabled="!valid"
           color="success"
-          class="mr-4"
           @click="validate"
         >
-          Add comment
+          Add
         </v-btn>
         <v-btn
           color="primary"
-          class="mr-4"
           @click="reset"
         >
           Cancel
@@ -83,11 +83,11 @@ export default @Component({
     advantages: '',
     rating: -1,
     advantagesRules: [
-      v => (v && v.length <= 50) || (v.length === 0) || 'Advantages must be less than 150 characters'
+      v => (v && v.length <= 150) || (v.length === 0) || 'Advantages must be less than 150 characters'
     ],
     disadvantages: '',
     disadvantagesRules: [
-      v => (v && v.length <= 50) || (v.length === 0) || 'Disadvantages must be less than 150 characters'
+      v => (v && v.length <= 150) || (v.length === 0) || 'Disadvantages must be less than 150 characters'
     ],
     comment: '',
     commentRules: [
@@ -116,13 +116,29 @@ class NewComment extends Vue {
 .new-comment__form{
   margin: 30px 0 0;
 }
+.comment-subtitle{
+  @include responsive-value("font-size", 18, 12, $bp_laptop);
+}
 .form-container{
   margin: 0 auto;
   max-width: 800px;
-  padding: 30px;
+  @include responsive-value("padding", 30, 15, $bp_laptop);
   border: 1px solid #d7d7d7;
   border-radius: 5px;
   box-shadow: 0 0 2px rgba(33, 33, 33, 0.25);
+}
+.v-rating{
+  @include responsive-value("width", 800, 320, $bp_laptop);
+  ::v-deep button{
+    margin: 0;
+    padding: 0;
+  }
+  button{
+    ::v-deep &:before{
+      @include responsive-value("font-size", 40, 25, $bp_laptop);
+      @include responsive-value("padding", 8, 4, $bp_laptop);
+    }
+  }
 }
 .v-text-field{
   ::v-deep .v-text-field__details{
@@ -131,7 +147,30 @@ class NewComment extends Vue {
   ::v-deep .v-input__slot{
     min-height: 40px;
   }
+  ::v-deep input{
+    @include responsive-value("font-size", 16, 12, $bp_laptop);
+  }
 }
-v-text-field{
+.v-textarea{
+  ::v-deep .v-input__slot{
+    @include responsive-value("height", 120, 60, $bp_laptop);
+  }
+  ::v-deep textarea{
+    @include responsive-value("font-size", 16, 12, $bp_laptop);
+  }
+}
+.btn-group{
+  display: flex;
+  gap: 30px;
+  @media (max-width: 445px) {
+    display: flex;
+    justify-content: center;
+  }
+  .v-btn{
+    @include responsive-value("width", 100, 80, 400);
+    ::v-deep .v-btn__content{
+      @include responsive-value("font-size", 14, 11, $bp_tablet)
+    }
+  }
 }
 </style>

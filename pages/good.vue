@@ -10,14 +10,16 @@
     </div>
     <div v-if="!loading">
       <Info />
-      <v-tabs class="tabs" color="#E31F26" left>
-        <v-tab to="/good/" nuxt exact>
-          Description
-        </v-tab>
-        <v-tab to="/good/comments/" nuxt>
-          Comments
-        </v-tab>
-      </v-tabs>
+      <div class="tabs-wrapper">
+        <v-tabs class="tabs" color="#E31F26" left>
+          <v-tab to="/good/" nuxt exact>
+            Description
+          </v-tab>
+          <v-tab to="/good/comments/" nuxt>
+            Comments
+          </v-tab>
+        </v-tabs>
+      </div>
       <nuxt-child />
       <recommendations />
       <sharing-block />
@@ -43,9 +45,7 @@ export default @Component({
   },
   data () {
     return {
-      loading: true,
-      progressInterval: {},
-      value: 0
+      loading: true
     }
   },
   created () {
@@ -60,15 +60,10 @@ class Index extends Vue {
 </script>
 
 <style lang="scss">
-@import "./assets/css/good-media";
-
 .container{
   padding: 0;
   margin: 0 auto;
   max-width: 1280px;
-  @media only screen and (max-width: 1310px) {
-    padding: 0 12px;
-  }
 }
 .progress-circular{
   display: flex;
@@ -76,13 +71,21 @@ class Index extends Vue {
   justify-content: center;
   align-items: center;
 }
-.tabs {
+.tabs-wrapper{
+  @media only screen and (max-width: 1310px) {
+    padding: 0 12px;
+  }
+}
+.v-tabs{
   margin-top: 30px;
-  height: 100%;
-  font-size: 14px;
-  font-weight: 500;
-  &:hover{
-    background-color: #aaaaaa2b;
+  a {
+    @include responsive-value("font-size", 14, 12, $bp_tablet);
+    @include responsive-value("padding", 16, 10, $bp_tablet);
+    font-weight: 500;
+    height: 100%;
+    &:hover {
+      background-color: #aaaaaa2b;
+    }
   }
 }
 </style>

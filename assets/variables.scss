@@ -1,6 +1,9 @@
 // Ref: https://github.com/nuxt-community/vuetify-module#customvariables
 //
 // The variables you want to modify
+@import "assets/css/good-media.scss";
+@import "assets/css/good-breakpoints.scss";
+
 $primary   : #E31F26;
 $secondary : #213342;
 $bg        : #f3f3f3;

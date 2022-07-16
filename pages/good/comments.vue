@@ -1,14 +1,18 @@
 <template>
-  <div>
-    <v-tabs class="tabs" color="#E31F26" right>
+  <div class="comments">
+    <v-tabs
+      class="tabs"
+      color="#E31F26"
+      right
+    >
       <v-tab to="/good/comments/" nuxt exact>
-        All Comments
+        All
       </v-tab>
       <v-tab to="/good/comments/my-comments" nuxt>
-        My Comments
+        My
       </v-tab>
       <v-tab to="/good/comments/new-comment" nuxt>
-        Add comment
+        Add
       </v-tab>
     </v-tabs>
     <nuxt-child />
@@ -28,12 +32,12 @@ class Comments extends Vue {
 </script>
 
 <style lang="scss" scoped>
-.tabs {
-  height: 100%;
-  font-size: 14px;
-  font-weight: 500;
-  &:hover{
-    background-color: #aaaaaa2b;
+.comments{
+  @media only screen and (max-width: 1310px) {
+    padding: 0 12px;
   }
+}
+.v-tabs{
+  margin-top: 10px;
 }
 </style>

@@ -114,6 +114,10 @@ a{
 }
 .info{
   margin-top: 30px;
+  background: transparent !important;
+  @media only screen and (max-width: 1310px) {
+    padding: 0 12px;
+  }
   .info-wrapper{
     display: flex;
     background: #fff;

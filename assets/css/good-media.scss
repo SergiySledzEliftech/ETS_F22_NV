@@ -1,27 +1,22 @@
 @import "good-breakpoints";
 
-@mixin bp-1920() {
-  @media (max-width: $breakpoint_1920) {
+@mixin bp_desktop() {
+  @media (max-width: $bp_desktop + px) {
     @content;
   }
 }
-@mixin bp-1400() {
-  @media (max-width: $breakpoint_1400) {
+@mixin bp_laptop() {
+  @media (max-width: $bp_laptop + px) {
     @content;
   }
 }
-@mixin bp-1264() {
-  @media (max-width: $breakpoint_1264) {
+@mixin bp_tablet() {
+  @media (max-width: $bp_tablet + px) {
     @content;
   }
 }
-@mixin bp-960() {
-  @media (max-width: $breakpoint_960) {
-    @content;
-  }
-}
-@mixin bp-320() {
-  @media (max-width: $breakpoint_320) {
+@mixin bp_phone() {
+  @media (max-width: $bp_phone + px) {
     @content;
   }
 }

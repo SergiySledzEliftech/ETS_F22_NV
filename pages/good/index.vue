@@ -2,9 +2,12 @@
   <div class="description">
     <div class="description__common">
       <div class="description__common-item description__details">
-        <h3 class="description__item-title">Description</h3>
+        <h3 class="description__item-title">
+          Description
+        </h3>
         <div class="description__item-content">
-          <p class="description__item-text">Lorem ipsum dolor
+          <p class="description__item-text">
+            Lorem ipsum dolor
             sit amet, consectetur adipisicing elit. Amet cumque
             debitis doloremque dolorum enim, eos ex expedita ipsum
             laudantium minima, molestiae natus necessitatibus nihil
@@ -13,12 +16,18 @@
             explicabo id, impedit inventore labore magni officiis
             pariatur repellat reprehenderit, voluptatum!
           </p>
-          <button class="btn_more red-txt">More details</button>
-          <button class="btn_less red-txt">Hide details</button>
+          <button class="btn_more red-txt">
+            More details
+          </button>
+          <button class="btn_less red-txt">
+            Hide details
+          </button>
         </div>
       </div>
       <div class="description__common-item">
-        <h3 class="description__item-title">In map</h3>
+        <h3 class="description__item-title">
+          In map
+        </h3>
         <div class="description__item-map">
           <Map />
         </div>
@@ -35,20 +44,24 @@
               style="border: 0"
             >
               <div class="description__tables-table description__params">
-                <h3 class="description__item-title">Good's properties</h3>
+                <h3 class="description__item-title">
+                  Good's properties
+                </h3>
                 <v-simple-table>
-                  <template v-slot:default>
-                    <tbody>
+                  <tbody>
                     <tr
                       v-for="prop in goodProps.goodParams"
                       :key="prop"
                       class="table-row"
                     >
-                      <td style="border: 0">{{ prop.name }}</td>
-                      <td style="border: 0">{{ prop.value }}</td>
+                      <td style="border: 0">
+                        {{ prop.name }}
+                      </td>
+                      <td style="border: 0">
+                        {{ prop.value }}
+                      </td>
                     </tr>
-                    </tbody>
-                  </template>
+                  </tbody>
                 </v-simple-table>
               </div>
             </v-card>
@@ -61,20 +74,24 @@
               style="border: 0"
             >
               <div class="description__location">
-                <h3 class="description__item-title">Location</h3>
+                <h3 class="description__item-title">
+                  Location
+                </h3>
                 <v-simple-table>
-                  <template>
-                    <tbody>
+                  <tbody>
                     <tr
                       v-for="prop in goodProps.goodLocation"
                       :key="prop"
                       class="table-row"
                     >
-                      <td style="border: 0">{{ prop.name }}</td>
-                      <td style="border: 0">{{ prop.value }}</td>
+                      <td style="border: 0">
+                        {{ prop.name }}
+                      </td>
+                      <td style="border: 0">
+                        {{ prop.value }}
+                      </td>
                     </tr>
-                    </tbody>
-                  </template>
+                  </tbody>
                 </v-simple-table>
               </div>
             </v-card>
@@ -85,20 +102,24 @@
               style="border: 0"
             >
               <div class="description__tables-table description__another">
-                <h3 class="description__item-title">Another</h3>
+                <h3 class="description__item-title">
+                  Another
+                </h3>
                 <v-simple-table>
-                  <template v-slot:default>
-                    <tbody>
+                  <tbody>
                     <tr
                       v-for="prop in goodProps.goodAnotherProps"
                       :key="prop"
                       class="table-row "
                     >
-                      <td style="border: 0">{{ prop.name }}</td>
-                      <td style="border: 0">{{ prop.value }}</td>
+                      <td style="border: 0">
+                        {{ prop.name }}
+                      </td>
+                      <td style="border: 0">
+                        {{ prop.value }}
+                      </td>
                     </tr>
-                    </tbody>
-                  </template>
+                  </tbody>
                 </v-simple-table>
               </div>
             </v-card>
@@ -114,7 +135,7 @@ import { Vue, Component } from 'nuxt-property-decorator'
 import Map from '~/components/good/Map'
 
 export default @Component({
-  name: 'Description',
+  name: 'DescriptionTab',
   components: {
     Map
   },
@@ -124,7 +145,7 @@ export default @Component({
         goodParams: [
           {
             name: 'Model',
-            value: 'RWER234'
+            value: 'ROWER234'
           },
           {
             name: 'Count',
@@ -183,21 +204,35 @@ export default @Component({
     }
   }
 })
-class Description extends Vue {}
+class DescriptionTab extends Vue {}
 </script>
 
 <style lang="scss" scoped>
+h3{
+  @include responsive-value("font-size", 35, 20, $bp_laptop);
+  @include responsive-value("margin-top", 30, 15, 960);
+  @include responsive-value("margin-bottom", 15, 5, 960);
+}
 .description{
-  margin-top: 30px;
+  @include responsive-value("margin-top", 30, 15, 960);
+  @media only screen and (max-width: 1310px) {
+    padding: 0 12px;
+  }
   .description__common{
     display: flex;
     gap: 60px;
-    margin-bottom: 60px;
+    margin-bottom: 30px;
+    @media (max-width: $bp_tablet + px) {
+      display: flex;
+      gap: 0;
+      flex-direction: column;
+    }
     .description__common-item{
       width: 100%;
     }
     .description__item-text{
       margin-bottom: 10px;
+      @include responsive-value("font-size", 18, 12, $bp_laptop);
     }
     .btn_more,
     .btn_less{
@@ -234,10 +269,6 @@ class Description extends Vue {}
       }
     }
   }
-  .description__item-title{
-    margin-bottom: 20px;
-  }
-
 }
 .table-row{
   &:nth-child(even){
