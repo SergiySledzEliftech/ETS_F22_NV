@@ -1,5 +1,5 @@
 <template>
-  <div class="card-item">
+  <div class="card__item">
     <v-card
       flat
       class=""
@@ -10,21 +10,21 @@
       "
     >
       <v-card-title class="py-2 pr-2" style="display:flex; align-items:center;">
-        <v-avatar size="40">
+        <v-avatar class="card__item-avatar">
           <img
             alt="user"
             src="https://cdn.pixabay.com/photo/2020/06/24/19/12/cabbage-5337431_1280.jpg"
           >
         </v-avatar>
-        <p class="ma-0 ml-2">
+        <p class="ma-0 ml-2 card__item-name">
           John Doe
         </p>
         <v-spacer />
-        <p class="ma-0 mr-1" style="font-size: 14px;">
+        <p class="ma-0 mr-1 card__item-date" style="font-size: 14px;">
           07.07.2022
         </p>
         <v-card-actions
-          class="pa-0"
+          class="pa-0 btn-basket basket_active"
         >
           <v-btn
             text
@@ -47,7 +47,7 @@
           readonly
           size="20"
         />
-        <p class="ma-0 mt-2 fs-14">
+        <p class="ma-0 mt-2 card__item-text">
           Мав до цього 24 дюймовий вигнутий Самсунг.
           Взяв цей монітор як основний, Самсунг поставив поруч.
           Якість картинки не гірша, а чорний колір вигляає
@@ -57,20 +57,20 @@
         </p>
       </v-card-text>
 
-      <v-card-title class="py-0 pt-2 fs-16">
+      <v-card-title class="py-0 pt-2 card__item-subtitle">
         Advantages
       </v-card-title>
       <v-card-text class="py-0">
-        <p class="ma-0 fs-14">
+        <p class="ma-0 card__item-text">
           Мав до цього 24 дюймовий вигнутий Самсунг.
           Взяв цей монітор як основний, Самсунг поставив поруч.
         </p>
       </v-card-text>
-      <v-card-title class="py-0 pt-2 fs-16">
+      <v-card-title class="py-0 pt-2 card__item-subtitle">
         Disadvantages
       </v-card-title>
       <v-card-text class="py-0">
-        <p class="ma-0 fs-14">
+        <p class="ma-0 card__item-text">
           Мав до цього 24 дюймовий вигнутий Самсунг.
         </p>
       </v-card-text>
@@ -83,13 +83,13 @@
             style="width: 30px; height: 30px"
             text
             icon
-            color="blue lighten-1"
+            color="blue lighten-2"
           >
-            <v-icon size="18">
+            <v-icon size="18" class="like">
               mdi-thumb-up
             </v-icon>
           </v-btn>
-          <p class="fs-14 ma-0 mr-2">
+          <p class="ma-0 mr-2 card__item-text">
             2
           </p>
           <v-btn
@@ -97,13 +97,13 @@
             style="width: 30px; height: 30px"
             text
             icon
-            color="red lighten-1"
+            color="red lighten-2"
           >
-            <v-icon size="18">
+            <v-icon size="18" class="dislike">
               mdi-thumb-down
             </v-icon>
           </v-btn>
-          <p class="fs-14 ma-0">
+          <p class="ma-0 card__item-text">
             0
           </p>
         </v-row>
@@ -117,8 +117,11 @@ import { Vue, Component } from 'nuxt-property-decorator'
 
 export default @Component({
   name: 'CommentItem',
-  components: {
-
+  components: {},
+  data () {
+    return {
+      like: true
+    }
   }
 })
 
@@ -143,12 +146,49 @@ class CommentItem extends Vue {
     pointer-events: none;
     transition: opacity .2s cubic-bezier(.4, 0, .6, 1);
   }
+  /*
+  ::v-deep .like{
+    background-color: rgba(10, 127, 229, 0.63) !important;
+    border-radius: 50%;
+  }
+  ::v-deep .dislike{
+    background-color: #dc2113 !important;
+    border-radius: 50%;
+  }
+  */
 }
-.fs-16{
-  font-size: 16px;
+
+.btn-basket{
+  padding: 0 !important;
+  overflow: hidden;
+  opacity: 0;
+}
+.basket_active{
+  opacity: 1;
+  overflow: visible;
+}
+
+.card__item-subtitle,
+.card__item-name{
+  @include responsive-value_important("font-size", 16, 12, $bp_tablet);
   font-weight: 600;
 }
-.fs-14{
-  font-size: 14px;
+
+.card__item-text,
+.card__item-date {
+  @include responsive-value_important("font-size", 14, 10, $bp_tablet);
 }
+
+.card__item-avatar{
+  @include responsive-value_important("width", 40, 30, $bp_tablet);
+  @include responsive-value_important("height", 40, 30, $bp_tablet);
+}
+
+.v-card__title,
+.v-card__text,
+.v-card__actions{
+  @include responsive-value_important("padding-right", 16, 12, $bp_tablet);
+  @include responsive-value_important("padding-left", 16, 12, $bp_tablet);
+}
+
 </style>

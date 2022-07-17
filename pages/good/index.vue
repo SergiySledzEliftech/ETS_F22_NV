@@ -2,9 +2,9 @@
   <div class="description">
     <div class="description__common">
       <div class="description__common-item description__details">
-        <h3 class="description__item-title">
-          Description
-        </h3>
+        <h4 class="description__item-title">
+          Details
+        </h4>
         <div class="description__item-content">
           <p class="description__item-text">
             Lorem ipsum dolor
@@ -25,9 +25,9 @@
         </div>
       </div>
       <div class="description__common-item">
-        <h3 class="description__item-title">
+        <h4 class="description__item-title">
           In map
-        </h3>
+        </h4>
         <div class="description__item-map">
           <Map />
         </div>
@@ -35,8 +35,13 @@
     </div>
     <div class="description__tables">
       <v-container class="lighten-5">
-        <v-row>
-          <v-col class="pa-0" style="margin-right: 60px">
+        <v-row style="display: flex; justify-content: space-between">
+          <v-col
+            cols="12"
+            md="6"
+            lg="6"
+            class="pa-0 px-4 pr-md-8"
+          >
             <v-card
               class="description__tables-table"
               outlined
@@ -44,9 +49,9 @@
               style="border: 0"
             >
               <div class="description__tables-table description__params">
-                <h3 class="description__item-title">
+                <h4 class="description__item-title">
                   Good's properties
-                </h3>
+                </h4>
                 <v-simple-table>
                   <tbody>
                     <tr
@@ -54,10 +59,10 @@
                       :key="prop"
                       class="table-row"
                     >
-                      <td style="border: 0">
+                      <td style="border: 0; width: 50%">
                         {{ prop.name }}
                       </td>
-                      <td style="border: 0">
+                      <td style="border: 0; width: 50%">
                         {{ prop.value }}
                       </td>
                     </tr>
@@ -66,7 +71,12 @@
               </div>
             </v-card>
           </v-col>
-          <v-col class="pa-0 ">
+          <v-col
+            cols="12"
+            md="6"
+            lg="6"
+            class="pa-0 px-4 pl-md-8"
+          >
             <v-card
               class="mb-11 description__tables-table"
               outlined
@@ -74,9 +84,9 @@
               style="border: 0"
             >
               <div class="description__location">
-                <h3 class="description__item-title">
+                <h4 class="description__item-title">
                   Location
-                </h3>
+                </h4>
                 <v-simple-table>
                   <tbody>
                     <tr
@@ -84,10 +94,10 @@
                       :key="prop"
                       class="table-row"
                     >
-                      <td style="border: 0">
+                      <td style="border: 0; width: 50%">
                         {{ prop.name }}
                       </td>
-                      <td style="border: 0">
+                      <td style="border: 0; width: 50%">
                         {{ prop.value }}
                       </td>
                     </tr>
@@ -102,9 +112,9 @@
               style="border: 0"
             >
               <div class="description__tables-table description__another">
-                <h3 class="description__item-title">
+                <h4 class="description__item-title">
                   Another
-                </h3>
+                </h4>
                 <v-simple-table>
                   <tbody>
                     <tr
@@ -112,10 +122,10 @@
                       :key="prop"
                       class="table-row "
                     >
-                      <td style="border: 0">
+                      <td style="border: 0; width: 50%">
                         {{ prop.name }}
                       </td>
-                      <td style="border: 0">
+                      <td style="border: 0; width: 50%">
                         {{ prop.value }}
                       </td>
                     </tr>
@@ -208,13 +218,13 @@ class DescriptionTab extends Vue {}
 </script>
 
 <style lang="scss" scoped>
-h3{
-  @include responsive-value("font-size", 35, 20, $bp_laptop);
-  @include responsive-value("margin-top", 30, 15, 960);
-  @include responsive-value("margin-bottom", 15, 5, 960);
+h4{
+  @include responsive-value("font-size", 30, 18 , $bp_laptop);
+  @include responsive-value("margin-top", 30, 15, $bp_tablet);
+  @include responsive-value("margin-bottom", 15, 5, $bp_tablet);
 }
 .description{
-  @include responsive-value("margin-top", 30, 15, 960);
+  @include responsive-value("margin-top", 30, 15, $bp_tablet);
   @media only screen and (max-width: 1310px) {
     padding: 0 12px;
   }
@@ -282,6 +292,9 @@ tbody {
     }
     &:hover:nth-child(odd){
       background-color: #fff !important;
+    }
+    td{
+      @include responsive-value_important("font-size", 14, 12, $bp_tablet);
     }
   }
 }
