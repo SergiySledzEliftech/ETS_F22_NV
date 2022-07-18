@@ -57,15 +57,7 @@ import { Vue, Component } from 'nuxt-property-decorator'
 
 export default @Component({
   name: 'PaymentCard',
-  components: {},
-  props: {
-    pay_goods: {
-      type: Array,
-      default () {
-        return []
-      }
-    }
-  }
+  components: {}
 })
 
 class PaymentCard extends Vue {
