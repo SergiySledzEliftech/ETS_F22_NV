@@ -38,12 +38,12 @@ export default {
     '@nuxtjs/eslint-module',
     // https://go.nuxtjs.dev/vuetify
     '@nuxtjs/vuetify',
-     ['@nuxtjs/fontawesome', {
+    ['@nuxtjs/fontawesome', {
       component: 'fa',
-       icons:{
+      icons: {
         solid: true,
         regular: true,
-        brands:true
+        brands: true
       }
     }]
   ],

@@ -1,38 +1,55 @@
-<template lang="pug">
-  .card
-    .wrapper
-      .conteiner
-        .card-header
-          .card-header__info-sum
-            .div
-              p До сплати
-            .div
-              P
-                span 520.00
-                span грн
-          .card-header__info-text
-            .div
-              p Оплата за замовлення №740070864 на суму 520 грн, в т.ч. ПДВ
-          .card-header__text
-        .card-form
-          .card-form__inner
-            .card-form__count
-              .card-form__card
-                label Номер картки
-                input(type='text' class='input' placeholder='**** **** **** ****')
-              .card-form__validaty
-                .card-form__validity-date(class='validate')
-                  .validity-date__inner
-                    label Термін дії:
-                    input(type='text' class='input input--validate' placeholder='MM / YY')
-                .card-form__validity-cvv(class='validate')
-                  .validity-date__inner
-                    label CVV
-                    input(type='text' class='input input--validate' placeholder='XXX')
-        .card-button
-          button(
-            class='btn--card'
-            ) PAYMENT
+<template>
+  <div class="card">
+    <div class="wrapper">
+      <div class="conteiner">
+        <div class="card-header">
+          <div class="card-header__info-sum">
+            <div>
+              <p>До сплати</p>
+            </div>
+            <div>
+              <p>
+                <span>520.00</span>
+                <span> uah</span>
+              </p>
+            </div>
+          </div>
+          <div class="card-header__info-text">
+            <p>Оплата за замовлення №740070864 на суму 520 грн, в т.ч. ПДВ</p>
+          </div>
+        </div>
+        <div class="card-form">
+          <div class="card-form__inner">
+            <div class="card-form__count">
+              <div class="card-form__card">
+                <label>Номер картки</label>
+                <input type="text" class="input" placeholder="**** **** **** ****">
+              </div>
+              <div class="card-form__validaty">
+                <div class="card-form__validity-date validate">
+                  <div class="validity-date__inner">
+                    <label>Термін дії:</label>
+                    <input type="text" class="input input--validate" placeholder="MM / YY">
+                  </div>
+                </div>
+                <div class="card-form__validity-cvv validate">
+                  <div class="validity-date__inner">
+                    <label>CVV</label>
+                    <input type="text" class="input input--validate" placeholder="XXX">
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="card-button">
+          <button class="btn--card">
+            PAYMENT
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
 </template>
 
 <script>
@@ -51,7 +68,7 @@ export default @Component({
   }
 })
 
-class IndexPaymentCard extends Vue {
+class PaymentCard extends Vue {
 
 }
 </script>
@@ -138,8 +155,8 @@ label
     border-radius: 8px
     margin-bottom: 0
     letter-spacing: 27px
-    font-size: 18px
-    font-weight: normal
+    font-size: 25px
+    font-weight: 700
     background: #183153
     color: #fff
     border-color: #E31F26
