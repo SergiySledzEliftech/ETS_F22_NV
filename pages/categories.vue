@@ -33,8 +33,8 @@
           >
             <template #item="{ item }">
               <v-list-item-content>
-                <v-list-item-title v-text="item.title" />
-                <v-list-item-subtitle v-text="item.category" />
+                <v-list-item-title> {{ item.title }}</v-list-item-title>
+                <v-list-item-subtitle> {{ item.category }}</v-list-item-subtitle>
               </v-list-item-content>
             </template>
           </v-autocomplete>
@@ -136,7 +136,7 @@
                 color="teal"
                 plain
                 height="40px"
-                @click="`${ sortNewOrUsed = 'new' }`"
+                @click="sortNewOrUsed = 'new'"
               >
                 new
               </v-btn>
@@ -148,7 +148,7 @@
                 color="teal"
                 plain
                 height="40px"
-                @click="`${ sortNewOrUsed = 'used' }`"
+                @click="sortNewOrUsed = 'used'"
               >
                 used
               </v-btn>
@@ -181,7 +181,7 @@
           <div class="ml-auto d-flex flex-column">
             <!--↓ CLEAR SORT ↓ -->
             <v-btn
-              :style="{visibility: isFree || isAvailable || priceMaxValue || sortNewOrUsed ? 'visible' : 'hidden'}"
+              :style="showBtn()"
               dark
               small
               outlined
@@ -312,6 +312,7 @@
 import { Component, Vue, Watch } from 'nuxt-property-decorator';
 import ItemsList from '@/components/list/ItemsList';
 import SingleItem from '@/components/list/SingleItem';
+import { productProps, products } from '@/pages/test';
 
 export default @Component({
   name: 'Nazar',
@@ -339,6 +340,77 @@ class Nazar extends Vue {
   goods = []
   categories = []
   searchingItems = []
+
+  @Watch('isSearch')
+  searchWatch (value) {
+    if (value) {
+      this.fetchEntriesDebounced(value, this.searching, 1000);
+    }
+  }
+
+  async searching (searchValue) {
+    this.isLoading = true;
+    try {
+      const { products } = await this.$axios.$get(`https://dummyjson.com/products/search?q=${searchValue}`);
+      this.searchingItems = products.map(({
+        title,
+        category
+      }) => ({
+        title,
+        category
+      }));
+      if (this.autocompleteValue) {
+        const { products } = await this.$axios.$get(`https://dummyjson.com/products/search?q=${searchValue}`);
+        this.goods = products;
+      }
+    } catch (err) {
+      console.log(err.message);
+    } finally {
+      this.isLoading = false;
+    }
+  }
+
+  fetchEntriesDebounced (searchingValue, searchingFn, delay = 500) {
+    clearTimeout(this._searchTimerId);
+    this._searchTimerId = setTimeout(() => {
+      return searchingFn(searchingValue);
+    }, delay); /* delay ms throttle */
+  }
+
+  async fetch () {
+    this.isLoading = true;
+    try {
+      const categories = await this.$axios.$get('https://dummyjson.com/products/categories');
+      // https://dummyjson.com/products?limit=10&skip=10&select=title,price
+      const { products } = await this.$axios.$get('https://dummyjson.com/products?limit=100');
+      this.goods = products;
+      this.categories = categories;
+    } catch (err) {
+      console.log(err.message);
+    } finally {
+      this.isLoading = false;
+    }
+  }
+
+  async searchFromCategory (categoryValue) {
+    this.isLoading = true;
+    try {
+      if (categoryValue) {
+        const { products } = await this.$axios.$get(`https://dummyjson.com/products/category/${categoryValue}`);
+        this.goods = products;
+        this.autocompleteValue = null;
+        console.log(products);
+      }
+    } catch (err) {
+      console.log(err.message);
+    } finally {
+      this.isLoading = false;
+    }
+  }
+
+  showBtn () {
+    return { visibility: this.isFree || this.isAvailable || this.priceMaxValue || this.sortNewOrUsed ? 'visible' : 'hidden' };
+  }
 
   changeView () {
     this.view = this.view === 'grid' ? 'list' : 'grid';
@@ -380,72 +452,6 @@ class Nazar extends Vue {
     this.priceMaxValue = null;
     this.isAvailable = false;
     this.isFree = false;
-  }
-
-  async fetch () {
-    this.isLoading = true;
-    try {
-      const categories = await this.$axios.$get('https://dummyjson.com/products/categories');
-      // https://dummyjson.com/products?limit=10&skip=10&select=title,price
-      const { products } = await this.$axios.$get('https://dummyjson.com/products?limit=100');
-      this.goods = products;
-      this.categories = categories;
-    } catch (err) {
-      console.log(err.message);
-    } finally {
-      this.isLoading = false;
-    }
-  }
-
-  async searchFromCategory (categoryValue) {
-    this.isLoading = true;
-    try {
-      if (categoryValue) {
-        const { products } = await this.$axios.$get(`https://dummyjson.com/products/category/${categoryValue}`);
-        this.goods = products;
-        this.autocompleteValue = null;
-      }
-    } catch (err) {
-      console.log(err.message);
-    } finally {
-      this.isLoading = false;
-    }
-  }
-
-  async searching (searchValue) {
-    this.isLoading = true;
-    try {
-      const { products } = await this.$axios.$get(`https://dummyjson.com/products/search?q=${searchValue}`);
-      this.searchingItems = products.map(({
-        title,
-        category
-      }) => ({
-        title,
-        category
-      }));
-      if (this.autocompleteValue) {
-        const { products } = await this.$axios.$get(`https://dummyjson.com/products/search?q=${searchValue}`);
-        this.goods = products;
-      }
-    } catch (err) {
-      console.log(err.message);
-    } finally {
-      this.isLoading = false;
-    }
-  }
-
-  fetchEntriesDebounced (searchingValue, searchingFn, delay = 500) {
-    clearTimeout(this._searchTimerId);
-    this._searchTimerId = setTimeout(() => {
-      return searchingFn(searchingValue);
-    }, delay); /* delay ms throttle */
-  }
-
-  @Watch('isSearch')
-  searchWatch (value) {
-    if (value) {
-      this.fetchEntriesDebounced(value, this.searching, 1000);
-    }
   }
 }
 
