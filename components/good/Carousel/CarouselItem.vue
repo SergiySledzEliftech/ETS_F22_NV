@@ -10,21 +10,21 @@
 </template>
 
 <script>
-import { Component, Vue } from 'nuxt-property-decorator'
+import { Component, Prop, Vue } from 'nuxt-property-decorator'
 
 export default @Component({
-  name: 'CarouselItem',
-  components: {},
-  props: ['slide', 'currentSlide', 'index', 'direction'],
-  computed: {
-    transitionEffect () {
-      return this.direction === 'right' ? 'slide-out' : 'slide-in'
-    }
-  },
-  transitions: 'fade'
+  components: {}
 })
 
 class CarouselItem extends Vue {
+  @Prop() slide
+  @Prop() currentSlide
+  @Prop() index
+  @Prop() direction
+
+  get transitionEffect () {
+    return this.direction === 'right' ? 'slide-out' : 'slide-in'
+  }
 }
 </script>
 

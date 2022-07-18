@@ -1,15 +1,10 @@
 <template>
-  <div class="card__item">
+  <div>
     <v-card
       flat
-      class=""
-      style="
-        border: 1px solid #d7d7d7;
-        border-radius: 5px;
-        box-shadow: 0 0 2px rgba(33, 33, 33, 0.25);
-      "
+      class="card__item"
     >
-      <v-card-title class="py-2 pr-2" style="display:flex; align-items:center;">
+      <v-card-title class="py-2 pr-2 d-flex align-center">
         <v-avatar class="card__item-avatar">
           <img
             alt="user"
@@ -20,7 +15,7 @@
           John Doe
         </p>
         <v-spacer />
-        <p class="ma-0 mr-1 card__item-date" style="font-size: 14px;">
+        <p class="ma-0 mr-1 card__item-date">
           07.07.2022
         </p>
         <v-card-actions
@@ -80,7 +75,8 @@
         <v-row class="ma-0 d-flex align-center" justify="end">
           <v-btn
             class="ma-0 mr-1"
-            style="width: 30px; height: 30px"
+            width="30"
+            height="30"
             text
             icon
             color="blue lighten-2"
@@ -94,7 +90,8 @@
           </p>
           <v-btn
             class="ma-0 mr-1"
-            style="width: 30px; height: 30px"
+            width="30"
+            height="30"
             text
             icon
             color="red lighten-2"
@@ -131,6 +128,11 @@ class CommentItem extends Vue {
 </script>
 
 <style lang="scss" scoped>
+.card__item{
+  border: 1px solid #d7d7d7;
+  border-radius: 5px;
+  box-shadow: 0 0 2px rgba(33, 33, 33, 0.25);
+}
 .v-btn{
   ::v-deep &:before{
     content: "";

@@ -4,34 +4,13 @@
       Share on social networks
     </p>
     <ul class="sharing__list">
-      <li class="sharing__item">
-        <a href="#" class="sharing__item-link">
-          <img src="~/assets/img/good-page/facebook.svg" width="40px" height="40px" alt="facebook" class="sharing__item-img">
-        </a>
-      </li>
-      <li class="sharing__item">
-        <a href="#" class="sharing__item-link">
-          <img src="~/assets/img/good-page/telegram.svg" alt="telegram" class="sharing__item-img">
-        </a>
-      </li>
-      <li class="sharing__item">
-        <a href="#" class="sharing__item-link">
-          <img src="~/assets/img/good-page/twitter.svg" alt="twitter" class="sharing__item-img">
-        </a>
-      </li>
-      <li class="sharing__item">
-        <a href="#" class="sharing__item-link">
-          <img src="~/assets/img/good-page/viber.svg" alt="viber" class="sharing__item-img">
-        </a>
-      </li>
-      <li class="sharing__item">
-        <a href="#" class="sharing__item-link">
-          <img src="~/assets/img/good-page/vk.svg" alt="vk" class="sharing__item-img">
-        </a>
-      </li>
-      <li class="sharing__item">
-        <a href="#" class="sharing__item-link">
-          <img src="~/assets/img/good-page/classmates.svg" alt="classmates" class="sharing__item-img">
+      <li
+        v-for="(icon, index) in icons"
+        :key="index"
+        class="sharing__item"
+      >
+        <a :href="icon.link" class="sharing__item-link">
+          <img :src="require('~/assets/img/good-page/' + icon.name + '.svg')" :alt="icon.name" class="sharing__item-img">
         </a>
       </li>
     </ul>
@@ -42,14 +21,35 @@
 import { Vue, Component } from 'nuxt-property-decorator'
 
 export default @Component({
-  name: 'Sharing',
-  components: {
-
-  }
 })
 
 class SharingBlock extends Vue {
-
+  icons = [
+    {
+      link: '#',
+      name: 'facebook'
+    },
+    {
+      link: '#',
+      name: 'telegram'
+    },
+    {
+      link: '#',
+      name: 'twitter'
+    },
+    {
+      link: '#',
+      name: 'viber'
+    },
+    {
+      link: '#',
+      name: 'vk'
+    },
+    {
+      link: '#',
+      name: 'classmates'
+    }
+  ]
 }
 </script>
 

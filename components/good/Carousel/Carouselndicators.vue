@@ -13,16 +13,15 @@
 </template>
 
 <script>
-import { Component, Vue } from 'nuxt-property-decorator'
+import { Component, Prop, Vue } from 'nuxt-property-decorator'
 
 export default @Component({
-  name: 'CarouselIndicators',
-  props: [
-    'indicators', 'currentSlide', 'firstIndicatorIndex'
-  ],
   components: {}
 })
 class CarouselIndicators extends Vue {
+  @Prop() indicators
+  @Prop() currentSlide
+  @Prop() firstIndicatorIndex
 }
 </script>
 <style lang="scss" scoped>

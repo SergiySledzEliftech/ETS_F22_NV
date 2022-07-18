@@ -1,18 +1,15 @@
 <template>
   <div>
-    <comments />
+    <div class="comments-list">
+      Here will be the list of comments
+    </div>
   </div>
 </template>
 
 <script>
 import { Vue, Component } from 'nuxt-property-decorator'
-import Comments from '~/components/good/Comments'
 
-export default @Component ({
-  name: 'AllCommentsTab',
-  components: {
-    Comments
-  }
+export default @Component({
 })
 class AllCommentsTab extends Vue {
 

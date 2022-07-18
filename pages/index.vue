@@ -21,21 +21,15 @@ import TestComponent from '~/components/TestComponent'
 export default @Component({
   components: {
     TestComponent
-  },
-  data () {
-    return {
-      loading: true,
-      progressInterval: {},
-      value: 0
-    }
-  },
-  created () {
-    this.loading = false
   }
 })
 
 class Index extends Vue {
-  title = 'IndexPage';
+  loading = true
+
+  created () {
+    this.loading = false
+  }
 }
 </script>
 

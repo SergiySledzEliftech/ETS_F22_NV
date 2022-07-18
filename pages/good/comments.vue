@@ -2,16 +2,16 @@
   <div class="comments">
     <v-tabs
       class="tabs"
-      color="#E31F26"
+      color="var(--primary)"
       right
     >
-      <v-tab to="/good/comments/" nuxt exact>
+      <v-tab :to="{name: 'good-comments'}" nuxt exact>
         All
       </v-tab>
-      <v-tab to="/good/comments/my-comments" nuxt>
+      <v-tab :to="{name: 'good-comments-my-comments'}" nuxt>
         My
       </v-tab>
-      <v-tab to="/good/comments/new-comment" nuxt>
+      <v-tab :to="{ name: 'good-comments-new-comment'}" nuxt>
         Add
       </v-tab>
     </v-tabs>
@@ -23,11 +23,8 @@
 import { Vue, Component } from 'nuxt-property-decorator'
 
 export default @Component({
-  name: 'Comments',
-  components: {}
 })
 class Comments extends Vue {
-
 }
 </script>
 

@@ -44,17 +44,17 @@
                     +375 (29) 867-33-86
                   </span>
                 </p>
-                <div class="phone__messengers">
-                  <a href="#" class="phone__messengers-link">
-                    <img src="~/assets/img/good-page/viber.svg" alt="viber" class="phone__messengers-ico">
-                  </a>
-                  <a href="#" class="phone__messengers-link">
-                    <img src="~/assets/img/good-page/telegram.svg" alt="telegram" class="phone__messengers-ico">
-                  </a>
-                  <a href="#" class="phone__messengers-link">
-                    <img src="~/assets/img/good-page/facebook.svg" alt="facebook" class="phone__messengers-ico">
-                  </a>
-                </div>
+                <ul class="phone__messengers">
+                  <li
+                    v-for="(messenger, index) in messengers"
+                    :key="index"
+                    class="phone__messengers-link"
+                  >
+                    <a :href="messenger.link">
+                      <img :src="require('~/assets/img/good-page/' + messenger.name + '.svg')" :alt="messenger.name" class="phone__messengers-ico">
+                    </a>
+                  </li>
+                </ul>
               </div>
               <a href="#" class="contacts__list-mail"><span class="red-txt">nina-pv@gmail.com</span></a>
             </div>
@@ -73,7 +73,6 @@ import { Vue, Component } from 'nuxt-property-decorator'
 import Carousel from '~/components/good/Carousel/Carousel'
 
 export default @Component({
-  name: 'Info',
   components: {
     Carousel
   },
@@ -99,7 +98,20 @@ export default @Component({
 })
 
 class Info extends Vue {
-
+  messengers = [
+    {
+      link: '#',
+      name: 'viber'
+    },
+    {
+      link: '#',
+      name: 'telegram'
+    },
+    {
+      link: '#',
+      name: 'facebook'
+    }
+  ]
 }
 </script>
 

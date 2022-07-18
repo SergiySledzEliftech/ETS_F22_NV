@@ -11,11 +11,11 @@
     <div v-if="!loading">
       <Info />
       <div class="tabs-wrapper">
-        <v-tabs class="tabs" color="#E31F26" left>
-          <v-tab to="/good/" nuxt exact>
+        <v-tabs class="tabs" color="var(--primary)" left>
+          <v-tab :to="{ name: 'good' }" nuxt exact>
             Description
           </v-tab>
-          <v-tab to="/good/comments/" nuxt>
+          <v-tab :to="{ name: 'good-comments' }" nuxt>
             Comments
           </v-tab>
         </v-tabs>
@@ -42,20 +42,15 @@ export default @Component({
     Info,
     Recommendations,
     SharingBlock
-  },
-  data () {
-    return {
-      loading: true
-    }
-  },
-  created () {
-    this.loading = false
   }
 })
 
-class Index extends Vue {
-  title = 'Good page';
-  name = 'goodPage'
+class GoodPage extends Vue {
+  loading = true;
+
+  created () {
+    this.loading = false
+  }
 }
 </script>
 
@@ -87,5 +82,11 @@ class Index extends Vue {
       background-color: #aaaaaa2b;
     }
   }
+}
+ul, li{
+  margin: 0;
+  padding: 0;
+  text-indent: 0;
+  list-style-type: none;
 }
 </style>

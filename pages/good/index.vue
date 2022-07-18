@@ -35,7 +35,7 @@
     </div>
     <div class="description__tables">
       <v-container class="lighten-5">
-        <v-row style="display: flex; justify-content: space-between">
+        <v-row class="d-flex justify-space-between">
           <v-col
             cols="12"
             md="6"
@@ -43,10 +43,9 @@
             class="pa-0 px-4 pr-md-8"
           >
             <v-card
-              class="description__tables-table"
+              class="description__tables-table rounded-0"
               outlined
               tile
-              style="border: 0"
             >
               <div class="description__tables-table description__params">
                 <h4 class="description__item-title">
@@ -55,14 +54,14 @@
                 <v-simple-table>
                   <tbody>
                     <tr
-                      v-for="prop in goodProps.goodParams"
-                      :key="prop"
+                      v-for="(prop, index) in goodProps.goodParams"
+                      :key="index"
                       class="table-row"
                     >
-                      <td style="border: 0; width: 50%">
+                      <td class="rounded-0">
                         {{ prop.name }}
                       </td>
-                      <td style="border: 0; width: 50%">
+                      <td class="rounded-0">
                         {{ prop.value }}
                       </td>
                     </tr>
@@ -78,10 +77,9 @@
             class="pa-0 px-4 pl-md-8"
           >
             <v-card
-              class="mb-11 description__tables-table"
+              class="mb-11 description__tables-table rounded-0"
               outlined
               tile
-              style="border: 0"
             >
               <div class="description__location">
                 <h4 class="description__item-title">
@@ -90,14 +88,14 @@
                 <v-simple-table>
                   <tbody>
                     <tr
-                      v-for="prop in goodProps.goodLocation"
-                      :key="prop"
+                      v-for="(prop, index) in goodProps.goodLocation"
+                      :key="index"
                       class="table-row"
                     >
-                      <td style="border: 0; width: 50%">
+                      <td class="rounded-0">
                         {{ prop.name }}
                       </td>
-                      <td style="border: 0; width: 50%">
+                      <td class="rounded-0">
                         {{ prop.value }}
                       </td>
                     </tr>
@@ -106,10 +104,9 @@
               </div>
             </v-card>
             <v-card
-              class="description__tables-table"
+              class="description__tables-table rounded-0"
               outlined
               tile
-              style="border: 0"
             >
               <div class="description__tables-table description__another">
                 <h4 class="description__item-title">
@@ -118,14 +115,14 @@
                 <v-simple-table>
                   <tbody>
                     <tr
-                      v-for="prop in goodProps.goodAnotherProps"
-                      :key="prop"
+                      v-for="(prop, index) in goodProps.goodAnotherProps"
+                      :key="index"
                       class="table-row "
                     >
-                      <td style="border: 0; width: 50%">
+                      <td class="rounded-0">
                         {{ prop.name }}
                       </td>
-                      <td style="border: 0; width: 50%">
+                      <td class="rounded-0">
                         {{ prop.value }}
                       </td>
                     </tr>
@@ -145,76 +142,72 @@ import { Vue, Component } from 'nuxt-property-decorator'
 import Map from '~/components/good/Map'
 
 export default @Component({
-  name: 'DescriptionTab',
   components: {
     Map
-  },
-  data () {
-    return {
-      goodProps: {
-        goodParams: [
-          {
-            name: 'Model',
-            value: 'ROWER234'
-          },
-          {
-            name: 'Count',
-            value: 2
-          },
-          {
-            name: 'Power',
-            value: 440
-          },
-          {
-            name: 'Power',
-            value: 440
-          },
-          {
-            name: 'Power',
-            value: 440
-          },
-          {
-            name: 'Power',
-            value: 440
-          },
-          {
-            name: 'Date',
-            value: 2022
-          }
-        ],
-        goodLocation: [
-          {
-            name: 'Country',
-            value: 'Ukraine'
-          },
-          {
-            name: 'Dnipro',
-            value: 2
-          },
-          {
-            name: 'District',
-            value: 'pr. Polya'
-          },
-          {
-            name: 'Address',
-            value: '555d'
-          }
-        ],
-        goodAnotherProps: [
-          {
-            name: 'Damage',
-            value: 'Ukraine'
-          },
-          {
-            name: 'In use',
-            value: 'Yes'
-          }
-        ]
-      }
-    }
   }
 })
-class DescriptionTab extends Vue {}
+class DescriptionTab extends Vue {
+  goodProps = {
+    goodParams: [
+      {
+        name: 'Model',
+        value: 'ROWER234'
+      },
+      {
+        name: 'Count',
+        value: 2
+      },
+      {
+        name: 'Power',
+        value: 440
+      },
+      {
+        name: 'Power',
+        value: 440
+      },
+      {
+        name: 'Power',
+        value: 440
+      },
+      {
+        name: 'Power',
+        value: 440
+      },
+      {
+        name: 'Date',
+        value: 2022
+      }
+    ],
+    goodLocation: [
+      {
+        name: 'Country',
+        value: 'Ukraine'
+      },
+      {
+        name: 'Dnipro',
+        value: 2
+      },
+      {
+        name: 'District',
+        value: 'pr. Polya'
+      },
+      {
+        name: 'Address',
+        value: '555d'
+      }
+    ],
+    goodAnotherProps: [
+      {
+        name: 'Damage',
+        value: 'Ukraine'
+      },
+      {
+        name: 'In use',
+        value: 'Yes'
+      }
+    ]
+  }
+}
 </script>
 
 <style lang="scss" scoped>
@@ -280,6 +273,9 @@ h4{
     }
   }
 }
+.description__tables-table{
+  border: 0 !important;
+}
 .table-row{
   &:nth-child(even){
     background: $bg;
@@ -294,6 +290,7 @@ tbody {
       background-color: #fff !important;
     }
     td{
+      width: 50% !important;
       @include responsive-value_important("font-size", 14, 12, $bp_tablet);
     }
   }

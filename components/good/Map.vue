@@ -23,19 +23,14 @@
 import { Component, Vue } from 'nuxt-property-decorator'
 
 export default @Component({
-  name: 'Map',
-  components: {},
-  data () {
-    return {
-      loading: true
-    }
-  },
-  created () {
-    this.loading = false
-  }
+  components: {}
 })
 
 class Map extends Vue {
+  loading = true
+  created () {
+    this.loading = false
+  }
 }
 </script>
 
