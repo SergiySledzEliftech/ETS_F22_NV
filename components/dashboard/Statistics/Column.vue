@@ -6,13 +6,13 @@
         class="column"
         min-width="40"
         :color="colors.primary"
-        :height="`${propHeight}%`"
+        :height="`${value / 110}%`"
         v-on="on"
       >
         <div class="animation-div" />
       </v-card>
     </template>
-    <span>{{ propHeight }}%</span>
+    <span>{{ value }} for last {{ hours * 4 }} hours</span>
   </v-tooltip>
 </template>
 
@@ -23,7 +23,8 @@ const { State } = namespace('colors')
 export default @Component
 
 class Column extends Vue {
-  @Prop({ type: Number }) propHeight
+  @Prop({ type: Number }) value
+  @Prop({ type: Number }) hours
 
   @State colors
 }

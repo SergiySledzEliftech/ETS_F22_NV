@@ -7,7 +7,7 @@
       <v-card-title
         class="card-title"
       >
-        {{ name }} statistics
+        {{ name }} <br> for last 24 hours
       </v-card-title>
     </div>
     <div class="statistics-wrapper">
@@ -15,10 +15,10 @@
         <hr v-for="i in 11" :key="i">
       </div>
       <div class="markup-numbers d-flex flex-column-reverse justify-space-between">
-        <span v-for="i in 11" :key="i">{{ (i+"0")-10 }}</span>
+        <span v-for="i in 11" :key="i">{{ i }}K</span>
       </div>
       <div class="statistics d-flex align-end justify-space-between">
-        <column v-for="(el, index) of statisticsValue" :key="index" :prop-height="el" />
+        <column v-for="(el, index) of statisticsValue" :key="index" :value="el" :hours="index+1 " />
       </div>
     </div>
   </v-card>
@@ -34,7 +34,7 @@ export default @Component({
 
 class StatisticsItem extends Vue {
   @Prop() name
-  statisticsValue = [65, 21, 59, 92, 22]
+  @Prop()statisticsValue
 }
 </script>
 
@@ -75,7 +75,7 @@ class StatisticsItem extends Vue {
   position: absolute;
   z-index: 3;
   height: 195px;
-  width: 20px;
+  width: 30px;
   left: 3px;
   bottom: 0;
 
