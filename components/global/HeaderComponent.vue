@@ -122,23 +122,31 @@
           <!--          </v-btn>-->
 
           <div class="login-profile">
-            <v-btn
-              v-if="isLogin"
-              class="ma-2"
-              outlined
-              color="indigo"
+            <nuxt-link
+              v-if="$auth.loggedIn"
+              :to="{ path: '/'}"
             >
-              Profile
-            </v-btn>
-
-            <v-btn
+              <v-btn
+                class="ma-2"
+                outlined
+                color="indigo"
+              >
+                Profile
+              </v-btn>
+            </nuxt-link>
+            <nuxt-link
               v-else
-              class="ma-2 btn-red"
-              outlined
-              color="indigo"
+              :to="{ path: '/auth', hash:'#signin' }"
             >
+              <v-btn
+
+                class="ma-2 btn-red"
+                outlined
+                color="indigo"
+              >
                 Sign in
-            </v-btn>
+              </v-btn>
+            </nuxt-link>
           </div>
 
           <button id="burger" type="button" class="burger">

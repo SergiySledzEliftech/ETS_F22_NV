@@ -3,7 +3,7 @@
     <v-form ref="form" v-model="valid" lazy-validation>
       <v-text-field
         v-model="loginInfo.email"
-        :rules="emailRules"
+        :rules="[emptyValidation(), emailValidation()]"
         label="E-mail"
         type="text"
         required
@@ -13,7 +13,7 @@
       <v-text-field
         v-model="loginInfo.password"
         :append-icon="show ? 'mdi-eye' : 'mdi-eye-off'"
-        :rules="passwordRules"
+        :rules="[emptyValidation(), passwordValidation()]"
         :type="show ? 'text' : 'password'"
         :counter="8"
         label="Password"
@@ -31,6 +31,7 @@
 </template>
 <script>
 import { Component, Vue } from 'nuxt-property-decorator'
+import { emptyValidation, emailValidation, passwordValidation } from '../assets/validators'
 
 export default
   @Component({
@@ -44,27 +45,30 @@ class LoginComponent extends Vue {
       password: ''
     }
 
-    show = false;
-    emailRules = [
-      v => !!v || 'E-mail is required',
-      v => /.+@.+\..+/.test(v) || 'E-mail must be valid'
-    ];
+    data () {
+      return { emptyValidation, emailValidation, passwordValidation }
+    }
 
-    passwordRules = [
-      v => !!v || 'Password is required',
-      v => /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])[0-9a-zA-Z]{8,}$/.test(v) || 'Password must be at least 8 characters, contain at least one lower case, one upper case and one digit'
-    ];
+    show = false;
 
     async validateFunction () {
       if (this.$refs.form.validate()) {
         try {
-          const response = await this.$auth.loginWith('local', { data: this.loginInfo })
-          console.log(response)
+          await this.$auth.loginWith('local', { data: this.loginInfo })
+            .then((resp) => {
+              // this.$auth.setToken('local', 'Bearer ' + resp.data.access_token)
+              // this.$auth.setRefreshToken('local', resp.data.refresh_token)
+              // this.$axios.setHeader('Authorization', 'Bearer ' + resp.data.access_token)
+              // this.$auth.ctx.app.$axios.setHeader('Authorization', 'Bearer ' + resp.data.access_token)
+              this.$axios.get('http://localhost:8000/auth/user').then((resp) => { this.$auth.setUser(resp.data); this.$router.push('/') })
+            })
+          // this.$store.commit('setAuth', auth)
+          console.log(this.$auth.loggedIn)
+          console.log(this.$auth.user)
         } catch (error) {
           console.log(error)
         }
       }
-      console.log(this.loginInfo)
     }
   }
 </script>

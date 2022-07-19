@@ -3,7 +3,7 @@
     <v-form ref="form" v-model="valid" lazy-validation>
       <v-text-field
         v-model="registerInfo.first_name"
-        :rules="firstNameRules"
+        :rules="[emptyValidation(), lengthValidation(10)]"
         label="First Name"
         type="text"
         required
@@ -13,7 +13,7 @@
 
       <v-text-field
         v-model="registerInfo.last_name"
-        :rules="lastNameRules"
+        :rules="[emptyValidation(), lengthValidation(10)]"
         label="Last Name"
         type="text"
         required
@@ -22,7 +22,7 @@
       />
       <v-text-field
         v-model="registerInfo.phone"
-        :rules="phoneRules"
+        :rules="[emptyValidation(), phoneNumberValidation()]"
         label="Phone Number"
         type="text"
         required
@@ -31,7 +31,7 @@
       />
       <v-text-field
         v-model="registerInfo.email"
-        :rules="emailRules"
+        :rules="[emptyValidation(), emailValidation()]"
         label="E-mail"
         type="text"
         required
@@ -42,7 +42,7 @@
       <v-text-field
         v-model="registerInfo.password"
         :append-icon="show ? 'mdi-eye' : 'mdi-eye-off'"
-        :rules="passwordRules"
+        :rules="[emptyValidation(), passwordValidation()]"
         :type="show ? 'text' : 'password'"
         :counter="8"
         label="Password"
@@ -53,7 +53,7 @@
       />
       <v-checkbox
         v-model="checkbox"
-        :rules="checkRules"
+        :rules="[checkboxValidation()]"
         label="I agree with rules"
         color="#E31F26"
         value="red"
@@ -68,6 +68,7 @@
 </template>
 <script>
 import { Component, Vue } from 'nuxt-property-decorator'
+import { emptyValidation, emailValidation, passwordValidation, phoneNumberValidation, lengthValidation, checkboxValidation } from '../assets/validators'
 
 export default
   @Component({
@@ -88,44 +89,20 @@ class RegisterComponent extends Vue {
     show = false;
 
     checkbox = false;
-    firstNameRules = [
-      v => !!v || 'First name is required',
-      v => (v && v.length <= 10) || 'First name must be valid'
-    ];
+    data () {
+      return { emptyValidation, emailValidation, passwordValidation, phoneNumberValidation, lengthValidation, checkboxValidation }
+    }
 
-    lastNameRules = [
-      v => !!v || 'Last Name is required',
-      v => (v && v.length <= 10) || 'Last name must be valid'
-    ];
-
-    phoneRules = [
-      v => !!v || 'Phone Number is required',
-      v => /\(?([0-9]{3})\)?([ .-]?)([0-9]{3})\2([0-9]{4})/.test(v) || 'Please enter valid phone number'
-    ];
-
-    emailRules = [
-      v => !!v || 'E-mail is required',
-      v => /[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?/g.test(v) || 'E-mail must be valid'
-    ];
-
-    passwordRules = [
-      v => !!v || 'Password is required',
-      v => /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])[0-9a-zA-Z]{8,}$/.test(v) || 'Password must be at least 8 characters, contain at least one lower case, one upper case and one digit'
-    ];
-
-    checkRules = [
-      value => !!value || 'You must accept rules to continue'
-    ];
-
-    validateFunction () {
+    async validateFunction () {
       if (this.$refs.form.validate()) {
-        this.$axios.post('http://localhost:8000/auth/signup', this.registerInfo)
-          .then(function (response) {
-            console.log(response)
-          })
-          .catch(function (error) {
-            console.log(error)
-          })
+        await this.$axios.post('http://localhost:8000/auth/signup', this.registerInfo)
+        this.$auth.loginWith('local', { data: this.registerInfo })
+        // .then(function (response) {
+        //   console.log(response)
+        // })
+        // .catch(function (error) {
+        //   console.log(error)
+        // })
         console.log(this.registerInfo)
       }
     }

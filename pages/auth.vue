@@ -8,11 +8,11 @@
               v-model="tab"
               background-color="#F9F9FA"
               dark
-              color="#E31F26"
+              color="var(--primary)"
             >
               <v-tab
                 id="signin"
-                color="#E31F26"
+                color="var(--primary)"
                 class="tab-sign-in"
                 @click="addHashToLocation('signin')"
               >
@@ -20,7 +20,7 @@
               </v-tab>
               <v-tab
                 id="signup"
-                color="#E31F26"
+                color="var(--primary)"
                 class="tab-sign-up"
                 @click="addHashToLocation('signup')"
               >
@@ -77,6 +77,7 @@ class Auth extends Vue {
 }
 </script>
 <style lang="scss" scoped>
+@import '../assets/variables.scss';
 .v-window {
   overflow: hidden !important;
   border-bottom: 5px;
@@ -88,9 +89,7 @@ class Auth extends Vue {
   justify-content: center;
   align-items: center;
 }
-div.v-tabs-slider {
-  color: #e31f26 !important;
-}
+
 .tab-card {
   border-radius: 10px !important;
   box-shadow: 0px 0px 10px rgba(33, 33, 33, 0.25) !important;
