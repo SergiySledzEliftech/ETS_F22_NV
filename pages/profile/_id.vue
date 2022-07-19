@@ -1,23 +1,28 @@
 <template>
   <div>
     <v-row>
-      <v-col class="profile-title">
+      <v-col lg="6" md="12" sm="12" xs="12" class="profile-title">
         <h4>
-          <nuxtLink :to="/profile/ + $route.params.id">
+          <nuxtLink :to="{ name: 'profile-id', params: { id: $route.params.id}}">
             <!--<v-img :src="userData.avatar" alt="avtr" class="avtr" contain />-->
             <div v-if="isMy">
-              Hello, {{ users[currentIndex].name }} {{ users[currentIndex].lastName }}
+              Hello, {{ users[currentIndex].firstName }} {{ users[currentIndex].lastName }}
             </div>
             <div v-else class="center-align">
               <v-img :src="users[currentIndex].avatar" alt="avtr" class="avtr" contain />
-              {{ users[currentIndex].name }} {{ users[currentIndex].lastName }}
+              {{ users[currentIndex].firstName }} {{ users[currentIndex].lastName }}
             </div>
           </nuxtLink>
         </h4>
       </v-col>
-      <v-col>
-        <v-tabs class="tabs" color="#E31F26" right>
-          <v-tab v-for="(tab, index) in (isMy ? tabsCurrentUser : tabsAnotherUser)" :key="index" :to="'/profile/' + $route.params.id + tab.route" exact>
+      <v-col lg="6" md="12" sm="12" xs="12">
+        <v-tabs class="tabs" color="var(--primary)" right show-arrows>
+          <v-tab
+            v-for="(tab, index) in (isMy ? tabsCurrentUser : tabsOtherUser)"
+            :key="index"
+            :to="{ name: tab.route, params: { id: $route.params.id}}"
+            exact
+          >
             <v-icon left>
               mdi-{{ tab.icon }}
             </v-icon>
@@ -31,82 +36,35 @@
 </template>
 
 <script>
-import { Vue, Component } from 'nuxt-property-decorator'
+import { Vue, Component, namespace } from 'nuxt-property-decorator'
+const { State } = namespace('profile')
 
 export default @Component({
-  components: {
-  },
-  computed: {
-    isMy () {
-      return this.myId === +this.$route.params.id
-    }
-  }
+  components: {}
+
 })
 
 class Profile extends Vue {
-  name = 'profile';
+  @State users
 
+  name = 'profile';
   myId = 1;
-  currentIndex = this.$route.params.id - 1
+  currentIndex = this.$route.params.id - 1;
+
+  get isMy () {
+    return this.myId === +this.$route.params.id
+  };
 
   tabsCurrentUser = [
-    { title: 'Profile', route: '/', icon: 'account' },
-    { title: 'My Ads', route: '/ads', icon: 'account-filter' },
-    { title: 'My Rent', route: '/rent', icon: 'home-clock' },
-    { title: 'Favorites', route: '/favorites', icon: 'heart' }
+    { title: 'Profile', route: 'profile-id', icon: 'account' },
+    { title: 'My Ads', route: 'profile-id-ads', icon: 'account-filter' },
+    { title: 'My Rent', route: 'profile-id-rent', icon: 'home-clock' },
+    { title: 'Favorites', route: 'profile-id-favorites', icon: 'heart' }
   ];
 
-  tabsAnotherUser = [
-    { title: 'Profile', route: '/', icon: 'account' },
-    { title: 'Ads', route: '/ads', icon: 'account-filter' }
-  ];
-
-  users = [
-    {
-      id: 1,
-      name: 'John',
-      lastName: 'Doe',
-      nickname: 'GloMaRe',
-      about: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Deserunt libero quidem quos ullam! Commodi, eius.',
-      avatar: 'https://avatars.githubusercontent.com/u/17836236',
-      email: 'JohnDoe@glomail.com',
-      phone: '0987773377',
-      optionalPhone: '0677773377',
-      address: 'Ukraine, Kyiv, Bohdana Khmelnytskogo St., 3',
-      locationX: '50.44469383287712',
-      locationY: '30.52002110354918',
-      rating: 10
-    },
-    {
-      id: 2,
-      name: 'Jane',
-      lastName: 'Doe',
-      nickname: 'GloBale',
-      about: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Deserunt libero quidem quos ullam! Commodi, eius.',
-      avatar: 'https://avatars.githubusercontent.com/u/1783623',
-      email: 'JohnDoe@glomail.com',
-      phone: '0987773377',
-      optionalPhone: '0677773377',
-      address: 'Ukraine, Kyiv, Bohdana Khmelnytskogo St., 3',
-      locationX: '50.44469383287712',
-      locationY: '30.52002110354918',
-      rating: 10
-    },
-    {
-      id: 3,
-      name: 'Jone',
-      lastName: 'Doe',
-      nickname: 'GloMaLe',
-      about: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Deserunt libero quidem quos ullam! Commodi, eius.',
-      avatar: 'https://avatars.githubusercontent.com/u/17836262',
-      email: 'JohnDoe@glomail.com',
-      phone: '0987773377',
-      optionalPhone: '0677773377',
-      address: 'Ukraine, Kyiv, Bohdana Khmelnytskogo St., 3',
-      locationX: '50.44469383287712',
-      locationY: '30.52002110354918',
-      rating: 10
-    }
+  tabsOtherUser = [
+    { title: 'Profile', route: 'profile-id', icon: 'account' },
+    { title: 'Ads', route: 'profile-id-ads', icon: 'account-filter' }
   ]
 }
 </script>

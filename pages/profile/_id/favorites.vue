@@ -29,7 +29,6 @@ const { State } = namespace('profile')
 
 export default @Component({
   name: 'Favorites',
-  layout: 'profile',
   components: { ItemsList, SingleItem }
 })
 

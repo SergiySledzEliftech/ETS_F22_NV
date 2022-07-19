@@ -1,7 +1,7 @@
 <template>
   <v-container class="profile">
-    <v-row class="profile-row">
-      <form id="profile-data" @submit.prevent="save">
+    <v-row class="profile-row" no-gutters>
+      <v-form class="row" ref="form" id="profile-data" @submit.prevent="save">
         <div v-if="isMy" class="float-btn btn-edit">
           <v-btn-toggle v-model="fab">
             <v-btn
@@ -27,18 +27,31 @@
           </v-btn>
         </div>
 
-        <v-col :cols="4">
+        <v-col lg="4" md="4" sm="12" xs="12">
           <v-card class="profile-avtr">
             <v-img :src="user.avatar" alt="avtr" class="avtr" />
-            <div v-if="fab" class="half">
-              <input ref="username" :disabled="!fab" type="text" :value="user.name">
-              <input ref="lastname" :disabled="!fab" type="text" :value="user.lastName">
-              <v-icon v-if="fab" class="edit-icon">
-                mdi-pencil
-              </v-icon>
-            </div>
+            <v-row v-if="fab" class="half row no-gutters">
+              <v-col lg="6" md="6" sm="12" xs="12" class="col-xs-12">
+                <v-text-field
+                  v-model="firstName"
+                  :disabled="!fab"
+                  type="text"
+                  :rules="ruleName"
+                  append-icon="mdi-pencil"
+                />
+              </v-col>
+              <v-col xs="12" sm="12" md="6" lg="6" class="col-xs-12">
+                <v-text-field
+                  v-model="lastName"
+                  :disabled="!fab"
+                  type="text"
+                  :rules="ruleName"
+                  append-icon="mdi-pencil"
+                />
+              </v-col>
+            </v-row>
             <h5 v-else>
-              {{ user.name }} {{ user.lastName }}
+              {{ user.firstName }} {{ user.lastName }}
             </h5>
           </v-card>
           <v-card>
@@ -55,7 +68,7 @@
           </v-card>
         </v-col>
 
-        <v-col :cols="8">
+        <v-col lg="8" md="8" sm="12" xs="12">
           <v-card>
             <v-list-item two-line>
               <v-list-item-content>
@@ -63,10 +76,14 @@
                   Nickname
                 </v-list-item-subtitle>
                 <v-list-item-title>
-                  <input ref="nickname" class="disable-input" :disabled="!fab" type="text" :value="user.nickname">
-                  <v-icon v-if="fab" class="edit-icon">
-                    mdi-pencil
-                  </v-icon>
+                  <v-text-field
+                    v-model="nickname"
+                    class="disable-input"
+                    :disabled="!fab"
+                    type="text"
+                    :rules="ruleNickname"
+                    append-icon="mdi-pencil"
+                  />
                 </v-list-item-title>
               </v-list-item-content>
             </v-list-item>
@@ -76,10 +93,32 @@
                   E-mail
                 </v-list-item-subtitle>
                 <v-list-item-title>
-                  <input ref="email" class="disable-input" :disabled="!fab" type="email" :value="user.email">
-                  <v-icon v-if="fab" class="edit-icon">
-                    mdi-pencil
-                  </v-icon>
+                  <v-text-field
+                    v-model="email"
+                    class="disable-input"
+                    :disabled="!fab"
+                    :rules="ruleEmail"
+                    type="email"
+                    append-icon="mdi-pencil"
+                  />
+                </v-list-item-title>
+              </v-list-item-content>
+            </v-list-item>
+            <v-list-item v-if="isMy" two-line>
+              <v-list-item-content>
+                <v-list-item-subtitle>
+                  Password
+                </v-list-item-subtitle>
+                <v-list-item-title>
+                  <v-text-field
+                    v-model="password"
+                    :append-icon="showPass ? 'mdi-eye' : 'mdi-eye-off'"
+                    class="disable-input"
+                    :disabled="!fab"
+                    :rules="rulePassword"
+                    :type="showPass ? 'text' : 'password'"
+                    @click:append="showPass = !showPass"
+                  />
                 </v-list-item-title>
               </v-list-item-content>
             </v-list-item>
@@ -89,10 +128,14 @@
                   Phone
                 </v-list-item-subtitle>
                 <v-list-item-title>
-                  <input ref="phone" class="disable-input" :disabled="!fab" type="number" :value="user.phone">
-                  <v-icon v-if="fab" class="edit-icon">
-                    mdi-pencil
-                  </v-icon>
+                  <v-text-field
+                    v-model="phone"
+                    class="disable-input"
+                    :disabled="!fab"
+                    type="text"
+                    :rules="rulePhone"
+                    append-icon="mdi-pencil"
+                  />
                 </v-list-item-title>
               </v-list-item-content>
             </v-list-item>
@@ -102,10 +145,14 @@
                   Optional Phone
                 </v-list-item-subtitle>
                 <v-list-item-title>
-                  <input ref="optionalPhone" class="disable-input" :disabled="!fab" type="number" :value="user.optionalPhone">
-                  <v-icon v-if="fab" class="edit-icon">
-                    mdi-pencil
-                  </v-icon>
+                  <v-text-field
+                    v-model="optionalPhone"
+                    class="disable-input"
+                    :disabled="!fab"
+                    type="text"
+                    :rules="ruleOptionalPhone"
+                    append-icon="mdi-pencil"
+                  />
                 </v-list-item-title>
               </v-list-item-content>
             </v-list-item>
@@ -115,10 +162,14 @@
                   Address
                 </v-list-item-subtitle>
                 <v-list-item-title>
-                  <input ref="address" class="disable-input" :disabled="!fab" type="text" :value="user.address">
-                  <v-icon v-if="fab" class="edit-icon">
-                    mdi-pencil
-                  </v-icon>
+                  <v-text-field
+                    v-model="address"
+                    class="disable-input"
+                    :disabled="!fab"
+                    type="text"
+                    :rules="ruleAddress"
+                    append-icon="mdi-pencil"
+                  />
                 </v-list-item-title>
               </v-list-item-content>
             </v-list-item>
@@ -128,13 +179,27 @@
                   Location
                 </v-list-item-subtitle>
                 <v-list-item-title>
-                  <div class="half">
-                    <input ref="locationx" :disabled="!fab" type="text" :value="user.locationX">
-                    <v-icon v-if="fab" class="edit-icon">
-                      mdi-pencil
-                    </v-icon>
-
-                    <input ref="locationy" :disabled="!fab" type="text" :value="user.locationY">
+                  <div class="half row no-gutters">
+                    <v-col xs="12" sm="12" md="6" lg="6">
+                      <v-text-field
+                        v-model="locationX"
+                        class="disable-input"
+                        :disabled="!fab"
+                        type="text"
+                        :rules="ruleLocation"
+                        append-icon="mdi-pencil"
+                      />
+                    </v-col>
+                    <v-col xs="12" sm="12" md="6" lg="6">
+                      <v-text-field
+                        v-model="locationY"
+                        class="disable-input"
+                        :disabled="!fab"
+                        type="text"
+                        :rules="ruleLocation"
+                        append-icon="mdi-pencil"
+                      />
+                    </v-col>
                   </div>
                 </v-list-item-title>
               </v-list-item-content>
@@ -145,94 +210,174 @@
                   About
                 </v-list-item-subtitle>
                 <v-list-item-title>
-                  <textarea ref="about" class="disable-input" :disabled="!fab" :value="user.about" />
+                  <v-textarea
+                    v-model="about"
+                    class="disable-input"
+                    :disabled="!fab"
+                    maxlength="240"
+                    rows="4"
+                    counter
+                    :rules="ruleAbout"
+                  />
                 </v-list-item-title>
               </v-list-item-content>
             </v-list-item>
           </v-card>
         </v-col>
-      </form>
+      </v-form>
     </v-row>
   </v-container>
 </template>
 
 <script>
-import { Vue, Component } from 'nuxt-property-decorator'
+import { Vue, Component, Prop } from 'nuxt-property-decorator'
+import {
+  emailValidation, emptyValidation, preventHtmlValidation, preventCapitalsValidation,
+  phoneNumberValidation, allowDigitsOnlyValidation, minLengthValidation, lengthValidation,
+  numberValidation
+} from '~/helpers/validators.js'
 
 export default @Component({
   name: 'profileIndex',
-  layout: 'profile',
-  components: {
-  },
-  props: {
-    user: {
-      type: Object,
-      required: true
-    },
-    isMy: {
-      type: Boolean,
-      required: true
-    }
-  },
-  computed: {
-
-  },
-  methods: {
-    cancelEdit () {
-      if (this.fab) {
-        this.$refs.username.value = ''
-        this.$refs.lastname.value = ''
-        this.$refs.nickname.value = ''
-        this.$refs.email.value = ''
-        this.$refs.phone.value = ''
-        this.$refs.optionalPhone.value = ''
-        this.$refs.address.value = ''
-        this.$refs.locationx.value = ''
-        this.$refs.locationy.value = ''
-        this.$refs.about.value = ''
-      }
-    },
-    save () {
-      // const userNameIsOk
-      // const userNameIsOk
-      // const lastNameIsOk
-      // const nickNameIsOk
-      // const emailIsOk
-      // const phoneIsOk
-      // const optionalPhoneIsOk
-      // const addressIsOk
-      // const locationXIsOk
-      // const locationYIsOk
-      //
-      // const formIsValid = userNameIsOk && lastNameIsOk && nickNameIsOk && emailIsOk && phoneIsOk && optionalPhoneIsOk && addressIsOk && locationXIsOk && locationYIsOk
-
-      // if (formIsValid) {
-      this.user.name = this.$refs.username.value
-      this.user.lastName = this.$refs.lastname.value
-      this.user.nickname = this.$refs.nickname.value
-      this.user.email = this.$refs.email.value
-      this.user.phone = this.$refs.phone.value
-      this.user.optionalPhone = this.$refs.optionalPhone.value
-      this.user.address = this.$refs.address.value
-      this.user.about = this.$refs.about.value
-      this.user.locationX = this.$refs.locationx.value
-      this.user.locationY = this.$refs.locationy.value
-      alert('saved')
-      this.fab = false
-      // } else {
-      //   alert('error')
-      // }
-    }
-  }
+  components: {}
 })
 
 class Config extends Vue {
-  fab = false // toggle for edit button
+  @Prop({ type: Object, required: true }) isMy
+  @Prop({ type: Object, required: true }) user;
+
+  mounted () {
+    this.defaultUser = Object.assign(this.user)
+    this.nickname = this.user.nickname
+    this.firstName = this.user.firstName
+    this.lastName = this.user.lastName
+    this.password = this.user.password
+    this.about = this.user.about
+    this.email = this.user.email
+    this.phone = this.user.phone
+    this.optionalPhone = this.user.optionalPhone
+    this.locationX = this.user.location.locationX
+    this.locationY = this.user.location.locationY
+    this.address = this.user.location.address
+  }
+
+  fab = false; // toggle for edit button
+  showPass = false
+
+  firstName = ''
+  lastName = ''
+  nickname = ''
+  password = ''
+  about = ''
+  email = ''
+  phone = ''
+  optionalPhone = ''
+  locationX = ''
+  locationY = ''
+  address = ''
+  defaultUser = {}
+
+  ruleEmail = [
+    emailValidation(),
+    emptyValidation(),
+    preventHtmlValidation()
+  ]
+
+  ruleName = [
+    preventHtmlValidation(),
+    emptyValidation(),
+    preventCapitalsValidation(),
+    minLengthValidation(3)
+  ]
+
+  ruleNickname = [
+    preventHtmlValidation(),
+    minLengthValidation(3)
+  ]
+
+  ruleAbout = [
+    preventHtmlValidation(),
+    minLengthValidation(20),
+    lengthValidation(240)
+  ]
+
+  ruleLocation = [
+    preventHtmlValidation(),
+    numberValidation()
+  ]
+
+  rulePhone = [
+    preventHtmlValidation(),
+    phoneNumberValidation(),
+    emptyValidation(),
+    allowDigitsOnlyValidation()
+  ]
+
+  ruleOptionalPhone = [
+    preventHtmlValidation(),
+    phoneNumberValidation(),
+    allowDigitsOnlyValidation()
+  ]
+
+  ruleAddress = [
+    preventHtmlValidation(),
+    preventCapitalsValidation(),
+    minLengthValidation(3)
+  ]
+
+  rulePassword = [
+    emptyValidation(),
+    minLengthValidation(8),
+    lengthValidation(32)
+  ]
+
+  cancelEdit () {
+    if (this.fab) {
+      this.nickname = this.defaultUser.nickname
+      this.firstName = this.defaultUser.firstName
+      this.lastName = this.defaultUser.lastName
+      this.password = this.defaultUser.password
+      this.about = this.defaultUser.about
+      this.email = this.defaultUser.email
+      this.phone = this.defaultUser.phone
+      this.optionalPhone = this.defaultUser.optionalPhone
+      this.locationX = this.defaultUser.location.locationX
+      this.locationY = this.defaultUser.location.locationY
+      this.address = this.defaultUser.location.address
+
+      this.showPass = false
+    }
+  };
+
+  save () {
+    if (this.$refs.form.validate()) {
+      alert('Saved')
+      this.fab = false
+      this.showPass = false
+    } else {
+      alert('Please enter valid data')
+    }
+  }
 }
 
 </script>
 
 <style lang="scss">
+@media screen and (max-width: 960px) {
+  .profile {
+    .profile-row {
+      .v-card {
+        .half {
+          display: block;
+
+          & > :first-child {
+            padding-right: 0 !important;
+          }
+        }
+      }
+    }
+  }
+}
 
 .profile {
   .profile-row {
@@ -243,36 +388,41 @@ class Config extends Vue {
       background-color: transparent;
 
       .half {
-        display: flex;
-        position: relative;
-        justify-content: center;
+
+        //display: flex;
+        //position: relative;
+        width: 100%;
+        //justify-content: center;
 
         input {
-          width: 50%;
+          //width: 50%;
         }
 
-        & :first-child {
-          margin-right: 5px;
+        & > :first-child {
+          padding-right: 5px;
         }
       }
 
       .edit-icon {
         position: absolute;
-        right: 5px;
+        right: 0;
+        bottom: 50%;
       }
 
-      input, textarea {
-        padding: 5px 0;
-        border-bottom: 1px solid black;
-        width: 100%;
+      .v-text-field {
+        padding-top: 0;
+        margin-top: 0;
+      }
 
-        &:disabled {
-          border-bottom: 1px solid transparent;
+      .v-input--is-disabled  {
+        input, textarea {
           color: black;
         }
-
-        &:focus-visible {
-          outline-color: transparent;
+        .v-counter, .v-input__append-inner {
+          visibility: hidden;
+        }
+        .v-input__slot:before {
+          content: none;
         }
       }
 
@@ -351,8 +501,13 @@ class Config extends Vue {
     flex-direction: column;
     align-items: center;
 
+    h5 {
+      margin-bottom: 35px;
+    }
+
     .avtr {
       margin-bottom: 10px;
+      max-width: 200px;
     }
   }
 }

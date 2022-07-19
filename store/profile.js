@@ -167,8 +167,63 @@ export const state = () => ({
       expired: '12.07.2022 19:30'
 
     }
+  ],
+  users: [
+    {
+      id: 1,
+      firstName: 'John',
+      lastName: 'Doe',
+      nickname: 'GloMaRe',
+      password: '12345678',
+      about: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Deserunt libero quidem quos ullam! Commodi, eius.',
+      avatar: 'https://avatars.githubusercontent.com/u/17836236',
+      email: 'JohnDoe@glomail.com',
+      phone: '0987773377',
+      optionalPhone: '0677773377',
+      location: {
+        address: 'Ukraine, Kyiv, Bohdana Khmelnytskogo St., 3',
+        locationX: '50.44469383287712',
+        locationY: '30.52002110354918'
+      },
+      rating: 10
+    },
+    {
+      id: 2,
+      firstName: 'Jane',
+      lastName: 'Doe',
+      nickname: 'GloBale',
+      password: '12345678',
+      about: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Deserunt libero quidem quos ullam! Commodi, eius.',
+      avatar: 'https://avatars.githubusercontent.com/u/1783623',
+      email: 'JohnDoe@glomail.com',
+      phone: '0987773377',
+      optionalPhone: '0677773377',
+      location: {
+        address: 'Ukraine, Kyiv, Bohdana Khmelnytskogo St., 3',
+        locationX: '50.44469383287712',
+        locationY: '30.52002110354918'
+      },
+      rating: 10
+    },
+    {
+      id: 3,
+      firstName: 'Jone',
+      lastName: 'Doe',
+      nickname: 'GloMaLe',
+      password: '12345678',
+      about: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Deserunt libero quidem quos ullam! Commodi, eius.',
+      avatar: 'https://avatars.githubusercontent.com/u/17836262',
+      email: 'JohnDoe@glomail.com',
+      phone: '0987773377',
+      optionalPhone: '0677773377',
+      location: {
+        address: 'Ukraine, Kyiv, Bohdana Khmelnytskogo St., 3',
+        locationX: '50.44469383287712',
+        locationY: '30.52002110354918'
+      },
+      rating: 10
+    }
   ]
-
 })
 
 export const actions = {
