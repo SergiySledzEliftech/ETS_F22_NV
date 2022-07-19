@@ -18,14 +18,14 @@
         <span v-for="i in 11" :key="i">{{ (i+"0")-10 }}</span>
       </div>
       <div class="statistics d-flex align-end justify-space-between">
-        <Column v-for="(el, index) of statisticsValue" :key="index" :prop-height="el" />
+        <column v-for="(el, index) of statisticsValue" :key="index" :prop-height="el" />
       </div>
     </div>
   </v-card>
 </template>
 
 <script>
-import { Component, Vue, Prop, Provide } from 'nuxt-property-decorator'
+import { Component, Vue, Prop } from 'nuxt-property-decorator'
 import Column from './Column.vue'
 
 export default @Component({
@@ -34,7 +34,7 @@ export default @Component({
 
 class StatisticsItem extends Vue {
   @Prop() name
-  @Provide() statisticsValue = [65, 21, 59, 92, 22]
+  statisticsValue = [65, 21, 59, 92, 22]
 }
 </script>
 

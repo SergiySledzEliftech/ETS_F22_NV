@@ -2,17 +2,18 @@
   <div class="partners-wrapper">
     <h3>Our partners</h3>
     <div class="d-flex align-center flex-wrap justify-space-around partners-wrapper">
-      <PartnersItem :company-name="companyName" :url="url" />
-      <PartnersItem :company-name="companyName" :url="url" />
-      <PartnersItem :company-name="companyName" :url="url" />
-      <PartnersItem :company-name="companyName" :url="url" />
-      <PartnersItem :company-name="companyName" :url="url" />
+      <partners-item
+        v-for="i in 6"
+        :key="i"
+        :company-name="companyName"
+        :url="url"
+      />
     </div>
   </div>
 </template>
 
 <script>
-import { Component, Provide, Vue } from 'nuxt-property-decorator'
+import { Component, Vue } from 'nuxt-property-decorator'
 import PartnersItem from './PartnersItem.vue'
 
 export default @Component({
@@ -20,8 +21,8 @@ export default @Component({
 })
 
 class Partners extends Vue {
-  @Provide() companyName = 'Company'
-  @Provide() url = 'https://upload.wikimedia.org/wikipedia/commons/f/f1/Vue.png'
+  companyName = 'Company'
+  url = 'https://upload.wikimedia.org/wikipedia/commons/f/f1/Vue.png'
 }
 </script>
 

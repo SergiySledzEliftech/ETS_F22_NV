@@ -5,7 +5,7 @@
         v-bind="attrs"
         class="column"
         min-width="40"
-        color="#E31F26"
+        :color="colors.primary"
         :height="`${propHeight}%`"
         v-on="on"
       >
@@ -17,12 +17,15 @@
 </template>
 
 <script>
-import { Component, Vue, Prop } from 'nuxt-property-decorator'
+import { Component, Vue, Prop, namespace } from 'nuxt-property-decorator'
+const { State } = namespace('colors')
 
 export default @Component
 
 class Column extends Vue {
   @Prop({ type: Number }) propHeight
+
+  @State colors
 }
 </script>
 

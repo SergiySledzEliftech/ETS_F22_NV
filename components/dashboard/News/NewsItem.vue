@@ -19,22 +19,15 @@
         <div class="d-flex align-center justify-space-between btn-wrapper">
           <v-btn
             text
-            color="#E31F26"
-            @click="function(){
-              showAllContent = !showAllContent
-              scroll ()
-              return null
-            }"
+            :color="colors.primary"
+            @click="detailsClick"
           >
-            <span class="btn-text">{{ showAllContent ? 'Hide' : 'Details' }}</span>
+            <span class="btn-text">{{ detailsButtonText }}</span>
           </v-btn>
           <v-btn
             text
-            color="#E31F26"
-            @click="function(){
-              rotateY = !rotateY
-              return null
-            }"
+            :color="colors.primary"
+            @click="nextClick"
           >
             <span class="btn-text">Next</span>
           </v-btn>
@@ -45,7 +38,8 @@
 </template>
 
 <script>
-import { Component, Vue, Prop, Provide } from 'nuxt-property-decorator'
+import { Component, Vue, Prop, namespace } from 'nuxt-property-decorator'
+const { State } = namespace('colors')
 
 export default @Component
 
@@ -54,11 +48,26 @@ class NewsItem extends Vue {
   @Prop({ type: String, required: true }) newsItemTitle
   @Prop({ type: String, required: true }) newsItemArticle
 
-  @Provide() showAllContent = false
-  @Provide() rotateY = false
+  @State colors
+
+  showAllContent = false
+  rotateY = false
+  detailsButtonText = 'Hide'
 
   scroll () {
-    document.getElementById('news-header').scrollIntoView()
+    this.$vuetify.goTo('#news-header', {
+      duration: 0
+    })
+  }
+
+  detailsClick () {
+    this.scroll()
+    this.detailsButtonText = this.showAllContent ? 'Hide' : 'Details'
+    this.showAllContent = !this.showAllContent
+  }
+
+  nextClick () {
+    this.rotateY = !this.rotateY
   }
 }
 </script>

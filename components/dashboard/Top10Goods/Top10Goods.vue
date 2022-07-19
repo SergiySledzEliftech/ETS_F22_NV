@@ -12,15 +12,15 @@
           :key="el"
         >
           <v-sheet
-            color="#F9F9FA"
+            :color="colors.bg"
             height="100%"
           >
             <div class="d-md-flex d-none align-center justify-space-around">
-              <ProductCard />
-              <ProductCard />
+              <product-card />
+              <product-card />
             </div>
             <div class="d-flex d-md-none align-center justify-space-around">
-              <ProductCard />
+              <product-card />
             </div>
           </v-sheet>
         </v-carousel-item>
@@ -28,51 +28,58 @@
     </div>
     <div class="d-none d-lg-flex align-center flex-wrap justify-space-around six-elements">
       <div v-for="i in 6" :key="i" class="mb-6 d-flex d-xl-none">
-        <ProductCard />
+        <product-card />
       </div>
       <div class="other-top-goods d-xl-none six-elements" :class="{ otherTopGoodsShow : showAll }">
         <div v-for="i in 4" :key="i" class="mb-6">
-          <ProductCard />
+          <product-card />
         </div>
       </div>
       <div v-for="i in 10" :key="i" class="mb-6 d-none d-xl-flex ten-elements">
-        <ProductCard />
+        <product-card />
       </div>
     </div>
     <div class="buttons-wrapper d-flex align-center justify-space-around mx-auto">
-      <v-btn color="#E31F26">
+      <v-btn :color="colors.primary">
         <span class="btn-white-text">See Other Goods</span>
       </v-btn>
       <v-btn
         color="white"
         class="button d-lg-flex d-none d-xl-none"
-        @click="()=>{
-          showAll = !showAll
-          scrollTop()
-          return null
-        }"
+        @click="showAllClick"
       >
-        <span class="btn-red-text">{{ showAll ? 'Hide' : 'See' }} All Top Goods</span>
+        <span class="btn-red-text">{{ showAllButtonText }} All Top Goods</span>
       </v-btn>
     </div>
   </div>
 </template>
 
 <script>
-import { Component, Vue, Provide } from 'nuxt-property-decorator'
+import { Component, namespace, Vue } from 'nuxt-property-decorator'
 import ProductCard from '../ProductCard/ProductCard.vue'
 
+const { State } = namespace('colors')
 export default @Component({
   components: { ProductCard }
 })
 
 class PremiumGoods extends Vue {
-  @Provide() showAll = false
+  showAll = false
+  showAllButtonText = 'Hide'
+  @State colors
 
   scrollTop () {
     if (!this.showAll) {
-      window.scrollTo({ top: 0, behavior: 'smooth' })
+      this.$vuetify.goTo(0)
     }
+  }
+
+  showAllClick () {
+    this.showAllButtonText = this.showAll ? 'Hide' : 'See'
+    this.showAll = !this.showAll
+    setTimeout(() => {
+      this.scrollTop()
+    }, 100)
   }
 }
 </script>
@@ -135,7 +142,7 @@ class PremiumGoods extends Vue {
 
   .six-elements{
     div{
-      margin-bottom: 50px;
+      margin-bottom: 55px;
     }
   }
 

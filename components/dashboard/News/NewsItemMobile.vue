@@ -16,11 +16,11 @@
 
       <v-card-actions>
         <v-btn
-          color="#E31F26"
+          :color="colors.primary"
           text
-          @click="show = !show"
+          @click="detailsClick"
         >
-          {{ show ? 'Hide' : 'Details' }}
+          {{ btnText }}
         </v-btn>
       </v-card-actions>
       <v-expand-transition>
@@ -37,7 +37,8 @@
 </template>
 
 <script>
-import { Component, Vue, Prop, Provide } from 'nuxt-property-decorator'
+import { Component, Vue, Prop, namespace } from 'nuxt-property-decorator'
+const { State } = namespace('colors')
 
 export default @Component
 
@@ -46,7 +47,15 @@ class NewsItem extends Vue {
   @Prop({ type: String, required: true }) newsItemTitle
   @Prop({ type: String, required: true }) newsItemArticle
 
-  @Provide() show = false
+  @State colors
+
+  show = false
+  btnText = 'Show'
+
+  detailsClick () {
+    this.show = !this.show
+    this.btnText = this.show ? 'Hide' : 'Show'
+  }
 }
 </script>
 

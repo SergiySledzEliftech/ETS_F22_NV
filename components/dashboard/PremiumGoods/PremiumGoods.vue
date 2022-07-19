@@ -16,13 +16,13 @@
           class="d-flex justify-center align-center"
         >
           <div class="d-none d-lg-flex justify-space-around align-center carousel-content-wrapper">
-            <ProductCard v-for="i in 3" :key="i" />
+            <product-card v-for="i in 3" :key="i" />
           </div>
           <div class="d-md-flex d-lg-none d-none justify-space-around align-center carousel-content-wrapper">
-            <ProductCard v-for="i in 2" :key="i" />
+            <product-card v-for="i in 2" :key="i" />
           </div>
           <div class="d-flex d-md-none justify-space-around align-center carousel-content-wrapper">
-            <ProductCard />
+            <product-card />
           </div>
         </v-sheet>
       </v-carousel-item>

@@ -6,7 +6,7 @@
           class="partners-item-wrapper ml-5 mr-5 mb-5 d-none d-md-flex"
           min-width="150px"
           height="150px"
-          color="#F9F9FA"
+          :color="colors.bg"
         >
           <v-img
             :src="url"
@@ -23,7 +23,7 @@
     <v-card
       class="partners-item-wrapper ml-5 mr-5 mb-5 d-md-none"
       min-width="150px"
-      color="#F9F9FA"
+      :color="colors.bg"
     >
       <v-img
         :src="url"
@@ -39,13 +39,17 @@
 </template>
 
 <script>
-import { Component, Vue, Prop } from 'nuxt-property-decorator'
+import { Component, Vue, Prop, namespace } from 'nuxt-property-decorator'
+
+const { State } = namespace('colors')
 
 export default @Component
 
 class PartnersItem extends Vue {
   @Prop({ type: String, required: true }) url
   @Prop({ type: String, required: true }) companyName
+
+  @State colors
 }
 </script>
 

@@ -2,8 +2,9 @@
   <div class="statistics-wrapper">
     <h3>Statistics</h3>
     <div class="d-flex justify-space-around align-center flex-wrap statistics-items-wrapper">
-      <StatisticsItem name="Users" />
-      <StatisticsItem name="Rent" />
+      <statistics-item name="Users" />
+      <statistics-item name="Rent" />
+      <statistics-item name="Goods" />
     </div>
   </div>
 </template>
