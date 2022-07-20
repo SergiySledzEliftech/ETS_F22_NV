@@ -7,11 +7,11 @@
         :statistics-value="[8000, 3300, 5900, 9200, 10000, 4600]"
       />
       <statistics-item
-        name="Users entered"
+        name="Items created"
         :statistics-value="[9000, 11000, 4000, 9200, 11000, 4600]"
       />
       <statistics-item
-        name="Users entered"
+        name="Items rented"
         :statistics-value="[3000, 3300, 7900, 3200, 10000, 11000]"
       />
     </div>

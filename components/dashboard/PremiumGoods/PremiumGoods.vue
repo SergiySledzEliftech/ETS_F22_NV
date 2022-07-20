@@ -43,7 +43,7 @@ class Top10Goods extends Vue {}
 
 <style scoped lang="scss">
   .carousel-wrapper{
-    padding-top: 80px;
+    padding-top: 40px;
     background-color: $secondary;
   }
 

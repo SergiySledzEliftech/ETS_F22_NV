@@ -5,7 +5,7 @@
         v-bind="attrs"
         class="column"
         min-width="40"
-        :color="colors.primary"
+        color="var(--primary)"
         :height="`${value / 110}%`"
         v-on="on"
       >
@@ -17,16 +17,13 @@
 </template>
 
 <script>
-import { Component, Vue, Prop, namespace } from 'nuxt-property-decorator'
-const { State } = namespace('colors')
+import { Component, Vue, Prop } from 'nuxt-property-decorator'
 
 export default @Component
 
 class Column extends Vue {
   @Prop({ type: Number }) value
   @Prop({ type: Number }) hours
-
-  @State colors
 }
 </script>
 

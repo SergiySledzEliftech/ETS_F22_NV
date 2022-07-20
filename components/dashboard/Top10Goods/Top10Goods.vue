@@ -6,13 +6,14 @@
         cycle
         height="420px"
         :show-arrows="false"
+        class="carousel"
       >
         <v-carousel-item
           v-for="el in 5"
           :key="el"
         >
           <v-sheet
-            :color="colors.bg"
+            color="var(--bg)"
             height="100%"
           >
             <div class="d-md-flex d-none align-center justify-space-around">
@@ -26,47 +27,50 @@
         </v-carousel-item>
       </v-carousel>
     </div>
-    <div class="d-none d-lg-flex align-center flex-wrap justify-space-around six-elements">
-      <div v-for="i in 6" :key="i" class="mb-6 d-flex d-xl-none">
-        <product-card />
+    <div class="d-none d-lg-flex align-center flex-wrap justify-space-around">
+      <div v-for="i in 6" :key="i" class="d-flex d-xl-none">
+        <product-card class="six-elements-element" />
       </div>
-      <div class="other-top-goods d-xl-none six-elements" :class="{ otherTopGoodsShow : showAll }">
-        <div v-for="i in 4" :key="i" class="mb-6">
-          <product-card />
+      <div class="other-top-goods d-xl-none" :class="{ otherTopGoodsShow : showAll }">
+        <div v-for="i in 4" :key="i">
+          <product-card class="six-elements-element" />
         </div>
       </div>
-      <div v-for="i in 10" :key="i" class="mb-6 d-none d-xl-flex ten-elements">
-        <product-card />
+      <div v-for="i in 10" :key="i" class="d-none d-xl-flex">
+        <product-card class="ten-elements-element"/>
       </div>
     </div>
-    <div class="buttons-wrapper d-flex align-center justify-space-around mx-auto">
-      <v-btn :color="colors.primary">
+    <div class="buttons-wrapper d-lg-flex d-none d-xl-none align-center justify-space-around mx-auto btn-other-margin">
+      <v-btn color="var(--primary)">
         <span class="btn-white-text">See Other Goods</span>
       </v-btn>
       <v-btn
         color="white"
-        class="button d-lg-flex d-none d-xl-none"
+        class="button"
         @click="showAllClick"
       >
         <span class="btn-red-text">{{ showAllButtonText }} All Top Goods</span>
+      </v-btn>
+    </div>
+    <div class="buttons-wrapper d-flex d-lg-none d-xl-flex align-center justify-space-around mx-auto">
+      <v-btn color="var(--primary)">
+        <span class="btn-white-text">See Other Goods</span>
       </v-btn>
     </div>
   </div>
 </template>
 
 <script>
-import { Component, namespace, Vue } from 'nuxt-property-decorator'
+import { Component, Vue } from 'nuxt-property-decorator'
 import ProductCard from '../ProductCard/ProductCard.vue'
 
-const { State } = namespace('colors')
 export default @Component({
   components: { ProductCard }
 })
 
 class PremiumGoods extends Vue {
   showAll = false
-  showAllButtonText = 'Hide'
-  @State colors
+  showAllButtonText = 'Show'
 
   scrollTop () {
     if (!this.showAll) {
@@ -75,7 +79,7 @@ class PremiumGoods extends Vue {
   }
 
   showAllClick () {
-    this.showAllButtonText = this.showAll ? 'Hide' : 'See'
+    this.showAllButtonText = this.showAll ? 'See' : 'Hide'
     this.showAll = !this.showAll
     setTimeout(() => {
       this.scrollTop()
@@ -92,7 +96,7 @@ class PremiumGoods extends Vue {
 
   .top-goods-wrapper{
     margin-top: -10px;
-    padding-top: 80px;
+    padding-top: 40px;
     padding-bottom: 80px;
     background: $bg;
   }
@@ -120,7 +124,6 @@ class PremiumGoods extends Vue {
   }
 
   .buttons-wrapper{
-    margin-top: 40px;
     width: 50%;
   }
 
@@ -136,19 +139,23 @@ class PremiumGoods extends Vue {
   }
 
   .otherTopGoodsShow{
-    height: 660px !important;
+    height: 768px !important;
     opacity: 1 !important;
   }
 
-  .six-elements{
-    div{
-      margin-bottom: 55px;
-    }
+  .six-elements-element{
+    margin-bottom: 80px;
   }
 
-  .ten-elements{
-    div{
-      margin-bottom: 20px;
-    }
+  .ten-elements-element{
+    margin-bottom: 45px;
+  }
+
+  .carousel{
+    margin-bottom: 45px;
+  }
+
+  .btn-other-margin{
+    margin-top: -35px;
   }
 </style>

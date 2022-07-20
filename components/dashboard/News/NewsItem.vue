@@ -19,14 +19,14 @@
         <div class="d-flex align-center justify-space-between btn-wrapper">
           <v-btn
             text
-            :color="colors.primary"
+            color="var(--primary)"
             @click="detailsClick"
           >
             <span class="btn-text">{{ detailsButtonText }}</span>
           </v-btn>
           <v-btn
             text
-            :color="colors.primary"
+            color="var(--primary)"
             @click="nextClick"
           >
             <span class="btn-text">Next</span>
@@ -38,8 +38,7 @@
 </template>
 
 <script>
-import { Component, Vue, Prop, namespace } from 'nuxt-property-decorator'
-const { State } = namespace('colors')
+import { Component, Vue, Prop } from 'nuxt-property-decorator'
 
 export default @Component
 
@@ -48,11 +47,9 @@ class NewsItem extends Vue {
   @Prop({ type: String, required: true }) newsItemTitle
   @Prop({ type: String, required: true }) newsItemArticle
 
-  @State colors
-
   showAllContent = false
   rotateY = false
-  detailsButtonText = 'Hide'
+  detailsButtonText = 'More...'
 
   scroll () {
     this.$vuetify.goTo('#news-header', {
@@ -62,7 +59,7 @@ class NewsItem extends Vue {
 
   detailsClick () {
     this.scroll()
-    this.detailsButtonText = this.showAllContent ? 'Hide' : 'Details'
+    this.detailsButtonText = this.showAllContent ? 'More...' : 'Hide'
     this.showAllContent = !this.showAllContent
   }
 

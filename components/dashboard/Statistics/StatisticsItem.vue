@@ -53,6 +53,8 @@ class StatisticsItem extends Vue {
 
 .card-title{
   color: white;
+  font-size: 16px;
+  line-height: 1.5;
 }
 
 .statistics{
