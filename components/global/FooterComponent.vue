@@ -23,26 +23,49 @@
               <a href="#" class="footer-facebook" />
             </li>
           </ul>
-          <a href="#" class="footer-link-help"> Help and Feedback </a>
+          <NuxtLink to="#10" class="footer-link-help">
+            Help and Feedback
+          </NuxtLink>
         </div>
         <div class="footer-column">
           <div class="footer-title">
             Services
           </div>
-          <a href="#" class="footer-link"> Mobile applications </a>
-          <a href="#" class="footer-link"> GloMaRe Premium </a>
-          <a href="#" class="footer-link"> Paid services </a>
-          <a href="#" class="footer-link"> Gift certificates </a>
+          <NuxtLink to="#1" class="footer-link">
+            Mobile application
+          </NuxtLink>
+          <NuxtLink to="#2" class="footer-link">
+            GloMaRe Premium
+          </NuxtLink>
+          <NuxtLink to="#3" class="footer-link">
+            Paid services
+          </NuxtLink>
+          <NuxtLink to="#4" class="footer-link">
+            Gift certificates
+          </NuxtLink>
+          <NuxtLink to="chat" class="footer-link">
+            Chat
+          </NuxtLink>
         </div>
         <div class="footer-column">
           <div class="footer-title">
             To partners
           </div>
-          <a href="#" class="footer-link"> Cooperation with us </a>
-          <a href="#" class="footer-link"> Franchising </a>
-          <a href="#" class="footer-link"> Delivery: rules and promotions </a>
-          <a href="#" class="footer-link"> Privacy policy </a>
-          <a href="#" class="footer-link"> Safety rules </a>
+          <NuxtLink to="#5" class="footer-link">
+            Cooperation with us
+          </NuxtLink>
+          <NuxtLink to="#6" class="footer-link">
+            Franchising
+          </NuxtLink>
+          <NuxtLink to="#7" class="footer-link">
+            Delivery: rules and promotions
+          </NuxtLink>
+          <NuxtLink to="#8" class="footer-link">
+            Privacy policy
+          </NuxtLink>
+          <NuxtLink to="#9" class="footer-link">
+            Safety rules
+          </NuxtLink>
         </div>
         <div class="footer-column">
           <div class="footer-title">
@@ -54,16 +77,12 @@
           <div class="footer-time">
             Сб: 09:00 – 15:00
           </div>
-          <div class="footer-email">
-            info@glomare.com
-          </div>
+          <a class="footer-email" href="mailto:info@glomare.com">info@glomare.com</a>
           <a class="header-phone" href="tel:+375295967676">+375 (29) 596 76 76</a>
-          <div class="footer-location">
-            33 Nizhniy Val Street, Kyiv, 02000
-          </div>
+          <a class="footer-location" href="https://www.google.com/maps/place/%D1%83%D0%BB.+%D0%9D%D0%B8%D0%B6%D0%BD%D0%B8%D0%B9+%D0%92%D0%B0%D0%BB,+33,+%D0%9A%D0%B8%D0%B5%D0%B2,+02000/data=!4m2!3m1!1s0x40d4ce6b2ddd9b35:0xc4bb50f80bfb300c?sa=X&ved=2ahUKEwi4gonQ5In5AhUFqIsKHS0nD4wQ8gF6BAgTEAE">33 Nizhniy Val Street, Kyiv, 02000</a>
         </div>
       </div>
-      <div class="footer-row-copypright">
+      <div class="footer-row-copyright">
         &copy; 2022 GloMaRe.com
       </div>
     </div>
@@ -222,6 +241,7 @@
         background-image: url("~assets/img/marker-white.png");
       }
     }
+
     .footer-time{
       position: relative;
       margin-left: 16px;
@@ -237,6 +257,7 @@
         background-image: url("~assets/img/clock.png");
       }
     }
+
     .footer-email{
       position: relative;
       margin-left: 16px;
@@ -253,10 +274,9 @@
       }
     }
 
-    .footer-row-copypright{
+    .footer-row-copyright{
       font-size: 0.75rem;
       text-align: center;
     }
   }
-
 </style>

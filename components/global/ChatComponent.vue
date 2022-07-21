@@ -8,15 +8,13 @@
               {{ title }}
             </h4>
             <br>
-            <div id="status" />
             <div id="chat">
-              <v-form v-if="isChatOpen" v-model="valid">
+              <v-form v-if="isChatOpen" v-model="isValid">
                 <v-container>
                   <v-row>
                     <v-text-field
                       id="username"
                       v-model="name"
-                      :rules="nameRules"
                       :counter="10"
                       label="First name"
                       required
@@ -82,56 +80,51 @@ import io from 'socket.io-client'
 const { State, Mutation } = namespace('global')
 
 export default @Component({
-  data: () => ({
-    title: 'GloMaRe Chat',
-    name: '',
-    text: '',
-    messages: [],
-    socket: io(),
-    isChatOpen: true,
-    restApiUrl: 'http://localhost:3333',
 
-    valid: false,
-    nameRules: [
-      v => !!v || 'Name is required',
-      v => v.length <= 10 || 'Name must be less than 10 characters'
-    ]
-  })
 })
 
 class Index extends Vue {
-    @State isLogin
-    @Mutation changeStatusAuth
+  @State isLogin
+  @Mutation changeStatusAuth
 
-    sendMessage () {
-      if (this.validateInput()) {
-        const message = {
-          name: this.name,
-          text: this.text
-        }
-        this.socket.emit('msgToServer', message)
-        this.text = ''
+  title = 'GloMaRe Chat'
+  name = ''
+  text = ''
+  messages = []
+  socket = io()
+  isChatOpen = true
+  restApiUrl = 'https://glomare.herokuapp.com/'
+  isValid = false
+
+  sendMessage () {
+    if (this.validateInput()) {
+      const message = {
+        name: this.name,
+        text: this.text
       }
+      this.socket.emit('msgToServer', message)
+      this.text = ''
     }
+  }
 
-    receivedMessage (message) {
-      this.messages.push(message)
-    }
+  receivedMessage (message) {
+    this.messages.push(message)
+  }
 
-    validateInput () {
-      return this.name.length > 0 && this.text.length > 0
-    }
+  validateInput () {
+    return this.name.length > 0 && this.text.length > 0
+  }
 
-    sendNameInChat () {
-      this.isChatOpen = false
-    }
+  sendNameInChat () {
+    this.isChatOpen = false
+  }
 
-    mounted () {
-      this.socket = io(this.restApiUrl)
-      this.socket.on('msgToClient', (message) => {
-        this.receivedMessage(message)
-      })
-    }
+  mounted () {
+    this.socket = io(this.restApiUrl)
+    this.socket.on('msgToClient', (message) => {
+      this.receivedMessage(message)
+    })
+  }
 }
 </script>
 
@@ -139,7 +132,7 @@ class Index extends Vue {
   #messages {
     height: 300px;
     overflow-y: scroll;
-    box-shadow: 0px 3px 1px -2px rgb(0 0 0 / 20%), 0px 2px 2px 0px rgb(0 0 0 / 14%), 0px 1px 5px 0px rgb(0 0 0 / 12%);
+    box-shadow: 0 3px 1px -2px rgb(0 0 0 / 20%), 0px 2px 2px 0px rgb(0 0 0 / 14%), 0px 1px 5px 0px rgb(0 0 0 / 12%);
     width: 100%;
     margin-bottom: 25px;
     padding: 20px;

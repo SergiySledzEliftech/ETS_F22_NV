@@ -1,12 +1,12 @@
 <template>
   <v-app dark>
-    <HeaderComp />
+    <header-comp />
     <v-main>
       <v-container>
         <Nuxt />
       </v-container>
     </v-main>
-    <FooterComp />
+    <footer-comp />
   </v-app>
 </template>
 
@@ -19,7 +19,7 @@ export default @Component({
   components: { HeaderComp, FooterComp }
 })
 
-class Index extends Vue {
+class Default extends Vue {
     name = 'defaultLayout';
 }
 </script>
