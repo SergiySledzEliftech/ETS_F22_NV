@@ -75,6 +75,9 @@ ul, li{
   @include responsive-value("padding", 60, 20, $bp_laptop);
   background: $bg;
   border-radius: 10px;
+  @media only screen and (max-width: $bp_tablet + px) {
+    border-radius: 0;
+  }
   .sharing-title{
     text-align: center;
     line-height: 100%;

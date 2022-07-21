@@ -10,6 +10,8 @@
         :direction="direction"
       />
       <carousel-controls
+        :current-slide="currentSlide"
+        :slides="slides"
         @prev="prev"
         @next="next"
       />
@@ -118,6 +120,9 @@ class Carousel extends Vue {
   }
 
   created () {
+    if (this.slides.length < this.indicatorsAmount) {
+      this.indicatorsAmount = this.slides.length
+    }
     this.lastIndicatorIndex = this.indicatorsAmount - 1
     for (let i = 0; i < this.indicatorsAmount; i++) {
       this.indicatorsArr[i] = this.slides[i]
@@ -130,14 +135,15 @@ class Carousel extends Vue {
 .carousel {
   display: flex;
   flex-direction: column;
-  justify-content: center;
-  max-width: 610px;
+  justify-content: space-between;
+  gap: 20px;
   width: 100%;
+  height: 100%;
 }
 .carousel-inner {
   position: relative;
   width: 100%;
-  height: 400px;
+  height: 100%;
   overflow: hidden;
   border-radius: 10px;
 }

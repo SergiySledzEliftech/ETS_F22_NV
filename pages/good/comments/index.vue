@@ -11,8 +11,7 @@ import { Vue, Component } from 'nuxt-property-decorator'
 
 export default @Component({
 })
-class AllCommentsTab extends Vue {
-
+class AllComments extends Vue {
 }
 </script>
 

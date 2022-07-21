@@ -30,11 +30,19 @@ class CarouselItem extends Vue {
 
 <style lang="scss" scoped>
 .carousel-item {
-  width: 100%;
-  img{
-    max-width: 610px;
+  @include responsive-value('width', 610, 500, 1310);
+  border-radius: 10px;
+  @media only screen and (max-width: $bp_tablet + px) {
+    width: 100%;
     height: 100%;
-    aspect-ratio: 610 / 400;
+  }
+  img{
+    width: 100%;
+    @include responsive-value('min-height', 500, 300, 1310);
+    @media only screen and (max-width: $bp_tablet + px) {
+      min-height: 0;
+      height: 100%;
+    }
   }
 }
 .slide-in-enter-active,

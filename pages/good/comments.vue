@@ -11,7 +11,7 @@
       <v-tab :to="{name: 'good-comments-my-comments'}" nuxt>
         My
       </v-tab>
-      <v-tab :to="{ name: 'good-comments-new-comment'}" nuxt>
+      <v-tab :to="{name: 'good-comments-add-comment'}" nuxt>
         Add
       </v-tab>
     </v-tabs>

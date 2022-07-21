@@ -26,11 +26,13 @@ class CarouselIndicators extends Vue {
 </script>
 <style lang="scss" scoped>
 .carousel__indicators{
-  margin-top: 20px;
   display: flex;
-  gap: 15px;
+  gap: 17px;
+  @media only screen and (max-width: $bp_tablet + px) {
+    display: none;
+  }
   .carousel__indicators-item{
-    height: 110px;
+    @include responsive-value_restrained('height', 110, 80, $bp_tablet, 1310);
     max-width: 140px;
   }
   .carousel__indicators-item > img{

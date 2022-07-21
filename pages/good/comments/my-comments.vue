@@ -13,12 +13,11 @@ import { Vue, Component } from 'nuxt-property-decorator'
 import CommentItem from '~/components/good/CommentItem'
 
 export default @Component({
-  name: 'MyCommentsTab',
   components: {
     CommentItem
   }
 })
-class MyCommentsTab extends Vue {
+class MyComments extends Vue {
 
 }
 </script>
@@ -29,7 +28,7 @@ class MyCommentsTab extends Vue {
   display: flex;
   flex-wrap: wrap;
   justify-content: space-between;
-  gap: 60px;
+  gap: 40px;
   @media (max-width: $bp_tablet + px) {
     display: flex;
     flex-direction: column;
@@ -38,7 +37,7 @@ class MyCommentsTab extends Vue {
     @include responsive-value("gap", 50, 30, $bp_laptop);
   }
   .card__list-item{
-    flex: 0 1 46.5%;
+    flex: 0 1 47.5%;
     @media (max-width: $bp_tablet + px) {
       flex: 0 1 100%;
     }
