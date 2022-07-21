@@ -16,11 +16,14 @@ import HeaderComp from '../components/global/HeaderComponent'
 import FooterComp from '../components/global/FooterComponent'
 
 export default @Component({
-  components: { HeaderComp, FooterComp }
+  components: {
+    HeaderComp,
+    FooterComp
+  }
 })
 
 class Index extends Vue {
-    name = 'defaultLayout';
+  name = 'defaultLayout';
 }
 </script>
 
