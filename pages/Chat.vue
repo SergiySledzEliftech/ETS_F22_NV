@@ -12,7 +12,7 @@ export default @Component({
   components: { ChatComp }
 })
 
-class Index extends Vue {
+class Chat extends Vue {
 
 }
 </script>
