@@ -44,7 +44,7 @@ export default {
   modules: [
     // https://go.nuxtjs.dev/axios
     '@nuxtjs/axios',
-    '@nuxtjs/auth-next'
+    '@nuxtjs/auth'
   ],
 
   // Axios module configuration: https://go.nuxtjs.dev/config-axios
@@ -90,12 +90,12 @@ export default {
           type: ''
         },
         user: {
-          property: 'user'
-          // autoFetch: true
+          property: 'user',
+          autoFetch: true
         },
         endpoints: {
           login: { url: '/auth/login', method: 'post' },
-          logout: { url: '/auth/logout', method: 'post' },
+          logout: false,
           user: { url: '/auth/user', method: 'get' }
         }
       }

@@ -8,6 +8,6 @@ export const mutations = {
     state.selectedCity = newCity.target.innerText
   },
   changeStatusAuth (state, newStatus) {
-    this.isLogin = newStatus
+    state.isLogin = newStatus
   }
 }

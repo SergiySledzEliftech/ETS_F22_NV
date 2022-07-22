@@ -29,6 +29,9 @@ export function lengthValidation (length, message = `Must be less than ${length}
 export function minLengthValidation (length, message = `Must be more than ${length} characters.`) {
   return v => !v || ((v || '').toString().trim().length >= length) || message
 }
+export function equalLengthValidation (length, message = `Must be ${length} characters.`) {
+  return v => !v || ((v || '').toString().trim().length === length) || message
+}
 
 export function emailValidation (message = 'Please enter a valid email.') {
   return v => !v || !!v.toString().match(EMAIL_REGEXP) || message

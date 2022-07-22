@@ -22,7 +22,7 @@
       />
       <v-text-field
         v-model="registerInfo.phone"
-        :rules="[emptyValidation(), phoneNumberValidation()]"
+        :rules="[emptyValidation(), phoneNumberValidation(), numberValidation(), equalLengthValidation(10)]"
         label="Phone Number"
         type="text"
         required
@@ -68,7 +68,7 @@
 </template>
 <script>
 import { Component, Vue } from 'nuxt-property-decorator'
-import { emptyValidation, emailValidation, passwordValidation, phoneNumberValidation, lengthValidation, checkboxValidation } from '../assets/validators'
+import { emptyValidation, emailValidation, passwordValidation, phoneNumberValidation, lengthValidation, checkboxValidation, numberValidation, equalLengthValidation } from '../helpers/validators'
 
 export default
   @Component({
@@ -85,25 +85,33 @@ class RegisterComponent extends Vue {
   }
 
     valid = true;
-
     show = false;
-
     checkbox = false;
     data () {
-      return { emptyValidation, emailValidation, passwordValidation, phoneNumberValidation, lengthValidation, checkboxValidation }
+      return { emptyValidation, emailValidation, passwordValidation, phoneNumberValidation, lengthValidation, checkboxValidation, numberValidation, equalLengthValidation }
     }
 
     async validateFunction () {
       if (this.$refs.form.validate()) {
-        await this.$axios.post('http://localhost:8000/auth/signup', this.registerInfo)
-        this.$auth.loginWith('local', { data: this.registerInfo })
+        try {
+          const res = await this.$axios.post('http://localhost:8000/auth/signup', this.registerInfo)
+          console.log(res)
+          await this.$auth.loginWith('local', {
+            data: {
+              email: this.registerInfo.email,
+              password: this.registerInfo.password
+            }
+          })
+          this.$router.push('/')
         // .then(function (response) {
         //   console.log(response)
         // })
         // .catch(function (error) {
         //   console.log(error)
         // })
-        console.log(this.registerInfo)
+        } catch (error) {
+          console.log(error)
+        }
       }
     }
   }

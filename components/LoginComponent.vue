@@ -31,7 +31,7 @@
 </template>
 <script>
 import { Component, Vue } from 'nuxt-property-decorator'
-import { emptyValidation, emailValidation, passwordValidation } from '../assets/validators'
+import { emptyValidation, emailValidation, passwordValidation } from '../helpers/validators'
 
 export default
   @Component({
@@ -55,16 +55,8 @@ class LoginComponent extends Vue {
       if (this.$refs.form.validate()) {
         try {
           await this.$auth.loginWith('local', { data: this.loginInfo })
-            .then((resp) => {
-              // this.$auth.setToken('local', 'Bearer ' + resp.data.access_token)
-              // this.$auth.setRefreshToken('local', resp.data.refresh_token)
-              // this.$axios.setHeader('Authorization', 'Bearer ' + resp.data.access_token)
-              // this.$auth.ctx.app.$axios.setHeader('Authorization', 'Bearer ' + resp.data.access_token)
-              this.$axios.get('http://localhost:8000/auth/user').then((resp) => { this.$auth.setUser(resp.data); this.$router.push('/') })
-            })
-          // this.$store.commit('setAuth', auth)
           console.log(this.$auth.loggedIn)
-          console.log(this.$auth.user)
+          this.$router.push('/')
         } catch (error) {
           console.log(error)
         }

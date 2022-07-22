@@ -133,10 +133,17 @@
               >
                 Profile
               </v-btn>
+              <v-btn
+                class="ma-2 btn-red"
+                outlined
+                @click="logout"
+              >
+                Log Out
+              </v-btn>
             </nuxt-link>
             <nuxt-link
               v-else
-              :to="{ path: '/auth', hash:'#signin' }"
+              :to="{ path: '/auth' }"
             >
               <v-btn
 
@@ -249,6 +256,10 @@ class Index extends Vue {
         }
       })
     })
+  }
+
+  logout () {
+    this.$auth.logout()
   }
 }
 </script>
