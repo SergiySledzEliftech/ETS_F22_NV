@@ -1,11 +1,11 @@
-export function disadvantagesRule (value) {
-  return (value && value.length <= 150) || (value.length === 0) || 'Advantages must be less than 150 characters'
+export function disadvantagesRule (message = 'Advantages must be less than 150 characters') {
+  return v => (v && v.length <= 150) || (v.length === 0) || message
 }
 
-export function advantagesRule (value) {
-  return (value && value.length <= 150) || (value.length === 0) || 'Disadvantages must be less than 150 characters'
+export function advantagesRule (message = 'Disadvantages must be less than 150 characters') {
+  return v => (v && v.length <= 150) || (v.length === 0) || message
 }
 
-export function commentRule (value) {
-  return (value && value.length <= 2000) || (value.length === 0) || 'Comment must be less than 2000 characters'
+export function commentRule (message = 'Comment must be less than 2000 characters') {
+  return v => (v && v.length <= 2000) || (v.length === 0) || message
 }

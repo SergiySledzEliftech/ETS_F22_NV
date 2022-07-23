@@ -25,7 +25,7 @@
         outlined
         single-line
         counter="150"
-        :rules="advantagesRule()"
+        :rules="[advantagesRule()]"
       />
       <p class="comment-subtitle mt-1 mb-1 ml-2">
         Disadvantages
@@ -37,7 +37,7 @@
         outlined
         single-line
         counter="150"
-        :rules="disadvantagesRules"
+        :rules="[disadvantagesRule()]"
       />
       <p class="comment-subtitle mt-1 mb-1 ml-2">
         Comment
@@ -49,20 +49,20 @@
         outlined
         no-resize
         counter="2000"
-        :rules="commentRules"
+        :rules="[commentRule()]"
         type="string"
       />
       <div class="mt-3 btn-group">
         <v-btn
           :disabled="!valid"
           color="success"
-          @click="validatiton"
+          @click="addComment"
         >
           Add
         </v-btn>
         <v-btn
           color="primary"
-          @click="clear"
+          @click="fieldsReset"
         >
           Cancel
         </v-btn>
@@ -81,6 +81,8 @@ export default @Component({
 class AddComment extends Vue {
   valid = true
   advantages = ''
+  disadvantages = ''
+  comment = ''
   rating = -1
 
   data () {
@@ -91,30 +93,12 @@ class AddComment extends Vue {
     }
   }
 
-  advantagesRules = [
-    v => (v && v.length <= 150) || (v.length === 0) || 'Advantages must be less than 150 characters'
-  ]
-
-  disadvantages = ''
-  disadvantagesRules = [
-    v => (v && v.length <= 150) || (v.length === 0) || 'Disadvantages must be less than 150 characters'
-  ]
-
-  comment = ''
-  commentRules = [
-    v => (v && v.length <= 2000) || (v.length === 0) || 'Comment must be less than 2000 characters'
-  ]
-
-  validatiton () {
+  addComment () {
     this.$refs.form.validate()
   }
 
-  clear () {
+  fieldsReset () {
     this.$refs.form.reset()
-    this.advantages = ''
-    this.rating = -1
-    this.disadvantages = ''
-    this.comment = ''
   }
 }
 </script>
