@@ -25,7 +25,7 @@
         outlined
         single-line
         counter="150"
-        :rules="advantagesRules"
+        :rules="advantagesRule()"
       />
       <p class="comment-subtitle mt-1 mb-1 ml-2">
         Disadvantages
@@ -73,6 +73,7 @@
 
 <script>
 import { Vue, Component } from 'nuxt-property-decorator'
+import { disadvantagesRule, advantagesRule, commentRule } from '~/helpers/comment-validation'
 
 export default @Component({
 })
@@ -81,6 +82,15 @@ class AddComment extends Vue {
   valid = true
   advantages = ''
   rating = -1
+
+  data () {
+    return {
+      disadvantagesRule,
+      advantagesRule,
+      commentRule
+    }
+  }
+
   advantagesRules = [
     v => (v && v.length <= 150) || (v.length === 0) || 'Advantages must be less than 150 characters'
   ]
