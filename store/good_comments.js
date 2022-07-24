@@ -40,6 +40,11 @@ export const actions = {
     await this.$axios.$post('http://localhost:3001/comments', data)
     commit('setLoading', false)
   },
+  async removeComment ({ state, commit }, id) {
+    commit('setLoading', true)
+    await this.$axios.$delete('http://localhost:3001/comments/' + id)
+    commit('setLoading', false)
+  },
   // ???
   setLoading ({ state, commit }, loading) {
     commit('setLoading', loading)

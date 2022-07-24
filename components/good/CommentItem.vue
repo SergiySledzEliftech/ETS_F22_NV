@@ -18,7 +18,7 @@
             </p>
             <v-spacer />
             <p class="ma-0 mr-1 card__item-date">
-              07.07.2022
+              {{ date }}
             </p>
             <v-card-actions
               class="pa-0 btn-basket basket_active"
@@ -27,6 +27,7 @@
                 text
                 icon
                 color="gray lighten-2"
+                @click="onDeleteComment"
               >
                 <v-icon>mdi-delete-empty</v-icon>
               </v-btn>
@@ -38,7 +39,8 @@
           <v-card-text class="mt-2 py-0">
             <v-rating
               :value="comment.rating"
-              color="amber"
+              color="yellow darken-3"
+              background-color="grey darken-1"
               dense
               half-increments
               readonly
@@ -121,19 +123,30 @@
 </template>
 
 <script>
-import { Vue, Component, Prop } from 'nuxt-property-decorator'
+import { Vue, Component, Prop, namespace } from 'nuxt-property-decorator'
+
+const { Action } = namespace('good_comments')
 
 export default @Component({
-  name: 'CommentItem',
   components: {}
 })
 
 class CommentItem extends Vue {
   @Prop() comment
-  createdDate = null;
+  date = ''
 
-  proccesDate () {
+  mounted () {
+    const localOffset = new Date().getTimezoneOffset() * 60000
+    this.date = new Date(this.comment.date_created - localOffset).toJSON().slice(0, 10).replace(/-/g, '.').split('.').reverse().join('.')
+  }
 
+  @Action removeComment
+  async onDeleteComment () {
+    try {
+      await this.removeComment(this.comment._id)
+    } catch (err) {
+      console.error(err.message)
+    }
   }
 }
 </script>

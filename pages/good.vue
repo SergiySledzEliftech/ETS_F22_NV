@@ -52,6 +52,9 @@ class GoodPage extends Vue {
 </script>
 
 <style lang="scss">
+img{
+  font-size: 14px !important;
+}
 .container{
   padding: 0;
   margin: 0 auto;
