@@ -7,7 +7,7 @@
       class="form-container"
     >
       <v-rating
-        v-model="rating"
+        v-model="commentData.rating"
         color="yellow darken-3"
         background-color="grey darken-1"
         half-increments
@@ -19,7 +19,7 @@
         Advantages
       </p>
       <v-text-field
-        v-model="advantages"
+        v-model="commentData.advantages"
         solo
         flat
         outlined
@@ -31,7 +31,7 @@
         Disadvantages
       </p>
       <v-text-field
-        v-model="disadvantages"
+        v-model="commentData.disadvantages"
         solo
         flat
         outlined
@@ -43,7 +43,7 @@
         Comment
       </p>
       <v-textarea
-        v-model="comment"
+        v-model="commentData.comment"
         solo
         flat
         outlined
@@ -56,7 +56,7 @@
         <v-btn
           :disabled="!valid"
           color="success"
-          @click="addComment"
+          @click="validation(); addComment();"
         >
           Add
         </v-btn>
@@ -72,18 +72,22 @@
 </template>
 
 <script>
-import { Vue, Component } from 'nuxt-property-decorator'
+import { Vue, Component, namespace } from 'nuxt-property-decorator'
 import { disadvantagesRule, advantagesRule, commentRule } from '~/helpers/comment-validation'
+
+const { Action } = namespace('good_comments')
 
 export default @Component({
 })
 
 class AddComment extends Vue {
   valid = true
-  advantages = ''
-  disadvantages = ''
-  comment = ''
-  rating = -1
+  commentData = {
+    advantages: '',
+    disadvantages: '',
+    comment: '',
+    rating: -1
+  }
 
   data () {
     return {
@@ -93,16 +97,33 @@ class AddComment extends Vue {
     }
   }
 
-  addComment () {
+  validation () {
     this.$refs.form.validate()
   }
 
   clear () {
-    this.comment = ''
-    this.advantages = ''
-    this.disadvantages = ''
-    this.rating = null
-    // this.$refs.form.reset()
+    this.commentData.comment = ''
+    this.commentData.advantages = ''
+    this.commentData.disadvantages = ''
+    this.commentData.rating = null
+  }
+
+  @Action createComment
+  async addComment () {
+    console.log('addComment')
+    try {
+      await this.createComment(this.commentData)
+    } catch (err) {
+      console.error(err.message)
+    }
+  }
+
+  async mounted () {
+    try {
+      await this.loadUserComments()
+    } catch (err) {
+      console.error(err.message)
+    }
   }
 }
 </script>

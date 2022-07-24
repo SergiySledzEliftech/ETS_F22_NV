@@ -35,6 +35,11 @@ export const actions = {
     commit('setUserComments', data)
     commit('setLoading', false)
   },
+  async createComment ({ state, commit }, data) {
+    commit('setLoading', true)
+    await this.$axios.$post('http://localhost:3001/comments', data)
+    commit('setLoading', false)
+  },
   // ???
   setLoading ({ state, commit }, loading) {
     commit('setLoading', loading)

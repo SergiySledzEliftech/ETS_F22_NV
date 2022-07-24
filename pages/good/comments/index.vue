@@ -41,7 +41,7 @@ class AllComments extends Vue {
   }
 
   created () {
-    this.setLoading({}, false)
+    this.setLoading(false)
   }
 }
 </script>
