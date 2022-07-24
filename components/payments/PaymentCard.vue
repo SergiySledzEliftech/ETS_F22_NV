@@ -43,9 +43,13 @@
           </div>
         </div>
         <div class="card-button">
-          <button class="btn--card">
-            PAYMENT
-          </button>
+          <v-btn
+            class="ma-2 btn--card"
+            outlined
+            color="indigo"
+          >
+            PAYMENTS
+          </v-btn>
         </div>
       </div>
     </div>
@@ -145,13 +149,9 @@ label
   &--card
     width: 100%
     border-radius: 8px
-    margin-bottom: 0
     letter-spacing: 27px
     font-size: 25px
-    font-weight: 700
-    background: #183153
     color: #fff
-    border-color: #E31F26
     text-transform: none
     height: 50px
     padding: 0 20px

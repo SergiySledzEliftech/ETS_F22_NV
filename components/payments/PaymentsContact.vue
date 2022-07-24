@@ -4,7 +4,6 @@
       <p class="payments__title-text">
         Сontacts
       </p>
-      <h5>Change</h5>
     </div>
     <div class="payments__contact m-b-2">
       <div class="payments__contact-inner">
@@ -37,12 +36,9 @@
       <p class="payments__title-text">
         Payments
       </p>
-      <h5 v-if="!showPaymentsCash || !showPaymentsCard" @click="changePaymentData">
-        Change
-      </h5>
     </div>
-    <div v-if="showPaymentsCard" class="payments__contact m-b-4">
-      <div class="payments__type" @click="changeShowPaymentsCard">
+    <div class="payments__contact m-b-4">
+      <div class="payments__type" :class="{payments__active:!showPaymentsCash}" @click="changeShowPaymentsCard">
         <div class="payments__type-inner m-b-2">
           <div class="payments__type-images">
             <img
@@ -58,8 +54,8 @@
         <p>Безпечна онлайн-оплата карткою</p>
       </div>
     </div>
-    <div v-if="showPaymentsCash" class="payments__contact">
-      <div class="payments__type" @click="changeShowPaymentsCash">
+    <div class="payments__contact">
+      <div class="payments__type" :class="{payments__active:!showPaymentsCard}" @click="changeShowPaymentsCash">
         <div class="payments__type-inner m-b-2">
           <div class="payments__type-images">
             <img :src=" require('../../assets/img/payments/cash-pay-logo.png')"
@@ -103,11 +99,15 @@ class PaymentsContact extends Vue {
 
   changeShowPaymentsCash () {
     console.log(11111)
+    this.showPaymentsCash = true
+    this.showPaymentsCard = true
     this.showPaymentsCard = false
     this.$emit('payValidBtn', true)
   }
 
   changeShowPaymentsCard () {
+    this.showPaymentsCash = true
+    this.showPaymentsCard = true
     this.showPaymentsCash = false
     this.$emit('payValidBtn', false)
   }
@@ -174,6 +174,14 @@ $bradius: 10
     p
       margin-bottom: 0
       padding-left: 24px
+  &__active
+    border: 3px solid #183153
+    border-radius: $bradius * 1px
+    min-height: 115px
+    padding: $gap * 3 * 1px
+    // p
+    //   margin-bottom: 0
+    //   padding-left: 24px
   &__type-inner
     display: flex
     padding-left: 24px

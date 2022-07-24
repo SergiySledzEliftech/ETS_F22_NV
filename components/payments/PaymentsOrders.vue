@@ -36,7 +36,8 @@
       </div>
     </div>
     <div class="payments__orders">
-      <button @click="showModalCard" class="btn--payments" :disabled="BtnDisabled">PAY</button>
+      <v-btn class="ma-2 btn--pay" outlined color="indigo" :disabled="BtnDisabled" @click="showModalCard">PAY
+      </v-btn>
     </div>
   </div>
 </template>
@@ -44,7 +45,7 @@
 <script>
 import { Vue, Component, Prop, namespace } from 'nuxt-property-decorator'
 const { State, Mutation, Action } = namespace('ordered')
-
+// < button @click="showModalCard" class="btn--payments" : disabled = "BtnDisabled" > PAY</button >
 export default @Component({
   name: 'PaymentsOrders',
   components: {}
@@ -175,16 +176,12 @@ $bradius: 10
         opacity: 1
         color: red
 .btn
-  &--payments
+  &--pay
     width: 100%
     border-radius: 8px
-    margin-bottom: 0
     letter-spacing: 27px
     font-size: 25px
-    font-weight: 700
-    background: #183153
     color: #fff
-    border-color: #E31F26
     text-transform: none
     height: 50px
     padding: 0 20px
