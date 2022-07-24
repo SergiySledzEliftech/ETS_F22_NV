@@ -62,7 +62,7 @@
         </v-btn>
         <v-btn
           color="primary"
-          @click="fieldsReset"
+          @click="clear"
         >
           Cancel
         </v-btn>
@@ -97,8 +97,12 @@ class AddComment extends Vue {
     this.$refs.form.validate()
   }
 
-  fieldsReset () {
-    this.$refs.form.reset()
+  clear () {
+    this.comment = ''
+    this.advantages = ''
+    this.disadvantages = ''
+    this.rating = null
+    // this.$refs.form.reset()
   }
 }
 </script>

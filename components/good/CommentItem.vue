@@ -4,134 +4,156 @@
       flat
       class="card__item"
     >
-      <v-card-title class="py-2 pr-2 d-flex align-center">
-        <v-avatar class="card__item-avatar">
-          <img
-            alt="user"
-            src="https://cdn.pixabay.com/photo/2020/06/24/19/12/cabbage-5337431_1280.jpg"
+      <div class="card__body">
+        <div class="card__body-header">
+          <v-card-title class="py-2 pr-2 d-flex align-center">
+            <v-avatar class="card__item-avatar">
+              <img
+                alt="User's avatar"
+                :src="comment.avatar"
+              >
+            </v-avatar>
+            <p class="ma-0 ml-2 card__item-name">
+              {{ comment.userNickname }}
+            </p>
+            <v-spacer />
+            <p class="ma-0 mr-1 card__item-date">
+              07.07.2022
+            </p>
+            <v-card-actions
+              class="pa-0 btn-basket basket_active"
+            >
+              <v-btn
+                text
+                icon
+                color="gray lighten-2"
+              >
+                <v-icon>mdi-delete-empty</v-icon>
+              </v-btn>
+            </v-card-actions>
+          </v-card-title>
+          <v-divider />
+        </div>
+        <div class="card__body-content">
+          <v-card-text class="mt-2 py-0">
+            <v-rating
+              :value="comment.rating"
+              color="amber"
+              dense
+              half-increments
+              readonly
+              size="20"
+            />
+            <p class="ma-0 mt-2 card__item-text">
+              {{ comment.comment }}
+            </p>
+          </v-card-text>
+          <v-card-title
+            class="py-0 pt-2 card__item-subtitle"
+            :class="{ d_none: comment.disadvantages === '' || comment.disadvantages === null}"
           >
-        </v-avatar>
-        <p class="ma-0 ml-2 card__item-name">
-          John Doe
-        </p>
-        <v-spacer />
-        <p class="ma-0 mr-1 card__item-date">
-          07.07.2022
-        </p>
-        <v-card-actions
-          class="pa-0 btn-basket basket_active"
-        >
-          <v-btn
-            text
-            icon
-            color="gray lighten-2"
+            Advantages
+          </v-card-title>
+          <v-card-text
+            class="py-0"
+            :class="{ d_none: comment.disadvantages === '' || comment.disadvantages === null}"
           >
-            <v-icon>mdi-delete-empty</v-icon>
-          </v-btn>
-        </v-card-actions>
-      </v-card-title>
-
-      <v-divider />
-
-      <v-card-text class="mt-2 py-0">
-        <v-rating
-          :value="4.5"
-          color="amber"
-          dense
-          half-increments
-          readonly
-          size="20"
-        />
-        <p class="ma-0 mt-2 card__item-text">
-          Мав до цього 24 дюймовий вигнутий Самсунг.
-          Взяв цей монітор як основний, Самсунг поставив поруч.
-          Якість картинки не гірша, а чорний колір вигляає
-          навіть ще більш чорним. Сподіваюсь по надійності цей
-          монітор не гірше за брендовий. Бо перший служить мені
-          вже більш 3 років і жодного вигорілого пікселя
-        </p>
-      </v-card-text>
-
-      <v-card-title class="py-0 pt-2 card__item-subtitle">
-        Advantages
-      </v-card-title>
-      <v-card-text class="py-0">
-        <p class="ma-0 card__item-text">
-          Мав до цього 24 дюймовий вигнутий Самсунг.
-          Взяв цей монітор як основний, Самсунг поставив поруч.
-        </p>
-      </v-card-text>
-      <v-card-title class="py-0 pt-2 card__item-subtitle">
-        Disadvantages
-      </v-card-title>
-      <v-card-text class="py-0">
-        <p class="ma-0 card__item-text">
-          Мав до цього 24 дюймовий вигнутий Самсунг.
-        </p>
-      </v-card-text>
-      <v-card-actions
-        class="py-2"
-      >
-        <v-row class="ma-0 d-flex align-center" justify="end">
-          <v-btn
-            class="ma-0 mr-1"
-            width="30"
-            height="30"
-            text
-            icon
-            color="blue lighten-2"
+            <p class="ma-0 card__item-text">
+              {{ comment.advantages }}
+            </p>
+          </v-card-text>
+          <v-card-title
+            class="py-0 pt-2 card__item-subtitle"
+            :class="{ d_none: comment.disadvantages === '' || comment.disadvantages === null}"
           >
-            <v-icon size="18" class="like">
-              mdi-thumb-up
-            </v-icon>
-          </v-btn>
-          <p class="ma-0 mr-2 card__item-text">
-            2
-          </p>
-          <v-btn
-            class="ma-0 mr-1"
-            width="30"
-            height="30"
-            text
-            icon
-            color="red lighten-2"
+            Disadvantages
+          </v-card-title>
+          <v-card-text
+            class="py-0"
+            :class="{ d_none: comment.disadvantages === '' || comment.disadvantages === null}"
           >
-            <v-icon size="18" class="dislike">
-              mdi-thumb-down
-            </v-icon>
-          </v-btn>
-          <p class="ma-0 card__item-text">
-            0
-          </p>
-        </v-row>
-      </v-card-actions>
+            <p class="ma-0 card__item-text">
+              {{ comment.disadvantages }}
+            </p>
+          </v-card-text>
+        </div>
+        <div class="card__body-emotions">
+          <v-card-actions
+            class="py-2"
+          >
+            <v-row class="ma-0 d-flex align-center" justify="end">
+              <v-btn
+                class="ma-0 mr-1"
+                width="30"
+                height="30"
+                text
+                icon
+                color="blue lighten-2"
+              >
+                <v-icon size="18" class="like">
+                  mdi-thumb-up
+                </v-icon>
+              </v-btn>
+              <p class="ma-0 mr-2 card__item-text">
+                {{ comment.like }}
+              </p>
+              <v-btn
+                class="ma-0 mr-1"
+                width="30"
+                height="30"
+                text
+                icon
+                color="red lighten-2"
+              >
+                <v-icon size="18" class="dislike">
+                  mdi-thumb-down
+                </v-icon>
+              </v-btn>
+              <p class="ma-0 card__item-text">
+                {{ comment.dislike }}
+              </p>
+            </v-row>
+          </v-card-actions>
+        </div>
+      </div>
     </v-card>
   </div>
 </template>
 
 <script>
-import { Vue, Component } from 'nuxt-property-decorator'
+import { Vue, Component, Prop } from 'nuxt-property-decorator'
 
 export default @Component({
   name: 'CommentItem',
-  components: {},
-  data () {
-    return {
-      like: true
-    }
-  }
+  components: {}
 })
 
 class CommentItem extends Vue {
+  @Prop() comment
+  createdDate = null;
 
+  proccesDate () {
+
+  }
 }
 </script>
 
 <style lang="scss" scoped>
 .card__item{
+  height: 100%;
   border: 1px solid #d7d7d7;
   border-radius: 5px;
   box-shadow: 0 0 2px rgba(33, 33, 33, 0.25);
+  .card__body{
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    .card__body-content{
+      flex: 1 1 auto;
+    }
+    .card__body-emotions{
+    }
+  }
 }
 .v-btn{
   ::v-deep &:before{
