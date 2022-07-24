@@ -27,6 +27,7 @@
           <v-btn
             text
             color="var(--primary)"
+            :disabled="!isLast"
             @click="nextClick"
           >
             <span class="btn-text">Next</span>
@@ -46,6 +47,7 @@ class NewsItem extends Vue {
   @Prop({ type: String, required: true }) img
   @Prop({ type: String, required: true }) newsItemTitle
   @Prop({ type: String, required: true }) newsItemArticle
+  @Prop({ type: Boolean, required: true }) isLast
 
   showAllContent = false
   rotateY = false
@@ -64,7 +66,10 @@ class NewsItem extends Vue {
   }
 
   nextClick () {
-    this.rotateY = !this.rotateY
+    if (this.isLast) {
+      this.$emit('nextArticle')
+      this.rotateY = !this.rotateY
+    }
   }
 }
 </script>
@@ -122,21 +127,7 @@ class NewsItem extends Vue {
     overflow-x: hidden;
   }
 
-  ::-webkit-scrollbar {
-    width: 10px;
-  }
-
-  ::-webkit-scrollbar-track {
-    background: #dedede;
-  }
-
-  ::-webkit-scrollbar-thumb {
-    background: #888;
-  }
-
-  ::-webkit-scrollbar-thumb:hover {
-    background: #555;
-  }
+  .article-content::-webkit-scrollbar { width: 0 !important }
 
   .btn-wrapper{
     width: 100%;

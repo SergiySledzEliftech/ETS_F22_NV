@@ -2,27 +2,75 @@
   <div class="carousel-wrapper">
     <h3>Premium Goods</h3>
     <v-carousel
-      cycle
       height="450px"
       hide-delimiters
+      class="d-none d-lg-block"
     >
       <v-carousel-item
-        v-for="(slide) in 6"
-        :key="slide"
+        v-for="el of goodsData3"
+        :key="el._id"
       >
         <v-sheet
           color="#213342"
           height="100%"
           class="d-flex justify-center align-center"
         >
-          <div class="d-none d-lg-flex justify-space-around align-center carousel-content-wrapper">
-            <product-card v-for="i in 3" :key="i" />
+          <div class="d-flex justify-space-around align-center carousel-content-wrapper">
+            <product-card
+              v-for="e of el"
+              :key="e._id"
+              :title="e.title"
+              :img="e.images && e.images[0]"
+            />
           </div>
-          <div class="d-md-flex d-lg-none d-none justify-space-around align-center carousel-content-wrapper">
-            <product-card v-for="i in 2" :key="i" />
+        </v-sheet>
+      </v-carousel-item>
+    </v-carousel>
+    <v-carousel
+      height="450px"
+      hide-delimiters
+      class="d-lg-none d-none d-md-block"
+    >
+      <v-carousel-item
+        v-for="el of goodsData2"
+        :key="el._id"
+      >
+        <v-sheet
+          color="#213342"
+          height="100%"
+          class="d-flex justify-center align-center"
+        >
+          <div class="d-flex justify-space-around align-center carousel-content-wrapper">
+            <product-card
+              v-for="e of el"
+              :key="e._id"
+              :title="e.title"
+              :img="e.images && e.images[0]"
+            />
           </div>
-          <div class="d-flex d-md-none justify-space-around align-center carousel-content-wrapper">
-            <product-card />
+        </v-sheet>
+      </v-carousel-item>
+    </v-carousel>
+    <v-carousel
+      height="450px"
+      hide-delimiters
+      class="d-md-none"
+    >
+      <v-carousel-item
+        v-for="el of goodsData1"
+        :key="el._id"
+      >
+        <v-sheet
+          color="#213342"
+          height="100%"
+          class="d-flex justify-center align-center"
+        >
+          <div class="d-flex justify-space-around align-center carousel-content-wrapper">
+            <product-card
+              :key="el._id"
+              :title="el.title"
+              :img="el.images && el.images[0]"
+            />
           </div>
         </v-sheet>
       </v-carousel-item>
@@ -33,12 +81,50 @@
 <script>
 import { Component, Vue } from 'nuxt-property-decorator'
 import ProductCard from '../ProductCard/ProductCard.vue'
+import { serverApiUrl } from '@/settings/config'
 
 export default @Component({
   components: { ProductCard }
 })
 
-class Top10Goods extends Vue {}
+class Top10Goods extends Vue {
+  goodsData3 = [...Array(3).keys()]
+  goodsData2 = [...Array(2).keys()]
+  goodsData1 = [...Array(1).keys()]
+
+  index = 0
+
+  async mounted () {
+    const goodsData = await this.getPremiumGoods()
+    this.goodsData3 = this.splitForNum(goodsData, 3)
+    this.goodsData2 = this.splitForNum(goodsData, 2)
+    this.goodsData1 = goodsData
+  }
+
+  async getPremiumGoods () {
+    try {
+      const res = await this.$axios.get(`${serverApiUrl}/premium/`)
+      return res.data
+    } catch (error) {
+      return [...Array(3).keys()]
+    }
+  }
+
+  splitForNum (arr, num) {
+    const res = []
+    let temp = []
+    arr.forEach((e) => {
+      temp.push(e)
+
+      if (temp.length === num) {
+        res.push(temp)
+        temp = []
+      }
+    })
+
+    return res
+  }
+}
 </script>
 
 <style scoped lang="scss">

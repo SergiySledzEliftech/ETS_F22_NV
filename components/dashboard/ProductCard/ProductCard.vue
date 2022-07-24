@@ -8,26 +8,33 @@
     >
       <v-img
         class="product-card-img"
-        src="https://www.industrialempathy.com/img/remote/ZiClJf-1920w.jpg"
+        :src="img"
         height="100%"
         width="100%"
       />
 
       <v-card-title
+        :title="title.length>20 ? title: null"
         class="product-card-title"
       >
-        Interesting thing to rent
+        {{ formatString(title) }}
       </v-card-title>
     </v-card>
   </v-hover>
 </template>
 
 <script>
-import { Component, Vue } from 'nuxt-property-decorator'
-
+import { Component, Prop, Vue } from 'nuxt-property-decorator'
 export default @Component
 
-class ProductCard extends Vue {}
+class ProductCard extends Vue {
+  @Prop({ default: 'Loading...' }) title
+  @Prop({ default: 'https://upload.wikimedia.org/wikipedia/commons/b/b1/Loading_icon.gif?20151024034921' }) img
+
+  formatString (str) {
+    return str.length > 20 ? str.slice(0, 20) + '...' : str
+  }
+}
 </script>
 
 <style scoped lang="scss">

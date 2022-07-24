@@ -4,15 +4,15 @@
     <div class="d-flex justify-space-around align-center flex-wrap statistics-items-wrapper">
       <statistics-item
         name="Users entered"
-        :statistics-value="[8000, 3300, 5900, 9200, 10000, 4600]"
+        :statistics-value="users"
       />
       <statistics-item
         name="Items created"
-        :statistics-value="[9000, 11000, 4000, 9200, 11000, 4600]"
+        :statistics-value="itemsCreated"
       />
       <statistics-item
         name="Items rented"
-        :statistics-value="[3000, 3300, 7900, 3200, 10000, 11000]"
+        :statistics-value="itemsRented"
       />
     </div>
   </div>
@@ -21,12 +21,32 @@
 <script>
 import { Component, Vue } from 'nuxt-property-decorator'
 import StatisticsItem from './StatisticsItem.vue'
+import { serverApiUrl } from '@/settings/config'
 
 export default @Component({
   components: { StatisticsItem }
 })
 
-class Statistics extends Vue {}
+class Statistics extends Vue {
+  users = [0, 0, 0, 0, 0, 0]
+  itemsCreated = [0, 0, 0, 0, 0, 0]
+  itemsRented = [0, 0, 0, 0, 0, 0]
+
+  async mounted () {
+    try {
+      const res = await this.$axios.get(`${serverApiUrl}/statistics`)
+      const todayStatistics = res.data.filter(e => e.date === this.getDateTime())
+
+      this.users = todayStatistics[0].users
+      this.itemsCreated = todayStatistics[0].itemsCreated
+      this.itemsRented = todayStatistics[0].itemsRented
+    } catch (error) {}
+  }
+
+  getDateTime () {
+    return (new Date()).setHours(0, 0, 0, 0)
+  }
+}
 </script>
 
 <style scoped lang="scss">

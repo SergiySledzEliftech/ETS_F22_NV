@@ -3,41 +3,55 @@
     <h3>Top-10 Goods</h3>
     <div class="d-flex d-lg-none">
       <v-carousel
-        cycle
         height="420px"
         :show-arrows="false"
-        class="carousel"
+        class="carousel d-md-block d-none"
       >
         <v-carousel-item
-          v-for="el in 5"
-          :key="el"
+          v-for="el of goodsData2"
+          :key="el._id"
         >
           <v-sheet
             color="var(--bg)"
             height="100%"
           >
-            <div class="d-md-flex d-none align-center justify-space-around">
-              <product-card />
-              <product-card />
+            <div class="d-flex align-center justify-space-around">
+              <product-card v-for="e of el" :key="e._id" :img="e.images && e.images[0]" :title="e.title" />
             </div>
-            <div class="d-flex d-md-none align-center justify-space-around">
-              <product-card />
+          </v-sheet>
+        </v-carousel-item>
+      </v-carousel>
+      <v-carousel
+        height="420px"
+        :show-arrows="false"
+        class="carousel d-md-none dashboard-carousel-mobile"
+      >
+        <v-carousel-item
+          v-for="el of goodsData"
+          :key="el._id"
+        >
+          <v-sheet
+            color="var(--bg)"
+            height="100%"
+          >
+            <div class="d-flex align-center justify-space-around">
+              <product-card :img="el.images && el.images[0]" :title="el.title" />
             </div>
           </v-sheet>
         </v-carousel-item>
       </v-carousel>
     </div>
     <div class="d-none d-lg-flex align-center flex-wrap justify-space-around">
-      <div v-for="i in 6" :key="i" class="d-flex d-xl-none">
-        <product-card class="six-elements-element" />
+      <div v-for="el of goodsData.slice(0, 6)" :key="el._id" class="d-flex d-xl-none">
+        <product-card class="six-elements-element" :img="el.images && el.images[0]" :title="el.title" />
       </div>
       <div class="other-top-goods d-xl-none" :class="{ otherTopGoodsShow : showAll }">
-        <div v-for="i in 4" :key="i">
-          <product-card class="six-elements-element" />
+        <div v-for="el of goodsData.slice(6)" :key="el._id">
+          <product-card class="six-elements-element" :img="el.images && el.images[0]" :title="el.title" />
         </div>
       </div>
-      <div v-for="i in 10" :key="i" class="d-none d-xl-flex">
-        <product-card class="ten-elements-element"/>
+      <div v-for="el of goodsData" :key="el._id + '1'" class="d-none d-xl-flex">
+        <product-card class="six-elements-element" :img="el.images && el.images[0]" :title="el.title" />
       </div>
     </div>
     <div class="buttons-wrapper d-lg-flex d-none d-xl-none align-center justify-space-around mx-auto btn-other-margin">
@@ -63,6 +77,7 @@
 <script>
 import { Component, Vue } from 'nuxt-property-decorator'
 import ProductCard from '../ProductCard/ProductCard.vue'
+import { serverApiUrl } from '@/settings/config'
 
 export default @Component({
   components: { ProductCard }
@@ -71,6 +86,8 @@ export default @Component({
 class PremiumGoods extends Vue {
   showAll = false
   showAllButtonText = 'Show'
+  goodsData = [...Array(10).keys()]
+  goodsData2 = [...Array(5).keys()]
 
   scrollTop () {
     if (!this.showAll) {
@@ -84,6 +101,29 @@ class PremiumGoods extends Vue {
     setTimeout(() => {
       this.scrollTop()
     }, 100)
+  }
+
+  async mounted () {
+    try {
+      const res = await this.$axios.get(`${serverApiUrl}/top10`)
+      this.goodsData = res.data
+      this.goodsData2 = this.splitForNum(res.data, 2)
+    } catch (error) {}
+  }
+
+  splitForNum (arr, num) {
+    const res = []
+    let temp = []
+    arr.forEach((e) => {
+      temp.push(e)
+
+      if (temp.length === num) {
+        res.push(temp)
+        temp = []
+      }
+    })
+
+    return res
   }
 }
 </script>
@@ -157,5 +197,18 @@ class PremiumGoods extends Vue {
 
   .btn-other-margin{
     margin-top: -35px;
+  }
+
+  .carousel-content{
+    background-color: red;
+    width: 100%;
+  }
+</style>
+
+<style lang="scss">
+  .dashboard-carousel-mobile{
+    .v-carousel__controls{
+      height: 70px !important;
+    }
   }
 </style>
