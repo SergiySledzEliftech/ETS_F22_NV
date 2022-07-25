@@ -7,7 +7,7 @@
       class="form-container"
     >
       <v-rating
-        v-model="rating"
+        v-model="commentData.rating"
         color="yellow darken-3"
         background-color="grey darken-1"
         half-increments
@@ -19,44 +19,44 @@
         Advantages
       </p>
       <v-text-field
-        v-model="advantages"
+        v-model="commentData.advantages"
         solo
         flat
         outlined
         single-line
         counter="150"
-        :rules="advantagesRules"
+        :rules="[advantagesRule()]"
       />
       <p class="comment-subtitle mt-1 mb-1 ml-2">
         Disadvantages
       </p>
       <v-text-field
-        v-model="disadvantages"
+        v-model="commentData.disadvantages"
         solo
         flat
         outlined
         single-line
         counter="150"
-        :rules="disadvantagesRules"
+        :rules="[disadvantagesRule()]"
       />
       <p class="comment-subtitle mt-1 mb-1 ml-2">
         Comment
       </p>
       <v-textarea
-        v-model="comment"
+        v-model="commentData.comment"
         solo
         flat
         outlined
         no-resize
         counter="2000"
-        :rules="commentRules"
+        :rules="[commentRule()]"
         type="string"
       />
       <div class="mt-3 btn-group">
         <v-btn
           :disabled="!valid"
           color="success"
-          @click="validatiton"
+          @click="validation(); onAddComment();"
         >
           Add
         </v-btn>
@@ -72,39 +72,64 @@
 </template>
 
 <script>
-import { Vue, Component } from 'nuxt-property-decorator'
+import { Vue, Component, namespace } from 'nuxt-property-decorator'
+import { disadvantagesRule, advantagesRule, commentRule } from '~/helpers/comment-validation'
+
+const { Action } = namespace('good_comments')
 
 export default @Component({
 })
 
 class AddComment extends Vue {
   valid = true
-  advantages = ''
-  rating = -1
-  advantagesRules = [
-    v => (v && v.length <= 150) || (v.length === 0) || 'Advantages must be less than 150 characters'
-  ]
+  commentData = {
+    advantages: '',
+    disadvantages: '',
+    comment: '',
+    rating: -1
+  }
 
-  disadvantages = ''
-  disadvantagesRules = [
-    v => (v && v.length <= 150) || (v.length === 0) || 'Disadvantages must be less than 150 characters'
-  ]
+  data () {
+    return {
+      disadvantagesRule,
+      advantagesRule,
+      commentRule
+    }
+  }
 
-  comment = ''
-  commentRules = [
-    v => (v && v.length <= 2000) || (v.length === 0) || 'Comment must be less than 2000 characters'
-  ]
-
-  validatiton () {
+  validation () {
     this.$refs.form.validate()
   }
 
   clear () {
-    this.$refs.form.reset()
-    this.advantages = ''
-    this.rating = -1
-    this.disadvantages = ''
-    this.comment = ''
+    this.commentData.comment = ''
+    this.commentData.advantages = ''
+    this.commentData.disadvantages = ''
+    this.commentData.rating = null
+    const date = new Date()
+    console.log(date)
+    console.log(date.getTime())
+  }
+
+  @Action createComment
+  async onAddComment () {
+    const date = new Date()
+    console.log(date)
+    console.log(date.getTime())
+    this.commentData.date_created = date.getTime()
+    try {
+      await this.createComment(this.commentData)
+    } catch (err) {
+      console.error(err.message)
+    }
+  }
+
+  async mounted () {
+    try {
+      await this.loadUserComments()
+    } catch (err) {
+      console.error(err.message)
+    }
   }
 }
 </script>
