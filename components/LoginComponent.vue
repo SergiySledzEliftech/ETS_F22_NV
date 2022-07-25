@@ -30,8 +30,8 @@
   </v-app>
 </template>
 <script>
-import { Component, Vue } from 'nuxt-property-decorator'
-import { emptyValidation, emailValidation, passwordValidation } from '../helpers/validators'
+import { Component, Vue } from 'nuxt-property-decorator';
+import { emptyValidation, emailValidation, passwordValidation } from '../helpers/validators';
 
 export default
   @Component({
@@ -41,12 +41,12 @@ export default
 class LoginComponent extends Vue {
     valid = true;
     loginInfo = {
-      email: '',
-      password: ''
+      email: 's@s.s',
+      password: '1123456aA'
     }
 
     data () {
-      return { emptyValidation, emailValidation, passwordValidation }
+      return { emptyValidation, emailValidation, passwordValidation };
     }
 
     show = false;
@@ -54,11 +54,12 @@ class LoginComponent extends Vue {
     async validateFunction () {
       if (this.$refs.form.validate()) {
         try {
-          await this.$auth.loginWith('local', { data: this.loginInfo })
-          console.log(this.$auth.loggedIn)
-          this.$router.push('/')
+          await this.$auth.loginWith('local', { data: this.loginInfo });
+          console.log(this.$auth.loggedIn);
+          console.log(this.$auth.user._id);
+          this.$router.push('/');
         } catch (error) {
-          console.log(error)
+          console.log(error);
         }
       }
     }

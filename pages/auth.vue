@@ -51,32 +51,32 @@
 </template>
 
 <script>
-import { Vue, Component } from 'nuxt-property-decorator'
-import Router from 'vue-router'
-import RegisterComponent from '../components/RegisterComponent'
-import LoginComponent from '../components/LoginComponent'
+import { Vue, Component } from 'nuxt-property-decorator';
+import Router from 'vue-router';
+import RegisterComponent from '../components/RegisterComponent';
+import LoginComponent from '../components/LoginComponent';
 
-Vue.use(Router)
+Vue.use(Router);
 export default
-@Component({
-  components: { LoginComponent, RegisterComponent }
-})
+  @Component({
+    components: { LoginComponent, RegisterComponent }
+  })
 class Auth extends Vue {
-  // :href="'#signin'"
-  // :href="'#signup'"
-  tab = 0;
-  mounted () {
-    this.addHashToLocation('signin')
-  }
+    // :href="'#signin'"
+    // :href="'#signup'"
+    tab = 0;
+    mounted () {
+      this.addHashToLocation('signin');
+    }
 
-  addHashToLocation (params) {
-    history.pushState(
-      {},
-      null,
-      `${this.$route.path}#${encodeURIComponent(params)}`
-    )
+    addHashToLocation (params) {
+      history.pushState(
+        {},
+        null,
+        `${this.$route.path}#${encodeURIComponent(params)}`
+      );
+    }
   }
-}
 </script>
 <style lang="scss" scoped>
 @import '../assets/variables.scss';

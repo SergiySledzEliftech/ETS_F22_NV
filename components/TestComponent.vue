@@ -16,15 +16,15 @@
 </template>
 
 <script>
-import { Vue, Component } from 'nuxt-property-decorator'
-import TestComp from '../components/TestComponent'
+import { Vue, Component } from 'nuxt-property-decorator';
+import TestComp from '../components/TestComponent';
 
 export default @Component({
   components: { TestComp }
 })
 
 class Index extends Vue {
-    title = 'Welcome to the ETS_F22_NV project!';
+  title = 'Welcome to the ETS_F22_NV project!';
 }
 </script>
 

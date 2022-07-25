@@ -1,18 +1,18 @@
-import Vue from 'vue'
-import Vuex from 'Vuex'
+import Vue from 'vue';
+import Vuex from 'Vuex';
 
-Vue.use(Vuex)
+Vue.use(Vuex);
 export const getters = {
   getCounter (state) {
-    return state.counter
+    return state.counter;
   }
-}
+};
 
 export const mutations = {
   increment (state) {
-    state.counter++
+    state.counter++;
   }
-}
+};
 
 export const actions = {
   // async fetchCounter(state) {
@@ -21,4 +21,4 @@ export const actions = {
   //   state.counter = res.data;
   //   return res.data;
   // }
-}
+};

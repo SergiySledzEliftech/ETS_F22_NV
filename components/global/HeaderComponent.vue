@@ -136,7 +136,7 @@
               <v-btn
                 class="ma-2 btn-red"
                 outlined
-                @click="logout"
+                @click="$auth.logout()"
               >
                 Log Out
               </v-btn>
@@ -168,10 +168,10 @@
   </div>
 </template>
 <script>
-import { Vue, Component, namespace } from 'nuxt-property-decorator'
-import TestComp from '../../components/TestComponent'
+import { Vue, Component, namespace } from 'nuxt-property-decorator';
+import TestComp from '../../components/TestComponent';
 
-const { State, Mutation } = namespace('global')
+const { State, Mutation } = namespace('global');
 
 export default @Component({
   components: { TestComp },
@@ -200,45 +200,45 @@ class Index extends Vue {
     this.$nextTick(function () {
       // Код, который будет запущен только после
       // отрисовки всех представлений
-      console.log('Start')
-      const navbarMenu = document.getElementById('navbar')
-      const burgerMenu = document.getElementById('burger')
-      const overlayMenu = document.getElementById('overlay')
+      console.log('Start');
+      const navbarMenu = document.getElementById('navbar');
+      const burgerMenu = document.getElementById('burger');
+      const overlayMenu = document.getElementById('overlay');
 
       // Toggle Menu Function
-      burgerMenu.addEventListener('click', toggleMenu)
-      overlayMenu.addEventListener('click', toggleMenu)
+      burgerMenu.addEventListener('click', toggleMenu);
+      overlayMenu.addEventListener('click', toggleMenu);
 
       function toggleMenu () {
-        navbarMenu.classList.toggle('active')
-        overlayMenu.classList.toggle('active')
+        navbarMenu.classList.toggle('active');
+        overlayMenu.classList.toggle('active');
       }
 
       // Collapse SubMenu Function
       navbarMenu.addEventListener('click', (e) => {
         if (e.target.hasAttribute('data-toggle') && window.innerWidth <= 992) {
-          e.preventDefault()
-          const menuItemHasChildren = e.target.parentElement
+          e.preventDefault();
+          const menuItemHasChildren = e.target.parentElement;
 
           // If menu-item-child is Expanded, then Collapse It
           if (menuItemHasChildren.classList.contains('active')) {
-            collapseSubMenu()
+            collapseSubMenu();
           } else {
             // Collapse the Existing Expanded menu-item-child
             if (navbarMenu.querySelector('.menu-item-child.active')) {
-              collapseSubMenu()
+              collapseSubMenu();
             }
             // Expanded the New menu-item-child
-            menuItemHasChildren.classList.add('active')
-            const subMenu = menuItemHasChildren.querySelector('.sub-menu')
-            subMenu.style.maxHeight = subMenu.scrollHeight + 'px'
+            menuItemHasChildren.classList.add('active');
+            const subMenu = menuItemHasChildren.querySelector('.sub-menu');
+            subMenu.style.maxHeight = subMenu.scrollHeight + 'px';
           }
         }
-      })
+      });
 
       function collapseSubMenu () {
-        navbarMenu.querySelector('.menu-item-child.active .sub-menu').removeAttribute('style')
-        navbarMenu.querySelector('.menu-item-child.active').classList.remove('active')
+        navbarMenu.querySelector('.menu-item-child.active .sub-menu').removeAttribute('style');
+        navbarMenu.querySelector('.menu-item-child.active').classList.remove('active');
       }
 
       // Fixed Resize Screen Function
@@ -246,21 +246,21 @@ class Index extends Vue {
         if (this.innerWidth > 992) {
           // If navbarMenu is Open, then Close It
           if (navbarMenu.classList.contains('active')) {
-            toggleMenu()
+            toggleMenu();
           }
 
           // If menu-item-child is Expanded, then Collapse It
           if (navbarMenu.querySelector('.menu-item-child.active')) {
-            collapseSubMenu()
+            collapseSubMenu();
           }
         }
-      })
-    })
+      });
+    });
   }
 
-  logout () {
-    this.$auth.logout()
-  }
+  // logout () {
+  //   this.$auth.logout()
+  // }
 }
 </script>
 
