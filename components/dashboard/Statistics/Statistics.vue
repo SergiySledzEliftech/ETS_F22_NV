@@ -19,9 +19,9 @@
 </template>
 
 <script>
-import { Component, Vue } from 'nuxt-property-decorator'
-import StatisticsItem from './StatisticsItem.vue'
-import { serverApiUrl } from '@/settings/config'
+import { Component, Vue } from 'nuxt-property-decorator';
+import StatisticsItem from './StatisticsItem.vue';
+import { serverApiUrl } from '@/settings/config';
 
 export default @Component({
   components: { StatisticsItem }
@@ -34,43 +34,43 @@ class Statistics extends Vue {
 
   async mounted () {
     try {
-      const res = await this.$axios.get(`${serverApiUrl}/statistics`)
-      const todayStatistics = res.data.filter(e => e.date === this.getDateTime())
-      const tomorrowStatistics = res.data.filter(e => e.date === this.getDateTime() - 86400000)
-      const statistics = [...(this.fillEmptyStatistics(tomorrowStatistics)), ...(this.fillEmptyStatistics(todayStatistics))]
-      console.log(todayStatistics)
+      const res = await this.$axios.get(`${serverApiUrl}/statistics`);
+      const todayStatistics = res.data.filter(e => e.date === this.getDateTime());
+      const tomorrowStatistics = res.data.filter(e => e.date === this.getDateTime() - 86400000);
+      const statistics = [...(this.fillEmptyStatistics(tomorrowStatistics)), ...(this.fillEmptyStatistics(todayStatistics))];
+      console.log(todayStatistics);
 
-      this.users = this.getStatisticsFor24Hours(statistics, 'users')
-      this.itemsCreated = this.getStatisticsFor24Hours(statistics, 'itemsCreated')
-      this.itemsRented = this.getStatisticsFor24Hours(statistics, 'itemsRented')
+      this.users = this.getStatisticsFor24Hours(statistics, 'users');
+      this.itemsCreated = this.getStatisticsFor24Hours(statistics, 'itemsCreated');
+      this.itemsRented = this.getStatisticsFor24Hours(statistics, 'itemsRented');
     } catch (error) {}
   }
 
   getDateTime () {
-    return (new Date()).setHours(0, 0, 0, 0)
+    return (new Date()).setHours(0, 0, 0, 0);
   }
 
   getStatisticsFor24Hours (statistics, field) {
-    const hours = Math.floor((new Date()).getHours() / 4)
-    const todayStatistics = [...statistics[1][field], ...statistics[0][field]].slice(hours, hours + 6).reverse()
+    const hours = Math.floor((new Date()).getHours() / 4);
+    const todayStatistics = [...statistics[1][field], ...statistics[0][field]].slice(hours, hours + 6).reverse();
 
-    const result = []
+    const result = [];
     for (let i = 0; i < todayStatistics.length; i++) {
-      result.unshift(todayStatistics.slice(i).reduce((e1, e2) => e1 + e2))
+      result.unshift(todayStatistics.slice(i).reduce((e1, e2) => e1 + e2));
     }
 
-    return result
+    return result;
   }
 
   fillEmptyStatistics (arr) {
     if (arr.length === 0) {
-      const nullArr = [0, 0, 0, 0, 0, 0]
-      arr.push({ users: nullArr, itemsCreated: nullArr, itemsRented: nullArr })
+      const nullArr = [0, 0, 0, 0, 0, 0];
+      arr.push({ users: nullArr, itemsCreated: nullArr, itemsRented: nullArr });
 
-      return arr
+      return arr;
     }
 
-    return arr
+    return arr;
   }
 }
 </script>

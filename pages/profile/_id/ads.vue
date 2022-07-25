@@ -1,7 +1,7 @@
 <template>
   <div>
-    <ItemsList :list="itemsData" :change-view="changeView" :view="view">
-      <li v-for="item in itemsData" :key="item.id" class="item">
+    <ItemsList :list="dataAds">
+      <li v-for="item in dataAds" :key="item.id" class="item">
         <single-item :item="item" :grid="view === 'list'">
           <div class="buttons">
             <v-tooltip bottom>
@@ -16,7 +16,7 @@
             </v-tooltip>
             <v-tooltip bottom>
               <template #activator="{on,attrs}">
-                <v-btn v-bind="attrs" icon small v-on="on" @click.prevent="() => deleteItem(itemsData, item.id)">
+                <v-btn v-bind="attrs" icon small v-on="on" @click.prevent="deleteElem(item.id)">
                   <v-icon :class="view">
                     mdi-trash-can
                   </v-icon>
@@ -35,17 +35,16 @@
 import { Vue, Component, namespace } from 'nuxt-property-decorator';
 import ItemsList from '~/components/list/ItemsList.vue';
 import SingleItem from '~/components/list/SingleItem.vue';
-const { State, Mutation } = namespace('profile_myAds');
+const { State, Action } = namespace('profile');
 
 export default @Component({
   name: 'profile-ads',
   components: { ItemsList, SingleItem }
 })
 class ProfileAds extends Vue {
+  @State dataAds
   @State view
-  @State itemsData
-  @Mutation deleteItem
-  @Mutation changeView
+  @Action deleteElem
 }
 
 </script>

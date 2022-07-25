@@ -23,10 +23,10 @@
 </template>
 
 <script>
-import { Component, Vue } from 'nuxt-property-decorator'
-import NewsItem from './NewsItem.vue'
-import NewsItemMobile from './NewsItemMobile.vue'
-import { serverApiUrl } from '@/settings/config'
+import { Component, Vue } from 'nuxt-property-decorator';
+import NewsItem from './NewsItem.vue';
+import NewsItemMobile from './NewsItemMobile.vue';
+import { serverApiUrl } from '@/settings/config';
 
 export default @Component({
   components: { NewsItem, NewsItemMobile }
@@ -42,21 +42,21 @@ class News extends Vue {
 
   nextArticleClicked () {
     if (this.newsData[this.newsIndex]) {
-      this.img = this.newsData[this.newsIndex].img
-      this.title = this.newsData[this.newsIndex].title
-      this.article = this.newsData[this.newsIndex].text
+      this.img = this.newsData[this.newsIndex].img;
+      this.title = this.newsData[this.newsIndex].title;
+      this.article = this.newsData[this.newsIndex].text;
 
-      this.newsIndex++
+      this.newsIndex++;
     }
   }
 
   async mounted () {
     try {
-      const res = await this.$axios.get(`${serverApiUrl}/news`)
-      this.newsData = res.data
-      this.img = res.data[0].img
-      this.title = res.data[0].title
-      this.article = res.data[0].text
+      const res = await this.$axios.get(`${serverApiUrl}/news`);
+      this.newsData = res.data;
+      this.img = res.data[0].img;
+      this.title = res.data[0].title;
+      this.article = res.data[0].text;
     } catch (error) {}
   }
 }

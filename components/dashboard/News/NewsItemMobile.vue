@@ -47,7 +47,7 @@
 </template>
 
 <script>
-import { Component, Vue, Prop } from 'nuxt-property-decorator'
+import { Component, Vue, Prop } from 'nuxt-property-decorator';
 
 export default @Component
 
@@ -62,14 +62,14 @@ class NewsItem extends Vue {
   rotateY = false
 
   detailsClick () {
-    this.show = !this.show
-    this.btnText = this.show ? 'Hide' : 'More...'
+    this.show = !this.show;
+    this.btnText = this.show ? 'Hide' : 'More...';
   }
 
   nextClick () {
     if (this.isLast) {
-      this.$emit('nextArticle')
-      this.rotateY = !this.rotateY
+      this.$emit('nextArticle');
+      this.rotateY = !this.rotateY;
     }
   }
 }

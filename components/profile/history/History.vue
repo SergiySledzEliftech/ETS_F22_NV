@@ -1,6 +1,6 @@
 <template>
   <div>
-    <items-list :list="list" :change-view="changeView" :view="view">
+    <items-list :list="list">
       <li v-for="item in list" :key="item.id" class="item">
         <single-item :item="item" :grid="view === 'list'">
           <p class="expire">
@@ -13,27 +13,27 @@
 </template>
 
 <script>
-import { Vue, Component, namespace } from 'nuxt-property-decorator';
+import { Vue, Component } from 'nuxt-property-decorator';
 import ItemsList from '@/components/list/ItemsList.vue';
 import SingleItem from '~/components/list/SingleItem.vue';
-const { State, Mutation } = namespace('profile_myRents');
 
 export default @Component({
-  name: 'borrow',
+  name: 'history',
   components: { ItemsList, SingleItem },
   props: {
     list: {
       type: Array,
+      required: true
+    },
+    view: {
+      type: String,
       required: true
     }
   }
 
 })
 
-class Borrow extends Vue {
-  date = new Date(Date.now());
-  @State view
-  @Mutation changeView
+class History extends Vue {
 }
 </script>
 

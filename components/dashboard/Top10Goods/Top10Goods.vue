@@ -75,9 +75,9 @@
 </template>
 
 <script>
-import { Component, Vue } from 'nuxt-property-decorator'
-import ProductCard from '../ProductCard/ProductCard.vue'
-import { serverApiUrl } from '@/settings/config'
+import { Component, Vue } from 'nuxt-property-decorator';
+import ProductCard from '../ProductCard/ProductCard.vue';
+import { serverApiUrl } from '@/settings/config';
 
 export default @Component({
   components: { ProductCard }
@@ -91,39 +91,39 @@ class PremiumGoods extends Vue {
 
   scrollTop () {
     if (!this.showAll) {
-      this.$vuetify.goTo(0)
+      this.$vuetify.goTo(0);
     }
   }
 
   showAllClick () {
-    this.showAllButtonText = this.showAll ? 'See' : 'Hide'
-    this.showAll = !this.showAll
+    this.showAllButtonText = this.showAll ? 'See' : 'Hide';
+    this.showAll = !this.showAll;
     setTimeout(() => {
-      this.scrollTop()
-    }, 100)
+      this.scrollTop();
+    }, 100);
   }
 
   async mounted () {
     try {
-      const res = await this.$axios.get(`${serverApiUrl}/top10`)
-      this.goodsData = res.data
-      this.goodsData2 = this.splitForNum(res.data, 2)
+      const res = await this.$axios.get(`${serverApiUrl}/top10`);
+      this.goodsData = res.data;
+      this.goodsData2 = this.splitForNum(res.data, 2);
     } catch (error) {}
   }
 
   splitForNum (arr, num) {
-    const res = []
-    let temp = []
+    const res = [];
+    let temp = [];
     arr.forEach((e) => {
-      temp.push(e)
+      temp.push(e);
 
       if (temp.length === num) {
-        res.push(temp)
-        temp = []
+        res.push(temp);
+        temp = [];
       }
-    })
+    });
 
-    return res
+    return res;
   }
 }
 </script>

@@ -39,7 +39,7 @@
 </template>
 
 <script>
-import { Component, Vue, Prop } from 'nuxt-property-decorator'
+import { Component, Vue, Prop } from 'nuxt-property-decorator';
 
 export default @Component
 
@@ -56,19 +56,19 @@ class NewsItem extends Vue {
   scroll () {
     this.$vuetify.goTo('#news-header', {
       duration: 0
-    })
+    });
   }
 
   detailsClick () {
-    this.scroll()
-    this.detailsButtonText = this.showAllContent ? 'More...' : 'Hide'
-    this.showAllContent = !this.showAllContent
+    this.scroll();
+    this.detailsButtonText = this.showAllContent ? 'More...' : 'Hide';
+    this.showAllContent = !this.showAllContent;
   }
 
   nextClick () {
     if (this.isLast) {
-      this.$emit('nextArticle')
-      this.rotateY = !this.rotateY
+      this.$emit('nextArticle');
+      this.rotateY = !this.rotateY;
     }
   }
 }

@@ -312,7 +312,7 @@
 import { Component, Vue, Watch } from 'nuxt-property-decorator';
 import ItemsList from '@/components/list/ItemsList';
 import SingleItem from '@/components/list/SingleItem';
-import { productProps, products } from '@/pages/test';
+// import { productProps, products } from '@/pages/test';
 
 export default @Component({
   name: 'Nazar',

@@ -17,7 +17,7 @@
 </template>
 
 <script>
-import { Component, Vue, Prop } from 'nuxt-property-decorator'
+import { Component, Vue, Prop } from 'nuxt-property-decorator';
 
 export default @Component
 
@@ -26,7 +26,7 @@ class Column extends Vue {
   @Prop({ type: Number }) hours
 
   heightValidator (num) {
-    return num > 100 ? 100 : num
+    return num > 100 ? 100 : num;
   }
 }
 </script>

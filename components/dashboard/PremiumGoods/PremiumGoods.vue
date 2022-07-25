@@ -79,9 +79,9 @@
 </template>
 
 <script>
-import { Component, Vue } from 'nuxt-property-decorator'
-import ProductCard from '../ProductCard/ProductCard.vue'
-import { serverApiUrl } from '@/settings/config'
+import { Component, Vue } from 'nuxt-property-decorator';
+import ProductCard from '../ProductCard/ProductCard.vue';
+import { serverApiUrl } from '@/settings/config';
 
 export default @Component({
   components: { ProductCard }
@@ -95,34 +95,34 @@ class Top10Goods extends Vue {
   index = 0
 
   async mounted () {
-    const goodsData = await this.getPremiumGoods()
-    this.goodsData3 = this.splitForNum(goodsData, 3)
-    this.goodsData2 = this.splitForNum(goodsData, 2)
-    this.goodsData1 = goodsData
+    const goodsData = await this.getPremiumGoods();
+    this.goodsData3 = this.splitForNum(goodsData, 3);
+    this.goodsData2 = this.splitForNum(goodsData, 2);
+    this.goodsData1 = goodsData;
   }
 
   async getPremiumGoods () {
     try {
-      const res = await this.$axios.get(`${serverApiUrl}/premium/`)
-      return res.data
+      const res = await this.$axios.get(`${serverApiUrl}/premium/`);
+      return res.data;
     } catch (error) {
-      return [...Array(3).keys()]
+      return [...Array(3).keys()];
     }
   }
 
   splitForNum (arr, num) {
-    const res = []
-    let temp = []
+    const res = [];
+    let temp = [];
     arr.forEach((e) => {
-      temp.push(e)
+      temp.push(e);
 
       if (temp.length === num) {
-        res.push(temp)
-        temp = []
+        res.push(temp);
+        temp = [];
       }
-    })
+    });
 
-    return res
+    return res;
   }
 }
 </script>

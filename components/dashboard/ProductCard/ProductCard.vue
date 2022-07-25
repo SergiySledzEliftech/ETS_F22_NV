@@ -24,7 +24,7 @@
 </template>
 
 <script>
-import { Component, Prop, Vue } from 'nuxt-property-decorator'
+import { Component, Prop, Vue } from 'nuxt-property-decorator';
 export default @Component
 
 class ProductCard extends Vue {
@@ -32,7 +32,7 @@ class ProductCard extends Vue {
   @Prop({ default: 'https://upload.wikimedia.org/wikipedia/commons/b/b1/Loading_icon.gif?20151024034921' }) img
 
   formatString (str) {
-    return str.length > 20 ? str.slice(0, 20) + '...' : str
+    return str.length > 20 ? str.slice(0, 20) + '...' : str;
   }
 }
 </script>
