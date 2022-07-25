@@ -131,3 +131,7 @@ export function positiveInteger (message = 'Please type only positive integer') 
 export function emailListValidation (message = 'Please enter valid, comma separated (,) email addresses to send information') {
   return v => !v || !!v.toString().match(EMAIL_LIST_REGEXP) || message
 }
+
+export function avatarValidation (message = 'Avatar size should be less than 2 MB!') {
+  return v => !v || v.size < 2000000 || message
+}

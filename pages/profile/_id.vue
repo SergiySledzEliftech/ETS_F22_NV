@@ -6,11 +6,11 @@
           <nuxtLink :to="{ name: 'profile-id', params: { id: $route.params.id}}">
             <!--<v-img :src="userData.avatar" alt="avtr" class="avtr" contain />-->
             <div v-if="isMy">
-              Hello, {{ users[currentIndex].firstName }} {{ users[currentIndex].lastName }}
+              Hello, {{ user.firstName }} {{ user.lastName }}
             </div>
             <div v-else class="center-align">
-              <v-img :src="users[currentIndex].avatar" alt="avtr" class="avtr" contain />
-              {{ users[currentIndex].firstName }} {{ users[currentIndex].lastName }}
+              <v-img :src="user.avatar" alt="avtr" class="avtr" contain />
+              {{ user.firstName }} {{ user.lastName }}
             </div>
           </nuxtLink>
         </h4>
@@ -31,13 +31,13 @@
         </v-tabs>
       </v-col>
     </v-row>
-    <NuxtChild :user="users[currentIndex]" :isMy="isMy" />
+    <NuxtChild :user="user" :isMy="isMy" />
   </div>
 </template>
 
 <script>
 import { Vue, Component, namespace } from 'nuxt-property-decorator'
-const { State } = namespace('profile')
+const { State, Action } = namespace('profile')
 
 export default @Component({
   components: {}
@@ -45,14 +45,23 @@ export default @Component({
 })
 
 class Profile extends Vue {
-  @State users
+  @State user;
+  @Action getUser;
+
+  async mounted () {
+    try {
+      await this.getUser(this.$route.params.id)
+    } catch (e) {
+      console.log('here: ' + e)
+    }
+  }
 
   name = 'profile';
-  myId = 1;
-  currentIndex = this.$route.params.id - 1;
+  myId = '62dbeb38d387887c0b416ab6';
+  // currentIndex = this.$route.params.id - 1;
 
   get isMy () {
-    return this.myId === +this.$route.params.id
+    return this.myId === this.$route.params.id.toString()
   };
 
   tabsCurrentUser = [
