@@ -70,51 +70,50 @@
 import { Component, Vue } from 'nuxt-property-decorator';
 import { emptyValidation, emailValidation, passwordValidation, phoneNumberValidation, lengthValidation, checkboxValidation, numberValidation, equalLengthValidation } from '../helpers/validators';
 
-export default
-  @Component({
-    name: 'RegisterComponent'
-  })
+export default @Component({
+  name: 'RegisterComponent'
+})
 
 class RegisterComponent extends Vue {
-    registerInfo = {
-      first_name: '',
-      last_name: '',
-      phone: '',
-      email: '',
-      password: ''
-    }
+  registerInfo = {
+    first_name: '',
+    last_name: '',
+    phone: '',
+    email: '',
+    password: ''
+  }
 
-    valid = true;
-    show = false;
-    checkbox = false;
-    data () {
-      return { emptyValidation, emailValidation, passwordValidation, phoneNumberValidation, lengthValidation, checkboxValidation, numberValidation, equalLengthValidation };
-    }
+  valid = true;
+  show = false;
+  checkbox = false;
+  data () {
+    return { emptyValidation, emailValidation, passwordValidation, phoneNumberValidation, lengthValidation, checkboxValidation, numberValidation, equalLengthValidation };
+  }
 
-    async validateFunction () {
-      if (this.$refs.form.validate()) {
-        try {
-          const res = await this.$axios.post('http://localhost:8000/auth/signup', this.registerInfo);
-          console.log(res);
-          await this.$auth.loginWith('local', {
-            data: {
-              email: this.registerInfo.email,
-              password: this.registerInfo.password
-            }
-          });
-          this.$router.push('/');
+  async validateFunction () {
+    if (this.$refs.form.validate()) {
+      try {
+        const res = await this.$axios.post('http://localhost:8000/auth/signup', this.registerInfo);
+        console.log(res);
+        await this.$auth.loginWith('local', {
+          data: {
+            email: this.registerInfo.email,
+            password: this.registerInfo.password
+          }
+        });
+        this.$router.push('/');
         // .then(function (response) {
         //   console.log(response)
         // })
         // .catch(function (error) {
         //   console.log(error)
         // })
-        } catch (error) {
-          console.log(error);
-        }
+      } catch (error) {
+        console.log(error);
       }
     }
   }
+}
 </script>
 
 <style lang="scss" scoped>

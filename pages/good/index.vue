@@ -163,8 +163,8 @@
 </template>
 
 <script>
-import { Vue, Component } from 'nuxt-property-decorator'
-import Map from '~/components/good/Map'
+import { Vue, Component } from 'nuxt-property-decorator';
+import Map from '~/components/good/Map';
 
 export default @Component({
   components: {
@@ -250,33 +250,33 @@ class DescriptionTab extends Vue {
   detailsMore = null
 
   created () {
-    this.checkDetailsLength()
+    this.checkDetailsLength();
   }
 
   checkDetailsLength () {
     if (this.details.length > this.detailsLength) {
-      this.onLessDetails()
+      this.onLessDetails();
     } else {
-      this.onMoreDetails()
+      this.onMoreDetails();
     }
   }
 
   onMoreDetails () {
-    this.detailsContent = this.details
-    this.detailsShowAll = true
-    this.detailsMore = false
+    this.detailsContent = this.details;
+    this.detailsShowAll = true;
+    this.detailsMore = false;
   }
 
   onLessDetails () {
-    this.detailsContent = this.details.slice(0, this.detailsLength - 1)
-    this.detailsContent += ' ...'
-    this.detailsShowAll = false
-    this.detailsMore = true
+    this.detailsContent = this.details.slice(0, this.detailsLength - 1);
+    this.detailsContent += ' ...';
+    this.detailsShowAll = false;
+    this.detailsMore = true;
   }
 
   onChangeBtns () {
-    this.$refs.btn_more.classList.toggle('d_none')
-    this.$refs.btn_less.classList.toggle('d_none')
+    this.$refs.btn_more.classList.toggle('d_none');
+    this.$refs.btn_less.classList.toggle('d_none');
   }
 }
 </script>

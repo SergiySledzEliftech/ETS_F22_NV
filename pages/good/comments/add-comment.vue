@@ -72,10 +72,10 @@
 </template>
 
 <script>
-import { Vue, Component, namespace } from 'nuxt-property-decorator'
-import { disadvantagesRule, advantagesRule, commentRule } from '~/helpers/comment-validation'
+import { Vue, Component, namespace } from 'nuxt-property-decorator';
+import { disadvantagesRule, advantagesRule, commentRule } from '~/helpers/comment-validation';
 
-const { Action } = namespace('good_comments')
+const { Action } = namespace('good_comments');
 
 export default @Component({
 })
@@ -94,41 +94,41 @@ class AddComment extends Vue {
       disadvantagesRule,
       advantagesRule,
       commentRule
-    }
+    };
   }
 
   validation () {
-    this.$refs.form.validate()
+    this.$refs.form.validate();
   }
 
   clear () {
-    this.commentData.comment = ''
-    this.commentData.advantages = ''
-    this.commentData.disadvantages = ''
-    this.commentData.rating = null
-    const date = new Date()
-    console.log(date)
-    console.log(date.getTime())
+    this.commentData.comment = '';
+    this.commentData.advantages = '';
+    this.commentData.disadvantages = '';
+    this.commentData.rating = null;
+    const date = new Date();
+    console.log(date);
+    console.log(date.getTime());
   }
 
   @Action createComment
   async onAddComment () {
-    const date = new Date()
-    console.log(date)
-    console.log(date.getTime())
-    this.commentData.date_created = date.getTime()
+    const date = new Date();
+    console.log(date);
+    console.log(date.getTime());
+    this.commentData.date_created = date.getTime();
     try {
-      await this.createComment(this.commentData)
+      await this.createComment(this.commentData);
     } catch (err) {
-      console.error(err.message)
+      console.error(err.message);
     }
   }
 
   async mounted () {
     try {
-      await this.loadUserComments()
+      await this.loadUserComments();
     } catch (err) {
-      console.error(err.message)
+      console.error(err.message);
     }
   }
 }

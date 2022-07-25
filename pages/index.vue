@@ -15,8 +15,8 @@
 </template>
 
 <script>
-import { Vue, Component } from 'nuxt-property-decorator'
-import TestComponent from '~/components/TestComponent'
+import { Vue, Component } from 'nuxt-property-decorator';
+import TestComponent from '~/components/TestComponent';
 
 export default @Component({
   components: {
@@ -28,7 +28,7 @@ class Index extends Vue {
   loading = true
 
   created () {
-    this.loading = false
+    this.loading = false;
   }
 }
 </script>

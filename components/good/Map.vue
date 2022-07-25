@@ -20,7 +20,7 @@
 </template>
 
 <script>
-import { Component, Vue } from 'nuxt-property-decorator'
+import { Component, Vue } from 'nuxt-property-decorator';
 
 export default @Component({
   components: {}
@@ -29,7 +29,7 @@ export default @Component({
 class Map extends Vue {
   loading = true
   created () {
-    this.loading = false
+    this.loading = false;
   }
 }
 </script>
