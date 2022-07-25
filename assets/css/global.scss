@@ -99,6 +99,20 @@ $body-font-family: 'Montserrat';
     padding: 0 20px!important;
     // margin-bottom: 16px;
   }
+  .btn_secondary {
+    background: #fff !important;
+    color: $secondary!important;
+    font-size: 18px!important;
+    font-weight: normal;
+    border: 1px solid $secondary!important;
+    letter-spacing: normal;
+    height: 50px!important;
+    padding: 0 20px!important;
+    margin-bottom: 16px;
+  }
+  &--wrap{
+    min-height: fit-content !important;
+  }
 }
 
 .v-main__wrap {

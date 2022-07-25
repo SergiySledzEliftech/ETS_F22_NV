@@ -93,22 +93,38 @@
 
           <!-- Section: BUTTONS profile/sign-in -->
           <div class="login-profile">
-            <v-btn
-              v-if="isLogin"
-              class="ma-2"
-              outlined
-              color="indigo"
+            <nuxt-link
+              v-if="$auth.loggedIn"
+              :to="{ path: '/'}"
             >
-              Profile
-            </v-btn>
-            <v-btn
+              <v-btn
+                class="ma-2"
+                outlined
+                color="indigo"
+              >
+                Profile
+              </v-btn>
+              <v-btn
+                class="ma-2 btn-red"
+                outlined
+                @click="$auth.logout()"
+              >
+                Log Out
+              </v-btn>
+            </nuxt-link>
+            <nuxt-link
               v-else
-              class="ma-2 btn-red"
-              outlined
-              color="indigo"
+              :to="{ path: '/auth' }"
             >
-              Sign in
-            </v-btn>
+              <v-btn
+
+                class="ma-2 btn-red"
+                outlined
+                color="indigo"
+              >
+                Sign in
+              </v-btn>
+            </nuxt-link>
           </div>
           <!-- Section: BUTTONS profile/sign-in -->
 
