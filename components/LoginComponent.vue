@@ -42,7 +42,7 @@ class LoginComponent extends Vue {
     valid = true;
     loginInfo = {
       email: 's@s.s',
-      password: '1123456aA'
+      password: '123456aA'
     }
 
     data () {

@@ -1,23 +1,43 @@
 <template>
-  <div>
-    <v-row justify="center" align="center">
-      <h1 class="headline">
-        {{ title }}
-      </h1>
-    </v-row>
-    <TestComp />
+  <div class="container">
+    <div v-if="loading">
+      <v-progress-circular
+        :size="60"
+        :width="6"
+        color="teal"
+        indeterminate
+      />
+    </div>
+    <div v-if="!loading">
+      <test-component />
+    </div>
   </div>
 </template>
 
 <script>
-import { Vue, Component } from 'nuxt-property-decorator';
-import TestComp from '../components/TestComponent';
+import { Vue, Component } from 'nuxt-property-decorator'
+import TestComponent from '~/components/TestComponent'
 
 export default @Component({
-  components: { TestComp }
+  components: {
+    TestComponent
+  }
 })
 
 class Index extends Vue {
-  title = 'Welcome to the ETS_F22_NV project!';
+  loading = true
+
+  created () {
+    this.loading = false
+  }
 }
 </script>
+
+<style lang="scss">
+.progress-circular{
+  display: flex;
+  height: 70vh;
+  justify-content: center;
+  align-items: center;
+}
+</style>

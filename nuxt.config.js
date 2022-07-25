@@ -45,7 +45,11 @@ export default {
     // https://go.nuxtjs.dev/axios
     '@nuxtjs/axios',
     // '@nuxtjs/auth',
-    '@nuxtjs/auth-next'
+    '@nuxtjs/auth-next',
+    '@nuxtjs/axios',
+    ['nuxt-gmaps', {
+      key: 'AIzaSyBVI659t57iK61VMUdHijm3uG460BqkBoI'
+    }]
   ],
 
   // Axios module configuration: https://go.nuxtjs.dev/config-axios
@@ -56,6 +60,7 @@ export default {
   // Vuetify module configuration: https://go.nuxtjs.dev/config-vuetify
   vuetify: {
     customVariables: ['~/assets/variables.scss'],
+    treeShake: true,
     theme: {
       dark: false,
       themes: {
