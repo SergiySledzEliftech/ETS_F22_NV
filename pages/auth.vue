@@ -57,26 +57,25 @@ import RegisterComponent from '../components/RegisterComponent';
 import LoginComponent from '../components/LoginComponent';
 
 Vue.use(Router);
-export default
-  @Component({
-    components: { LoginComponent, RegisterComponent }
-  })
+export default @Component({
+  components: { LoginComponent, RegisterComponent }
+})
 class Auth extends Vue {
-    // :href="'#signin'"
-    // :href="'#signup'"
-    tab = 0;
-    mounted () {
-      this.addHashToLocation('signin');
-    }
-
-    addHashToLocation (params) {
-      history.pushState(
-        {},
-        null,
-        `${this.$route.path}#${encodeURIComponent(params)}`
-      );
-    }
+  // :href="'#signin'"
+  // :href="'#signup'"
+  tab = 0;
+  mounted () {
+    this.addHashToLocation('signin');
   }
+
+  addHashToLocation (params) {
+    history.pushState(
+      {},
+      null,
+      `${this.$route.path}#${encodeURIComponent(params)}`
+    );
+  }
+}
 </script>
 <style lang="scss" scoped>
 @import '../assets/variables.scss';

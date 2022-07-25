@@ -20,8 +20,8 @@
 </template>
 
 <script>
-import { Vue, Component } from 'nuxt-property-decorator'
-import SingleItem from './SingleItem.vue'
+import { Vue, Component } from 'nuxt-property-decorator';
+import SingleItem from './SingleItem.vue';
 export default @Component({
   name: 'items-list',
   props: {
@@ -45,21 +45,21 @@ class ItemsList extends Vue {
   totalPages = 1;
 
   changeIcon () {
-    this.icon = this.view === 'grid' ? 'mdi-format-list-bulleted-square' : 'mdi-view-grid-outline'
+    this.icon = this.view === 'grid' ? 'mdi-format-list-bulleted-square' : 'mdi-view-grid-outline';
   }
 
   changeDisplaying () {
-    this.changeView()
-    this.changeIcon()
+    this.changeView();
+    this.changeIcon();
   }
 
   setPerPage (e) {
-    this.perPage = e.target.value
-    this.page = 1
+    this.perPage = e.target.value;
+    this.page = 1;
   }
 
   setPage (e) {
-    this.page = e.target.value
+    this.page = e.target.value;
   }
 }
 </script>

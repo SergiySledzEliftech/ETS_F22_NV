@@ -35,7 +35,7 @@ class Index extends Vue {
   loading = true
 
   created () {
-    this.loading = false
+    this.loading = false;
   }
 }
 </script>

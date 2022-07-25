@@ -23,13 +23,13 @@
 </template>
 
 <script>
-import { Vue, Component } from 'nuxt-property-decorator'
-import Carousel from '~/components/good/Carousel/Carousel'
-import Map from '~/components/good/Map'
-import Info from '~/components/good/Info'
-import SharingBlock from '~/components/good/SharingBlock'
-import Recommendations from '~/components/good/Recommendations'
-import ProgressCircular from '~/components/good/Progress'
+import { Vue, Component } from 'nuxt-property-decorator';
+import Carousel from '~/components/good/Carousel/Carousel';
+import Map from '~/components/good/Map';
+import Info from '~/components/good/Info';
+import SharingBlock from '~/components/good/SharingBlock';
+import Recommendations from '~/components/good/Recommendations';
+import ProgressCircular from '~/components/good/Progress';
 
 export default @Component({
   components: {
@@ -46,7 +46,7 @@ class GoodPage extends Vue {
   loading = true;
 
   created () {
-    this.loading = false
+    this.loading = false;
   }
 }
 </script>

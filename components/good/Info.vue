@@ -81,9 +81,9 @@
 </template>
 
 <script>
-import { Vue, Component } from 'nuxt-property-decorator'
-import Carousel from '~/components/good/Carousel/Carousel'
-import RentPopup from '~/components/good/RentPopup'
+import { Vue, Component } from 'nuxt-property-decorator';
+import Carousel from '~/components/good/Carousel/Carousel';
+import RentPopup from '~/components/good/RentPopup';
 
 export default @Component({
   components: {

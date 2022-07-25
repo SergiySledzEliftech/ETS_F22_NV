@@ -13,10 +13,10 @@
 </template>
 
 <script>
-import { Vue, Component, namespace } from 'nuxt-property-decorator'
-import ItemsList from '@/components/list/ItemsList.vue'
-import SingleItem from '~/components/list/SingleItem.vue'
-const { State, Mutation } = namespace('profile_myRents')
+import { Vue, Component, namespace } from 'nuxt-property-decorator';
+import ItemsList from '@/components/list/ItemsList.vue';
+import SingleItem from '~/components/list/SingleItem.vue';
+const { State, Mutation } = namespace('profile_myRents');
 
 export default @Component({
   name: 'borrow',
@@ -31,7 +31,7 @@ export default @Component({
 })
 
 class Borrow extends Vue {
-date = new Date(Date.now());
+  date = new Date(Date.now());
   @State view
   @Mutation changeView
 }
