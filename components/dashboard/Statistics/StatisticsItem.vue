@@ -15,7 +15,7 @@
         <hr v-for="i in 11" :key="i">
       </div>
       <div class="markup-numbers d-flex flex-column-reverse justify-space-between">
-        <span v-for="i in 11" :key="i">{{ i }}K</span>
+        <span v-for="i in 11" :key="i">{{ i }}K{{i == 11 ? '+' : null}}</span>
       </div>
       <div class="statistics d-flex align-end justify-space-between">
         <column v-for="(el, index) of statisticsValue" :key="index" :value="el" :hours="index+1 " />

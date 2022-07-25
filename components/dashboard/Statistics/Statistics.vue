@@ -27,6 +27,8 @@ export default @Component({
   components: { StatisticsItem }
 })
 
+// 86400000 - day
+
 class Statistics extends Vue {
   users = [0, 0, 0, 0, 0, 0]
   itemsCreated = [0, 0, 0, 0, 0, 0]
@@ -35,16 +37,29 @@ class Statistics extends Vue {
   async mounted () {
     try {
       const res = await this.$axios.get(`${serverApiUrl}/statistics`)
-      const todayStatistics = res.data.filter(e => e.date === this.getDateTime())
+      const statistics = res.data.filter(e => e.date === this.getDateTime() || e.date === this.getDateTime() - 86400000)
 
-      this.users = todayStatistics[0].users
-      this.itemsCreated = todayStatistics[0].itemsCreated
-      this.itemsRented = todayStatistics[0].itemsRented
+      this.users = this.getStatisticsFor24Hours(statistics, 'users')
+      this.itemsCreated = this.getStatisticsFor24Hours(statistics, 'itemsCreated')
+      this.itemsRented = this.getStatisticsFor24Hours(statistics, 'itemsRented')
     } catch (error) {}
   }
 
   getDateTime () {
     return (new Date()).setHours(0, 0, 0, 0)
+  }
+
+  getStatisticsFor24Hours (statistics, field) {
+    const hours = Math.floor((new Date()).getHours() / 4)
+    const todayStatistics = [...statistics[0][field], ...statistics[1][field]].slice(hours, hours + 6).reverse()
+
+    const result = []
+    for (let i = 0; i < todayStatistics.length; i++) {
+      result.unshift(todayStatistics.slice(i).reduce((e1, e2) => e1 + e2))
+      console.log(todayStatistics.slice(i))
+    }
+
+    return result
   }
 }
 </script>

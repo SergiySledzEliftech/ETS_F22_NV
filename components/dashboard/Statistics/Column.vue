@@ -6,7 +6,7 @@
         class="column"
         min-width="40"
         color="var(--primary)"
-        :height="`${value / 110}%`"
+        :height="`${heightValidator(value / 110)}%`"
         v-on="on"
       >
         <div class="animation-div" />
@@ -24,6 +24,10 @@ export default @Component
 class Column extends Vue {
   @Prop({ type: Number }) value
   @Prop({ type: Number }) hours
+
+  heightValidator (num) {
+    return num > 100 ? 100 : num
+  }
 }
 </script>
 
