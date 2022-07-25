@@ -1,6 +1,6 @@
 <template>
   <div class="container">
-    <div v-if="loading" class="text-center progress-circular">
+    <div v-if="loading">
       <v-progress-circular
         :size="60"
         :width="6"

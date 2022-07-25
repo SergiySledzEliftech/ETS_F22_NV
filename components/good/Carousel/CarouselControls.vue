@@ -17,13 +17,12 @@
       </v-icon>
     </button>
     <v-dialog
-      max-width="700px"
+      max-width="1200px"
     >
       <template #activator="{ on, attrs }">
         <v-btn
           class="carousel-control btn-fullscreen"
           v-bind="attrs"
-          @click="$emit('fullScreen')"
           v-on="on"
         >
           <v-icon
@@ -37,8 +36,8 @@
       <template #default="dialog">
         <v-card class="popup rounded-lg">
           <v-img
-            max-width="700"
-            max-height="530"
+            max-width="1200"
+            max-height="900"
             :src="slides[currentSlide]"
             alt=""
           >
@@ -76,11 +75,11 @@ class CarouselControls extends Vue {
 <style lang="scss" scoped>
 .btn-next-ico,
 .btn-prev-ico{
-  @include responsive-value_important('font-size', 40, 20, $bp_tablet)
+  @include responsive-value_important('font-size', 40, 25, $bp_tablet)
 }
 
 .btn-fullscreen-ico{
-  @include responsive-value_important('font-size', 20, 15, $bp_tablet)
+  @include responsive-value_important('font-size', 20, 18, $bp_tablet)
 }
 
 .btn-next,
@@ -121,13 +120,14 @@ class CarouselControls extends Vue {
   }
 }
 .btn-fullscreen{
+  padding: 16px !important;
   width: 40px;
   height: 40px;
   top: 10px;
   right: 10px;
   @media only screen and (max-width: $bp_tablet + px) {
-    @include responsive-value('width', 40, 25, $bp_tablet);
-    @include responsive-value('height', 40, 25, $bp_tablet);
+    @include responsive-value_important('width', 40, 25, $bp_tablet);
+    @include responsive-value_important('height', 40, 25, $bp_tablet);
   }
 }
 

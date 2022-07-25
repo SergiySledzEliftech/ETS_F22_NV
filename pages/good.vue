@@ -1,15 +1,10 @@
 <template>
-  <div>
-    <div v-if="loading" class="text-center progress-circular">
-      <v-progress-circular
-        :size="60"
-        :width="6"
-        color="teal"
-        indeterminate
-      />
+  <div class="main">
+    <div v-if="loading" class="progress-circular">
+      <progress-circular />
     </div>
     <div v-if="!loading">
-      <Info />
+      <info />
       <div class="tabs-wrapper">
         <v-tabs class="tabs" color="var(--primary)" left>
           <v-tab :to="{ name: 'good' }" nuxt exact>
@@ -34,6 +29,7 @@ import Map from '~/components/good/Map'
 import Info from '~/components/good/Info'
 import SharingBlock from '~/components/good/SharingBlock'
 import Recommendations from '~/components/good/Recommendations'
+import ProgressCircular from '~/components/good/Progress'
 
 export default @Component({
   components: {
@@ -41,7 +37,8 @@ export default @Component({
     Map,
     Info,
     Recommendations,
-    SharingBlock
+    SharingBlock,
+    ProgressCircular
   }
 })
 
@@ -55,21 +52,29 @@ class GoodPage extends Vue {
 </script>
 
 <style lang="scss">
+img{
+  font-size: 14px !important;
+}
 .container{
   padding: 0;
   margin: 0 auto;
   max-width: 1280px;
+  height: 100%;
 }
-.progress-circular{
-  display: flex;
-  height: 70vh;
-  justify-content: center;
-  align-items: center;
+.main{
+  height: 100%;
 }
 .tabs-wrapper{
   @media only screen and (max-width: 1310px) {
     padding: 0 12px;
   }
+}
+.progress-circular{
+  display: flex;
+  height: 100%;
+  width: 100%;
+  justify-content: center;
+  align-items: center;
 }
 .v-tabs{
   margin-top: 30px;
@@ -88,5 +93,9 @@ ul, li{
   padding: 0;
   text-indent: 0;
   list-style-type: none;
+}
+
+.d_none{
+  display: none;
 }
 </style>

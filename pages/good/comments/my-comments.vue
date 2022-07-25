@@ -1,52 +1,43 @@
 <template>
-  <div class="card__list">
-    <comment-item class="card__list-item" />
-    <comment-item class="card__list-item" />
-    <comment-item class="card__list-item" />
-    <comment-item class="card__list-item" />
-    <comment-item class="card__list-item" />
+  <div>
+    <div v-if="loading" class="progress-circular">
+      <progress-circular />
+    </div>
+    <div v-else>
+      <comment-list
+        :comments="userComments"
+      />
+    </div>
   </div>
 </template>
 
 <script>
-import { Vue, Component } from 'nuxt-property-decorator'
-import CommentItem from '~/components/good/CommentItem'
+import { Vue, Component, namespace } from 'nuxt-property-decorator'
+import CommentList from '~/components/good/CommentList'
+import ProgressCircular from '~/components/good/Progress'
+
+const { State, Action } = namespace('good_comments')
 
 export default @Component({
   components: {
-    CommentItem
+    CommentList,
+    ProgressCircular
   }
 })
 class MyComments extends Vue {
+  @State userComments
+  @State loading
 
+  @Action loadUserComments
+
+  async mounted () {
+    try {
+      await this.loadUserComments()
+    } catch (err) {
+      console.error(err.message)
+    }
+  }
 }
 </script>
 
-<style lang="scss" scoped>
-.card__list{
-  margin-top: 30px;
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: space-between;
-  gap: 40px;
-  @media (max-width: $bp_tablet + px) {
-    display: flex;
-    flex-direction: column;
-    flex-wrap: nowrap;
-    justify-content: normal;
-    @include responsive-value("gap", 50, 30, $bp_laptop);
-  }
-  .card__list-item{
-    flex: 0 1 47.5%;
-    @media (max-width: $bp_tablet + px) {
-      flex: 0 1 100%;
-    }
-    &:nth-child(odd){
-    }
-  }
-}
-
-@include bp_tablet{
-
-}
-</style>
+<style lang="scss" scoped></style>
