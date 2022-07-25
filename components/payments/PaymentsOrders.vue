@@ -1,50 +1,58 @@
-<template lang="pug">
+<template>
   <div class="payments__orders m-b-8">
     <div class="orders">
       <div class="orders__header">
         <div class="orders__header-title">
-          <h4 class="header-text">Your order</h4>
+          <h4 class="header-text">
+            Your order
+          </h4>
         </div>
         <div class="orders__header-price">
-          <h4 class="header-text">{{totalCost}} UAH</h4>
+          <h4 class="header-text">
+            {{ totalCost }} UAH
+          </h4>
         </div>
       </div>
       <div class="orders__items">
-        <div v-for='item in orderGoods' :key='item.id' class="orders__item m-b-4">
+        <div v-for="item in orderGoods" :key="item.id" class="orders__item m-b-4">
           <div class="orders__item-image">
             <img :src=" require('../../assets/img/payments/' + item.img)" alt="item">
           </div>
           <div class="orders__item-content">
             <div class="orders__item-inner m-b-2">
-              <div class="orders__item-name">{{item.name}}
+              <div class="orders__item-name">
+                {{ item.name }}
               </div>
               <div class="orders__item-quantity m-r-2">
                 <span class="orders__item-quantity--arithmetic">-</span>
-                <span class="orders__item-quantity--number">{{item.quantity}}</span>
+                <span class="orders__item-quantity--number">{{ item.quantity }}</span>
                 <span class="orders__item-quantity--arithmetic">+</span>
               </div>
             </div>
-            <div class="orders__item-price m-b-2">{{item.price}} uah
+            <div class="orders__item-price m-b-2">
+              {{ item.price }} uah
             </div>
-            <div class="orders__item-description m-b-2">{{item.description}}
+            <div class="orders__item-description m-b-2">
+              {{ item.description }}
             </div>
-            <div @click="deleteOrderedGoodFromList(item.id)" class="orders__item-actions">
-              <fa icon="trash-can"/>
+            <div class="orders__item-actions" @click="deleteOrderedGoodFromList(item.id)">
+              <fa icon="trash-can" />
             </div>
           </div>
         </div>
       </div>
     </div>
     <div class="payments__orders">
-      <v-btn class="ma-2 btn--pay" outlined color="indigo" :disabled="BtnDisabled" @click="showModalCard">PAY
+      <v-btn class="ma-2 btn--pay" outlined color="indigo" :disabled="BtnDisabled" @click="showModalCard">
+        PAY
       </v-btn>
     </div>
   </div>
 </template>
 
 <script>
-import { Vue, Component, Prop, namespace } from 'nuxt-property-decorator'
-const { State, Mutation, Action } = namespace('ordered')
+import { Vue, Component, Prop, namespace } from 'nuxt-property-decorator';
+const { State, Mutation, Action } = namespace('ordered');
 // < button @click="showModalCard" class="btn--payments" : disabled = "BtnDisabled" > PAY</button >
 export default @Component({
   name: 'PaymentsOrders',
@@ -60,22 +68,22 @@ class PaymentsOrders extends Vue {
   @Action deleteOrderedGood;
 
   get totalCost () {
-    let resalt = 0
+    let resalt = 0;
     this.orderGoods.forEach((element) => {
-      resalt = resalt + element.price
-    })
-    return resalt
+      resalt = resalt + element.price;
+    });
+    return resalt;
   }
 
   methods () {
   }
 
   showModalCard () {
-    this.$emit('modalCardVisible', true)
+    this.$emit('modalCardVisible', true);
   }
 
   deleteOrderedGoodFromList (id) {
-    this.deleteOrderedGood(id)
+    this.deleteOrderedGood(id);
   }
 }
 </script>
@@ -185,12 +193,12 @@ $bradius: 10
     text-transform: none
     height: 50px
     padding: 0 20px
-.row
-  margin-left: $gap * -1px
-  margin-right: $gap * -1px
-  margin-bottom: $vstep * 1px
-  display: flex
-  flex-wrap: wrap
+//.row
+//  margin-left: $gap * -1px
+//  margin-right: $gap * -1px
+//  margin-bottom: $vstep * 1px
+//  display: flex
+//  flex-wrap: wrap
 .col
   width: 100%
   padding-left: $gap * 3 * 1px

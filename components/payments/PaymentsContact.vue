@@ -17,15 +17,13 @@
                   outlined
                   dense
                   :rules="[rules.required, rules.phone]"
-                ></v-text-field>
+                />
               </v-col>
               <v-col class="form-col" cols="12" sm="6" md="4">
-                <v-text-field label="Name" outlined dense min:2>
-                </v-text-field>
+                <v-text-field label="Name" outlined dense min:2 />
               </v-col>
               <v-col class="form-col" cols="12" sm="6" md="4">
-                <v-text-field label="Last Name" outlined dense>
-                </v-text-field>
+                <v-text-field label="Last Name" outlined dense />
               </v-col>
             </v-row>
           </v-container>
@@ -46,7 +44,7 @@
               alt="mastercard"
               class="payments__type-image"
             >
-            </div>
+          </div>
           <div class="payments__type-images">
             <img :src=" require('../../assets/img/payments/visa-logo.png')" alt="visa" class="payments__type-image">
           </div>>
@@ -58,9 +56,11 @@
       <div class="payments__type" :class="{payments__active:!showPaymentsCard}" @click="changeShowPaymentsCash">
         <div class="payments__type-inner m-b-2">
           <div class="payments__type-images">
-            <img :src=" require('../../assets/img/payments/cash-pay-logo.png')"
-                  alt="cash-pay"
-              class="payments__type-image">
+            <img
+              :src=" require('../../assets/img/payments/cash-pay-logo.png')"
+              alt="cash-pay"
+              class="payments__type-image"
+            >
           </div>
         </div>
         <p>Оплата готівкою при отриманні замовлення</p>
@@ -70,7 +70,7 @@
 </template>
 
 <script>
-import { Vue, Component } from 'nuxt-property-decorator'
+import { Vue, Component } from 'nuxt-property-decorator';
 
 export default @Component({
   name: 'PaymentsContact',
@@ -83,11 +83,11 @@ export default @Component({
         required: value => !!value || 'Required.',
         counter: value => value.length <= 20 || 'Max 20 characters',
         phone: (value) => {
-          const pattern = /\+[(][0-9]{3}[)][0-9]{2}-[0-9]{2}-[0-9]{2}-[0-9]{3}/g
-          return pattern.test(value) || 'Enter phone format +(380)XX-XX-XX-XXX.'
+          const pattern = /\+[(][0-9]{3}[)][0-9]{2}-[0-9]{2}-[0-9]{2}-[0-9]{3}/g;
+          return pattern.test(value) || 'Enter phone format +(380)XX-XX-XX-XXX.';
         }
       }
-    }
+    };
   }
 })
 
@@ -98,23 +98,23 @@ class PaymentsContact extends Vue {
   }
 
   changeShowPaymentsCash () {
-    console.log(11111)
-    this.showPaymentsCash = true
-    this.showPaymentsCard = true
-    this.showPaymentsCard = false
-    this.$emit('payValidBtn', true)
+    console.log(11111);
+    this.showPaymentsCash = true;
+    this.showPaymentsCard = true;
+    this.showPaymentsCard = false;
+    this.$emit('payValidBtn', true);
   }
 
   changeShowPaymentsCard () {
-    this.showPaymentsCash = true
-    this.showPaymentsCard = true
-    this.showPaymentsCash = false
-    this.$emit('payValidBtn', false)
+    this.showPaymentsCash = true;
+    this.showPaymentsCard = true;
+    this.showPaymentsCash = false;
+    this.$emit('payValidBtn', false);
   }
 
   changePaymentData () {
-    this.showPaymentsCash = true
-    this.showPaymentsCard = true
+    this.showPaymentsCash = true;
+    this.showPaymentsCard = true;
   }
 }
 </script>
@@ -135,8 +135,6 @@ $bradius: 10
   &__list-title
     margin-left: $gap * 3 * -1px
     margin-right: $gap * 3 * -1px
-    // padding-left: $gap * 3 * 1px
-    // padding-right: $gap * 3 * 1px
     padding-top: $gap * 2 * 1px
     padding-bottom: $gap * 2 * 1px
     display: flex
@@ -147,9 +145,8 @@ $bradius: 10
       margin-bottom: 0
       font-weight: 700
       cursor: pointer
-  &__title-number
+  //&__title-number
   &__title-text
-    // padding-left: $gap * 3 * 1px
     margin-bottom: 0
     font-weight: 700
     font-size: 30px
@@ -215,12 +212,6 @@ $bradius: 10
     text-transform: none
     height: 50px
     padding: 0 20px
-// .row
-//   margin-left: $gap * -1px
-//   margin-right: $gap * -1px
-//   margin-bottom: $vstep * 1px
-//   display: flex
-//   flex-wrap: wrap
 .col
   width: 100%
   padding-left: $gap * 3 * 1px
@@ -228,7 +219,6 @@ $bradius: 10
   padding-bottom: $gap * 3 * 1px
   padding-top: $gap * 3 * 1px
   min-height: 100%
-  // border: 1px solid red
 .col-desktop-2-5
   max-width: 100 / 2 * 1%
 .form-row

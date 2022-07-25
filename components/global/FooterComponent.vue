@@ -23,30 +23,53 @@
               <a href="#" class="footer-facebook" />
             </li>
           </ul>
-          <a href="#" class="footer-link"> Requisites </a>
+          <NuxtLink to="#10" class="footer-link-help">
+            Help and Feedback
+          </NuxtLink>
         </div>
         <div class="footer-column">
           <div class="footer-title">
-            Kyiv
+            Services
           </div>
-          <a class="header-phone" href="tel:+375295967676">+375 (29) 596 76 76</a>
-          <a class="header-phone" href="tel:+375295967676">+375 (29) 596 76 76</a>
-          <a class="header-phone" href="tel:+375295967676">+375 (29) 596 76 76</a>
-          <div class="footer-location">
-            33 Nizhniy Val Street, Kyiv, 02000
-          </div>
+          <NuxtLink to="#1" class="footer-link">
+            Mobile application
+          </NuxtLink>
+          <NuxtLink to="#2" class="footer-link">
+            GloMaRe Premium
+          </NuxtLink>
+          <NuxtLink to="#3" class="footer-link">
+            Paid services
+          </NuxtLink>
+          <NuxtLink to="#4" class="footer-link">
+            Gift certificates
+          </NuxtLink>
+          <NuxtLink to="chat" class="footer-link">
+            Chat
+          </NuxtLink>
         </div>
         <div class="footer-column">
           <div class="footer-title">
-            Chernivtsi
+            To partners
           </div>
-          <a class="header-phone" href="tel:+375295967676">+375 (29) 596 76 76</a>
-          <a class="header-phone" href="tel:+375295967676">+375 (29) 596 76 76</a>
-          <a class="header-phone" href="tel:+375295967676">+375 (29) 596 76 76</a>
+          <NuxtLink to="#5" class="footer-link">
+            Cooperation with us
+          </NuxtLink>
+          <NuxtLink to="#6" class="footer-link">
+            Franchising
+          </NuxtLink>
+          <NuxtLink to="#7" class="footer-link">
+            Delivery: rules and promotions
+          </NuxtLink>
+          <NuxtLink to="#8" class="footer-link">
+            Privacy policy
+          </NuxtLink>
+          <NuxtLink to="#9" class="footer-link">
+            Safety rules
+          </NuxtLink>
         </div>
         <div class="footer-column">
           <div class="footer-title">
-            Working hours:
+            Contacts:
           </div>
           <div class="footer-time">
             Пн – Пт: 09:00 – 19:00
@@ -54,12 +77,12 @@
           <div class="footer-time">
             Сб: 09:00 – 15:00
           </div>
-          <div class="footer-email">
-            info@glomare.com
-          </div>
+          <a class="footer-email" href="mailto:info@glomare.com">info@glomare.com</a>
+          <a class="header-phone" href="tel:+375295967676">+375 (29) 596 76 76</a>
+          <a class="footer-location" href="https://www.google.com/maps/place/%D1%83%D0%BB.+%D0%9D%D0%B8%D0%B6%D0%BD%D0%B8%D0%B9+%D0%92%D0%B0%D0%BB,+33,+%D0%9A%D0%B8%D0%B5%D0%B2,+02000/data=!4m2!3m1!1s0x40d4ce6b2ddd9b35:0xc4bb50f80bfb300c?sa=X&ved=2ahUKEwi4gonQ5In5AhUFqIsKHS0nD4wQ8gF6BAgTEAE">33 Nizhniy Val Street, Kyiv, 02000</a>
         </div>
       </div>
-      <div class="footer-row-copypright">
+      <div class="footer-row-copyright">
         &copy; 2022 GloMaRe.com
       </div>
     </div>
@@ -70,7 +93,7 @@
   footer{
     background: $secondary;
     color: white;
-    padding: 90px 20px 20px 20px;
+    padding: 50px 20px 20px 20px;
 
     @media only screen and (max-width: 992px) {
       padding: 20px 0;
@@ -78,29 +101,52 @@
 
     .footer-row{
       display: flex;
-      margin-bottom: 120px;
+      margin-bottom: 50px;
 
+      @media only screen and (max-width: 1264px) {
+        flex-wrap: wrap;
+        margin-bottom: 10px;
+      }
       @media only screen and (max-width: 992px) {
         flex-direction: column;
-        margin-bottom: 40px;
       }
     }
 
     .footer-column{
       display: flex;
       flex-direction: column;
-      width: 25%;
+      width: 20%;
       padding: 0 20px 0 0;
+
+      @media only screen and (max-width: 1264px) {
+        width: 50%;
+        margin-bottom: 20px;
+      }
 
       @media only screen and (max-width: 992px) {
         width: 100%;
-        margin-bottom: 20px;
-        padding: 0 0 0 20px;
       }
 
       &:first-child{
+        width: 40%;
+
+        @media only screen and (max-width: 1264px) {
+          width: 50%;
+        }
+
         @media only screen and (max-width: 992px) {
           padding: 0;
+          width: 100%;
+        }
+      }
+
+      &:nth-child(2){
+        @media only screen and (max-width: 1264px) {
+          margin-top: 50px;
+        }
+
+        @media only screen and (max-width: 992px) {
+          margin-top: 0;
         }
       }
     }
@@ -113,10 +159,12 @@
     }
     .footer-title{
       margin-bottom: 10px;
-      margin-left: -16px;
       font-weight: bold;
     }
     .footer-link{
+
+    }
+    .footer-link-help{
       text-decoration: underline;
     }
     .footer-social{
@@ -164,6 +212,7 @@
     }
 
     .header-phone{
+      margin-left: 16px;
       position: relative;
 
       &:before{
@@ -179,6 +228,8 @@
 
     .footer-location{
       position: relative;
+      margin-left: 16px;
+      margin-bottom: 10px;
 
       &:before{
         content: "";
@@ -190,8 +241,11 @@
         background-image: url("~assets/img/marker-white.png");
       }
     }
+
     .footer-time{
       position: relative;
+      margin-left: 16px;
+      margin-bottom: 10px;
 
       &:before{
         content: "";
@@ -203,8 +257,11 @@
         background-image: url("~assets/img/clock.png");
       }
     }
+
     .footer-email{
       position: relative;
+      margin-left: 16px;
+      margin-bottom: 10px;
 
       &:before{
         content: "";
@@ -217,18 +274,9 @@
       }
     }
 
-    .footer-row-copypright{
-      position: relative;
-      &:before{
-        content: "";
-        position: absolute;
-        top: -28px;
-        left: 0;
-        width: 100%;
-        height: 20px;
-        background-image: url("~assets/img/line.png");
-      }
+    .footer-row-copyright{
+      font-size: 0.75rem;
+      text-align: center;
     }
   }
-
 </style>

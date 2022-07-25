@@ -19,11 +19,11 @@
 </template>
 
 <script>
-import { Vue, Component, namespace } from 'nuxt-property-decorator'
-import PaymentCard from '../components/payments/PaymentCard'
-import PaymentsContact from '../components/payments/PaymentsContact'
-import PaymentsOrders from '../components/payments/PaymentsOrders'
-const { State, Mutation } = namespace('ordered')
+import { Vue, Component, namespace } from 'nuxt-property-decorator';
+import PaymentCard from '../components/payments/PaymentCard';
+import PaymentsContact from '../components/payments/PaymentsContact';
+import PaymentsOrders from '../components/payments/PaymentsOrders';
+const { State, Mutation } = namespace('ordered');
 
 export default @Component({
   name: 'PaymentsPage',
@@ -61,19 +61,19 @@ class PaymentsPage extends Vue {
   @Mutation setOrderedGoods;
 
   mounted () {
-    this.setOrderedGoods(this.products)
+    this.setOrderedGoods(this.products);
   }
 
   methods () {
   }
 
   showModalCard (data) {
-    this.modalCardVisible = data
+    this.modalCardVisible = data;
   }
 
   PayValidateBtn (data) {
-    this.PayValidBtn = data
-    console.log(this.PayValidBtn)
+    this.PayValidBtn = data;
+    console.log(this.PayValidBtn);
   }
 }
 
