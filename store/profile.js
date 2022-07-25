@@ -299,62 +299,72 @@ export const state = () => ({
       expired: '12.07.2022 19:30'
     }
   ],
-  users: [
-    {
-      id: 1,
-      firstName: 'John',
-      lastName: 'Doe',
-      nickname: 'GloMaRe',
-      password: '12345678',
-      about: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Deserunt libero quidem quos ullam! Commodi, eius.',
-      avatar: 'https://avatars.githubusercontent.com/u/17836236',
-      email: 'JohnDoe@glomail.com',
-      phone: '0987773377',
-      optionalPhone: '0677773377',
-      location: {
-        address: 'Ukraine, Kyiv, Bohdana Khmelnytskogo St., 3',
-        locationX: '50.44469383287712',
-        locationY: '30.52002110354918'
-      },
-      rating: 10
-    },
-    {
-      id: 2,
-      firstName: 'Jane',
-      lastName: 'Doe',
-      nickname: 'GloBale',
-      password: '12345678',
-      about: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Deserunt libero quidem quos ullam! Commodi, eius.',
-      avatar: 'https://avatars.githubusercontent.com/u/1783623',
-      email: 'JohnDoe@glomail.com',
-      phone: '0987773377',
-      optionalPhone: '0677773377',
-      location: {
-        address: 'Ukraine, Kyiv, Bohdana Khmelnytskogo St., 3',
-        locationX: '50.44469383287712',
-        locationY: '30.52002110354918'
-      },
-      rating: 10
-    },
-    {
-      id: 3,
-      firstName: 'Jone',
-      lastName: 'Doe',
-      nickname: 'GloMaLe',
-      password: '12345678',
-      about: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Deserunt libero quidem quos ullam! Commodi, eius.',
-      avatar: 'https://avatars.githubusercontent.com/u/17836262',
-      email: 'JohnDoe@glomail.com',
-      phone: '0987773377',
-      optionalPhone: '0677773377',
-      location: {
-        address: 'Ukraine, Kyiv, Bohdana Khmelnytskogo St., 3',
-        locationX: '50.44469383287712',
-        locationY: '30.52002110354918'
-      },
-      rating: 10
-    }
-  ]
+  loading: true,
+  user: {
+    firstName: '',
+    lastName: '',
+    nickname: '',
+    passHash: '',
+    about: '',
+    email: '',
+    phone: '',
+    optionalPhone: '',
+    location: ''
+  }
+  //   {
+  //     id: 1,
+  //     firstName: 'John',
+  //     lastName: 'Doe',
+  //     nickname: 'GloMaRe',
+  //     password: '12345678',
+  //     about: 'I use a creative approach to problem solve.',
+  //     avatar: 'https://avatars.githubusercontent.com/u/17836236',
+  //     email: 'JohnDoe@glomail.com',
+  //     phone: '0987773377',
+  //     optionalPhone: '0677773377',
+  //     location: {
+  //       address: 'Ukraine, Kyiv, Bohdana Khmelnytskogo St., 3',
+  //       locationX: '50.44469383287712',
+  //       locationY: '30.52002110354918'
+  //     },
+  //     rating: 10
+  //   },
+  //   {
+  //     id: 2,
+  //     firstName: 'Jane',
+  //     lastName: 'Doe',
+  //     nickname: 'GloBale',
+  //     password: '12345678',
+  //     about: 'I am always energetic and eager to learn new skills.',
+  //     avatar: 'https://avatars.githubusercontent.com/u/1783623',
+  //     email: 'JohnDoe@glomail.com',
+  //     phone: '0987773377',
+  //     optionalPhone: '0677773377',
+  //     location: {
+  //       address: 'Ukraine, Kyiv, Bohdana Khmelnytskogo St., 3',
+  //       locationX: '50.44469383287712',
+  //       locationY: '30.52002110354918'
+  //     },
+  //     rating: 10
+  //   },
+  //   {
+  //     id: 3,
+  //     firstName: 'Jone',
+  //     lastName: 'Doe',
+  //     nickname: 'GloMaLe',
+  //     password: '12345678',
+  //     about: 'I have experience working as part of a team and individually.',
+  //     avatar: 'https://avatars.githubusercontent.com/u/17836262',
+  //     email: 'JohnDoe@glomail.com',
+  //     phone: '0987773377',
+  //     optionalPhone: '0677773377',
+  //     location: {
+  //       address: 'Ukraine, Kyiv, Bohdana Khmelnytskogo St., 3',
+  //       locationX: '50.44469383287712',
+  //       locationY: '30.52002110354918'
+  //     },
+  //     rating: 10
+  //   }
 })
 
 export const actions = {
@@ -366,6 +376,26 @@ export const actions = {
   },
   calcPage ({ commit }, num) {
     commit('setPage', num)
+  },
+
+  async getUser ({ state, commit }, id) {
+    try {
+      const res = await this.$axios.get('http://localhost:3001/users/' + id)
+      commit('setUserData', res)
+    } catch (error) {
+      this.error = error.message
+      // eslint-disable-next-line no-console
+      console.log('in profile ' + error.message)
+    }
+  },
+
+  async updateUser ({ state, commit }, id) {
+    try {
+      await this.$axios.put('http://localhost:3001/users/' + id, state.user)
+    } catch (e) {
+      // eslint-disable-next-line no-console
+      console.log('Error update')
+    }
   }
 }
 
@@ -388,6 +418,33 @@ export const mutations = {
   },
   setPage (state, num) {
     state.page = num
+  },
+  setUserData (state, user) {
+    state.user = user.data
+  },
+  updateFirstName (state, value) {
+    state.user.firstName = value
+  },
+  updateLastName (state, value) {
+    state.user.lastName = value
+  },
+  updateNickname (state, value) {
+    state.user.nickname = value
+  },
+  updateEmail (state, value) {
+    state.user.email = value
+  },
+  updatePhone (state, value) {
+    state.user.phone = value
+  },
+  updateOptionalPhone (state, value) {
+    state.user.optionalPhone = value
+  },
+  updateAbout (state, value) {
+    state.user.about = value
+  },
+  updateLocation (state, value) {
+    state.user.location = value
   }
 
 }

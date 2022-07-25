@@ -1,13 +1,13 @@
 <template>
   <v-container class="profile">
     <v-row class="profile-row" no-gutters>
-      <v-form class="row" ref="form" id="profile-data" @submit.prevent="save">
+      <v-form id="profile-data" ref="form" class="row" @submit.prevent="saveForm">
         <div v-if="isMy" class="float-btn btn-edit">
           <v-btn-toggle v-model="fab">
             <v-btn
               :value="true"
               dark
-              @click="cancelEdit"
+              @click="edit"
             >
               <v-icon v-if="fab">
                 mdi-close
@@ -29,7 +29,65 @@
 
         <v-col lg="4" md="4" sm="12" xs="12">
           <v-card class="profile-avtr">
-            <v-img :src="user.avatar" alt="avtr" class="avtr" />
+            <div class="editing" :class="{ active: fab }">
+              <v-img :src="user.avatar" alt="avtr" class="avtr" />
+
+              <v-form v-if="fab" id="form-avatar" ref="formAvatar" class="row" @submit.prevent="saveAvatar">
+                <v-dialog
+                  v-model="dialogAvatar"
+                  persistent
+                  max-width="600px"
+                >
+                  <template #activator="{ on, attrs }">
+                    <v-icon
+                      class="avtr-edit"
+                      v-bind="attrs"
+                      v-on="on"
+                    >
+                      mdi-pencil
+                    </v-icon>
+                  </template>
+                  <v-card>
+                    <v-card-title>
+                      <span class="text-h5">Change avatar</span>
+                    </v-card-title>
+                    <v-card-text>
+                      <v-container>
+                        <v-row>
+                          <v-col cols="12">
+                            <v-file-input
+                              v-model="avatarUpload"
+                              :rules="ruleAvatar"
+                              accept="image/png, image/jpeg, image/bmp"
+                              placeholder="Pick an avatar"
+                              prepend-icon="mdi-camera"
+                              label="New avatar"
+                            />
+                          </v-col>
+                        </v-row>
+                      </v-container>
+                    </v-card-text>
+                    <v-card-actions>
+                      <v-spacer />
+                      <v-btn
+                        color="blue darken-1"
+                        text
+                        @click="dialogAvatar = false"
+                      >
+                        Close
+                      </v-btn>
+                      <v-btn
+                        color="blue darken-1"
+                        text
+                        @click="saveAvatar"
+                      >
+                        Save
+                      </v-btn>
+                    </v-card-actions>
+                  </v-card>
+                </v-dialog>
+              </v-form>
+            </div>
             <v-row v-if="fab" class="half row no-gutters">
               <v-col lg="6" md="6" sm="12" xs="12" class="col-xs-12">
                 <v-text-field
@@ -104,24 +162,6 @@
                 </v-list-item-title>
               </v-list-item-content>
             </v-list-item>
-            <v-list-item v-if="isMy" two-line>
-              <v-list-item-content>
-                <v-list-item-subtitle>
-                  Password
-                </v-list-item-subtitle>
-                <v-list-item-title>
-                  <v-text-field
-                    v-model="password"
-                    :append-icon="showPass ? 'mdi-eye' : 'mdi-eye-off'"
-                    class="disable-input"
-                    :disabled="!fab"
-                    :rules="rulePassword"
-                    :type="showPass ? 'text' : 'password'"
-                    @click:append="showPass = !showPass"
-                  />
-                </v-list-item-title>
-              </v-list-item-content>
-            </v-list-item>
             <v-list-item two-line>
               <v-list-item-content>
                 <v-list-item-subtitle>
@@ -139,7 +179,7 @@
                 </v-list-item-title>
               </v-list-item-content>
             </v-list-item>
-            <v-list-item v-if="user.optionalPhone" two-line>
+            <v-list-item v-if="optionalPhone" two-line>
               <v-list-item-content>
                 <v-list-item-subtitle>
                   Optional Phone
@@ -159,48 +199,17 @@
             <v-list-item two-line>
               <v-list-item-content>
                 <v-list-item-subtitle>
-                  Address
+                  Location
                 </v-list-item-subtitle>
                 <v-list-item-title>
                   <v-text-field
-                    v-model="address"
+                    v-model="location"
                     class="disable-input"
                     :disabled="!fab"
                     type="text"
                     :rules="ruleAddress"
                     append-icon="mdi-pencil"
                   />
-                </v-list-item-title>
-              </v-list-item-content>
-            </v-list-item>
-            <v-list-item two-line>
-              <v-list-item-content>
-                <v-list-item-subtitle>
-                  Location
-                </v-list-item-subtitle>
-                <v-list-item-title>
-                  <div class="half row no-gutters">
-                    <v-col xs="12" sm="12" md="6" lg="6">
-                      <v-text-field
-                        v-model="locationX"
-                        class="disable-input"
-                        :disabled="!fab"
-                        type="text"
-                        :rules="ruleLocation"
-                        append-icon="mdi-pencil"
-                      />
-                    </v-col>
-                    <v-col xs="12" sm="12" md="6" lg="6">
-                      <v-text-field
-                        v-model="locationY"
-                        class="disable-input"
-                        :disabled="!fab"
-                        type="text"
-                        :rules="ruleLocation"
-                        append-icon="mdi-pencil"
-                      />
-                    </v-col>
-                  </div>
                 </v-list-item-title>
               </v-list-item-content>
             </v-list-item>
@@ -215,10 +224,88 @@
                     class="disable-input"
                     :disabled="!fab"
                     maxlength="240"
-                    rows="4"
+                    rows="2"
                     counter
                     :rules="ruleAbout"
                   />
+                </v-list-item-title>
+              </v-list-item-content>
+            </v-list-item>
+            <v-list-item v-if="isMy" two-line>
+              <v-list-item-content>
+                <v-list-item-title>
+                  <v-form id="change-pass" ref="formPass" class="row" @submit.prevent="savePass">
+                    <v-row justify="left">
+                      <v-dialog
+                        v-if="fab"
+                        v-model="dialog"
+                        persistent
+                        max-width="600px"
+                      >
+                        <template #activator="{ on, attrs }">
+                          <v-btn
+                            color="var(--secondary)"
+                            dark
+                            v-bind="attrs"
+                            v-on="on"
+                          >
+                            Change password
+                          </v-btn>
+                        </template>
+                        <v-card>
+                          <v-card-title>
+                            <span class="text-h5">Change password</span>
+                          </v-card-title>
+                          <v-card-text>
+                            <v-container>
+                              <v-row>
+                                <v-col cols="12">
+                                  <v-text-field
+                                    v-model="oldPass"
+                                    label="Old password*"
+                                    :append-icon="showPass ? 'mdi-eye' : 'mdi-eye-off'"
+                                    :rules="rulePassword"
+                                    :type="showPass ? 'text' : 'password'"
+                                    required
+                                    @click:append="showPass = !showPass"
+                                  />
+                                </v-col>
+                                <v-col cols="12">
+                                  <v-text-field
+                                    v-model="newPass"
+                                    label="New password*"
+                                    :append-icon="showPass2 ? 'mdi-eye' : 'mdi-eye-off'"
+                                    :rules="rulePassword"
+                                    :type="showPass2 ? 'text' : 'password'"
+                                    required
+                                    @click:append="showPass2 = !showPass2"
+                                  />
+                                </v-col>
+                              </v-row>
+                            </v-container>
+                            <small>*indicates required field</small>
+                          </v-card-text>
+                          <v-card-actions>
+                            <v-spacer />
+                            <v-btn
+                              color="blue darken-1"
+                              text
+                              @click="dialog = false"
+                            >
+                              Close
+                            </v-btn>
+                            <v-btn
+                              color="blue darken-1"
+                              text
+                              @click="savePass"
+                            >
+                              Save
+                            </v-btn>
+                          </v-card-actions>
+                        </v-card>
+                      </v-dialog>
+                    </v-row>
+                  </v-form>
                 </v-list-item-title>
               </v-list-item-content>
             </v-list-item>
@@ -230,12 +317,12 @@
 </template>
 
 <script>
-import { Vue, Component, Prop } from 'nuxt-property-decorator'
+import { Vue, Component, Prop, namespace } from 'nuxt-property-decorator'
 import {
   emailValidation, emptyValidation, preventHtmlValidation, preventCapitalsValidation,
-  phoneNumberValidation, allowDigitsOnlyValidation, minLengthValidation, lengthValidation,
-  numberValidation
+  phoneNumberValidation, allowDigitsOnlyValidation, minLengthValidation, lengthValidation, avatarValidation
 } from '~/helpers/validators.js'
+const { Action } = namespace('profile')
 
 export default @Component({
   name: 'profileIndex',
@@ -243,39 +330,86 @@ export default @Component({
 })
 
 class Config extends Vue {
-  @Prop({ type: Object, required: true }) isMy
+  @Prop({ type: Boolean, required: true }) isMy
   @Prop({ type: Object, required: true }) user;
 
-  mounted () {
-    this.defaultUser = Object.assign(this.user)
-    this.nickname = this.user.nickname
-    this.firstName = this.user.firstName
-    this.lastName = this.user.lastName
-    this.password = this.user.password
-    this.about = this.user.about
-    this.email = this.user.email
-    this.phone = this.user.phone
-    this.optionalPhone = this.user.optionalPhone
-    this.locationX = this.user.location.locationX
-    this.locationY = this.user.location.locationY
-    this.address = this.user.location.address
-  }
+  // link for open http://localhost:3000/profile/62dbeb38d387887c0b416ab6
+
+  // @State user
+  @Action updateUser
 
   fab = false; // toggle for edit button
   showPass = false
+  showPass2 = false
+  dialog = false
+  dialogAvatar = false
+  avatarUpload = ''
 
-  firstName = ''
-  lastName = ''
-  nickname = ''
-  password = ''
-  about = ''
-  email = ''
-  phone = ''
-  optionalPhone = ''
-  locationX = ''
-  locationY = ''
-  address = ''
   defaultUser = {}
+
+  get firstName () {
+    return this.user.firstName
+  }
+
+  get lastName () {
+    return this.user.lastName
+  }
+
+  get nickname () {
+    return this.user.nickname
+  }
+
+  get email () {
+    return this.user.email
+  }
+
+  get about () {
+    return this.user.about
+  }
+
+  get phone () {
+    return this.user.phone
+  }
+
+  get optionalPhone () {
+    return this.user.optionalPhone
+  }
+
+  get location () {
+    return this.user.location
+  }
+
+  set firstName (value) {
+    this.$store.commit('profile/updateFirstName', value)
+  }
+
+  set lastName (value) {
+    this.$store.commit('profile/updateLastName', value)
+  }
+
+  set nickname (value) {
+    this.$store.commit('profile/updateNickname', value)
+  }
+
+  set email (value) {
+    this.$store.commit('profile/updateEmail', value)
+  }
+
+  set about (value) {
+    this.$store.commit('profile/updateAbout', value)
+  }
+
+  set phone (value) {
+    this.$store.commit('profile/updatePhone', value)
+  }
+
+  set optionalPhone (value) {
+    this.$store.commit('profile/updateOptionalPhone', value)
+  }
+
+  set location (value) {
+    this.$store.commit('profile/updateLocation', value)
+  }
 
   ruleEmail = [
     emailValidation(),
@@ -301,11 +435,6 @@ class Config extends Vue {
     lengthValidation(240)
   ]
 
-  ruleLocation = [
-    preventHtmlValidation(),
-    numberValidation()
-  ]
-
   rulePhone = [
     preventHtmlValidation(),
     phoneNumberValidation(),
@@ -326,36 +455,82 @@ class Config extends Vue {
   ]
 
   rulePassword = [
-    emptyValidation(),
+    // emptyValidation(),
     minLengthValidation(8),
     lengthValidation(32)
   ]
 
-  cancelEdit () {
-    if (this.fab) {
+  ruleAvatar = [
+    avatarValidation()
+  ]
+
+  edit () {
+    if (this.fab) { // if click cancel
       this.nickname = this.defaultUser.nickname
       this.firstName = this.defaultUser.firstName
       this.lastName = this.defaultUser.lastName
-      this.password = this.defaultUser.password
+      this.passHash = this.defaultUser.password
       this.about = this.defaultUser.about
       this.email = this.defaultUser.email
       this.phone = this.defaultUser.phone
       this.optionalPhone = this.defaultUser.optionalPhone
-      this.locationX = this.defaultUser.location.locationX
-      this.locationY = this.defaultUser.location.locationY
-      this.address = this.defaultUser.location.address
+      this.location = this.defaultUser.location
 
       this.showPass = false
+    } else {
+      this.defaultUser = Object.assign({}, this.user)
     }
   };
 
-  save () {
+  async saveForm () {
     if (this.$refs.form.validate()) {
+      await this.updateUser(this.$route.params.id)
       alert('Saved')
       this.fab = false
       this.showPass = false
     } else {
       alert('Please enter valid data')
+    }
+  };
+
+  savePass () {
+    if (this.$refs.formPass.validate()) {
+      // this.updatePass(this.$route.params.id, this.user)
+      alert('Saved')
+      this.fab = false
+      this.showPass = false
+      this.dialog = false
+    } else {
+      alert('Please enter valid data')
+    }
+  };
+
+  saveAvatar () {
+    if (this.$refs.formAvatar.validate()) {
+      // this.updatePass(this.$route.params.id, this.user)
+      // console.log(this.avatarUpload)
+      alert('Saved')
+      this.fab = false
+      this.showPass = false
+      this.dialogAvatar = false
+    } else {
+      alert('Please enter valid data')
+    }
+  };
+
+  // async updateUser (id, obj) {
+  //   try {
+  //     await this.$axios.put('http://localhost:3001/users/' + id, obj)
+  //   } catch (e) {
+  //     console.log('Error update')
+  //   }
+  // };
+
+  async updatePass (id, obj) {
+    try {
+      await this.$axios.put('http://localhost:3001/users/' + id, obj)
+    } catch (e) {
+      console.log('Error update')
     }
   }
 }
@@ -388,11 +563,7 @@ class Config extends Vue {
       background-color: transparent;
 
       .half {
-
-        //display: flex;
-        //position: relative;
         width: 100%;
-        //justify-content: center;
 
         input {
           //width: 50%;
@@ -500,6 +671,40 @@ class Config extends Vue {
     display: flex;
     flex-direction: column;
     align-items: center;
+
+    .editing {
+      position: relative;
+
+      .theme--light.v-icon:focus::after {
+        opacity: 0;
+      }
+
+      .hidden {
+         display: none;
+      }
+
+      &.active {
+        .v-image__image {
+          filter: brightness(0.8);
+        }
+
+        .avtr-edit {
+
+        }
+      }
+      .avtr-edit {
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        right: 0;
+        left: 0;
+        color: $secondary;
+
+        &:hover {
+          font-size: 200%;
+        }
+      }
+    }
 
     h5 {
       margin-bottom: 35px;

@@ -71,7 +71,6 @@ class ProfileAds extends Vue {
 
   changePage (num) {
     this.calcPage(num)
-    console.log('here', num)
     this.sliceList()
   }
 
