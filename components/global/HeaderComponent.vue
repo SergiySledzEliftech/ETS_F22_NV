@@ -93,22 +93,38 @@
 
           <!-- Section: BUTTONS profile/sign-in -->
           <div class="login-profile">
-            <v-btn
-              v-if="isLogin"
-              class="ma-2"
-              outlined
-              color="indigo"
+            <nuxt-link
+              v-if="$auth.loggedIn"
+              :to="{ path: '/'}"
             >
-              Profile
-            </v-btn>
-            <v-btn
+              <v-btn
+                class="ma-2"
+                outlined
+                color="indigo"
+              >
+                Profile
+              </v-btn>
+              <v-btn
+                class="ma-2 btn-red"
+                outlined
+                @click="$auth.logout()"
+              >
+                Log Out
+              </v-btn>
+            </nuxt-link>
+            <nuxt-link
               v-else
-              class="ma-2 btn-red"
-              outlined
-              color="indigo"
+              :to="{ path: '/auth' }"
             >
-              Sign in
-            </v-btn>
+              <v-btn
+
+                class="ma-2 btn-red"
+                outlined
+                color="indigo"
+              >
+                Sign in
+              </v-btn>
+            </nuxt-link>
           </div>
           <!-- Section: BUTTONS profile/sign-in -->
 
@@ -127,10 +143,10 @@
 </template>
 
 <script>
-import { Vue, Component, namespace } from 'nuxt-property-decorator'
-import SocialLinks from '../../components/global/SocialLinksComponent'
+import { Vue, Component, namespace } from 'nuxt-property-decorator';
+import SocialLinks from '../../components/global/SocialLinksComponent';
 
-const { State, Mutation } = namespace('global')
+const { State, Mutation } = namespace('global');
 
 export default @Component({
   components: { SocialLinks }
@@ -185,62 +201,62 @@ class HeaderComponent extends Vue {
 
   mounted () {
     // Fixed Resize Screen Function
-    window.addEventListener('resize', this.resizeMenu)
+    window.addEventListener('resize', this.resizeMenu);
   }
 
   // Collapse SubMenu Function
   collapseSubMenu2 (e) {
-    const navbarMenu = document.getElementById('navbar')
+    const navbarMenu = document.getElementById('navbar');
 
     if (e.target.hasAttribute('data-toggle') && window.innerWidth <= 992) {
-      e.preventDefault()
-      const menuItemHasChildren = e.target.parentElement
+      e.preventDefault();
+      const menuItemHasChildren = e.target.parentElement;
 
       // If menu-item-child is Expanded, then Collapse It
       if (menuItemHasChildren.classList.contains('active')) {
-        this.collapseSubMenu()
+        this.collapseSubMenu();
       } else {
         // Collapse the Existing Expanded menu-item-child
         if (navbarMenu.querySelector('.menu-item-child.active')) {
-          this.collapseSubMenu()
+          this.collapseSubMenu();
         }
         // Expanded the New menu-item-child
-        menuItemHasChildren.classList.add('active')
-        const subMenu = menuItemHasChildren.querySelector('.sub-menu')
-        subMenu.style.maxHeight = subMenu.scrollHeight + 'px'
+        menuItemHasChildren.classList.add('active');
+        const subMenu = menuItemHasChildren.querySelector('.sub-menu');
+        subMenu.style.maxHeight = subMenu.scrollHeight + 'px';
       }
     }
   }
 
   resizeMenu () {
-    const navbarMenu = document.getElementById('navbar')
+    const navbarMenu = document.getElementById('navbar');
 
     if (this.innerWidth > 992) {
       // If navbarMenu is Open, then Close It
       if (navbarMenu.classList.contains('active')) {
-        this.toggleMenu()
+        this.toggleMenu();
       }
 
       // If menu-item-child is Expanded, then Collapse It
       if (navbarMenu.querySelector('.menu-item-child.active')) {
-        this.collapseSubMenu()
+        this.collapseSubMenu();
       }
     }
   }
 
   toggleMenu () {
-    const navbarMenu = document.getElementById('navbar')
-    const overlayMenu = document.getElementById('overlay')
+    const navbarMenu = document.getElementById('navbar');
+    const overlayMenu = document.getElementById('overlay');
 
-    navbarMenu.classList.toggle('active')
-    overlayMenu.classList.toggle('active')
+    navbarMenu.classList.toggle('active');
+    overlayMenu.classList.toggle('active');
   }
 
   collapseSubMenu () {
-    const navbarMenu = document.getElementById('navbar')
+    const navbarMenu = document.getElementById('navbar');
 
-    navbarMenu.querySelector('.menu-item-child.active .sub-menu').removeAttribute('style')
-    navbarMenu.querySelector('.menu-item-child.active').classList.remove('active')
+    navbarMenu.querySelector('.menu-item-child.active .sub-menu').removeAttribute('style');
+    navbarMenu.querySelector('.menu-item-child.active').classList.remove('active');
   }
 }
 </script>
