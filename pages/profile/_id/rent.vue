@@ -21,8 +21,7 @@ export default @Component({
 
 })
 class ProfileRents extends Vue {
-  @State dataLend
-  @State dataBorrow
+  @State data
   @State view
   content = [
     {
@@ -40,8 +39,8 @@ class ProfileRents extends Vue {
   ]
 
   mounted () {
-    this.content[0].data = this.dataBorrow
-    this.content[1].data = this.dataLend
+    this.content[0].data = this.data
+    this.content[1].data = this.data
   }
 }
 </script>

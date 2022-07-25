@@ -31,7 +31,7 @@
         </v-tabs>
       </v-col>
     </v-row>
-    <NuxtChild :user="users[currentIndex]" :isMy="isMy" />
+    <NuxtChild :user="users[currentIndex]" :is-my="isMy" />
   </div>
 </template>
 
