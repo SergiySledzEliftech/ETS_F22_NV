@@ -45,7 +45,7 @@ export default {
     // https://go.nuxtjs.dev/axios
     '@nuxtjs/axios',
     ['nuxt-gmaps', {
-      key: 'AIzaSyBVI659t57iK61VMUdHijm3uG460BqkBoI',
+      key: 'AIzaSyBVI659t57iK61VMUdHijm3uG460BqkBoI'
     }]
   ],
 
@@ -58,7 +58,7 @@ export default {
   // Vuetify module configuration: https://go.nuxtjs.dev/config-vuetify
   vuetify: {
     customVariables: ['~/assets/variables.scss'],
-    treeShake:true,
+    treeShake: true,
     theme: {
       dark: false,
       themes: {
