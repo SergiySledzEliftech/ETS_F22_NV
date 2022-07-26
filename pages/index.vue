@@ -1,13 +1,5 @@
 <template>
   <div class="container">
-    <div v-if="loading">
-      <v-progress-circular
-        :size="60"
-        :width="6"
-        color="teal"
-        indeterminate
-      />
-    </div>
     <div>
       <top10-goods />
       <premium-goods />
@@ -32,11 +24,6 @@ export default @Component({
 })
 
 class Index extends Vue {
-  loading = true
-
-  created () {
-    this.loading = false;
-  }
 }
 </script>
 
