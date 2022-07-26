@@ -4,6 +4,7 @@ export const state = () => ({
   perPage: 6,
   perPageArray: [12, 24, 48, 96],
   totalPages: 1,
+  loading: true,
   data: [
     {
       id: 1,
@@ -299,7 +300,6 @@ export const state = () => ({
       expired: '12.07.2022 19:30'
     }
   ],
-  loading: true,
   user: {
     firstName: '',
     lastName: '',
@@ -396,6 +396,9 @@ export const actions = {
       // eslint-disable-next-line no-console
       console.log('Error update');
     }
+  },
+  setLoad ({ commit }, val) {
+    commit('setLoading', val);
   }
 };
 
@@ -405,6 +408,9 @@ export const mutations = {
   },
   changeView (state) {
     state.view = state.view === 'grid' ? 'list' : 'grid';
+  },
+  setLoading (state, val) {
+    state.loading = val;
   },
   deleteItem (state, id) {
     state.dataAds = state.dataAds.filter(item => item.id !== id);

@@ -25,7 +25,7 @@
 import { Vue, Component, namespace } from 'nuxt-property-decorator';
 import ItemsList from '~/components/list/ItemsList.vue';
 import SingleItem from '~/components/list/SingleItem.vue';
-const { State } = namespace('profile');
+const { State, Action } = namespace('profile');
 
 export default @Component({
   name: 'Favorites',
@@ -34,6 +34,7 @@ export default @Component({
 
 class Favorites extends Vue {
   @State view
+  @Action setLoad
   fav = [
     {
       id: 2,
@@ -66,6 +67,10 @@ class Favorites extends Vue {
       rating: 4.5
     }
   ]
+
+  mounted () {
+    this.setLoad(false);
+  }
 }
 
 </script>

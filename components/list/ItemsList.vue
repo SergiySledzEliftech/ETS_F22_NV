@@ -1,6 +1,6 @@
 <template>
   <div class="wrapper">
-    <div class="view-wrap">
+    <div v-if="!disablePagination" class="view-wrap">
       <div class="perpage-select">
         <p>Items per page</p>
         <v-menu offset-y>
@@ -37,27 +37,22 @@
         </v-btn>
       </div>
     </div>
-    <ul :class="view">
-      <div v-if="loading" class="text-center progress-circular">
-        <v-progress-circular
-          :size="60"
-          :width="6"
-          color="teal"
-          indeterminate
-        />
-      </div>
-      <template v-if="!loading">
-        <slot />
-      </template>
+    <div v-if="loading" class="loader">
+      <img src="https://upload.wikimedia.org/wikipedia/commons/b/b1/Loading_icon.gif?20151024034921" alt="loading">
+    </div>
+    <ul v-if="!loading" :class="view">
+      <slot />
     </ul>
-    <v-pagination
-      v-model="currentPage"
-      value="currentPage"
-      :length="totalPages"
-      @input="setPage"
-      @next="nextPage"
-      @previous="previousPage"
-    />
+    <template v-if="!disablePagination">
+      <v-pagination
+        v-model="currentPage"
+        value="currentPage"
+        :length="totalPages"
+        @input="setPage"
+        @next="nextPage"
+        @previous="previousPage"
+      />
+    </template>
   </div>
 </template>
 
@@ -74,6 +69,7 @@ export default @Component({
 class ItemsList extends Vue {
   icon = 'mdi-format-list-bulleted-square';
   @State view;
+  @State loading;
   @Mutation changeView;
   @Prop({ type: Array, required: true }) list;
   @Prop({ type: Number, required: true }) page;
@@ -82,7 +78,7 @@ class ItemsList extends Vue {
   @Prop({ type: Function, required: true }) setPerPage;
   @Prop({ type: Number, required: true }) perPage;
   @Prop({ type: Array, required: true }) optsArray;
-  loading = true;
+  @Prop({ default: false, type: Boolean }) disablePagination;
 
   currentPage = 0
   changeIcon () {
@@ -115,9 +111,6 @@ class ItemsList extends Vue {
         ? 'mdi-format-list-bulleted-square'
         : 'mdi-view-grid-outline';
     this.currentPage = this.page;
-    setTimeout(() => {
-      this.loading = false;
-    }, 5000);
   }
 }
 </script>
@@ -202,5 +195,11 @@ ul {
       }
     }
   }
+
 }
+  .loader {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+  }
 </style>

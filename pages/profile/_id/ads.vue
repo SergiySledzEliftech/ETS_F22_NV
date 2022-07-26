@@ -8,6 +8,7 @@
       :set-per-page="changePerPage"
       :per-page="perPage"
       :opts-array="perPageArray"
+      :disable-pagination="disable"
     >
       <li v-for="item in items" :key="item.id" class="item">
         <SingleItem :item="item" :grid="view === 'list'">
@@ -57,11 +58,13 @@ class ProfileAds extends Vue {
   @State perPage;
   @State perPageArray;
   @State totalPages;
+  @Action setLoad;
   @Action deleteElem;
   @Action calculateTotalPages;
   @Action calcPage;
   @Mutation setPerPage;
   items = [];
+  disable = true;
 
   sliceList () {
     const firstIdx = (this.page - 1) * this.perPage;
@@ -76,13 +79,16 @@ class ProfileAds extends Vue {
 
   changePerPage (num) {
     this.setPerPage(num);
-    this.changePage(1);
     this.calculateTotalPages(this.data);
+    this.changePage(1);
   }
 
   mounted () {
-    this.sliceList();
-    this.calculateTotalPages(this.data);
+    setTimeout(() => {
+      this.sliceList();
+      this.calculateTotalPages(this.data);
+      this.setLoad(false);
+    }, 0);
   }
 }
 
