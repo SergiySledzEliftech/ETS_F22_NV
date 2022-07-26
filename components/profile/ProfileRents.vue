@@ -12,9 +12,9 @@
 </template>
 
 <script>
-import { Vue, Component } from 'nuxt-property-decorator'
-import Borrow from '~/components/profile/history/Borrow.vue'
-import Lend from '~/components/profile/history/Lend.vue'
+import { Vue, Component } from 'nuxt-property-decorator';
+import Borrow from '~/components/profile/history/Borrow.vue';
+import Lend from '~/components/profile/history/Lend.vue';
 export default @Component({
   name: 'profile-rents',
   props: {

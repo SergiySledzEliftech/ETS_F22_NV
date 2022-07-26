@@ -8,15 +8,13 @@
               {{ title }}
             </h4>
             <br>
-            <div id="status" />
             <div id="chat">
-              <v-form v-if="isChatOpen" v-model="valid">
+              <v-form v-if="isChatOpen" v-model="isValid">
                 <v-container>
                   <v-row>
                     <v-text-field
                       id="username"
                       v-model="name"
-                      :rules="nameRules"
                       :counter="10"
                       label="First name"
                       required
@@ -76,62 +74,57 @@
 </template>
 
 <script>
-import { Vue, Component, namespace } from 'nuxt-property-decorator'
-import io from 'socket.io-client'
+import { Vue, Component, namespace } from 'nuxt-property-decorator';
+import io from 'socket.io-client';
 
-const { State, Mutation } = namespace('global')
+const { State, Mutation } = namespace('global');
 
 export default @Component({
-  data: () => ({
-    title: 'GloMaRe Chat',
-    name: '',
-    text: '',
-    messages: [],
-    socket: io(),
-    isChatOpen: true,
-    restApiUrl: 'http://localhost:3333',
 
-    valid: false,
-    nameRules: [
-      v => !!v || 'Name is required',
-      v => v.length <= 10 || 'Name must be less than 10 characters'
-    ]
-  })
 })
 
 class Index extends Vue {
-    @State isLogin
-    @Mutation changeStatusAuth
+  @State isLogin
+  @Mutation changeStatusAuth
 
-    sendMessage () {
-      if (this.validateInput()) {
-        const message = {
-          name: this.name,
-          text: this.text
-        }
-        this.socket.emit('msgToServer', message)
-        this.text = ''
-      }
-    }
+  title = 'GloMaRe Chat'
+  name = ''
+  text = ''
+  messages = []
+  socket = io()
+  isChatOpen = true
+  restApiUrl = 'https://glomare.herokuapp.com/'
+  isValid = false
 
-    receivedMessage (message) {
-      this.messages.push(message)
+  sendMessage () {
+    if (this.validateInput()) {
+      const message = {
+        name: this.name,
+        text: this.text
+      };
+      this.socket.emit('msgToServer', message);
+      this.text = '';
     }
+  }
 
-    validateInput () {
-      return this.name.length > 0 && this.text.length > 0
-    }
+  receivedMessage (message) {
+    this.messages.push(message);
+  }
 
-    sendNameInChat () {
-      this.isChatOpen = false
-    }
+  validateInput () {
+    return this.name.length > 0 && this.text.length > 0;
+  }
 
-    mounted () {
-      this.socket = io(this.restApiUrl)
-      this.socket.on('msgToClient', (message) => {
-        this.receivedMessage(message)
-      })
-    }
+  sendNameInChat () {
+    this.isChatOpen = false;
+  }
+
+  mounted () {
+    this.socket = io(this.restApiUrl);
+    this.socket.on('msgToClient', (message) => {
+      this.receivedMessage(message);
+    });
+  }
 }
 </script>
 

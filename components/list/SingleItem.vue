@@ -1,7 +1,7 @@
 <template>
   <div :class="{'isGrid': grid}">
     <div class="img_wrap">
-      <img :src="item.img" alt="image" class="item_img">
+      <img :src="item.images[0]" alt="image" class="item_img">
     </div>
     <div class="item_content">
       <div class="title_wrap">
@@ -37,7 +37,7 @@
 </template>
 
 <script>
-import { Vue, Component } from 'nuxt-property-decorator'
+import { Vue, Component } from 'nuxt-property-decorator';
 export default @Component({
   name: 'single-item',
   props: {
