@@ -100,11 +100,9 @@ class AddComment extends Vue {
   validation () {
     this.$refs.form.validate()
     setTimeout(() => {
-      this.commentData.comment = ''
-      this.commentData.advantages = ''
-      this.commentData.disadvantages = ''
-      this.commentData.rating = null
+      this.clear()
     }, 0)
+    this.$router.push('/good/comments/')
   }
 
   clear () {

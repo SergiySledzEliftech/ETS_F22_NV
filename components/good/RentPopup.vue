@@ -15,7 +15,10 @@
         </div>
       </template>
       <template #default="dialog">
-        <v-card class="rounded-lg pa-4">
+        <v-card class="rounded-lg pa-6">
+          <v-card-text class="rent-text pa-0 pl-1">
+            Choose renting term
+          </v-card-text>
           <v-slider
             thumb-color="var(--light)"
             thumb-label
@@ -23,21 +26,21 @@
             hide-details
             max="30"
             min="1"
-            class="pt-8"
+            class="pt-10"
           />
           <v-card-actions class="pt-5 d-flex justify-center">
-            <v-btn
-              class="btn-send mr-2"
-              color="success"
-            >
-              Order
-            </v-btn>
             <v-btn
               class="btn-close ml-2"
               color="primary"
               @click="dialog.value = false"
             >
               Cancel
+            </v-btn>
+            <v-btn
+              class="btn-send mr-2"
+              color="success"
+            >
+              Order
             </v-btn>
           </v-card-actions>
         </v-card>
@@ -73,5 +76,8 @@
       transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1) 0s;
     }
   }
+}
+.rent-text{
+  font-size: 18px;
 }
 </style>
