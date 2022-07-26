@@ -38,7 +38,17 @@
       </div>
     </div>
     <ul :class="view">
-      <slot />
+      <div v-if="loading" class="text-center progress-circular">
+        <v-progress-circular
+          :size="60"
+          :width="6"
+          color="teal"
+          indeterminate
+        />
+      </div>
+      <template v-if="!loading">
+        <slot />
+      </template>
     </ul>
     <v-pagination
       v-model="currentPage"
@@ -52,12 +62,11 @@
 </template>
 
 <script>
-import { Vue, Component, namespace, Prop } from 'nuxt-property-decorator'
-import SingleItem from './SingleItem.vue'
-const { State, Mutation } = namespace('profile')
+import { Vue, Component, namespace, Prop } from 'nuxt-property-decorator';
+import SingleItem from './SingleItem.vue';
+const { State, Mutation } = namespace('profile');
 
-export default
-@Component({
+export default @Component({
   name: 'items-list',
   components: { SingleItem }
 })
@@ -72,30 +81,31 @@ class ItemsList extends Vue {
   @Prop({ type: Function, required: true }) setPage;
   @Prop({ type: Function, required: true }) setPerPage;
   @Prop({ type: Number, required: true }) perPage;
-  @Prop({ type: Array, required: true }) optsArray
+  @Prop({ type: Array, required: true }) optsArray;
+  loading = true;
 
   currentPage = 0
   changeIcon () {
     this.icon =
       this.icon === 'mdi-view-grid-outline'
         ? 'mdi-format-list-bulleted-square'
-        : 'mdi-view-grid-outline'
+        : 'mdi-view-grid-outline';
   }
 
   changeDisplaying () {
-    this.changeView()
-    this.changeIcon()
+    this.changeView();
+    this.changeIcon();
   }
 
   nextPage () {
     if (this.page < this.totalPages) {
-      this.setPage(this.page + 1)
+      this.setPage(this.page + 1);
     }
   }
 
   previousPage () {
     if (this.page > 1) {
-      this.setPage(this.page - 1)
+      this.setPage(this.page - 1);
     }
   }
 
@@ -103,8 +113,11 @@ class ItemsList extends Vue {
     this.icon =
       this.view === 'grid'
         ? 'mdi-format-list-bulleted-square'
-        : 'mdi-view-grid-outline'
-    this.currentPage = this.page
+        : 'mdi-view-grid-outline';
+    this.currentPage = this.page;
+    setTimeout(() => {
+      this.loading = false;
+    }, 5000);
   }
 }
 </script>

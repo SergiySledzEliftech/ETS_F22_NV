@@ -21,48 +21,48 @@
 </template>
 
 <script>
-import { Vue, Component, Prop, namespace } from 'nuxt-property-decorator'
-import ItemsList from '@/components/list/ItemsList.vue'
-import SingleItem from '~/components/list/SingleItem.vue'
-const { State, Action, Mutation } = namespace('profile')
+import { Vue, Component, Prop, namespace } from 'nuxt-property-decorator';
+import ItemsList from '@/components/list/ItemsList.vue';
+import SingleItem from '~/components/list/SingleItem.vue';
+const { State, Action, Mutation } = namespace('profile');
 export default @Component({
   name: 'history',
   components: { ItemsList, SingleItem }
 })
 
 class History extends Vue {
-  @Prop({ type: Array, required: true }) list
-  @Prop({ type: String, required: true }) view
-  items = []
-  @State page
-  @State perPage
-  @State perPageArray
-  @State totalPages
-  @Action deleteElem
-  @Action calculateTotalPages
-  @Action calcPage
-  @Mutation setPerPage
+  @Prop({ type: Array, required: true }) list;
+  @Prop({ type: String, required: true }) view;
+  items = [];
+  @State page;
+  @State perPage;
+  @State perPageArray;
+  @State totalPages;
+  @Action deleteElem;
+  @Action calculateTotalPages;
+  @Action calcPage;
+  @Mutation setPerPage;
 
   sliceList () {
-    const firstIdx = (this.page - 1) * this.perPage
-    const result = this.list.slice(firstIdx, firstIdx + this.perPage)
-    this.items = result
+    const firstIdx = (this.page - 1) * this.perPage;
+    const result = this.list.slice(firstIdx, firstIdx + this.perPage);
+    this.items = result;
   }
 
   changePage (num) {
-    this.calcPage(num)
-    this.sliceList()
+    this.calcPage(num);
+    this.sliceList();
   }
 
   changePerPage (num) {
-    this.setPerPage(num)
-    this.changePage(1)
-    this.calculateTotalPages(this.list)
+    this.setPerPage(num);
+    this.changePage(1);
+    this.calculateTotalPages(this.list);
   }
 
   mounted () {
-    this.sliceList()
-    this.calculateTotalPages(this.list)
+    this.sliceList();
+    this.calculateTotalPages(this.list);
   }
 }
 </script>

@@ -39,14 +39,14 @@
 </template>
 
 <script>
-import { Vue, Component, Prop } from 'nuxt-property-decorator'
+import { Vue, Component, Prop } from 'nuxt-property-decorator';
 export default @Component({
   name: 'single-item'
 })
 
 class SingleItem extends Vue {
-  @Prop({ type: Boolean, required: true }) grid
-  @Prop({ type: Object, required: true }) item
+  @Prop({ type: Boolean, required: true }) grid;
+  @Prop({ type: Object, required: true }) item;
 }
 </script>
 

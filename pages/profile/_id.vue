@@ -31,13 +31,13 @@
         </v-tabs>
       </v-col>
     </v-row>
-    <NuxtChild :user="user" :isMy="isMy" />
+    <NuxtChild :user="user" :is-my="isMy" />
   </div>
 </template>
 
 <script>
-import { Vue, Component, namespace } from 'nuxt-property-decorator'
-const { State, Action } = namespace('profile')
+import { Vue, Component, namespace } from 'nuxt-property-decorator';
+const { State, Action } = namespace('profile');
 
 export default @Component({
   components: {}
@@ -50,9 +50,9 @@ class Profile extends Vue {
 
   async mounted () {
     try {
-      await this.getUser(this.$route.params.id)
+      await this.getUser(this.$route.params.id);
     } catch (e) {
-      console.log('here: ' + e)
+      console.log('here: ' + e);
     }
   }
 
@@ -61,7 +61,7 @@ class Profile extends Vue {
   // currentIndex = this.$route.params.id - 1;
 
   get isMy () {
-    return this.myId === this.$route.params.id.toString()
+    return this.myId === this.$route.params.id.toString();
   };
 
   tabsCurrentUser = [

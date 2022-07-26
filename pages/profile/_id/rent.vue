@@ -12,9 +12,9 @@
 </template>
 
 <script>
-import { Vue, Component, namespace } from 'nuxt-property-decorator'
-import History from '~/components/profile/history/History.vue'
-const { State } = namespace('profile')
+import { Vue, Component, namespace } from 'nuxt-property-decorator';
+import History from '~/components/profile/History.vue';
+const { State } = namespace('profile');
 export default @Component({
   name: 'profile-rents',
   components: { History }
@@ -39,8 +39,8 @@ class ProfileRents extends Vue {
   ]
 
   mounted () {
-    this.content[0].data = this.data
-    this.content[1].data = this.data
+    this.content[0].data = this.data;
+    this.content[1].data = this.data;
   }
 }
 </script>

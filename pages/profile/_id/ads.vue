@@ -41,48 +41,48 @@
 </template>
 
 <script>
-import { Vue, Component, namespace } from 'nuxt-property-decorator'
-import ItemsList from '~/components/list/ItemsList.vue'
-import SingleItem from '~/components/list/SingleItem.vue'
-const { State, Action, Mutation } = namespace('profile')
+import { Vue, Component, namespace } from 'nuxt-property-decorator';
+import ItemsList from '~/components/list/ItemsList.vue';
+import SingleItem from '~/components/list/SingleItem.vue';
+const { State, Action, Mutation } = namespace('profile');
 
 export default @Component({
   name: 'profile-ads',
   components: { ItemsList, SingleItem }
 })
 class ProfileAds extends Vue {
-  @State data
-  @State view
-  @State page
-  @State perPage
-  @State perPageArray
-  @State totalPages
+  @State data;
+  @State view;
+  @State page;
+  @State perPage;
+  @State perPageArray;
+  @State totalPages;
   @Action deleteElem;
-  @Action calculateTotalPages
-  @Action calcPage
-  @Mutation setPerPage
-  items = []
+  @Action calculateTotalPages;
+  @Action calcPage;
+  @Mutation setPerPage;
+  items = [];
 
   sliceList () {
-    const firstIdx = (this.page - 1) * this.perPage
-    const result = this.data.slice(firstIdx, firstIdx + this.perPage)
-    this.items = result
+    const firstIdx = (this.page - 1) * this.perPage;
+    const result = this.data.slice(firstIdx, firstIdx + this.perPage);
+    this.items = result;
   }
 
   changePage (num) {
-    this.calcPage(num)
-    this.sliceList()
+    this.calcPage(num);
+    this.sliceList();
   }
 
   changePerPage (num) {
-    this.setPerPage(num)
-    this.changePage(1)
-    this.calculateTotalPages(this.data)
+    this.setPerPage(num);
+    this.changePage(1);
+    this.calculateTotalPages(this.data);
   }
 
   mounted () {
-    this.sliceList()
-    this.calculateTotalPages(this.data)
+    this.sliceList();
+    this.calculateTotalPages(this.data);
   }
 }
 

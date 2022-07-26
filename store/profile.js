@@ -365,86 +365,85 @@ export const state = () => ({
   //     },
   //     rating: 10
   //   }
-})
+});
 
 export const actions = {
   deleteElem ({ commit }, id) {
-    commit('deleteItem', id)
+    commit('deleteItem', id);
   },
   calculateTotalPages ({ commit }, list) {
-    commit('setTotalPages', list)
+    commit('setTotalPages', list);
   },
   calcPage ({ commit }, num) {
-    commit('setPage', num)
+    commit('setPage', num);
   },
 
   async getUser ({ state, commit }, id) {
     try {
-      const res = await this.$axios.get('http://localhost:3001/users/' + id)
-      commit('setUserData', res)
+      const res = await this.$axios.get('http://localhost:3001/users/' + id);
+      commit('setUserData', res);
     } catch (error) {
-      this.error = error.message
+      this.error = error.message;
       // eslint-disable-next-line no-console
-      console.log('in profile ' + error.message)
+      console.log('in profile ' + error.message);
     }
   },
 
   async updateUser ({ state, commit }, id) {
     try {
-      await this.$axios.put('http://localhost:3001/users/' + id, state.user)
+      await this.$axios.put('http://localhost:3001/users/' + id, state.user);
     } catch (e) {
       // eslint-disable-next-line no-console
-      console.log('Error update')
+      console.log('Error update');
     }
   }
-}
+};
 
 export const mutations = {
   setData (state, array) {
-    state.dataAds = array
+    state.dataAds = array;
   },
   changeView (state) {
-    state.view = state.view === 'grid' ? 'list' : 'grid'
+    state.view = state.view === 'grid' ? 'list' : 'grid';
   },
   deleteItem (state, id) {
-    state.dataAds = state.dataAds.filter(item => item.id !== id)
+    state.dataAds = state.dataAds.filter(item => item.id !== id);
   },
   setTotalPages (state, list) {
-    state.totalPages = Math.ceil(list.length / state.perPage)
+    state.totalPages = Math.ceil(list.length / state.perPage);
   },
   setPerPage (state, num) {
-    state.perPage = num
-    state.page = 1
+    state.perPage = num;
+    state.page = 1;
   },
   setPage (state, num) {
-    state.page = num
+    state.page = num;
   },
   setUserData (state, user) {
-    state.user = user.data
+    state.user = user.data;
   },
   updateFirstName (state, value) {
-    state.user.firstName = value
+    state.user.firstName = value;
   },
   updateLastName (state, value) {
-    state.user.lastName = value
+    state.user.lastName = value;
   },
   updateNickname (state, value) {
-    state.user.nickname = value
+    state.user.nickname = value;
   },
   updateEmail (state, value) {
-    state.user.email = value
+    state.user.email = value;
   },
   updatePhone (state, value) {
-    state.user.phone = value
+    state.user.phone = value;
   },
   updateOptionalPhone (state, value) {
-    state.user.optionalPhone = value
+    state.user.optionalPhone = value;
   },
   updateAbout (state, value) {
-    state.user.about = value
+    state.user.about = value;
   },
   updateLocation (state, value) {
-    state.user.location = value
+    state.user.location = value;
   }
-
-}
+};

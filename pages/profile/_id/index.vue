@@ -317,12 +317,12 @@
 </template>
 
 <script>
-import { Vue, Component, Prop, namespace } from 'nuxt-property-decorator'
+import { Vue, Component, Prop, namespace } from 'nuxt-property-decorator';
 import {
   emailValidation, emptyValidation, preventHtmlValidation, preventCapitalsValidation,
   phoneNumberValidation, allowDigitsOnlyValidation, minLengthValidation, lengthValidation, avatarValidation
-} from '~/helpers/validators.js'
-const { Action } = namespace('profile')
+} from '~/helpers/validators.js';
+const { Action } = namespace('profile');
 
 export default @Component({
   name: 'profileIndex',
@@ -348,67 +348,67 @@ class Config extends Vue {
   defaultUser = {}
 
   get firstName () {
-    return this.user.firstName
+    return this.user.firstName;
   }
 
   get lastName () {
-    return this.user.lastName
+    return this.user.lastName;
   }
 
   get nickname () {
-    return this.user.nickname
+    return this.user.nickname;
   }
 
   get email () {
-    return this.user.email
+    return this.user.email;
   }
 
   get about () {
-    return this.user.about
+    return this.user.about;
   }
 
   get phone () {
-    return this.user.phone
+    return this.user.phone;
   }
 
   get optionalPhone () {
-    return this.user.optionalPhone
+    return this.user.optionalPhone;
   }
 
   get location () {
-    return this.user.location
+    return this.user.location;
   }
 
   set firstName (value) {
-    this.$store.commit('profile/updateFirstName', value)
+    this.$store.commit('profile/updateFirstName', value);
   }
 
   set lastName (value) {
-    this.$store.commit('profile/updateLastName', value)
+    this.$store.commit('profile/updateLastName', value);
   }
 
   set nickname (value) {
-    this.$store.commit('profile/updateNickname', value)
+    this.$store.commit('profile/updateNickname', value);
   }
 
   set email (value) {
-    this.$store.commit('profile/updateEmail', value)
+    this.$store.commit('profile/updateEmail', value);
   }
 
   set about (value) {
-    this.$store.commit('profile/updateAbout', value)
+    this.$store.commit('profile/updateAbout', value);
   }
 
   set phone (value) {
-    this.$store.commit('profile/updatePhone', value)
+    this.$store.commit('profile/updatePhone', value);
   }
 
   set optionalPhone (value) {
-    this.$store.commit('profile/updateOptionalPhone', value)
+    this.$store.commit('profile/updateOptionalPhone', value);
   }
 
   set location (value) {
-    this.$store.commit('profile/updateLocation', value)
+    this.$store.commit('profile/updateLocation', value);
   }
 
   ruleEmail = [
@@ -466,42 +466,42 @@ class Config extends Vue {
 
   edit () {
     if (this.fab) { // if click cancel
-      this.nickname = this.defaultUser.nickname
-      this.firstName = this.defaultUser.firstName
-      this.lastName = this.defaultUser.lastName
-      this.passHash = this.defaultUser.password
-      this.about = this.defaultUser.about
-      this.email = this.defaultUser.email
-      this.phone = this.defaultUser.phone
-      this.optionalPhone = this.defaultUser.optionalPhone
-      this.location = this.defaultUser.location
+      this.nickname = this.defaultUser.nickname;
+      this.firstName = this.defaultUser.firstName;
+      this.lastName = this.defaultUser.lastName;
+      this.passHash = this.defaultUser.password;
+      this.about = this.defaultUser.about;
+      this.email = this.defaultUser.email;
+      this.phone = this.defaultUser.phone;
+      this.optionalPhone = this.defaultUser.optionalPhone;
+      this.location = this.defaultUser.location;
 
-      this.showPass = false
+      this.showPass = false;
     } else {
-      this.defaultUser = Object.assign({}, this.user)
+      this.defaultUser = Object.assign({}, this.user);
     }
   };
 
   async saveForm () {
     if (this.$refs.form.validate()) {
-      await this.updateUser(this.$route.params.id)
-      alert('Saved')
-      this.fab = false
-      this.showPass = false
+      await this.updateUser(this.$route.params.id);
+      alert('Saved');
+      this.fab = false;
+      this.showPass = false;
     } else {
-      alert('Please enter valid data')
+      alert('Please enter valid data');
     }
   };
 
   savePass () {
     if (this.$refs.formPass.validate()) {
       // this.updatePass(this.$route.params.id, this.user)
-      alert('Saved')
-      this.fab = false
-      this.showPass = false
-      this.dialog = false
+      alert('Saved');
+      this.fab = false;
+      this.showPass = false;
+      this.dialog = false;
     } else {
-      alert('Please enter valid data')
+      alert('Please enter valid data');
     }
   };
 
@@ -509,12 +509,12 @@ class Config extends Vue {
     if (this.$refs.formAvatar.validate()) {
       // this.updatePass(this.$route.params.id, this.user)
       // console.log(this.avatarUpload)
-      alert('Saved')
-      this.fab = false
-      this.showPass = false
-      this.dialogAvatar = false
+      alert('Saved');
+      this.fab = false;
+      this.showPass = false;
+      this.dialogAvatar = false;
     } else {
-      alert('Please enter valid data')
+      alert('Please enter valid data');
     }
   };
 
@@ -528,9 +528,9 @@ class Config extends Vue {
 
   async updatePass (id, obj) {
     try {
-      await this.$axios.put('http://localhost:3001/users/' + id, obj)
+      await this.$axios.put('http://localhost:3001/users/' + id, obj);
     } catch (e) {
-      console.log('Error update')
+      console.log('Error update');
     }
   }
 }

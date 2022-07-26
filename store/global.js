@@ -1,13 +1,13 @@
 export const state = () => ({
   selectedCity: 'Kyiv',
-  isLogin: true
-})
+  isLogin: false
+});
 
 export const mutations = {
   changeCity (state, newCity) {
-    state.selectedCity = newCity.target.innerText
+    state.selectedCity = newCity.target.innerText;
   },
   changeStatusAuth (state, newStatus) {
-    this.isLogin = newStatus
+    state.isLogin = newStatus;
   }
-}
+};

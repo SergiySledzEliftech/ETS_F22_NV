@@ -22,10 +22,10 @@
 </template>
 
 <script>
-import { Vue, Component, namespace } from 'nuxt-property-decorator'
-import ItemsList from '~/components/list/ItemsList.vue'
-import SingleItem from '~/components/list/SingleItem.vue'
-const { State } = namespace('profile')
+import { Vue, Component, namespace } from 'nuxt-property-decorator';
+import ItemsList from '~/components/list/ItemsList.vue';
+import SingleItem from '~/components/list/SingleItem.vue';
+const { State } = namespace('profile');
 
 export default @Component({
   name: 'Favorites',
