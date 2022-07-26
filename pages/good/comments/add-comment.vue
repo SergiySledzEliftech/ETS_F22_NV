@@ -99,6 +99,12 @@ class AddComment extends Vue {
 
   validation () {
     this.$refs.form.validate()
+    setTimeout(() => {
+      this.commentData.comment = ''
+      this.commentData.advantages = ''
+      this.commentData.disadvantages = ''
+      this.commentData.rating = null
+    }, 0)
   }
 
   clear () {
@@ -106,16 +112,11 @@ class AddComment extends Vue {
     this.commentData.advantages = ''
     this.commentData.disadvantages = ''
     this.commentData.rating = null
-    const date = new Date()
-    console.log(date)
-    console.log(date.getTime())
   }
 
   @Action createComment
   async onAddComment () {
     const date = new Date()
-    console.log(date)
-    console.log(date.getTime())
     this.commentData.date_created = date.getTime()
     try {
       await this.createComment(this.commentData)
