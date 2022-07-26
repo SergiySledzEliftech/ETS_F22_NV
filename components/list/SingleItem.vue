@@ -9,7 +9,7 @@
           {{ item.title }}
         </h4>
         <a :href="item.location" target="_blank" class="item_location">
-          <v-icon size="16" color="#C10015">mdi-map-marker-outline</v-icon>some location</a>
+          <v-icon size="16" color="var(--negative)">mdi-map-marker-outline</v-icon>some location</a>
       </div>
       <div class="item_details">
         <p>Price:<span>{{ item.price }}$</span></p>
@@ -24,34 +24,29 @@
         </p>
         <p>Term:<span>{{ item.term }} day(s)</span></p>
       </div>
-      <div class="item_seller">
-        <img
-          :src="item.user.avatar"
-          alt="avatar"
-        >
-        <p>{{ item.user.firstName }} {{ item.user.lastName }}</p>
-      </div>
+      <NuxtLink :to="/profile/ +item.user.userId">
+        <div class="item_seller">
+          <img
+            :src="item.user.avatar"
+            alt="avatar"
+          >
+          <p>{{ item.user.firstName }} {{ item.user.lastName }}</p>
+        </div>
+      </NuxtLink>
     </div>
     <slot />
   </div>
 </template>
 
 <script>
-import { Vue, Component } from 'nuxt-property-decorator';
+import { Vue, Component, Prop } from 'nuxt-property-decorator';
 export default @Component({
-  name: 'single-item',
-  props: {
-    grid: {
-      type: Boolean,
-      required: true
-    },
-    item: {
-      type: Object,
-      required: true
-    }
-  }
+  name: 'single-item'
 })
+
 class SingleItem extends Vue {
+  @Prop({ type: Boolean, required: true }) grid;
+  @Prop({ type: Object, required: true }) item;
 }
 </script>
 

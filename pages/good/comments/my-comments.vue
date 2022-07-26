@@ -5,7 +5,7 @@
     </div>
     <div v-else>
       <comment-list
-        :comments="userComments"
+        :comments-list="userComments"
       />
     </div>
   </div>
@@ -34,6 +34,7 @@ class MyComments extends Vue {
     try {
       await this.loadUserComments();
     } catch (err) {
+      // eslint-disable-next-line no-console
       console.error(err.message);
     }
   }
