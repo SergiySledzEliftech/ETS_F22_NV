@@ -9,9 +9,9 @@
   </div>
 </template>
 <script>
-import { Vue, Component, Prop } from 'nuxt-property-decorator'
-import io from 'socket.io-client'
-import CommentItem from '~/components/good/CommentItem'
+import { Vue, Component, Prop } from 'nuxt-property-decorator';
+import io from 'socket.io-client';
+import CommentItem from '~/components/good/CommentItem';
 
 export default @Component({
   components: {
@@ -25,7 +25,7 @@ class MyComments extends Vue {
     return {
       socket: io(),
       restApiUrl: 'http://localhost:3333'
-    }
+    };
   }
 }
 </script>

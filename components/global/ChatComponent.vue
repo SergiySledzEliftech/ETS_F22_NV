@@ -74,10 +74,10 @@
 </template>
 
 <script>
-import { Vue, Component, namespace } from 'nuxt-property-decorator'
-import io from 'socket.io-client'
+import { Vue, Component, namespace } from 'nuxt-property-decorator';
+import io from 'socket.io-client';
 
-const { State, Mutation } = namespace('global')
+const { State, Mutation } = namespace('global');
 
 export default @Component({
 
@@ -101,29 +101,29 @@ class Index extends Vue {
       const message = {
         name: this.name,
         text: this.text
-      }
-      this.socket.emit('msgToServer', message)
-      this.text = ''
+      };
+      this.socket.emit('msgToServer', message);
+      this.text = '';
     }
   }
 
   receivedMessage (message) {
-    this.messages.push(message)
+    this.messages.push(message);
   }
 
   validateInput () {
-    return this.name.length > 0 && this.text.length > 0
+    return this.name.length > 0 && this.text.length > 0;
   }
 
   sendNameInChat () {
-    this.isChatOpen = false
+    this.isChatOpen = false;
   }
 
   mounted () {
-    this.socket = io(this.restApiUrl)
+    this.socket = io(this.restApiUrl);
     this.socket.on('msgToClient', (message) => {
-      this.receivedMessage(message)
-    })
+      this.receivedMessage(message);
+    });
   }
 }
 </script>

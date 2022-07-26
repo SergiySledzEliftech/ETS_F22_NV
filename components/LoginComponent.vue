@@ -33,37 +33,36 @@
 import { Component, Vue } from 'nuxt-property-decorator';
 import { emptyValidation, emailValidation, passwordValidation } from '../helpers/validators';
 
-export default
-  @Component({
-    name: 'LoginComponent'
-  })
+export default @Component({
+  name: 'LoginComponent'
+})
 
 class LoginComponent extends Vue {
-    valid = true;
-    loginInfo = {
-      email: 's@s.s',
-      password: '123456aA'
-    }
+  valid = true;
+  loginInfo = {
+    email: 'tony@g.c',
+    password: '123456aA'
+  }
 
-    data () {
-      return { emptyValidation, emailValidation, passwordValidation };
-    }
+  data () {
+    return { emptyValidation, emailValidation, passwordValidation };
+  }
 
-    show = false;
+  show = false;
 
-    async validateFunction () {
-      if (this.$refs.form.validate()) {
-        try {
-          await this.$auth.loginWith('local', { data: this.loginInfo });
-          console.log(this.$auth.loggedIn);
-          console.log(this.$auth.user._id);
-          this.$router.push('/');
-        } catch (error) {
-          console.log(error);
-        }
+  async validateFunction () {
+    if (this.$refs.form.validate()) {
+      try {
+        await this.$auth.loginWith('local', { data: this.loginInfo });
+        console.log(this.$auth.loggedIn);
+        console.log(this.$auth.user._id);
+        this.$router.push('/');
+      } catch (error) {
+        console.log(error);
       }
     }
   }
+}
 </script>
 
 <style lang="scss" scoped>
