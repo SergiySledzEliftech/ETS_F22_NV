@@ -40,7 +40,7 @@ export default @Component({
 class LoginComponent extends Vue {
   valid = true;
   loginInfo = {
-    email: 's@s.s',
+    email: 'tony@g.c',
     password: '123456aA'
   }
 

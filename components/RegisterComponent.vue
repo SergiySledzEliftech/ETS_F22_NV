@@ -2,7 +2,7 @@
   <v-app>
     <v-form ref="form" v-model="valid" lazy-validation>
       <v-text-field
-        v-model="registerInfo.first_name"
+        v-model="registerInfo.firstName"
         :rules="[emptyValidation(), lengthValidation(10)]"
         label="First Name"
         type="text"
@@ -12,7 +12,7 @@
       />
 
       <v-text-field
-        v-model="registerInfo.last_name"
+        v-model="registerInfo.lastName"
         :rules="[emptyValidation(), lengthValidation(10)]"
         label="Last Name"
         type="text"
@@ -40,7 +40,7 @@
       />
 
       <v-text-field
-        v-model="registerInfo.password"
+        v-model="registerInfo.passHash"
         :append-icon="show ? 'mdi-eye' : 'mdi-eye-off'"
         :rules="[emptyValidation(), passwordValidation()]"
         :type="show ? 'text' : 'password'"
@@ -76,11 +76,11 @@ export default @Component({
 
 class RegisterComponent extends Vue {
   registerInfo = {
-    first_name: '',
-    last_name: '',
+    firstName: '',
+    lastName: '',
     phone: '',
     email: '',
-    password: ''
+    passHash: ''
   }
 
   valid = true;
@@ -93,12 +93,12 @@ class RegisterComponent extends Vue {
   async validateFunction () {
     if (this.$refs.form.validate()) {
       try {
-        const res = await this.$axios.post('http://localhost:8000/auth/signup', this.registerInfo);
+        const res = await this.$axios.post('http://localhost:3001/auth/signup', this.registerInfo);
         console.log(res);
         await this.$auth.loginWith('local', {
           data: {
             email: this.registerInfo.email,
-            password: this.registerInfo.password
+            password: this.registerInfo.passHash
           }
         });
         this.$router.push('/');

@@ -61,8 +61,6 @@ export default @Component({
   components: { LoginComponent, RegisterComponent }
 })
 class Auth extends Vue {
-  // :href="'#signin'"
-  // :href="'#signup'"
   tab = 0;
   mounted () {
     this.addHashToLocation('signin');
