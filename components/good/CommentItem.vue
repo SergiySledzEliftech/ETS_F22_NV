@@ -27,7 +27,10 @@
                 text
                 icon
                 color="gray lighten-2"
-                @click="onDeleteComment"
+                @click="
+                  $emit('onDelete', index);
+                  onDeleteComment();
+                "
               >
                 <v-icon>mdi-delete-empty</v-icon>
               </v-btn>
@@ -123,9 +126,9 @@
 </template>
 
 <script>
-import { Vue, Component, Prop, namespace } from 'nuxt-property-decorator';
+import { Vue, Component, Prop, namespace } from 'nuxt-property-decorator'
 
-const { Action } = namespace('good_comments');
+const { Action } = namespace('good_comments')
 
 export default @Component({
   components: {}
@@ -133,19 +136,22 @@ export default @Component({
 
 class CommentItem extends Vue {
   @Prop() comment
+  @Prop() index;
   date = ''
 
   mounted () {
-    const localOffset = new Date().getTimezoneOffset() * 60000;
-    this.date = new Date(this.comment.date_created - localOffset).toJSON().slice(0, 10).replace(/-/g, '.').split('.').reverse().join('.');
+    // converting time according to utc
+    const localOffset = new Date().getTimezoneOffset() * 60000
+    this.date = new Date(this.comment.date_created - localOffset).toJSON().slice(0, 10).replace(/-/g, '.').split('.').reverse().join('.')
   }
 
   @Action removeComment
   async onDeleteComment () {
     try {
-      await this.removeComment(this.comment._id);
+      await this.removeComment(this.comment._id)
     } catch (err) {
-      console.error(err.message);
+      // eslint-disable-next-line no-console
+      console.error(err.message)
     }
   }
 }
