@@ -88,8 +88,8 @@ class Index extends Vue {
   };
 
   async mounted () {
-    // console.log(serverApiUrl);
-    // console.log(await this.$axios(`${serverApiUrl}test-product`));
+    console.log(serverApiUrl);
+    console.log(await this.$axios(`${serverApiUrl}test-product`));
     await this.GetAllTestProducts();
   }
 
@@ -99,7 +99,7 @@ class Index extends Vue {
     try {
       const daraProduct = await this.$axios(`${serverApiUrl}test-product`);
       this.testProducts = daraProduct.data;
-      // console.log(daraProduct.data);
+      console.log(daraProduct.data);
     } catch (error) {
       this.error = error.message;
       consoleError(error.message);

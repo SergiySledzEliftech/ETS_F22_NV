@@ -37,7 +37,15 @@ export default {
     // https://go.nuxtjs.dev/eslint
     '@nuxtjs/eslint-module',
     // https://go.nuxtjs.dev/vuetify
-    '@nuxtjs/vuetify'
+    '@nuxtjs/vuetify',
+    ['@nuxtjs/fontawesome', {
+      component: 'fa',
+      icons: {
+        solid: true,
+        regular: true,
+        brands: true
+      }
+    }]
   ],
 
   // Modules: https://go.nuxtjs.dev/config-modules
