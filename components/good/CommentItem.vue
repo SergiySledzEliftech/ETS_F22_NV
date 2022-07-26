@@ -27,7 +27,10 @@
                 text
                 icon
                 color="gray lighten-2"
-                @click="onDeleteComment"
+                @click="
+                  $emit('onDelete', index);
+                  onDeleteComment();
+                "
               >
                 <v-icon>mdi-delete-empty</v-icon>
               </v-btn>
@@ -133,9 +136,11 @@ export default @Component({
 
 class CommentItem extends Vue {
   @Prop() comment
+  @Prop() index;
   date = ''
 
   mounted () {
+    // converting time according to utc
     const localOffset = new Date().getTimezoneOffset() * 60000
     this.date = new Date(this.comment.date_created - localOffset).toJSON().slice(0, 10).replace(/-/g, '.').split('.').reverse().join('.')
   }
@@ -145,6 +150,7 @@ class CommentItem extends Vue {
     try {
       await this.removeComment(this.comment._id)
     } catch (err) {
+      // eslint-disable-next-line no-console
       console.error(err.message)
     }
   }

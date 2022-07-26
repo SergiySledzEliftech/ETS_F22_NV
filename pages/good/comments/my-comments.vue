@@ -5,7 +5,7 @@
     </div>
     <div v-else>
       <comment-list
-        :comments="userComments"
+        :comments-list="userComments"
       />
     </div>
   </div>
@@ -16,7 +16,7 @@ import { Vue, Component, namespace } from 'nuxt-property-decorator'
 import CommentList from '~/components/good/CommentList'
 import ProgressCircular from '~/components/good/Progress'
 
-const { State, Action } = namespace('good_comments')
+const { State, Mutation, Action } = namespace('good_comments')
 
 export default @Component({
   components: {
@@ -28,12 +28,15 @@ class MyComments extends Vue {
   @State userComments
   @State loading
 
+  @Mutation deleteComment
+
   @Action loadUserComments
 
   async mounted () {
     try {
       await this.loadUserComments()
     } catch (err) {
+      // eslint-disable-next-line no-console
       console.error(err.message)
     }
   }

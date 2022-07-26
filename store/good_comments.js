@@ -1,5 +1,3 @@
-// import Vue from 'vue'
-
 export const state = () => ({
   comments: [],
   userComments: [],
@@ -15,6 +13,12 @@ export const mutations = {
   },
   setLoading (state, loading) {
     state.loading = loading
+  },
+  deleteComment (state, index) {
+    state.comments.splice(index, 1)
+  },
+  deleteUserComment (state, index) {
+    state.userComments.splice(index, 1)
   }
 }
 
