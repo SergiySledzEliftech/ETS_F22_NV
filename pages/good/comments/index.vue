@@ -5,18 +5,18 @@
     </div>
     <div v-else>
       <comment-list
-        :comments="comments"
+        :comments-list="comments"
       />
     </div>
   </div>
 </template>
 
 <script>
-import { Vue, Component, namespace } from 'nuxt-property-decorator';
-import CommentList from '~/components/good/CommentList';
-import ProgressCircular from '~/components/good/Progress';
+import { Vue, Component, namespace } from 'nuxt-property-decorator'
+import CommentList from '~/components/good/CommentList'
+import ProgressCircular from '~/components/good/Progress'
 
-const { State, Action } = namespace('good_comments');
+const { State, Action } = namespace('good_comments')
 
 export default @Component({
   components: {
@@ -34,14 +34,15 @@ class AllComments extends Vue {
   // also can be used fetch
   async mounted () {
     try {
-      await this.loadComments();
+      await this.loadComments()
     } catch (err) {
-      console.error(err.message);
+      // eslint-disable-next-line no-console
+      console.error(err.message)
     }
   }
 
   created () {
-    this.setLoading(false);
+    this.setLoading(false)
   }
 }
 </script>
