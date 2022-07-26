@@ -1,0 +1,44 @@
+@import "good-breakpoints";
+
+@mixin bp_desktop() {
+  @media (max-width: $bp_desktop + px) {
+    @content;
+  }
+}
+@mixin bp_laptop() {
+  @media (max-width: $bp_laptop + px) {
+    @content;
+  }
+}
+@mixin bp_tablet() {
+  @media (max-width: $bp_tablet + px) {
+    @content;
+  }
+}
+@mixin bp_phone() {
+  @media (max-width: $bp_phone + px) {
+    @content;
+  }
+}
+
+@mixin responsive-value($property, $startSize, $minSize, $maxWidthContainer) {
+  $addSize: $startSize - $minSize;
+  #{$property}: $startSize + px;
+  @media (max-width: #{$maxWidthContainer + px}) {
+    #{$property}: calc(#{$minSize + px} + #{$addSize} * ((100vw - 320px) / #{$maxWidthContainer - 320}));
+  }
+}
+@mixin responsive-value_important($property, $startSize, $minSize, $maxWidthContainer) {
+  $addSize: $startSize - $minSize;
+  #{$property}: $startSize + px;
+  @media (max-width: #{$maxWidthContainer + px}) {
+    #{$property}: calc(#{$minSize + px} + #{$addSize} * ((100vw - 320px) / #{$maxWidthContainer - 320})) !important;
+  }
+}
+@mixin responsive-value_restrained($property, $startSize, $minSize, $minWidthContainer, $maxWidthContainer) {
+  $addSize: $startSize - $minSize;
+  #{$property}: $startSize + px;
+  @media (max-width: #{$maxWidthContainer + px}) {
+    #{$property}: calc(#{$minSize + px} + #{$addSize} * ((100vw - #{$minWidthContainer + px}) / #{$maxWidthContainer - $minWidthContainer}));
+  }
+}
