@@ -20,19 +20,15 @@
 </template>
 
 <script>
-import { Vue, Component } from 'nuxt-property-decorator'
-import SingleItem from './SingleItem.vue'
+import { Vue, Component, namespace } from 'nuxt-property-decorator';
+import SingleItem from './SingleItem.vue';
+const { State, Mutation } = namespace('profile');
+
 export default @Component({
   name: 'items-list',
   props: {
     list: {
       type: Array
-    },
-    changeView: {
-      type: Function
-    },
-    view: {
-      type: String
     }
   },
   components: { SingleItem }
@@ -43,23 +39,29 @@ class ItemsList extends Vue {
   page = 1;
   perPage = 9;
   totalPages = 1;
+  @State view
+  @Mutation changeView
 
   changeIcon () {
-    this.icon = this.view === 'grid' ? 'mdi-format-list-bulleted-square' : 'mdi-view-grid-outline'
+    this.icon = this.icon === 'mdi-view-grid-outline' ? 'mdi-format-list-bulleted-square' : 'mdi-view-grid-outline';
   }
 
   changeDisplaying () {
-    this.changeView()
-    this.changeIcon()
+    this.changeView();
+    this.changeIcon();
   }
 
   setPerPage (e) {
-    this.perPage = e.target.value
-    this.page = 1
+    this.perPage = e.target.value;
+    this.page = 1;
   }
 
   setPage (e) {
-    this.page = e.target.value
+    this.page = e.target.value;
+  }
+
+  mounted () {
+    this.icon = this.view === 'grid' ? 'mdi-format-list-bulleted-square' : 'mdi-view-grid-outline';
   }
 }
 </script>
@@ -133,5 +135,4 @@ ul {
   }
   }
 }
-
 </style>

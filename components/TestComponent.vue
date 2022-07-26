@@ -68,82 +68,81 @@
 </template>
 
 <script>
-import { Vue, Component } from 'nuxt-property-decorator'
-// import { consoleError } from 'vuetify'
-import { consoleError } from 'vuetify'
-import TestComp from '../components/TestComponent'
-import { serverApiUrl } from '../settings/config'
+import { Vue, Component } from 'nuxt-property-decorator';
+import { consoleError } from 'vuetify';
+import TestComp from '../components/TestComponent';
+import { serverApiUrl } from '~/settings/config';
 
 export default @Component({
   components: { TestComp }
 })
 
 class Index extends Vue {
-    title = 'Welcome to the ETS_F22_NV project!';
-    testProducts = [];
+  title = 'Welcome to the ETS_F22_NV project!';
+  testProducts = [];
 
-    testProductData = {
-      name: '',
-      price: '',
-      isAvailable: false
-    };
+  testProductData = {
+    name: '',
+    price: '',
+    isAvailable: false
+  };
 
-    async mounted () {
-      console.log(serverApiUrl)
-      console.log(await this.$axios(`${serverApiUrl}test-product`))
-      await this.GetAllTestProducts()
+  async mounted () {
+    console.log(serverApiUrl);
+    console.log(await this.$axios(`${serverApiUrl}test-product`));
+    await this.GetAllTestProducts();
+  }
+
+  // Отримати всі товари з бази
+  // https://glomare.herokuapp.com/test-product
+  async GetAllTestProducts () {
+    try {
+      const daraProduct = await this.$axios(`${serverApiUrl}test-product`);
+      this.testProducts = daraProduct.data;
+      console.log(daraProduct.data);
+    } catch (error) {
+      this.error = error.message;
+      consoleError(error.message);
     }
+  }
 
-    // Отримати всі товари з бази
-    // https://glomare.herokuapp.com/test-product
-    async GetAllTestProducts () {
-      try {
-        const daraProduct = await this.$axios(`${serverApiUrl}test-product`)
-        this.testProducts = daraProduct.data
-        console.log(daraProduct.data)
-      } catch (error) {
-        this.error = error.message
-        consoleError(error.message)
+  // Додавання товару
+  async addTestProduct () {
+    await this.$axios({
+      method: 'post',
+      url: `${serverApiUrl}test-product`,
+      data: {
+        name: this.testProductData.name,
+        price: this.testProductData.price,
+        isAvailable: this.testProductData.isAvailable
       }
-    }
-
-    // Додавання товару
-    async addTestProduct () {
-      await this.$axios({
-        method: 'post',
-        url: `${serverApiUrl}test-product`,
-        data: {
-          name: this.testProductData.name,
-          price: this.testProductData.price,
-          isAvailable: this.testProductData.isAvailable
-        }
+    })
+      .then((response) => {
+        console.log(response);
+        this.testProductData.name = '';
+        this.testProductData.price = '';
+        this.testProductData.isAvailable = '';
+        location.reload();
       })
-        .then((response) => {
-          console.log(response)
-          this.testProductData.name = ''
-          this.testProductData.price = ''
-          this.testProductData.isAvailable = ''
-          location.reload()
-        })
-        .catch((err) => {
-          console.log(err)
-        })
-    }
+      .catch((err) => {
+        console.log(err);
+      });
+  }
 
-    // Выдалення товару
-    async deleteTestProduct (idProduct) {
-      await this.$axios({
-        method: 'delete',
-        url: `${serverApiUrl}test-product/${idProduct}`
+  // Выдалення товару
+  async deleteTestProduct (idProduct) {
+    await this.$axios({
+      method: 'delete',
+      url: `${serverApiUrl}test-product/${idProduct}`
+    })
+      .then((response) => {
+        console.log(response);
+        location.reload();
       })
-        .then((response) => {
-          console.log(response)
-          location.reload()
-        })
-        .catch((err) => {
-          console.log(err)
-        })
-    }
+      .catch((err) => {
+        console.log(err);
+      });
+  }
 }
 </script>
 
