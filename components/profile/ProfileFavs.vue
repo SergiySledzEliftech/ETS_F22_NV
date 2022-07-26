@@ -22,9 +22,9 @@
 </template>
 
 <script>
-import { Vue, Component } from 'nuxt-property-decorator'
-import ItemsList from '@/components/list/ItemsList.vue'
-import SingleItem from '@/components/list/SingleItem.vue'
+import { Vue, Component } from 'nuxt-property-decorator';
+import ItemsList from '@/components/list/ItemsList.vue';
+import SingleItem from '@/components/list/SingleItem.vue';
 export default @Component({
   name: 'profile-favs',
   components: { ItemsList, SingleItem },
@@ -39,8 +39,8 @@ class ProfileFavs extends Vue {
   view = 'grid'
 
   changeView () {
-    const v = this.view === 'grid' ? 'list' : 'grid'
-    this.view = v
+    const v = this.view === 'grid' ? 'list' : 'grid';
+    this.view = v;
   }
 }
 </script>
