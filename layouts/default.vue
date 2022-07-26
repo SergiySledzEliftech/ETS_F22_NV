@@ -1,12 +1,12 @@
 <template>
   <v-app dark>
-    <HeaderComp/>
+    <HeaderComp />
     <v-main>
       <v-container>
         <Nuxt />
       </v-container>
     </v-main>
-    <FooterComp/>
+    <FooterComp />
   </v-app>
 </template>
 
