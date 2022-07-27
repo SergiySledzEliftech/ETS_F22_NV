@@ -83,7 +83,7 @@ class Auth extends Vue {
   border-radius: 10px;
 }
 .container {
-  margin-top: 50px;
+  margin-top: 30px;
   display: flex;
   justify-content: center;
   align-items: center;

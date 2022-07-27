@@ -54,9 +54,8 @@ class LoginComponent extends Vue {
     if (this.$refs.form.validate()) {
       try {
         await this.$auth.loginWith('local', { data: this.loginInfo });
-        console.log(this.$auth.loggedIn);
-        console.log(this.$auth.user._id);
-        this.$router.push('/');
+        this.$router.push(`/profile/${this.$auth.user._id}`);
+        await this.$axios.get('http://localhost:3001/categories');
       } catch (error) {
         console.log(error);
       }

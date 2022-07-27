@@ -52,7 +52,6 @@ export default {
   modules: [
     // https://go.nuxtjs.dev/axios
     '@nuxtjs/axios',
-    // '@nuxtjs/auth',
     '@nuxtjs/auth-next',
     '@nuxtjs/axios',
     ['nuxt-gmaps', {
@@ -94,6 +93,9 @@ export default {
       ]
     }
   },
+  router: {
+    middleware: ['auth']
+  },
   auth: {
     strategies: {
       local: {
@@ -120,6 +122,13 @@ export default {
           user: { url: '/auth/user', method: 'get' }
         }
       }
+    },
+    localStorage: false,
+    redirect: {
+      login: '/auth',
+      logout: '/',
+      callback: '/auth',
+      home: '/'
     }
   }
 };

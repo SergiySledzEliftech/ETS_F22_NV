@@ -3,7 +3,7 @@
     <v-form ref="form" v-model="valid" lazy-validation>
       <v-text-field
         v-model="registerInfo.firstName"
-        :rules="[emptyValidation(), lengthValidation(10)]"
+        :rules="[emptyValidation(), allowAlphanumericOnlyValidation()]"
         label="First Name"
         type="text"
         required
@@ -13,7 +13,7 @@
 
       <v-text-field
         v-model="registerInfo.lastName"
-        :rules="[emptyValidation(), lengthValidation(10)]"
+        :rules="[emptyValidation(), allowAlphanumericOnlyValidation()]"
         label="Last Name"
         type="text"
         required
@@ -68,7 +68,7 @@
 </template>
 <script>
 import { Component, Vue } from 'nuxt-property-decorator';
-import { emptyValidation, emailValidation, passwordValidation, phoneNumberValidation, lengthValidation, checkboxValidation, numberValidation, equalLengthValidation } from '../helpers/validators';
+import { emptyValidation, emailValidation, passwordValidation, allowAlphanumericOnlyValidation, phoneNumberValidation, checkboxValidation, numberValidation, equalLengthValidation } from '../helpers/validators';
 
 export default @Component({
   name: 'RegisterComponent'
@@ -87,7 +87,7 @@ class RegisterComponent extends Vue {
   show = false;
   checkbox = false;
   data () {
-    return { emptyValidation, emailValidation, passwordValidation, phoneNumberValidation, lengthValidation, checkboxValidation, numberValidation, equalLengthValidation };
+    return { emptyValidation, emailValidation, passwordValidation, allowAlphanumericOnlyValidation, phoneNumberValidation, checkboxValidation, numberValidation, equalLengthValidation };
   }
 
   async validateFunction () {
@@ -101,7 +101,7 @@ class RegisterComponent extends Vue {
             password: this.registerInfo.passHash
           }
         });
-        this.$router.push('/');
+        this.$router.push(`/profile/${this.$auth.user._id}`);
         // .then(function (response) {
         //   console.log(response)
         // })
