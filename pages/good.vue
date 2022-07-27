@@ -29,7 +29,7 @@ import Map from '~/components/good/Map';
 import Info from '~/components/good/Info';
 import SharingBlock from '~/components/good/SharingBlock';
 import Recommendations from '~/components/good/Recommendations';
-import ProgressCircular from '~/components/good/Progress';
+import ProgressCircular from '~/components/global/Progress';
 
 export default @Component({
   components: {

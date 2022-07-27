@@ -99,7 +99,7 @@ export default {
       local: {
         scheme: 'refresh',
         token: {
-          property: 'access_token',
+          property: 'token',
           global: true
           // required: true,
           // type: ''

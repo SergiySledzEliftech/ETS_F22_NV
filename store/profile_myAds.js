@@ -47,14 +47,14 @@ export const state = () => ({
     }
   ],
   view: 'grid'
-})
+});
 
 export const mutations = {
   deleteItem (state, id) {
-    state.itemsData = state.itemsData.filter(el => el.id !== id)
+    state.itemsData = state.itemsData.filter(el => el.id !== id);
   },
   changeView (state) {
-    const v = state.view === 'grid' ? 'list' : 'grid'
-    state.view = v
+    const v = state.view === 'grid' ? 'list' : 'grid';
+    state.view = v;
   }
-}
+};

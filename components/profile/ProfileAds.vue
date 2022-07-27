@@ -32,10 +32,10 @@
 </template>
 
 <script>
-import { Vue, Component, namespace } from 'nuxt-property-decorator'
-import ItemsList from '~/components/list/ItemsList.vue'
-import SingleItem from '~/components/list/SingleItem.vue'
-const { State, Mutation } = namespace('profile_myAds')
+import { Vue, Component, namespace } from 'nuxt-property-decorator';
+import ItemsList from '~/components/list/ItemsList.vue';
+import SingleItem from '~/components/list/SingleItem.vue';
+const { State, Mutation } = namespace('profile_myAds');
 
 export default @Component({
   name: 'profile-ads',

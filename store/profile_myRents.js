@@ -121,11 +121,11 @@ export const state = () => ({
     }
   ],
   view: 'grid'
-})
+});
 
 export const mutations = {
   changeView (state) {
-    const v = state.view === 'grid' ? 'list' : 'grid'
-    state.view = v
+    const v = state.view === 'grid' ? 'list' : 'grid';
+    state.view = v;
   }
-}
+};
