@@ -33,6 +33,7 @@ class MyComments extends Vue {
   async mounted () {
     try {
       await this.loadUserComments();
+      console.log(this.userComments);
     } catch (err) {
       // eslint-disable-next-line no-console
       console.error(err.message);

@@ -116,6 +116,8 @@ class AddComment extends Vue {
   async onAddComment () {
     const date = new Date();
     this.commentData.date_created = date.getTime();
+    this.commentData.userId = this.$auth.user._id;
+    this.commentData.productId = '62dd11d902d8358ce1bb2c95';
     try {
       await this.createComment(this.commentData);
     } catch (err) {

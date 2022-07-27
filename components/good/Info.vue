@@ -2,7 +2,7 @@
   <div class="info">
     <div class="info-wrapper">
       <section class="carousel">
-        <carousel />
+        <carousel :images="good.images" />
       </section>
       <section class="good">
         <div class="good__content">
@@ -26,20 +26,20 @@
             </p>
           </div>
           <h1 class="good-title">
-            2-комнатная квартира на Пролетарской, 6А
+            {{ good.title }}
           </h1>
           <div class="good__props">
             <p class="good__props-size good__props-item">
               WxHxL (mm): <span class="red-txt">450x500x900</span>
             </p>
             <p class="good__props-date good__props-item">
-              Published date: <span class="red-txt">4.07.2020</span>
+              Published date: <span class="red-txt"> {{ good.date_created }} </span>
             </p>
             <p class="good__props-rating good__props-item">
-              Rating: <span class="red-txt">9.5/10</span>
+              Rating: <span class="red-txt"> {{ good.rating }} </span>
             </p>
             <p class="good__props-price good__props-item">
-              Price: <span class="red-txt">67 000$</span> | <span class="red-txt">174 267UAN</span>
+              Price: <span class="red-txt">{{ good.price }} UAN</span>
             </p>
           </div>
           <div class="good__contacts">
@@ -49,7 +49,7 @@
             <div class="contacts__list">
               <p class="contacts__list-name contacts__list-item">
                 <span class="red-txt">
-                  Nina Plynska
+                  <!--                  {{ good.leaser_info.firstName }} + {{ good.leaser_info.lastName }}-->
                 </span>
               </p>
               <div class="contacts__list-phone contacts__list-item">
@@ -81,7 +81,7 @@
 </template>
 
 <script>
-import { Vue, Component } from 'nuxt-property-decorator';
+import { Vue, Component, Prop } from 'nuxt-property-decorator';
 import Carousel from '~/components/good/Carousel/Carousel';
 import RentPopup from '~/components/good/RentPopup';
 
@@ -93,6 +93,9 @@ export default @Component({
 })
 
 class Info extends Vue {
+  @Prop() good;
+  userInfo = {}
+
   messengers = [
     {
       link: '#',

@@ -126,9 +126,9 @@
 </template>
 
 <script>
-import { Vue, Component, Prop, namespace } from 'nuxt-property-decorator'
+import { Vue, Component, Prop, namespace } from 'nuxt-property-decorator';
 
-const { Action } = namespace('good_comments')
+const { Action } = namespace('good_comments');
 
 export default @Component({
   components: {}
@@ -141,17 +141,17 @@ class CommentItem extends Vue {
 
   mounted () {
     // converting time according to utc
-    const localOffset = new Date().getTimezoneOffset() * 60000
-    this.date = new Date(this.comment.date_created - localOffset).toJSON().slice(0, 10).replace(/-/g, '.').split('.').reverse().join('.')
+    const localOffset = new Date().getTimezoneOffset() * 60000;
+    this.date = new Date(this.comment.date_created - localOffset).toJSON().slice(0, 10).replace(/-/g, '.').split('.').reverse().join('.');
   }
 
   @Action removeComment
   async onDeleteComment () {
     try {
-      await this.removeComment(this.comment._id)
+      await this.removeComment(this.comment._id);
     } catch (err) {
       // eslint-disable-next-line no-console
-      console.error(err.message)
+      console.error(err.message);
     }
   }
 }

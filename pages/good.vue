@@ -4,7 +4,7 @@
       <progress-circular />
     </div>
     <div v-if="!loading">
-      <info />
+      <info :good="good" />
       <div class="tabs-wrapper">
         <v-tabs class="tabs" color="var(--primary)" left>
           <v-tab :to="{ name: 'good' }" nuxt exact>
@@ -23,13 +23,15 @@
 </template>
 
 <script>
-import { Vue, Component } from 'nuxt-property-decorator';
+import { Vue, Component, namespace } from 'nuxt-property-decorator';
 import Carousel from '~/components/good/Carousel/Carousel';
 import Map from '~/components/good/Map';
 import Info from '~/components/good/Info';
 import SharingBlock from '~/components/good/SharingBlock';
 import Recommendations from '~/components/good/Recommendations';
 import ProgressCircular from '~/components/good/Progress';
+
+const { State, Mutation, Action } = namespace('good');
 
 export default @Component({
   components: {
@@ -43,10 +45,23 @@ export default @Component({
 })
 
 class GoodPage extends Vue {
-  loading = true;
+  @State good
+  @State loading
+
+  @Mutation setLoading
+
+  @Action loadGood
+
+  async mounted () {
+    try {
+      await this.loadGood('62dd11d902d8358ce1bb2c95');
+    } catch (err) {
+      console.error(err.message);
+    }
+  }
 
   created () {
-    this.loading = false;
+    this.setLoading(false);
   }
 }
 </script>

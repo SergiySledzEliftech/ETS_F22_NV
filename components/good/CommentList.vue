@@ -6,15 +6,15 @@
       :index="i"
       :comment="comment"
       class="card__list-item"
-      @onDelete="deleteComment($event)"
+      @onDelete="onDeleteComment($event)"
     />
   </div>
 </template>
 <script>
-import { Vue, Component, Prop, namespace } from 'nuxt-property-decorator'
-import CommentItem from '~/components/good/CommentItem'
+import { Vue, Component, Prop, namespace } from 'nuxt-property-decorator';
+import CommentItem from '~/components/good/CommentItem';
 
-const { State, Mutation } = namespace('good_comments')
+const { State, Mutation } = namespace('good_comments');
 
 export default @Component({
   components: {
@@ -30,13 +30,13 @@ class MyComments extends Vue {
   @Mutation deleteComment
   @Mutation deleteUserComment
 
-  deleteComment (index) {
+  onDeleteComment (index) {
     if (this.commentsList.length === this.userComments.length) {
-      this.deleteComment(index)
-      this.commentsList = this.comments
+      this.deleteComment(index);
+      this.commentsList = this.comments;
     } else {
-      this.deleteUserComment(index)
-      this.commentsList = this.userComments
+      this.deleteUserComment(index);
+      this.commentsList = this.userComments;
     }
   }
 }
