@@ -118,7 +118,7 @@ export default {
         endpoints: {
           login: { url: '/auth/login', method: 'post' },
           refresh: { url: '/auth/refresh', method: 'post' },
-          logout: false,
+          logout: { url: '/auth/logout', method: 'post' },
           user: { url: '/auth/user', method: 'get' }
         }
       }
@@ -126,7 +126,7 @@ export default {
     localStorage: false,
     redirect: {
       login: '/auth',
-      logout: '/',
+      logout: '/auth',
       callback: '/auth',
       home: '/'
     }

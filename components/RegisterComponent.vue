@@ -102,12 +102,6 @@ class RegisterComponent extends Vue {
           }
         });
         this.$router.push(`/profile/${this.$auth.user._id}`);
-        // .then(function (response) {
-        //   console.log(response)
-        // })
-        // .catch(function (error) {
-        //   console.log(error)
-        // })
       } catch (error) {
         console.log(error);
       }
