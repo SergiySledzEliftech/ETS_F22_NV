@@ -105,7 +105,7 @@ class PremiumGoods extends Vue {
 
   async mounted () {
     try {
-      const res = await this.$axios.get(`${serverApiUrl}/top10`);
+      const res = await this.$axios.get(`${serverApiUrl}top10`);
       this.goodsData = res.data;
       this.goodsData2 = this.splitForNum(res.data, 2);
     } catch (error) {}

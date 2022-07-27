@@ -34,7 +34,7 @@ class Statistics extends Vue {
 
   async mounted () {
     try {
-      const res = await this.$axios.get(`${serverApiUrl}/statistics`);
+      const res = await this.$axios.get(`${serverApiUrl}statistics`);
       const todayStatistics = res.data.filter(e => e.date === this.getDateTime());
       const tomorrowStatistics = res.data.filter(e => e.date === this.getDateTime() - 86400000);
       const statistics = [...(this.fillEmptyStatistics(tomorrowStatistics)), ...(this.fillEmptyStatistics(todayStatistics))];
