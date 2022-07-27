@@ -5,8 +5,8 @@
 </template>
 
 <script>
-import { Vue, Component } from 'nuxt-property-decorator'
-import ItemsList from '@/components/list/ItemsList.vue'
+import { Vue, Component } from 'nuxt-property-decorator';
+import ItemsList from '@/components/list/ItemsList.vue';
 
 export default @Component({
   name: 'lend',
