@@ -10,7 +10,7 @@
 </template>
 
 <script>
-import { Component, Prop, Vue } from 'nuxt-property-decorator'
+import { Component, Prop, Vue } from 'nuxt-property-decorator';
 
 export default @Component({
   components: {}
@@ -23,7 +23,7 @@ class CarouselItem extends Vue {
   @Prop() direction
 
   get transitionEffect () {
-    return this.direction === 'right' ? 'slide-out' : 'slide-in'
+    return this.direction === 'right' ? 'slide-out' : 'slide-in';
   }
 }
 </script>

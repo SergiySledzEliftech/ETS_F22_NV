@@ -26,10 +26,10 @@
 </template>
 
 <script>
-import { Component, Vue } from 'nuxt-property-decorator'
-import CarouselItem from './CarouselItem'
-import CarouselControls from './CarouselControls'
-import CarouselIndicators from './Carouselndicators'
+import { Component, Vue } from 'nuxt-property-decorator';
+import CarouselItem from './CarouselItem';
+import CarouselControls from './CarouselControls';
+import CarouselIndicators from './Carouselndicators';
 
 export default @Component({
   components: {
@@ -59,26 +59,26 @@ class Carousel extends Vue {
     this.currentSlide =
       this.currentSlide > 0
         ? this.currentSlide + step
-        : this.slides.length - 1
-    this.direction = 'left'
-    this.changeIndicatorsArr(switcher)
+        : this.slides.length - 1;
+    this.direction = 'left';
+    this.changeIndicatorsArr(switcher);
   }
 
   next (step = 1, switcher = false) {
     this.currentSlide =
       this.currentSlide < this.slides.length - 1
         ? this.currentSlide + step
-        : 0
-    this.direction = 'right'
-    this.changeIndicatorsArr(switcher)
+        : 0;
+    this.direction = 'right';
+    this.changeIndicatorsArr(switcher);
   }
 
   switchSlide (index) {
-    const step = index + this.firstIndicatorIndex - this.currentSlide
+    const step = index + this.firstIndicatorIndex - this.currentSlide;
     if (step > 0) {
-      this.next(step, true)
+      this.next(step, true);
     } else {
-      this.prev(step, true)
+      this.prev(step, true);
     }
   }
 
@@ -87,33 +87,33 @@ class Carousel extends Vue {
       if (this.direction === 'right') {
         if (this.currentSlide === 0) {
           for (let i = 0; i < this.indicatorsAmount; i++) {
-            this.indicatorsArr[i] = this.slides[i]
+            this.indicatorsArr[i] = this.slides[i];
           }
-          this.firstIndicatorIndex = 0
-          this.lastIndicatorIndex = this.indicatorsAmount - 1
+          this.firstIndicatorIndex = 0;
+          this.lastIndicatorIndex = this.indicatorsAmount - 1;
         } else if (this.currentSlide > this.lastIndicatorIndex) {
-          let count = this.indicatorsAmount - 1
+          let count = this.indicatorsAmount - 1;
           for (let i = this.currentSlide; i > this.firstIndicatorIndex; i--) {
-            this.indicatorsArr[count--] = this.slides[i]
+            this.indicatorsArr[count--] = this.slides[i];
           }
-          this.firstIndicatorIndex++
-          this.lastIndicatorIndex++
+          this.firstIndicatorIndex++;
+          this.lastIndicatorIndex++;
         }
       } else if (this.direction === 'left') {
         if (this.currentSlide === this.slides.length - 1) {
-          let count = this.indicatorsAmount - 1
+          let count = this.indicatorsAmount - 1;
           for (let i = this.slides.length - 1; i >= this.slides.length - this.indicatorsAmount; i--) {
-            this.indicatorsArr[count--] = this.slides[i]
+            this.indicatorsArr[count--] = this.slides[i];
           }
-          this.firstIndicatorIndex = this.slides.length - this.indicatorsAmount
-          this.lastIndicatorIndex = this.slides.length - 1
+          this.firstIndicatorIndex = this.slides.length - this.indicatorsAmount;
+          this.lastIndicatorIndex = this.slides.length - 1;
         } else if (this.currentSlide < this.firstIndicatorIndex) {
-          let count = 0
+          let count = 0;
           for (let i = this.currentSlide; i < this.lastIndicatorIndex; i++) {
-            this.indicatorsArr[count++] = this.slides[i]
+            this.indicatorsArr[count++] = this.slides[i];
           }
-          this.firstIndicatorIndex--
-          this.lastIndicatorIndex--
+          this.firstIndicatorIndex--;
+          this.lastIndicatorIndex--;
         }
       }
     }
@@ -121,11 +121,11 @@ class Carousel extends Vue {
 
   created () {
     if (this.slides.length < this.indicatorsAmount) {
-      this.indicatorsAmount = this.slides.length
+      this.indicatorsAmount = this.slides.length;
     }
-    this.lastIndicatorIndex = this.indicatorsAmount - 1
+    this.lastIndicatorIndex = this.indicatorsAmount - 1;
     for (let i = 0; i < this.indicatorsAmount; i++) {
-      this.indicatorsArr[i] = this.slides[i]
+      this.indicatorsArr[i] = this.slides[i];
     }
   }
 }

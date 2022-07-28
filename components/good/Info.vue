@@ -73,11 +73,7 @@
               <a href="#" class="contacts__list-mail contacts__list-item"><span class="red-txt">nina-pv@gmail.com</span></a>
             </div>
           </div>
-          <div class="rent-btn">
-            <button class="btn_primary active">
-              Rent
-            </button>
-          </div>
+          <rent-popup />
         </div>
       </section>
     </div>
@@ -85,12 +81,14 @@
 </template>
 
 <script>
-import { Vue, Component } from 'nuxt-property-decorator'
-import Carousel from '~/components/good/Carousel/Carousel'
+import { Vue, Component } from 'nuxt-property-decorator';
+import Carousel from '~/components/good/Carousel/Carousel';
+import RentPopup from '~/components/good/RentPopup';
 
 export default @Component({
   components: {
-    Carousel
+    Carousel,
+    RentPopup
   }
 })
 
@@ -284,26 +282,6 @@ a{
             width: 100%;
             height: 100%;
           }
-        }
-      }
-    }
-    .rent-btn{
-      @media only screen and (max-width: $bp_tablet + px){
-        display: flex;
-        justify-content: flex-end;
-      }
-      .btn_primary {
-        @include responsive-value('width', 210, 80, $bp_tablet);
-        @include responsive-value_important('height', 50, 30, $bp_tablet);
-        @include responsive-value_important('font-size', 18, 12, $bp_tablet);
-        @include responsive-value_important('padding-right', 20, 10, $bp_tablet);
-        @include responsive-value_important('padding-left', 20, 10, $bp_tablet);
-        border-radius: 5px;
-        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1) 0s;
-
-        &:hover {
-          opacity: 0.85;
-          transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1) 0s;
         }
       }
     }

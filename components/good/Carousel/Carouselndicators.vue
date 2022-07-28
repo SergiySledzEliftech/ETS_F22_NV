@@ -13,7 +13,7 @@
 </template>
 
 <script>
-import { Component, Prop, Vue } from 'nuxt-property-decorator'
+import { Component, Prop, Vue } from 'nuxt-property-decorator';
 
 export default @Component({
   components: {}

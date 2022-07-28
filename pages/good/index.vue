@@ -7,20 +7,45 @@
         </h4>
         <div class="description__item-content">
           <p class="description__item-text">
-            Lorem ipsum dolor
-            sit amet, consectetur adipisicing elit. Amet cumque
-            debitis doloremque dolorum enim, eos ex expedita ipsum
-            laudantium minima, molestiae natus necessitatibus nihil
-            nostrum quia quis quos tempora temporibus veniam voluptatibus.
-            Autem culpa deserunt dignissimos, dolorem eius excepturi
-            explicabo id, impedit inventore labore magni officiis
-            pariatur repellat reprehenderit, voluptatum!
+            {{ detailsContent }}
           </p>
-          <button class="btn_more red-txt">
-            More details
+          <button
+            ref="btn_more"
+            class="description__item-btn btn_more"
+            :class="{ d_none: detailsShowAll || !detailsMore}"
+            @click="
+              onMoreDetails();
+              onChangeBtns();
+            "
+          >
+            <p class="btn_more-text red-txt">
+              More details
+            </p>
+            <v-icon
+              color="red"
+              class="btn_more-ico"
+            >
+              mdi-arrow-down
+            </v-icon>
           </button>
-          <button class="btn_less red-txt">
-            Hide details
+          <button
+            ref="btn_less"
+            class="description__item-btn btn_less"
+            :class="{ d_none: detailsShowAll || detailsMore}"
+            @click="
+              onLessDetails();
+              onChangeBtns();
+            "
+          >
+            <p class="btn_less-text red-txt">
+              Hide details
+            </p>
+            <v-icon
+              color="red"
+              class="btn_less-ico"
+            >
+              mdi-arrow-up
+            </v-icon>
           </button>
         </div>
       </div>
@@ -138,8 +163,8 @@
 </template>
 
 <script>
-import { Vue, Component } from 'nuxt-property-decorator'
-import Map from '~/components/good/Map'
+import { Vue, Component } from 'nuxt-property-decorator';
+import Map from '~/components/good/Map';
 
 export default @Component({
   components: {
@@ -207,6 +232,52 @@ class DescriptionTab extends Vue {
       }
     ]
   }
+
+  details = 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. ' +
+    'Amet cumque debitis doloremque dolorum enim, eos ex expedita ipsum ' +
+    'laudantium minima, molestiae natus necessitatibus nihil nostrum quia ' +
+    'quis quos tempora temporibus veniam voluptatibus. Autem culpa deserunt ' +
+    'quis quos tempora temporibus veniam voluptatibus. Autem culpa deserunt ' +
+    'quis quos tempora temporibus veniam voluptatibus. Autem culpa deserunt ' +
+    'dignissimos, dolorem eius excepturi explicabo id, impedit inventore ' +
+    'voluptatibus. Autem culpa deserunt dignissimos, dolorem eius excepturi ' +
+    'explicabo id, impedit inventore labore magni officiis pariatur repellat ' +
+    'reprehenderit, voluptatum!'
+
+  detailsContent = ''
+  detailsLength = 500
+  detailsShowAll = null
+  detailsMore = null
+
+  created () {
+    this.checkDetailsLength();
+  }
+
+  checkDetailsLength () {
+    if (this.details.length > this.detailsLength) {
+      this.onLessDetails();
+    } else {
+      this.onMoreDetails();
+    }
+  }
+
+  onMoreDetails () {
+    this.detailsContent = this.details;
+    this.detailsShowAll = true;
+    this.detailsMore = false;
+  }
+
+  onLessDetails () {
+    this.detailsContent = this.details.slice(0, this.detailsLength - 1);
+    this.detailsContent += ' ...';
+    this.detailsShowAll = false;
+    this.detailsMore = true;
+  }
+
+  onChangeBtns () {
+    this.$refs.btn_more.classList.toggle('d_none');
+    this.$refs.btn_less.classList.toggle('d_none');
+  }
 }
 </script>
 
@@ -215,6 +286,10 @@ h4{
   @include responsive-value("font-size", 30, 18 , $bp_laptop);
   @include responsive-value("margin-top", 30, 15, $bp_tablet);
   @include responsive-value("margin-bottom", 15, 5, $bp_tablet);
+}
+p{
+  margin: 0;
+  padding: 0;
 }
 .description{
   @include responsive-value("margin-top", 30, 15, $bp_tablet);
@@ -233,42 +308,43 @@ h4{
     .description__common-item{
       width: 100%;
     }
-    .description__item-text{
-      margin-bottom: 10px;
-      @include responsive-value("font-size", 18, 12, $bp_laptop);
-    }
-    .btn_more,
-    .btn_less{
-      position: relative;
-      line-height: 1.2rem;
-      font-weight: 600;
-      padding-right: 20px;
-    }
-    .btn_more,
-    .btn_less{
-      position: relative;
-      line-height: 1.2rem;
-      font-weight: 600;
-      padding-right: 20px;
-      &:after{
-        content: "";
-        display: block;
-        position: absolute;
-        right: 0;
-        top: 15%;
-        width: 11px;
-        height: 16px;
-        background-image: url("assets/img/good-page/arrowDown.svg");
+    .description__item-content{
+      .description__item-text{
+        margin-bottom: 10px;
+        @include responsive-value("font-size", 18, 12, $bp_laptop);
       }
+      .description__item-btn{
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 5px;
+        float: right;
+      }
+    }
+    .btn_more,
+    .btn_less{
+      position: relative;
+      line-height: 1.2rem;
+      font-weight: 600;
       &:hover{
         opacity: 0.85;
         transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1) 0s;
       }
-    }
-    .btn_less{
-      &:after{
-        content: "";
-        transform: rotate(180deg);
+      .btn_more-text,
+      .btn_less-text{
+        line-height: 1.2rem;
+        font-weight: 600;
+        @include responsive-value_restrained('font-size', 16, 13, 960, 1310);
+        @media only screen and (max-width: $bp_tablet + px) {
+          @include responsive-value('font-size', 16, 11, $bp_tablet);
+        }
+      }
+      .btn_more-ico,
+      .btn_less-ico{
+        @include responsive-value_important('font-size', 20, 10, 1310);
+        @media only screen and (max-width: $bp_tablet + px) {
+          @include responsive-value_important('font-size', 20, 12, $bp_tablet);
+        }
       }
     }
   }
@@ -294,5 +370,8 @@ tbody {
       @include responsive-value_important("font-size", 14, 12, $bp_tablet);
     }
   }
+}
+.d_none{
+  display: none !important;
 }
 </style>
