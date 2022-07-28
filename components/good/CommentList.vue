@@ -29,14 +29,16 @@ class MyComments extends Vue {
 
   @Mutation deleteComment
   @Mutation deleteUserComment
+  @Mutation setListAllComments
+  @Mutation setListUserComments
 
   onDeleteComment (index) {
     if (this.commentsList.length === this.userComments.length) {
-      this.deleteComment(index);
-      this.commentsList = this.comments;
-    } else {
       this.deleteUserComment(index);
-      this.commentsList = this.userComments;
+      this.setListUserComments(this.commentsList);
+    } else if (this.commentsList.length === this.comments.length) {
+      this.deleteComment(index);
+      this.setListAllComments(this.commentsList);
     }
   }
 }

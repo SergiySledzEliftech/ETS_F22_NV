@@ -252,7 +252,6 @@ class DescriptionTab extends Vue {
   detailsMore = null
 
   created () {
-    console.log(this.good);
     this.checkDetailsLength();
   }
 

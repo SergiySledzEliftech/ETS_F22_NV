@@ -33,7 +33,7 @@ class AllComments extends Vue {
 
   async mounted () {
     try {
-      await this.loadComments();
+      await this.loadComments('62dd11d902d8358ce1bb2c95');
     } catch (err) {
       console.error(err.message);
     }
