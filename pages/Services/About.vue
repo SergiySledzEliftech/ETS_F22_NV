@@ -1,6 +1,6 @@
 <template>
   <div class="pageService">
-    <h2>Gift Sertificates</h2>
+    <h2>About</h2>
     <img src="~/assets/img/services.jpg" alt="Hello, we are from Ukraine">
     <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur iaculis rutrum felis sit amet condimentum. Etiam id tellus et tortor tincidunt tincidunt. Praesent eget metus et quam ultricies viverra. Curabitur vestibulum enim nec dui vehicula malesuada. Nam mattis viverra justo, eu lacinia dolor pretium dictum. Aliquam volutpat arcu erat. Aenean consectetur vulputate sapien, quis gravida urna dignissim non. Nullam nisi sem, tempus vel congue vel, condimentum at purus. Etiam varius arcu quis felis tincidunt elementum.</p>
 
@@ -15,7 +15,7 @@ export default @Component({
 
 })
 
-class GiftSertificates extends Vue {
+class About extends Vue {
 
 }
 </script>

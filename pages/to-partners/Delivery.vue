@@ -15,7 +15,7 @@ export default @Component({
 
 })
 
-class MobileApplication extends Vue {
+class Delivery extends Vue {
 
 }
 </script>
