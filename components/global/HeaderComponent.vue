@@ -46,22 +46,41 @@
 
             <div class="login-profile-mobile">
               <div class="login-profile">
-                <v-btn
-                  v-if="isLogin"
-                  class="ma-2"
-                  outlined
-                  color="indigo"
+                <nuxt-link
+                  v-if="$auth.loggedIn"
+                  :to="{ path: '/'}"
                 >
-                  Profile
-                </v-btn>
-                <v-btn
+                  <nuxt-link to="#profile">
+                    <v-icon
+                      large
+                      color="blue darken-2"
+                      to="#profile"
+                    >
+                      mdi-account
+                    </v-icon>
+                  </nuxt-link>
+
+                  <v-btn
+                    class="ma-2 btn-red"
+                    outlined
+                    @click="$auth.logout()"
+                  >
+                    Log Out
+                  </v-btn>
+                </nuxt-link>
+                <nuxt-link
                   v-else
-                  class="ma-2 btn-red"
-                  outlined
-                  color="indigo"
+                  :to="{ path: '/auth' }"
                 >
-                  Sign in
-                </v-btn>
+                  <v-btn
+
+                    class="ma-2 btn-red"
+                    outlined
+                    color="indigo"
+                  >
+                    Sign in
+                  </v-btn>
+                </nuxt-link>
               </div>
             </div>
           </nav>
@@ -97,13 +116,16 @@
               v-if="$auth.loggedIn"
               :to="{ path: '/'}"
             >
-              <v-btn
-                class="ma-2"
-                outlined
-                color="indigo"
-              >
-                Profile
-              </v-btn>
+              <nuxt-link to="#profile">
+                <v-icon
+                  large
+                  color="blue darken-2"
+                  to="#profile"
+                >
+                  mdi-account
+                </v-icon>
+              </nuxt-link>
+
               <v-btn
                 class="ma-2 btn-red"
                 outlined
