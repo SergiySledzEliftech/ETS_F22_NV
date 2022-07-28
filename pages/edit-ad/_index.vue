@@ -7,14 +7,16 @@
 </template>
 
 <script>
+
 import { Vue, Component } from 'nuxt-property-decorator';
-export default
-  @Component({
-    name: 'EditAnnouncement'
-  })
+
+export default @Component({
+  name: 'EditAnnouncement'
+})
+
 class EditAnnouncement extends Vue {
 
-  }
+}
 </script>
 
 <style lang="scss" scoped>

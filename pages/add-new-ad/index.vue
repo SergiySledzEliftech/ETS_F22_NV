@@ -359,108 +359,110 @@
   </v-app>
 </template>
 <script>
+
 import { Vue, Component } from 'nuxt-property-decorator';
 import categoryCard from '../../components/new-advertisement/category-card.vue';
-export default
-  @Component({
-    name: 'CreateNewAnnouncement',
-    components: { categoryCard }
-  })
+
+export default @Component({
+  name: 'CreateNewAnnouncement',
+  components: { categoryCard }
+})
+
 class CreateNewAnnouncement extends Vue {
-    step = 1;
-    isDisabled = false;
-    selection = 'individual'
-    price = 'price'
-    numberOfBoxes = 8
-    isBrand = true
-    dialog= false
-    imgUrl = []
-    selectedCategory = ''
-    id = ''
-    isContractPrice = false
-    infoAlertForPhoto = false
-    categories = [
-      { name: 'realty', icon: 'mdi-home-city-outline' },
-      { name: 'automobile', icon: 'mdi-car' },
-      { name: 'clothing', icon: 'mdi-hanger' },
-      { name: 'electronics', icon: 'mdi-cellphone' },
-      { name: 'musical instruments', icon: 'mdi-guitar-electric' },
-      { name: 'children"s goods', icon: 'mdi-baby-carriage' },
-      { name: 'sports and hobbies', icon: 'mdi-weight-lifter' },
-      { name: 'traveling', icon: 'mdi-rv-truck' },
-      { name: 'household goods', icon: 'mdi-sofa-single' },
-      { name: '1', icon: 'mdi-car' },
-      { name: '2', icon: 'mdi-car' },
-      { name: '3', icon: 'mdi-car' }
-    ];
+  step = 1;
+  isDisabled = false;
+  selection = 'individual'
+  price = 'price'
+  numberOfBoxes = 8
+  isBrand = true
+  dialog= false
+  imgUrl = []
+  selectedCategory = ''
+  id = ''
+  isContractPrice = false
+  infoAlertForPhoto = false
+  categories = [
+    { name: 'realty', icon: 'mdi-home-city-outline' },
+    { name: 'automobile', icon: 'mdi-car' },
+    { name: 'clothing', icon: 'mdi-hanger' },
+    { name: 'electronics', icon: 'mdi-cellphone' },
+    { name: 'musical instruments', icon: 'mdi-guitar-electric' },
+    { name: 'children"s goods', icon: 'mdi-baby-carriage' },
+    { name: 'sports and hobbies', icon: 'mdi-weight-lifter' },
+    { name: 'traveling', icon: 'mdi-rv-truck' },
+    { name: 'household goods', icon: 'mdi-sofa-single' },
+    { name: '1', icon: 'mdi-car' },
+    { name: '2', icon: 'mdi-car' },
+    { name: '3', icon: 'mdi-car' }
+  ];
 
-    countries = ['Київ', 'Одеса', 'Львів', 'Харків', 'Херсон']
+  countries = ['Київ', 'Одеса', 'Львів', 'Харків', 'Херсон']
 
-    newCategory (data) {
-      this.selectedCategory = data;
-      this.dialog = false;
-    }
+  newCategory (data) {
+    this.selectedCategory = data;
+    this.dialog = false;
+  }
 
-    uploadImg = (files) => {
-      const file = files;
-      if (file.length > 8) {
-        if (this.imgUrl.length <= 8) {
-          this.imgToBit(file.slice(0, 8 - this.imgUrl.length));
-          this.infoAlertForPhoto = true;
-          console.log(this.infoAlertForPhoto);
-        } else {
-          this.infoAlertForPhoto = true;
-        }
+  uploadImg = (files) => {
+    const file = files;
+    if (file.length > 8) {
+      if (this.imgUrl.length <= 8) {
+        this.imgToBit(file.slice(0, 8 - this.imgUrl.length));
+        this.infoAlertForPhoto = true;
+        console.log(this.infoAlertForPhoto);
       } else {
-        console.log('Hello');
-        if (this.imgUrl.length <= 8) {
-          this.imgToBit(file.slice(0, 8 - this.imgUrl.length));
-          this.infoAlertForPhoto = true;
-        } else {
-          this.imgToBit(file);
-          this.infoAlertForPhoto = true;
-        }
+        this.infoAlertForPhoto = true;
+      }
+    } else {
+      console.log('Hello');
+      if (this.imgUrl.length <= 8) {
+        this.imgToBit(file.slice(0, 8 - this.imgUrl.length));
+        this.infoAlertForPhoto = true;
+      } else {
+        this.imgToBit(file);
+        this.infoAlertForPhoto = true;
       }
     }
+  }
 
-    updateImg (files) {
-      this.imgUrl.forEach((item) => {
-        if (item.id === this.id) {
-          const reader = new FileReader();
-          reader.readAsDataURL(files);
-          reader.onload = function () {
-            const url = this.result.substring(this.result.indexOf(',') + 1);
-            item.url = 'data:image/png;base64,' + url;
-          };
-        }
-      });
-      this.isDisabled = false;
-    }
-
-    remove=(index) => {
-      this.imgUrl.splice(index, 1);
-    }
-
-    idNumber (data) {
-      this.isDisabled = true;
-      this.id = data;
-    }
-
-    imgToBit (data) {
-      data.forEach((item) => {
-        const that = this;
+  updateImg (files) {
+    this.imgUrl.forEach((item) => {
+      if (item.id === this.id) {
         const reader = new FileReader();
-        reader.readAsDataURL(item);
+        reader.readAsDataURL(files);
         reader.onload = function () {
           const url = this.result.substring(this.result.indexOf(',') + 1);
-          that.imgUrl.push({
-            id: that.imgUrl.length + 1,
-            url: 'data:image/png;base64,' + url
-          });
+          item.url = 'data:image/png;base64,' + url;
         };
-      });
-    }
+      }
+    });
+    this.isDisabled = false;
   }
+
+  remove=(index) => {
+    this.imgUrl.splice(index, 1);
+  }
+
+  idNumber (data) {
+    this.isDisabled = true;
+    this.id = data;
+  }
+
+  imgToBit (data) {
+    data.forEach((item) => {
+      const that = this;
+      const reader = new FileReader();
+      reader.readAsDataURL(item);
+      reader.onload = function () {
+        const url = this.result.substring(this.result.indexOf(',') + 1);
+        that.imgUrl.push({
+          id: that.imgUrl.length + 1,
+          url: 'data:image/png;base64,' + url
+        });
+      };
+    });
+  }
+}
 </script>
 
 <style lang="scss" scoped>
