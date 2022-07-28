@@ -34,5 +34,6 @@ class Partners extends Vue {
 
   .partners-wrapper{
     padding-bottom: 10px;
+    gap:50px;
   }
 </style>
