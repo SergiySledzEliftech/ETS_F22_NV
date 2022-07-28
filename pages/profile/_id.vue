@@ -1,10 +1,9 @@
 <template>
-  <div>
+  <div class="profile-wrap">
     <v-row>
       <v-col lg="6" md="12" sm="12" xs="12" class="profile-title">
         <h4>
           <nuxtLink :to="{ name: 'profile-id', params: { id: $route.params.id}}">
-            <!--<v-img :src="userData.avatar" alt="avtr" class="avtr" contain />-->
             <div v-if="isMy">
               Hello, {{ user.firstName }} {{ user.lastName }}
             </div>
@@ -57,11 +56,10 @@ class Profile extends Vue {
   }
 
   name = 'profile';
-  myId = '62dbeb38d387887c0b416ab6';
-  // currentIndex = this.$route.params.id - 1;
 
   get isMy () {
-    return this.myId === this.$route.params.id.toString();
+    // return this.$auth.user._id === this.$route.params.id;
+    return this.$route.params.id === '62dbeb38d387887c0b416ab6';
   };
 
   tabsCurrentUser = [
@@ -79,45 +77,47 @@ class Profile extends Vue {
 </script>
 
 <style lang="scss">
+.profile-wrap {
 
-.row{
-  margin: 10px 0;
+  .row {
+    margin: 10px 0;
+  }
+
+  .profile-title{
+    margin: auto 0;
+    .avtr {
+      max-width: 50px;
+      height: auto;
+      box-sizing: border-box;
+      clip-path: circle();
+      display: inline-block;
+      margin-right: 20px;
+    }
+    .center-align {
+      display: flex;
+      align-items: center;
+    }
+    h4 {
+      margin: 0;
+      padding: 0;
+    }
+    a{
+      display: flex;
+      align-items: center;
+      font-size: 24px;
+      padding: 0;
+      margin: 0;
+      color: $secondary
+    }
+  }
+
+  .tabs a {
+    height: 100%;
+    font-size: 14px;
+    font-weight: 500;
+    &:hover {
+      background-color: #aaaaaa
+    }
+  }
 }
-
-.profile-title{
-  margin: auto 0;
-  .avtr {
-    max-width: 50px;
-    border: 1px solid $secondary;
-    border-radius: 50%;
-    display: inline-block;
-    margin-right: 20px;
-  }
-  .center-align {
-    display: flex;
-    align-items: center;
-  }
-  h4 {
-    margin: 0;
-    padding: 0;
-  }
-  a{
-    display: flex;
-    align-items: center;
-    font-size: 24px;
-    padding: 0;
-    margin: 0;
-    color: $secondary
-  }
-}
-
-.tabs a {
-  height: 100%;
-  font-size: 14px;
-  font-weight: 500;
-  &:hover {
-    background-color: #aaaaaa
-  }
-}
-
 </style>
