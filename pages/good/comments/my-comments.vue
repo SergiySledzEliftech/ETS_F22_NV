@@ -14,7 +14,7 @@
 <script>
 import { Vue, Component, namespace } from 'nuxt-property-decorator';
 import CommentList from '~/components/good/CommentList';
-import ProgressCircular from '~/components/good/Progress';
+import ProgressCircular from '~/components/global/Progress';
 
 const { State, Action } = namespace('good_comments');
 
