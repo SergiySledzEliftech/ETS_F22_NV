@@ -5,7 +5,7 @@
 </template>
 
 <script>
-import { Vue, Component } from 'nuxt-property-decorator'
+import { Vue, Component } from 'nuxt-property-decorator';
 
 export default @Component({
   name: 'config',

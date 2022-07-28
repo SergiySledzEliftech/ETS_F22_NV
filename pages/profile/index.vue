@@ -3,9 +3,9 @@
 </template>
 
 <script>
-import { Vue, Component, namespace } from 'nuxt-property-decorator'
-import ProfileAds from '~/components/profile/ProfileAds.vue'
-const { State, Mutation } = namespace('profile_myAds')
+import { Vue, Component, namespace } from 'nuxt-property-decorator';
+import ProfileAds from '~/components/profile/ProfileAds.vue';
+const { State, Mutation } = namespace('profile_myAds');
 export default @Component({
   name: 'ads',
   layout: 'profile',

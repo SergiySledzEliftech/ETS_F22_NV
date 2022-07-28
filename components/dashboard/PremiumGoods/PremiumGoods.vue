@@ -103,7 +103,7 @@ class Top10Goods extends Vue {
 
   async getPremiumGoods () {
     try {
-      const res = await this.$axios.get(`${serverApiUrl}/premium/`);
+      const res = await this.$axios.get(`${serverApiUrl}premium/`);
       return res.data;
     } catch (error) {
       return [...Array(3).keys()];
