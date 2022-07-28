@@ -8,7 +8,6 @@
       :set-per-page="changePerPage"
       :per-page="perPage"
       :opts-array="perPageArray"
-      :disable-pagination="disable"
     >
       <li v-for="item in items" :key="item.id" class="item">
         <SingleItem :item="item" :grid="view === 'list'">
@@ -52,17 +51,19 @@ export default @Component({
   components: { ItemsList, SingleItem }
 })
 class ProfileAds extends Vue {
-  @State data;
+  // @State data;
   @State view;
   @State page;
   @State perPage;
   @State perPageArray;
   @State totalPages;
+  @Action getUser;
   @Action setLoad;
   @Action deleteElem;
   @Action calculateTotalPages;
   @Action calcPage;
   @Mutation setPerPage;
+  data = [];
   items = [];
   disable = true;
 
@@ -79,16 +80,21 @@ class ProfileAds extends Vue {
 
   changePerPage (num) {
     this.setPerPage(num);
-    this.calculateTotalPages(this.data);
     this.changePage(1);
+    this.calculateTotalPages(this.data);
   }
 
-  mounted () {
-    setTimeout(() => {
+  async mounted () {
+    try {
+      const { products } = await this.$axios.$get('https://dummyjson.com/products?limit=50');
+      this.data = products;
+      console.log(this.items);
       this.sliceList();
-      this.calculateTotalPages(this.data);
+      this.calculateTotalPages(products);
       this.setLoad(false);
-    }, 0);
+    } catch (e) {
+      console.log('data failed', e.message);
+    }
   }
 }
 

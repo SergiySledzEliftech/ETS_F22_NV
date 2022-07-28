@@ -48,6 +48,7 @@
         v-model="currentPage"
         value="currentPage"
         :length="totalPages"
+        total-visible="5"
         @input="setPage"
         @next="nextPage"
         @previous="previousPage"
@@ -111,6 +112,7 @@ class ItemsList extends Vue {
         ? 'mdi-format-list-bulleted-square'
         : 'mdi-view-grid-outline';
     this.currentPage = this.page;
+    this.setPage(1);
   }
 }
 </script>
