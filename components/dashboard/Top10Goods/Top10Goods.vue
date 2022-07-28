@@ -50,7 +50,7 @@
           <product-card class="six-elements-element" :img="el.images && el.images[0]" :title="el.title" />
         </div>
       </div>
-      <div v-for="el of goodsData" :key="el._id + '1'" class="d-none d-xl-flex">
+      <div v-for="(el, index) of goodsData" :key="el._id + index.toString()" class="d-none d-xl-flex">
         <product-card class="six-elements-element" :img="el.images && el.images[0]" :title="el.title" />
       </div>
     </div>
