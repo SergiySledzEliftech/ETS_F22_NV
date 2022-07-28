@@ -52,7 +52,7 @@ class News extends Vue {
 
   async mounted () {
     try {
-      const res = await this.$axios.get(`${serverApiUrl}/news`);
+      const res = await this.$axios.get(`${serverApiUrl}news`);
       this.newsData = res.data;
       this.img = res.data[0].img;
       this.title = res.data[0].title;
