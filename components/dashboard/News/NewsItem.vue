@@ -99,6 +99,7 @@ class NewsItem extends Vue {
       border-radius: 0px 0px 30px 30px !important;
 
       .article-content{
+        margin-top: 27px;
         height: auto;
         overflow: visible;
       }

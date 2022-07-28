@@ -12,8 +12,8 @@
           :key="el._id"
         >
           <v-sheet
-            color="var(--bg)"
             height="100%"
+            color="var(--bg)"
           >
             <div class="d-flex align-center justify-space-around">
               <product-card v-for="e of el" :key="e._id" :img="e.images && e.images[0]" :title="e.title" />
@@ -51,7 +51,7 @@
         </div>
       </div>
       <div v-for="(el, index) of goodsData" :key="el._id + index.toString()" class="d-none d-xl-flex">
-        <product-card class="six-elements-element" :img="el.images && el.images[0]" :title="el.title" />
+        <product-card class="ten-elements-element" :img="el.images && el.images[0]" :title="el.title" />
       </div>
     </div>
     <div class="buttons-wrapper d-lg-flex d-none d-xl-none align-center justify-space-around mx-auto btn-other-margin">
@@ -83,7 +83,7 @@ export default @Component({
   components: { ProductCard }
 })
 
-class PremiumGoods extends Vue {
+class Top10Goods extends Vue {
   showAll = false
   showAllButtonText = 'Show'
   goodsData = [...Array(10).keys()]
@@ -184,15 +184,15 @@ class PremiumGoods extends Vue {
   }
 
   .six-elements-element{
-    margin-bottom: 80px;
+    margin-bottom: 75px;
   }
 
   .ten-elements-element{
-    margin-bottom: 45px;
+    margin-bottom: 43.4px;
   }
 
   .carousel{
-    margin-bottom: 45px;
+    margin-bottom: 43.4px;
   }
 
   .btn-other-margin{

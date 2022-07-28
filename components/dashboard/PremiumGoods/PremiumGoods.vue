@@ -11,7 +11,7 @@
         :key="el._id"
       >
         <v-sheet
-          color="#213342"
+          color="var(--secondary)"
           height="100%"
           class="d-flex justify-center align-center"
         >

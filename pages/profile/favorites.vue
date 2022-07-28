@@ -5,8 +5,8 @@
 </template>
 
 <script>
-import { Vue, Component } from 'nuxt-property-decorator'
-import ProfileFavs from '@/components/profile/ProfileFavs.vue'
+import { Vue, Component } from 'nuxt-property-decorator';
+import ProfileFavs from '@/components/profile/ProfileFavs.vue';
 export default @Component({
   name: 'Favorites',
   layout: 'profile',

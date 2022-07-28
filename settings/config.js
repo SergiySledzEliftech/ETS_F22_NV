@@ -1,1 +1,1 @@
-export const serverApiUrl = 'https://glomare.herokuapp.com/a/';
+export const serverApiUrl = 'https://glomare.herokuapp.com/';
