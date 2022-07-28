@@ -50,11 +50,10 @@
                   v-if="$auth.loggedIn"
                   :to="{ path: '/'}"
                 >
-                  <nuxt-link to="#profile">
+                  <nuxt-link :to="profileRoute">
                     <v-icon
                       large
                       color="blue darken-2"
-                      to="#profile"
                     >
                       mdi-account
                     </v-icon>
@@ -116,11 +115,10 @@
               v-if="$auth.loggedIn"
               :to="{ path: '/'}"
             >
-              <nuxt-link to="#profile">
+              <nuxt-link :to="profileRoute">
                 <v-icon
                   large
                   color="blue darken-2"
-                  to="#profile"
                 >
                   mdi-account
                 </v-icon>
@@ -220,6 +218,9 @@ class HeaderComponent extends Vue {
     { name: 'Gift Certificates', to: 'Services-GiftSertificates' },
     { name: 'Chat', to: 'Chat' }
   ]
+
+  // profileRoute = '/profile/' + this.$auth.user._id;
+  profileRoute = '/profile/' + '62dfd0e96be61376782507d5';
 
   mounted () {
     // Fixed Resize Screen Function
