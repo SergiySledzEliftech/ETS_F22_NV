@@ -11,10 +11,10 @@
   </div>
 </template>
 <script>
-import { Vue, Component, Prop, namespace } from 'nuxt-property-decorator'
-import CommentItem from '~/components/good/CommentItem'
+import { Vue, Component, Prop, namespace } from 'nuxt-property-decorator';
+import CommentItem from '~/components/good/CommentItem';
 
-const { State, Mutation } = namespace('good_comments')
+const { State, Mutation } = namespace('good_comments');
 
 export default @Component({
   components: {
@@ -32,11 +32,11 @@ class MyComments extends Vue {
 
   deleteComment (index) {
     if (this.commentsList.length === this.userComments.length) {
-      this.deleteComment(index)
-      this.commentsList = this.comments
+      this.deleteComment(index);
+      this.commentsList = this.comments;
     } else {
-      this.deleteUserComment(index)
-      this.commentsList = this.userComments
+      this.deleteUserComment(index);
+      this.commentsList = this.userComments;
     }
   }
 }

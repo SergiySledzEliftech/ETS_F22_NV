@@ -12,7 +12,7 @@
 </template>
 
 <script>
-import { Vue, Component, Prop } from 'nuxt-property-decorator'
+import { Vue, Component, Prop } from 'nuxt-property-decorator';
 export default @Component({
   name: 'CategoryCard'
 })
@@ -21,7 +21,7 @@ class CategoryCard extends Vue {
   @Prop()categories
 
   addCategory (item) {
-    this.$emit('category', item)
+    this.$emit('category', item);
   }
 }
 </script>
