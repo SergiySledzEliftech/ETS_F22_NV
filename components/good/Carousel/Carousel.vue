@@ -26,7 +26,7 @@
 </template>
 
 <script>
-import { Component, Vue } from 'nuxt-property-decorator';
+import { Component, Prop, Vue } from 'nuxt-property-decorator';
 import CarouselItem from './CarouselItem';
 import CarouselControls from './CarouselControls';
 import CarouselIndicators from './Carouselndicators';
@@ -40,14 +40,8 @@ export default @Component({
 })
 
 class Carousel extends Vue {
-  slides = [
-    'https://picsum.photos/id/1032/900/400',
-    'https://picsum.photos/id/1033/900/400',
-    'https://picsum.photos/id/1037/900/400',
-    'https://picsum.photos/id/1035/900/400',
-    'https://picsum.photos/id/1036/900/400'
-  ]
-
+  @Prop() images
+  slides = []
   currentSlide = 0
   direction = 'right'
   indicatorsAmount = 4
@@ -120,6 +114,11 @@ class Carousel extends Vue {
   }
 
   created () {
+    // getting images in array without __ob__ Observed element
+    this.slides = { ...this.images };
+    this.slides = Object.keys(this.slides).map(key => this.slides[key]);
+
+    // setting indicators amount and indexes
     if (this.slides.length < this.indicatorsAmount) {
       this.indicatorsAmount = this.slides.length;
     }

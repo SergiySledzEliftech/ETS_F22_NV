@@ -29,14 +29,21 @@ class MyComments extends Vue {
   @State loading
 
   @Action loadUserComments
+  @Action setLoading
 
   async mounted () {
     try {
-      await this.loadUserComments();
+      await this.loadUserComments({
+        userId: this.$auth.user._id,
+        goodId: '62dd11d902d8358ce1bb2c95'
+      });
     } catch (err) {
-      // eslint-disable-next-line no-console
       console.error(err.message);
     }
+  }
+
+  created () {
+    this.setLoading(false);
   }
 }
 </script>

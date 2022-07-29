@@ -14,7 +14,7 @@
 <script>
 import { Vue, Component, namespace } from 'nuxt-property-decorator';
 import CommentList from '~/components/good/CommentList';
-import ProgressCircular from '~/components/global/Progress';
+import ProgressCircular from '~/components/good/Progress';
 
 const { State, Action } = namespace('good_comments');
 
@@ -31,12 +31,10 @@ class AllComments extends Vue {
   @Action loadComments
   @Action setLoading
 
-  // also can be used fetch
   async mounted () {
     try {
-      await this.loadComments();
+      await this.loadComments('62dd11d902d8358ce1bb2c95');
     } catch (err) {
-      // eslint-disable-next-line no-console
       console.error(err.message);
     }
   }

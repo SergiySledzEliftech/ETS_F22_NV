@@ -75,7 +75,10 @@ $body-font-family: 'Montserrat';
   }
 
   .red-txt{
-    color: $primary;
+    color: $primary !important;
+  }
+  .green-txt{
+    color: $positive !important;
   }
   .hidden{
     display: none;
