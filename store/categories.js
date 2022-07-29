@@ -1,8 +1,9 @@
+import Vue from 'vue';
 export const state = () => ({
   goods: [],
   categories: [],
   searchingItems: [],
-  options: null,
+  options: {},
   isLoading: false,
   autocompleteLoader: false,
   error: null
@@ -18,8 +19,12 @@ export const mutations = {
   setSearchingItems (state, searchingItems) {
     state.searchingItems = searchingItems;
   },
-  setOptions (state, options) {
-    state.searchingItems = options;
+  setOptions (state, [param, value]) {
+    if (Object.keys(value).length > 0) {
+      Vue.set(state.options, 'price', { param: value });
+    } else {
+      Vue.set(state.options, param, value);
+    }
   },
   setLoading (state, isLoading) {
     state.isLoading = isLoading;
@@ -33,6 +38,17 @@ export const mutations = {
 };
 
 export const actions = {
+  async getAllGoods ({ _, commit }) {
+    commit('setLoading', true);
+    try {
+      const productsRes = await this.$axios.$get('http://localhost:3001/search/all');
+      commit('setGoods', productsRes);
+    } catch (err) {
+      commit('setError', err.message);
+    } finally {
+      commit('setLoading', false);
+    }
+  },
   async getAllGoodsAndCategories ({ _, commit }) {
     commit('setLoading', true);
     try {
@@ -46,23 +62,33 @@ export const actions = {
       commit('setLoading', false);
     }
   },
-  async search ({ state, commit }, values) {
+  async search ({ _, commit }, values) {
     const { value, selectedValue } = values;
     commit('setAutocompleteLoading', true);
     try {
       const items = await this.$axios.$get(`http://localhost:3001/search?q=${value}`);
       const itemsRes = items.map(({ title, category }) => ({ title, category }));
       commit('setSearchingItems', itemsRes);
-      // console.log(value);
-      console.log(selectedValue);
       if (selectedValue) {
         const productsRes = await this.$axios.$get(`http://localhost:3001/search?q=${selectedValue}`);
         commit('setGoods', productsRes);
       }
     } catch (err) {
-      console.log(err.message);
+      commit('setError', err.message);
     } finally {
       commit('setAutocompleteLoading', false);
+    }
+  },
+  async filter ({ _, commit }, values) {
+    const { value } = values;
+    commit('setLoading', true);
+    try {
+      const productsRes = await this.$axios.$get(`http://localhost:3001/search?q=${value}`);
+      commit('setGoods', productsRes);
+    } catch (err) {
+      commit('setError', err.message);
+    } finally {
+      commit('setLoading', false);
     }
   }
 };
