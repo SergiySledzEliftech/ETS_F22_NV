@@ -57,7 +57,9 @@
 
 <script>
 import { Vue, Component, Prop, namespace } from 'nuxt-property-decorator';
+// import axios from 'axios';
 const { State, Mutation, Action } = namespace('ordered');
+
 export default @Component({
   name: 'PaymentsOrders',
   components: {}

@@ -106,7 +106,7 @@ import { mask } from 'vue-the-mask';
 export default @Component({
   name: 'PaymentCard',
   directives: { mask },
-  components: {}
+  components: { }
 })
 
 class PaymentCard extends Vue {

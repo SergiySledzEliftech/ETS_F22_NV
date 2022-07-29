@@ -59,7 +59,7 @@
           </div>
           <div class="payments__type-images">
             <img :src=" require('../../assets/img/payments/visa-logo.png')" alt="visa" class="payments__type-image">
-          </div>>
+          </div>
         </div>
         <p>Безпечна онлайн-оплата карткою</p>
       </div>
@@ -123,7 +123,6 @@ class PaymentsContact extends Vue {
   }
 
   changeShowPaymentsCash () {
-    console.log(11111);
     this.showPaymentsCash = true;
     this.showPaymentsCard = true;
     this.showPaymentsCard = false;
@@ -154,7 +153,6 @@ $bradius: 10
   position: relative
   margin-right: 0
   margin-left: 0
-  // border: 1px solid black
   padding: $gap * 3 * 1px
   background: #f4f4f9
   &__list-title
@@ -170,7 +168,6 @@ $bradius: 10
       margin-bottom: 0
       font-weight: 700
       cursor: pointer
-  //&__title-number
   &__title-text
     margin-bottom: 0
     font-weight: 700
@@ -201,9 +198,6 @@ $bradius: 10
     border-radius: $bradius * 1px
     min-height: 115px
     padding: $gap * 3 * 1px
-    // p
-    //   margin-bottom: 0
-    //   padding-left: 24px
   &__type-inner
     display: flex
     padding-left: 24px
