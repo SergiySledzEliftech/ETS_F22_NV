@@ -73,7 +73,7 @@
 
 <script>
 import { Vue, Component, namespace } from 'nuxt-property-decorator';
-import { disadvantagesRule, advantagesRule, commentRule } from '~/helpers/comment-validation';
+import { disadvantagesRule, advantagesRule, commentRule } from '~/helpers/validators';
 
 const { Action } = namespace('good_comments');
 
@@ -81,6 +81,8 @@ export default @Component({
 })
 
 class AddComment extends Vue {
+  @Action createComment
+
   valid = true
   commentData = {
     advantages: '',
@@ -99,6 +101,10 @@ class AddComment extends Vue {
 
   validation () {
     this.$refs.form.validate();
+    setTimeout(() => {
+      this.clear();
+    }, 0);
+    this.$router.push('/good/comments/');
   }
 
   clear () {
@@ -106,27 +112,15 @@ class AddComment extends Vue {
     this.commentData.advantages = '';
     this.commentData.disadvantages = '';
     this.commentData.rating = null;
-    const date = new Date();
-    console.log(date);
-    console.log(date.getTime());
   }
 
-  @Action createComment
   async onAddComment () {
     const date = new Date();
-    console.log(date);
-    console.log(date.getTime());
     this.commentData.date_created = date.getTime();
+    this.commentData.userId = this.$auth.user._id;
+    this.commentData.productId = '62dd11d902d8358ce1bb2c95';
     try {
       await this.createComment(this.commentData);
-    } catch (err) {
-      console.error(err.message);
-    }
-  }
-
-  async mounted () {
-    try {
-      await this.loadUserComments();
     } catch (err) {
       console.error(err.message);
     }
