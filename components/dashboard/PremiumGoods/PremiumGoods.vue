@@ -30,6 +30,7 @@
       height="450px"
       hide-delimiters
       class="d-lg-none d-none d-md-block"
+      :show-arrows="false"
     >
       <v-carousel-item
         v-for="el of goodsData2"
@@ -55,6 +56,7 @@
       height="450px"
       hide-delimiters
       class="d-md-none"
+      :show-arrows="false"
     >
       <v-carousel-item
         v-for="el of goodsData1"

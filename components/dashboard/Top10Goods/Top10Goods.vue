@@ -50,7 +50,7 @@
           <product-card class="six-elements-element" :img="el.images && el.images[0]" :title="el.title" />
         </div>
       </div>
-      <div v-for="el of goodsData" :key="el._id + '1'" class="d-none d-xl-flex">
+      <div v-for="(el, index) of goodsData" :key="el._id + index.toString()" class="d-none d-xl-flex">
         <product-card class="ten-elements-element" :img="el.images && el.images[0]" :title="el.title" />
       </div>
     </div>
@@ -149,7 +149,7 @@ class PremiumGoods extends Vue {
     line-height: 20px;
     text-align: center;
 
-    color: #E31F26;
+    color: $primary;
   }
 
   .btn-white-text{
@@ -179,7 +179,7 @@ class PremiumGoods extends Vue {
   }
 
   .otherTopGoodsShow{
-    height: 768px !important;
+    height: 758px !important;
     opacity: 1 !important;
   }
 
@@ -200,7 +200,6 @@ class PremiumGoods extends Vue {
   }
 
   .carousel-content{
-    background-color: red;
     width: 100%;
   }
 </style>

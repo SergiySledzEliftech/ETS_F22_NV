@@ -11,14 +11,25 @@
         :src="img"
         height="100%"
         width="100%"
+        v-if="!!img"
       />
 
-      <v-card-title
-        :title="title.length>20 ? title: null"
-        class="product-card-title"
-      >
-        {{ formatString(title) }}
-      </v-card-title>
+      <div class="circle-wrapper" v-else>
+        <v-progress-circular class="circle" indeterminate :size="100"/>
+      </div>
+
+      <v-tooltip top color="black">
+        <template #activator="{ on, attrs }">
+          <v-card-title
+            class="product-card-title"
+            v-bind="attrs"
+            v-on="on"
+          >
+            {{ formatString(title) }}
+          </v-card-title>
+        </template>
+        <span>{{ title }}</span>
+      </v-tooltip>
     </v-card>
   </v-hover>
 </template>
@@ -29,10 +40,10 @@ export default @Component
 
 class ProductCard extends Vue {
   @Prop({ default: 'Loading...' }) title
-  @Prop({ default: 'https://upload.wikimedia.org/wikipedia/commons/b/b1/Loading_icon.gif?20151024034921' }) img
+  @Prop({ default: null }) img
 
   formatString (str) {
-    return str.length > 20 ? str.slice(0, 20) + '...' : str;
+    return str.length > 17 ? str.slice(0, 17) + '...' : str;
   }
 }
 </script>
@@ -49,7 +60,13 @@ class ProductCard extends Vue {
 
     &:hover{
       .product-card-img{
-        filter: brightness(35%);
+        filter: brightness(25%);
+      }
+    }
+
+    &:hover{
+      .circle-wrapper{
+        filter: brightness(25%);
       }
     }
   }
@@ -61,10 +78,29 @@ class ProductCard extends Vue {
     opacity: 0;
     color: white;
     transition: opacity 0.3s;
+    padding-top: 0 !important;
+
+    font-size: 20px;
+    font-weight: bold;
+    line-height: 1.4rem;
   }
 
   .product-card-img{
     filter: none;
     transition: filter 0.3s;
+  }
+
+  .circle-wrapper{
+    min-width: 304px;
+    filter: none;
+    transition: filter 0.3s;
+    height: 100%;
+    background-color: white;
+
+    .circle{
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+    }
   }
 </style>

@@ -26,12 +26,3 @@ export default @Component({
 class Index extends Vue {
 }
 </script>
-
-<style lang="scss">
-.progress-circular{
-  display: flex;
-  height: 70vh;
-  justify-content: center;
-  align-items: center;
-}
-</style>
