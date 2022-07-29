@@ -42,18 +42,25 @@
         </div>
       </div>
     </div>
-    <div class="payments__orders">
-      <v-btn class="ma-2 btn--pay" outlined color="indigo" :disabled="BtnDisabled" @click="showModalCard">
-        PAY
-      </v-btn>
-    </div>
+    <v-btn
+      block
+      class="btn--pay"
+      outlined
+      color="indigo"
+      :disabled="BtnDisabled"
+      @click="showModalCard"
+    >
+      <!-- <a href="https://secure.wayforpay.com/button/bc29ac6a1a04f">PAY</a> -->
+      PAY
+    </v-btn>
   </div>
 </template>
 
 <script>
 import { Vue, Component, Prop, namespace } from 'nuxt-property-decorator';
+// import axios from 'axios';
 const { State, Mutation, Action } = namespace('ordered');
-// < button @click="showModalCard" class="btn--payments" : disabled = "BtnDisabled" > PAY</button >
+
 export default @Component({
   name: 'PaymentsOrders',
   components: {}
@@ -79,7 +86,12 @@ class PaymentsOrders extends Vue {
   }
 
   showModalCard () {
-    this.$emit('modalCardVisible', true);
+    const bill = {
+      billAmount: this.totalCost,
+      billNumber: Math.floor(Math.random() * this.totalCost)
+    };
+    console.log(bill);
+    this.$emit('modalCardVisible', true, bill);
   }
 
   deleteOrderedGoodFromList (id) {
@@ -185,14 +197,11 @@ $bradius: 10
         color: red
 .btn
   &--pay
-    width: 100%
-    border-radius: 8px
-    letter-spacing: 27px
     font-size: 25px
-    color: #fff
     text-transform: none
-    height: 50px
-    padding: 0 20px
+    padding: 20px 0px!important
+    // &--wrap
+    //   min-height: fit-content !important
 //.row
 //  margin-left: $gap * -1px
 //  margin-right: $gap * -1px

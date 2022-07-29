@@ -1,7 +1,19 @@
 <template>
   <div class="payments">
+    <!-- <div class="text-center progress-circular">
+      <v-progress-linear
+        v-show="showLoading"
+        indeterminate
+        color="primary"
+        rounded
+        height="10"
+      ></v-progress-linear>
+    </div> -->
     <payment-card
       v-if="modalCardVisible"
+      :bill-order="billOrderData"
+      :paid-goods="orderedGoods"
+      @closeModal="closePaymentCard"
     />
     <div class="row__vertical">
       <payments-contact
@@ -37,6 +49,8 @@ export default @Component({
 class PaymentsPage extends Vue {
   PayValidBtn = true
   modalCardVisible = false
+  // showLoading = true
+  billOrderData
 
   products = [
     {
@@ -60,20 +74,31 @@ class PaymentsPage extends Vue {
   @State orderedGoods;
   @Mutation setOrderedGoods;
 
-  mounted () {
+  // @Watch('orderedGoods')
+  // load () {
+  //   if (this.orderedGoods.length) {
+  //     this.showLoading = false;
+  //   }
+  // }
+
+  fetch () {
     this.setOrderedGoods(this.products);
   }
 
   methods () {
   }
 
-  showModalCard (data) {
+  showModalCard (data, bill) {
+    this.billOrderData = bill;
+    this.modalCardVisible = data;
+  }
+
+  closePaymentCard (data) {
     this.modalCardVisible = data;
   }
 
   PayValidateBtn (data) {
     this.PayValidBtn = data;
-    console.log(this.PayValidBtn);
   }
 }
 
@@ -115,6 +140,13 @@ $bradius: 10
   padding-bottom: $gap * 3 * 1px
   padding-top: $gap * 3 * 1px
   min-height: 100%
+.progress-circular
+  position: absolute
+  width: 100%
+  top: 0
+  left: 50%
+  transform: translateX(-50%)
+  align-items: center
 .col-desktop-2-5
   max-width: 100 / 2 * 1%
 .form-row
