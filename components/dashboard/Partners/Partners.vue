@@ -28,7 +28,8 @@ class Partners extends Vue {
     try {
       const res = await this.$axios.get(`${serverApiUrl}partners`);
       this.partnersData = res.data;
-    } catch (error) {}
+    } catch (err) {
+    }
   }
 }
 </script>

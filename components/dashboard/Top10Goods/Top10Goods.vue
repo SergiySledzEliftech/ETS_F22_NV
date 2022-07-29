@@ -108,7 +108,8 @@ class PremiumGoods extends Vue {
       const res = await this.$axios.get(`${serverApiUrl}top10`);
       this.goodsData = res.data;
       this.goodsData2 = this.splitForNum(res.data, 2);
-    } catch (error) {}
+    } catch (err) {
+    }
   }
 
   splitForNum (arr, num) {

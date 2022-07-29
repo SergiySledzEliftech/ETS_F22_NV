@@ -42,7 +42,8 @@ class Statistics extends Vue {
       this.users = this.getStatisticsFor24Hours(statistics, 'users');
       this.itemsCreated = this.getStatisticsFor24Hours(statistics, 'itemsCreated');
       this.itemsRented = this.getStatisticsFor24Hours(statistics, 'itemsRented');
-    } catch (error) {}
+    } catch (err) {
+    }
   }
 
   getDateTime () {

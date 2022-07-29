@@ -57,7 +57,8 @@ class News extends Vue {
       this.img = res.data[0].img;
       this.title = res.data[0].title;
       this.article = res.data[0].text;
-    } catch (error) {}
+    } catch (err) {
+    }
   }
 }
 </script>

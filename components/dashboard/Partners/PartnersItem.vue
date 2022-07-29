@@ -36,7 +36,7 @@
         height="100px"
         class="partners-item-img"
       />
-      <div v-else class="circle-wrapper" v-bind="attrs" v-on="on">
+      <div v-else class="circle-wrapper">
         <v-progress-circular class="circle" indeterminate :size="70" />
       </div>
       <div class="d-flex align-center justify-center mt-2">
