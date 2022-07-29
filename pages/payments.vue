@@ -2,6 +2,9 @@
   <div class="payments">
     <payment-card
       v-if="modalCardVisible"
+      :bill-order="billOrderData"
+      :paid-goods="orderedGoods"
+      @closeModal="closePaymentCard"
     />
     <div class="row__vertical">
       <payments-contact
@@ -37,6 +40,7 @@ export default @Component({
 class PaymentsPage extends Vue {
   PayValidBtn = true
   modalCardVisible = false
+  billOrderData
 
   products = [
     {
@@ -60,20 +64,24 @@ class PaymentsPage extends Vue {
   @State orderedGoods;
   @Mutation setOrderedGoods;
 
-  mounted () {
+  fetch () {
     this.setOrderedGoods(this.products);
   }
 
   methods () {
   }
 
-  showModalCard (data) {
+  showModalCard (data, bill) {
+    this.billOrderData = bill;
+    this.modalCardVisible = data;
+  }
+
+  closePaymentCard (data) {
     this.modalCardVisible = data;
   }
 
   PayValidateBtn (data) {
     this.PayValidBtn = data;
-    console.log(this.PayValidBtn);
   }
 }
 

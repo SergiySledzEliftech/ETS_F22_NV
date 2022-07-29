@@ -6,8 +6,8 @@
       </p>
     </div>
     <div class="payments__contact m-b-2">
-      <div class="payments__contact-inner">
-        <v-form>
+      <div class="payments__contact-inner" :class="{payments__active:showFormBorder}">
+        <v-form ref="form" v-model="valid" lazy-validation>
           <v-container>
             <v-row class="form-row">
               <v-col class="form-col" cols="12" sm="6" md="4">
@@ -16,14 +16,26 @@
                   label="Phone Number"
                   outlined
                   dense
-                  :rules="[rules.required, rules.phone]"
+                  :rules="[emptyValidation(), phoneNumberValidation()]"
                 />
               </v-col>
               <v-col class="form-col" cols="12" sm="6" md="4">
-                <v-text-field label="Name" outlined dense min:2 />
+                <v-text-field
+                  v-model="name"
+                  label="Name"
+                  outlined
+                  dense
+                  :rules="[emptyValidation(), lengthValidation(10)]"
+                />
               </v-col>
               <v-col class="form-col" cols="12" sm="6" md="4">
-                <v-text-field label="Last Name" outlined dense />
+                <v-text-field
+                  v-model="lastName"
+                  label="Last Name"
+                  outlined
+                  dense
+                  :rules="[emptyValidation(), lengthValidation(10)]"
+                />
               </v-col>
             </v-row>
           </v-container>
@@ -70,30 +82,43 @@
 </template>
 
 <script>
-import { Vue, Component } from 'nuxt-property-decorator';
+import { Vue, Component, Watch } from 'nuxt-property-decorator';
+import { phoneNumberValidation, emptyValidation, lengthValidation } from '../../helpers/validators';
 
 export default @Component({
   name: 'PaymentsContact',
-  components: {},
-  data () {
-    return {
-      title: 'Preliminary report',
-      phone: '+(380)',
-      rules: {
-        required: value => !!value || 'Required.',
-        counter: value => value.length <= 20 || 'Max 20 characters',
-        phone: (value) => {
-          const pattern = /\+[(][0-9]{3}[)][0-9]{2}-[0-9]{2}-[0-9]{2}-[0-9]{3}/g;
-          return pattern.test(value) || 'Enter phone format +(380)XX-XX-XX-XXX.';
-        }
-      }
-    };
-  }
+  components: {}
 })
 
 class PaymentsContact extends Vue {
+  data () {
+    return { phoneNumberValidation, emptyValidation, lengthValidation };
+  }
+
+  valid = true
+  phone = ''
+  name = ''
+  lastName = ''
   showPaymentsCash = true
   showPaymentsCard = true
+  showFormBorder = false
+
+  @Watch('valid')
+  formValid () {
+    const inputsForm = this.$refs.form.inputs;
+    const inputsValid = [];
+    inputsForm.forEach((item) => {
+      if (item.valid === true) {
+        inputsValid.push(item.valid);
+      }
+    });
+    if (inputsValid.length === inputsForm.length) {
+      this.showFormBorder = true;
+    } else {
+      this.showFormBorder = false;
+    }
+  }
+
   methods () {
   }
 

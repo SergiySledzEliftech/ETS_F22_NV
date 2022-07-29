@@ -42,18 +42,22 @@
         </div>
       </div>
     </div>
-    <div class="payments__orders">
-      <v-btn class="ma-2 btn--pay" outlined color="indigo" :disabled="BtnDisabled" @click="showModalCard">
-        PAY
-      </v-btn>
-    </div>
+    <v-btn
+      block
+      class="btn--pay"
+      outlined
+      color="indigo"
+      :disabled="BtnDisabled"
+      @click="showModalCard"
+    >
+      PAY
+    </v-btn>
   </div>
 </template>
 
 <script>
 import { Vue, Component, Prop, namespace } from 'nuxt-property-decorator';
 const { State, Mutation, Action } = namespace('ordered');
-// < button @click="showModalCard" class="btn--payments" : disabled = "BtnDisabled" > PAY</button >
 export default @Component({
   name: 'PaymentsOrders',
   components: {}
@@ -79,7 +83,12 @@ class PaymentsOrders extends Vue {
   }
 
   showModalCard () {
-    this.$emit('modalCardVisible', true);
+    const bill = {
+      billAmount: this.totalCost,
+      billNumber: Math.floor(Math.random() * this.totalCost)
+    };
+    console.log(bill);
+    this.$emit('modalCardVisible', true, bill);
   }
 
   deleteOrderedGoodFromList (id) {
@@ -185,20 +194,9 @@ $bradius: 10
         color: red
 .btn
   &--pay
-    width: 100%
-    border-radius: 8px
-    letter-spacing: 27px
     font-size: 25px
-    color: #fff
     text-transform: none
-    height: 50px
-    padding: 0 20px
-//.row
-//  margin-left: $gap * -1px
-//  margin-right: $gap * -1px
-//  margin-bottom: $vstep * 1px
-//  display: flex
-//  flex-wrap: wrap
+    padding: 20px 0px!important
 .col
   width: 100%
   padding-left: $gap * 3 * 1px
