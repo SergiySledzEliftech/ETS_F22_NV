@@ -104,7 +104,7 @@
               </v-btn>
               <p
                 class="ma-0 mr-2 card__item-text"
-                :class="likeStatus === true ? 'red-txt' : ''"
+                :class="likeStatus === true ? 'green-txt' : ''"
               >
                 {{ likes }}
               </p>
@@ -124,7 +124,7 @@
               </v-btn>
               <p
                 class="ma-0 card__item-text"
-                :class="likeStatus === false ? 'red-txt' : ''"
+                :class="likeStatus === false ? 'green-txt' : ''"
               >
                 {{ dislikes }}
               </p>
@@ -312,6 +312,7 @@ class CommentItem extends Vue {
 .card__item-text,
 .card__item-date {
   @include responsive-value_important("font-size", 14, 10, $bp_tablet);
+  font-weight: 500;
 }
 
 .card__item-avatar{

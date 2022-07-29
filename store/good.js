@@ -1,5 +1,6 @@
 export const state = () => ({
   good: {},
+  rentedGoods: [],
   loading: true
 });
 
@@ -9,6 +10,9 @@ export const mutations = {
   },
   setGood (state, good) {
     state.good = good;
+  },
+  setGoodStatus (state, status) {
+    state.status = status;
   }
 };
 
@@ -21,5 +25,8 @@ export const actions = {
   },
   setLoading ({ state, commit }, loading) {
     commit('setLoading', loading);
+  },
+  async updateGood ({ state, commit }, good) {
+    await this.$axios.$put('http://localhost:3001/products/' + good._id, good);
   }
 };

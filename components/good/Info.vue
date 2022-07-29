@@ -7,23 +7,34 @@
       <section class="good">
         <div class="good__content">
           <div class="good__status">
-            <v-icon
-              v-if="!goodRented"
-              color="green"
-              class="good__status-icon"
+            <div
+              v-if="goodStatus === 'available'"
+              class="good__status-item good__status-free"
             >
-              mdi-checkbox-marked-circle-outline
-            </v-icon>
-            <v-icon
-              v-if="goodRented"
-              color="red"
-              class="good__status-icon"
+              <v-icon
+                color="green"
+                class="good__status-icon"
+              >
+                mdi-checkbox-marked-circle-outline
+              </v-icon>
+              <p class="good__status-text">
+                In stock
+              </p>
+            </div>
+            <div
+              v-if="goodStatus === 'unavailable'"
+              class="good__status-item good__status-ordered"
             >
-              mdi-close-circle-outline
-            </v-icon>
-            <p class="good__status-text">
-              In stock
-            </p>
+              <v-icon
+                color="red"
+                class="good__status-icon"
+              >
+                mdi-close-circle-outline
+              </v-icon>
+              <p class="good__status-text">
+                Rented
+              </p>
+            </div>
           </div>
           <h1 class="good-title">
             {{ good.title }}
@@ -73,7 +84,11 @@
               <a href="#" class="contacts__list-mail contacts__list-item"><span class="red-txt">nina-pv@gmail.com</span></a>
             </div>
           </div>
-          <rent-popup />
+          <rent-popup
+            :good="good"
+            :good-status="goodStatus"
+            @changeStatus="onChangeStatus"
+          />
         </div>
       </section>
     </div>
@@ -126,7 +141,15 @@ class Info extends Vue {
     }
   ]
 
-  goodRented = false
+  goodStatus = '';
+
+  onChangeStatus () {
+    this.goodStatus = 'unavailable';
+  }
+
+  mounted () {
+    this.goodStatus = this.good.status;
+  }
 }
 </script>
 
@@ -197,7 +220,7 @@ a{
       width: 100%;
       padding: 20px;
     }
-    .good__status {
+    .good__status-item {
       display: flex;
       align-items: center;
       gap: 5px;
