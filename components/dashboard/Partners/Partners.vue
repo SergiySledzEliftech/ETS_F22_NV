@@ -3,10 +3,10 @@
     <h3>Our partners</h3>
     <div class="d-flex align-center flex-wrap justify-space-around partners-wrapper">
       <partners-item
-        v-for="i in 6"
-        :key="i"
-        :company-name="companyName"
-        :url="url"
+        v-for="el of partnersData"
+        :key="el._id"
+        :company-name="el.name"
+        :img="el.img"
       />
     </div>
   </div>
@@ -15,14 +15,21 @@
 <script>
 import { Component, Vue } from 'nuxt-property-decorator';
 import PartnersItem from './PartnersItem.vue';
+import { serverApiUrl } from '@/settings/config';
 
 export default @Component({
   components: { PartnersItem }
 })
 
 class Partners extends Vue {
-  companyName = 'Company'
-  url = 'https://upload.wikimedia.org/wikipedia/commons/f/f1/Vue.png'
+  partnersData = [...Array(5).keys()]
+
+  async mounted () {
+    try {
+      const res = await this.$axios.get(`${serverApiUrl}partners`);
+      this.partnersData = res.data;
+    } catch (error) {}
+  }
 }
 </script>
 
@@ -34,6 +41,6 @@ class Partners extends Vue {
 
   .partners-wrapper{
     padding-bottom: 10px;
-    gap:50px;
+    gap:20px 0;
   }
 </style>

@@ -7,15 +7,15 @@
       :elevation="hover ? 16 : 2"
     >
       <v-img
+        v-if="!!img"
         class="product-card-img"
         :src="img"
         height="100%"
         width="100%"
-        v-if="!!img"
       />
 
-      <div class="circle-wrapper" v-else>
-        <v-progress-circular class="circle" indeterminate :size="100"/>
+      <div v-else class="circle-wrapper">
+        <v-progress-circular class="circle" indeterminate :size="100" />
       </div>
 
       <v-tooltip top color="black">
