@@ -1,17 +1,20 @@
 <template>
   <div class="card__list">
     <comment-item
-      v-for="(comment, i) in comments"
+      v-for="(comment, i) in commentsList"
       :key="i"
+      :index="i"
       :comment="comment"
       class="card__list-item"
+      @onDelete="onDeleteComment($event)"
     />
   </div>
 </template>
 <script>
-import { Vue, Component, Prop } from 'nuxt-property-decorator';
-import io from 'socket.io-client';
+import { Vue, Component, Prop, namespace } from 'nuxt-property-decorator';
 import CommentItem from '~/components/good/CommentItem';
+
+const { State, Mutation } = namespace('good_comments');
 
 export default @Component({
   components: {
@@ -19,13 +22,24 @@ export default @Component({
   }
 })
 class MyComments extends Vue {
-  @Prop() comments;
+  @Prop() commentsList
 
-  data () {
-    return {
-      socket: io(),
-      restApiUrl: 'http://localhost:3333'
-    };
+  @State userComments
+  @State comments
+
+  @Mutation deleteComment
+  @Mutation deleteUserComment
+  @Mutation setListAllComments
+  @Mutation setListUserComments
+
+  onDeleteComment (index) {
+    if (this.commentsList.length === this.userComments.length) {
+      this.deleteUserComment(index);
+      this.setListUserComments(this.commentsList);
+    } else if (this.commentsList.length === this.comments.length) {
+      this.deleteComment(index);
+      this.setListAllComments(this.commentsList);
+    }
   }
 }
 </script>

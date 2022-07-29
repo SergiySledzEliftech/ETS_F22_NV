@@ -163,7 +163,7 @@
 </template>
 
 <script>
-import { Vue, Component } from 'nuxt-property-decorator';
+import { Vue, Component, Prop } from 'nuxt-property-decorator';
 import Map from '~/components/good/Map';
 
 export default @Component({
@@ -172,6 +172,8 @@ export default @Component({
   }
 })
 class DescriptionTab extends Vue {
+  @Prop() good
+
   goodProps = {
     goodParams: [
       {

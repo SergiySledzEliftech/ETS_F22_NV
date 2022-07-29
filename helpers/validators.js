@@ -1,4 +1,4 @@
-import moment from 'moment';
+// import moment from 'moment';
 
 const URL_REGEXP = /^(?:http(s)?:\/\/)?[\w.-]+(?:\.[\w.-]+)+[\w\-._~:/?#[\]@!$&'()*+,;=]+$/gm;
 const LINK_URL_REGEXP = /(http[s]?:\/\/|www\.)[a-zA-Z0-9.-]+\.[a-zA-Z]{2,5}[.]{0,1}/gi;
@@ -101,13 +101,13 @@ export function allowDigitsOnlyValidation (message = 'This field must contains d
   return v => !v || !!v.toString().match(/^\d+$/) || message;
 }
 
-export function dateBeforeValidation (dateCompare, message = `The date should be before ${moment(dateCompare).format('MM/DD/YYYY')}`) {
-  return v => !v || moment(v).isBefore(dateCompare, 'd') || message;
-}
-
-export function dateAfterValidation (dateCompare, message = `The date should be after ${moment(dateCompare).format('MM/DD/YYYY')}`) {
-  return v => !v || moment(v).isAfter(dateCompare, 'd') || message;
-}
+// export function dateBeforeValidation (dateCompare, message = `The date should be before ${moment(dateCompare).format('MM/DD/YYYY')}`) {
+//   return v => !v || moment(v).isBefore(dateCompare, 'd') || message;
+// }
+//
+// export function dateAfterValidation (dateCompare, message = `The date should be after ${moment(dateCompare).format('MM/DD/YYYY')}`) {
+//   return v => !v || moment(v).isAfter(dateCompare, 'd') || message;
+// }
 
 export function allowAlphanumericOnlyValidation (message = 'This field must contains characters.') {
   return v => !v || !!v.match(/^[a-zA-Z]*$/) || message;
@@ -142,4 +142,21 @@ export function passwordValidation (message = 'Password must be at least 8 chara
 
 export function checkboxValidation (message = 'You must accept rules to continue') {
   return v => !!v || message;
+}
+
+export function avatarValidation (message = 'Avatar size should be less than 2 MB!') {
+  return v => !v || v.size < 2000000 || message;
+}
+
+// add-comment form rules
+export function disadvantagesRule (message = 'Advantages must be less than 150 characters') {
+  return v => (v && v.length <= 150) || (v.length === 0) || message;
+}
+
+export function advantagesRule (message = 'Disadvantages must be less than 150 characters') {
+  return v => (v && v.length <= 150) || (v.length === 0) || message;
+}
+
+export function commentRule (message = 'Comment must be less than 2000 characters') {
+  return v => (v && v.length <= 2000) || (v.length === 0) || message;
 }
