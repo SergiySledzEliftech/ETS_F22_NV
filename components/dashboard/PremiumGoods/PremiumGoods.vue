@@ -30,6 +30,7 @@
       height="450px"
       hide-delimiters
       class="d-lg-none d-none d-md-block"
+      :show-arrows="false"
     >
       <v-carousel-item
         v-for="el of goodsData2"
@@ -55,6 +56,7 @@
       height="450px"
       hide-delimiters
       class="d-md-none"
+      :show-arrows="false"
     >
       <v-carousel-item
         v-for="el of goodsData1"
@@ -105,7 +107,8 @@ class Top10Goods extends Vue {
     try {
       const res = await this.$axios.get(`${serverApiUrl}premium/`);
       return res.data;
-    } catch (error) {
+    } catch (err) {
+      console.error(err);
       return [...Array(3).keys()];
     }
   }
