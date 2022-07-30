@@ -13,7 +13,7 @@
                 :src="comment.avatar"
               >
             </v-avatar>
-            <p class="ma-0 ml-2 card__item-name">
+            <p class="ma-0 ml-3 card__item-name">
               {{ comment.userNickname }}
             </p>
             <v-spacer />
@@ -56,13 +56,13 @@
           </v-card-text>
           <v-card-title
             class="py-0 pt-2 card__item-subtitle"
-            :class="{ d_none: comment.disadvantages === '' || comment.disadvantages === null}"
+            :class="{ d_none: comment.advantages === '' || comment.advantages === null}"
           >
             Advantages
           </v-card-title>
           <v-card-text
             class="py-0"
-            :class="{ d_none: comment.disadvantages === '' || comment.disadvantages === null}"
+            :class="{ d_none: comment.advantages === '' || comment.advantages === null}"
           >
             <p class="ma-0 card__item-text">
               {{ comment.advantages }}
@@ -87,47 +87,51 @@
           <v-card-actions
             class="py-2"
           >
-            <v-row class="ma-0 d-flex align-center" justify="end">
-              <v-btn
-                class="ma-0 mr-1"
-                width="30"
-                height="30"
-                text
-                icon
-                :color="$auth.user._id === comment.userId ? '' : 'blue lighten-2'"
-                :disabled="$auth.user._id === comment.userId"
-                @click="onClickLike"
-              >
-                <v-icon size="18" class="like">
-                  mdi-thumb-up
-                </v-icon>
-              </v-btn>
-              <p
-                class="ma-0 mr-2 card__item-text"
-                :class="likeStatus === true ? 'green-txt' : ''"
-              >
-                {{ likes }}
-              </p>
-              <v-btn
-                class="ma-0 mr-1"
-                width="30"
-                height="30"
-                text
-                icon
-                :color="$auth.user._id === comment.userId ? 'blue' : 'red lighten-2'"
-                :disabled="$auth.user._id === comment.userId"
-                @click="onClickDislike"
-              >
-                <v-icon size="18" class="dislike">
-                  mdi-thumb-down
-                </v-icon>
-              </v-btn>
-              <p
-                class="ma-0 card__item-text"
-                :class="likeStatus === false ? 'green-txt' : ''"
-              >
-                {{ dislikes }}
-              </p>
+            <v-row class="ma-0 emotions__row">
+              <div class="emotions__row-item">
+                <v-btn
+                  class="ma-0"
+                  width="30"
+                  height="30"
+                  text
+                  icon
+                  :color="$auth.user._id === comment.userId ? '' : 'blue lighten-2'"
+                  :disabled="$auth.user._id === comment.userId"
+                  @click="onClickLike"
+                >
+                  <v-icon size="18" class="like">
+                    mdi-thumb-up
+                  </v-icon>
+                </v-btn>
+                <p
+                  class="ma-0 card__item-text"
+                  :class="likeStatus === true ? 'blue-txt' : ' '"
+                >
+                  {{ likes }}
+                </p>
+              </div>
+              <div class="emotions__row-item">
+                <v-btn
+                  class="ma-0"
+                  width="30"
+                  height="30"
+                  text
+                  icon
+                  :color="$auth.user._id === comment.userId ? '' : 'red lighten-2'"
+                  :disabled="$auth.user._id === comment.userId"
+                  @click="onClickDislike"
+                >
+                  <v-icon size="18" class="dislike">
+                    mdi-thumb-down
+                  </v-icon>
+                </v-btn>
+                <p
+                  class="ma-0 card__item-text"
+                  :class="likeStatus === false ? 'red-txt' : ' '"
+                >
+                  {{ dislikes }}
+                </p>
+              </div>
             </v-row>
           </v-card-actions>
         </div>
@@ -262,7 +266,20 @@ class CommentItem extends Vue {
     .card__body-content{
       flex: 1 1 auto;
     }
-    .card__body-emotions{
+    .emotions__row{
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      justify-content: flex-end;
+      gap: 8px;
+      .emotions__row-item{
+        display: flex;
+        align-items: center;
+        p{
+          width: 15px;
+          text-align: right;
+        }
+      }
     }
   }
 }

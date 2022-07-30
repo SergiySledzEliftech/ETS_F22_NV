@@ -60,7 +60,7 @@
                   </nuxt-link>
 
                   <v-btn
-                    class="ma-2 btn-red"
+                    class="ma-2 btn-red menu-btn"
                     outlined
                     @click="$auth.logout()"
                   >
@@ -73,7 +73,7 @@
                 >
                   <v-btn
 
-                    class="ma-2 btn-red"
+                    class="ma-2 btn-red menu-btn"
                     outlined
                     color="indigo"
                   >
@@ -125,7 +125,7 @@
               </nuxt-link>
 
               <v-btn
-                class="ma-2 btn-red"
+                class="ma-2 btn-red menu-btn"
                 outlined
                 @click="$auth.logout()"
               >
@@ -137,8 +137,7 @@
               :to="{ path: '/auth' }"
             >
               <v-btn
-
-                class="ma-2 btn-red"
+                class="ma-2 btn-red menu-btn"
                 outlined
                 color="indigo"
               >
@@ -696,4 +695,11 @@ class HeaderComponent extends Vue {
       cursor: pointer !important;
     }
   }
+
+  .v-application{
+    .menu-btn{
+      margin-right: 0 !important;
+    }
+  }
+
 </style>
