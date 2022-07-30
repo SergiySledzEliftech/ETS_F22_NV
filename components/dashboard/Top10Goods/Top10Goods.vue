@@ -51,7 +51,7 @@
         </div>
       </div>
       <div v-for="el of goodsData" :key="el._id + '1'" class="d-none d-xl-flex">
-        <product-card class="six-elements-element" :img="el.images && el.images[0]" :title="el.title" />
+        <product-card class="ten-elements-element" :img="el.images && el.images[0]" :title="el.title" />
       </div>
     </div>
     <div class="buttons-wrapper d-lg-flex d-none d-xl-none align-center justify-space-around mx-auto btn-other-margin">
@@ -105,7 +105,7 @@ class PremiumGoods extends Vue {
 
   async mounted () {
     try {
-      const res = await this.$axios.get(`${serverApiUrl}/top10`);
+      const res = await this.$axios.get(`${serverApiUrl}top10`);
       this.goodsData = res.data;
       this.goodsData2 = this.splitForNum(res.data, 2);
     } catch (error) {}
@@ -184,19 +184,19 @@ class PremiumGoods extends Vue {
   }
 
   .six-elements-element{
-    margin-bottom: 80px;
+    margin-bottom: 75px;
   }
 
   .ten-elements-element{
-    margin-bottom: 45px;
+    margin-bottom: 43.4px;
   }
 
   .carousel{
-    margin-bottom: 45px;
+    margin-bottom: 43.4px;
   }
 
   .btn-other-margin{
-    margin-top: -35px;
+    margin-top: -31.6px;
   }
 
   .carousel-content{
