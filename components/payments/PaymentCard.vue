@@ -140,7 +140,7 @@ class PaymentCard extends Vue {
     this.$emit('closeModal', false);
   }
 
-  sendPaymentsDataToBase () {
+  async sendPaymentsDataToBase () {
     const PaymentsData = {
       cardNumber: this.cardNumber,
       cardMonth: this.cardMonth,
@@ -153,6 +153,8 @@ class PaymentCard extends Vue {
     this.paidGoods.forEach((element) => {
       PaymentsData.paidGoods.push(element);
     });
+    await this.$axios.post('http://localhost:3001/payments', PaymentsData);
+    this.$router.push('/');
     console.log(PaymentsData);
   }
 }
