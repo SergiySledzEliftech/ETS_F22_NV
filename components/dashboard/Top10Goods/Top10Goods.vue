@@ -122,13 +122,11 @@ class PremiumGoods extends Vue {
       await this.loadTop10();
       this.goodsData = this.top10;
       this.goodsData2 = this.splitForNum(this.top10, 2);
-      console.log(this.goodsData2);
     } catch (err) {
     }
   }
 
   splitForNum (arr, num) {
-    console.log(arr);
     const res = [];
     let temp = [];
     arr.forEach((e) => {
