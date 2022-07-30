@@ -7,7 +7,7 @@
       :elevation="hover ? 16 : 2"
     >
       <v-img
-        v-if="!!img"
+        v-if="!isLoading"
         class="product-card-img"
         :src="img"
         height="100%"
@@ -40,7 +40,8 @@ export default @Component
 
 class ProductCard extends Vue {
   @Prop({ default: 'Loading...' }) title
-  @Prop({ default: null }) img
+  @Prop() img
+  @Prop() isLoading
 
   formatString (str) {
     return str.length > 17 ? str.slice(0, 17) + '...' : str;

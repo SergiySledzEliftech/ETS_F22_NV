@@ -68,7 +68,7 @@
             flat
             prepend-inner-icon="mdi-magnify"
             class="mr-sm-5 mb-2 mb-sm-0"
-            @input="searchFromCategory"
+            @input="setOptions(['category',selectedCategoryValue])"
           />
           <!--↑ INPUT SEARCH FOR CATEGORY ↑ -->
 
@@ -106,6 +106,7 @@
                 label="min"
                 placeholder="min"
                 class="mr-2 teal--text"
+                @input="setOptions(['$gte',+priceMinValue])"
               />
               <v-text-field
                 v-model="priceMaxValue"
@@ -118,6 +119,7 @@
                 color="teal"
                 label="max"
                 placeholder="max"
+                @input="setOptions(['$lte', +priceMaxValue])"
               />
             </v-responsive>
             <!--↑ Inputs  PRICE SORT from largest to smallest ↑ -->
@@ -127,6 +129,7 @@
               background-color="transparent"
               dark
               class="ml-0 ml-sm-2 mb-2 mb-sm-0"
+              @change="setOptions(['condition', sortNewOrUsed])"
             >
               <v-btn
                 id="new"
@@ -163,6 +166,7 @@
               color="teal"
               label="Available"
               class="ml-0 ml-sm-2 mt-auto mb-auto"
+              @change="setOptions(['status','available'])"
             />
             <!--↑ isAvailable SORT ↑ -->
 
@@ -174,6 +178,7 @@
               color="teal"
               label="Free"
               class="ml-0 ml-sm-2 mt-auto mb-auto"
+              @change="setOptions(['isFree',isFree])"
             />
             <!--↑ isFree SORT ↑ -->
           </div>
@@ -250,7 +255,7 @@
         :per-page="perPage"
         :opts-array="perPageArray"
       >
-        <li v-for="(item,index) in props.items" :key="index" class="item">
+        <li v-for="item in props.items" :key="item._id" class="item">
           <single-item
             :item="item"
             :grid="view === 'list'"
@@ -264,40 +269,42 @@
 <script>
 
 import { Component, namespace, Vue, Watch } from 'nuxt-property-decorator';
-import ItemsList from '@/components/list/ItemsList';
-import SingleItem from '@/components/list/SingleItem';
+import ItemsList from '~/components/list/ItemsList';
+import SingleItem from '~/components/list/SingleItem';
 import ProgressCircular from '~/components/global/Progress';
 const { State: profileState, Action: profileAction, Mutation: profileMutation } = namespace('profile');
-const { State: categoriesState, Action: categoriesAction } = namespace('categories');
+const { State: categoriesState, Action: categoriesAction, Mutation: categoriesMutation } = namespace('categories');
 export default @Component({
-  name: 'Nazar',
   components: { ItemsList, SingleItem, ProgressCircular }
 })
 
-class Nazar extends Vue {
+class Categories extends Vue {
   @categoriesState categories;
   @categoriesState goods;
   @categoriesState isLoading;
   @categoriesState searchingItems;
   @categoriesState autocompleteLoader;
+  @categoriesState options;
   @profileState view
   @profileState page
   @profileState perPage
   @profileState perPageArray
   @profileState totalPages
+  @categoriesAction getAllGoods;
   @categoriesAction getAllGoodsAndCategories;
   @categoriesAction search;
+  @categoriesAction filter;
   @profileAction calcPage;
   @profileAction calculateTotalPages;
+  @categoriesMutation setOptions
   @profileMutation setPerPage;
+  sortBy = 'price'
   isAvailable = false
   isFree = false
   goTop = false
-  isCategorySelected = false
   isSearch = null
   sortDesc = false
   sortNewOrUsed = null
-  sortBy = 'price'
   priceMinValue = null
   priceMaxValue = null
   autocompleteValue = null
@@ -309,42 +316,30 @@ class Nazar extends Vue {
   searchWatch (value) {
     if (value) {
       this.fetchEntriesDebounced({ value, selectedValue: this.autocompleteValue }, this.search);
-      this.items = this.goods;
     }
   }
 
-  // async searching (searchValue) {
-  //   this.autocompleteLoader = true;
-  //   try {
-  //     const products = await this.$axios.$get(`http://localhost:3001/search?q=${searchValue}`);
-  //     this.searchingItems = products.map(({
-  //       title,
-  //       category
-  //     }) => ({
-  //       title,
-  //       category
-  //     }));
-  //     if (this.autocompleteValue) {
-  //       this.goods = await this.$axios.$get(`http://localhost:3001/search?q=${searchValue}`);
-  //     }
-  //   } catch (err) {
-  //     console.log(err.message);
-  //   } finally {
-  //     this.autocompleteLoader = false;
-  //   }
-  // }
+  @Watch('goods', { deep: true })
+  changeItems () {
+    this.items = this.goods;
+    this.sliceList();
+    this.calculateTotalPages(this.goods);
+  }
+
+  @Watch('options')
+  getFilter () {
+    console.log(123);
+  }
+
+  async mounted () {
+    await this.getAllGoodsAndCategories();
+  }
 
   fetchEntriesDebounced (searchValue, searchingFn, delay = 800) {
     clearTimeout(this._searchTimerId);
     this._searchTimerId = setTimeout(() => {
       return searchingFn(searchValue);
     }, delay); /* delay ms throttle */
-  }
-
-  async mounted () {
-    await this.getAllGoodsAndCategories();
-    this.sliceList();
-    this.calculateTotalPages(this.goods);
   }
 
   async searchFromCategory (categoryValue) {
@@ -397,13 +392,14 @@ class Nazar extends Vue {
     this.priceMaxValue = null;
     this.isAvailable = false;
     this.isFree = false;
+    this.getAllGoods();
   }
 }
 
 </script>
 
 <style scoped lang="scss">
-@import '../assets/variables.scss';
+@import '../../assets/variables';
 
 .data-iterator-container {
   background-color: $secondary;
