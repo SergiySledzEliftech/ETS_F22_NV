@@ -21,6 +21,7 @@
               :key="e._id"
               :title="e.title"
               :img="e.images && e.images[0]"
+              :is-loading="loading"
             />
           </div>
         </v-sheet>
@@ -47,6 +48,7 @@
               :key="e._id"
               :title="e.title"
               :img="e.images && e.images[0]"
+              :is-loading="loading"
             />
           </div>
         </v-sheet>
@@ -72,6 +74,7 @@
               :key="el._id"
               :title="el.title"
               :img="el.images && el.images[0]"
+              :is-loading="loading"
             />
           </div>
         </v-sheet>
@@ -81,9 +84,10 @@
 </template>
 
 <script>
-import { Component, Vue } from 'nuxt-property-decorator';
+import { Component, Vue, namespace } from 'nuxt-property-decorator';
 import ProductCard from '../ProductCard/ProductCard.vue';
-import { serverApiUrl } from '@/settings/config';
+
+const { Action, State } = namespace('dashboard');
 
 export default @Component({
   components: { ProductCard }
@@ -93,6 +97,11 @@ class Top10Goods extends Vue {
   goodsData3 = [...Array(3).keys()]
   goodsData2 = [...Array(2).keys()]
   goodsData1 = [...Array(1).keys()]
+
+  @Action loadPremium
+
+  @State premium
+  @State loading
 
   index = 0
 
@@ -105,10 +114,9 @@ class Top10Goods extends Vue {
 
   async getPremiumGoods () {
     try {
-      const res = await this.$axios.get(`${serverApiUrl}premium/`);
-      return res.data;
+      await this.loadPremium();
+      return this.premium;
     } catch (err) {
-      console.error(err);
       return [...Array(3).keys()];
     }
   }
