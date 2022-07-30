@@ -1,21 +1,21 @@
 <template>
-  <div class="main">
-    <div v-if="loading" class="progress-circular">
+  <div class="main good-container">
+    <div v-if="loading" class="progress-circular good-circular">
       <progress-circular />
     </div>
     <div v-if="!loading">
       <info :good="good" />
       <div class="tabs-wrapper">
         <v-tabs class="tabs" color="var(--primary)" left>
-          <v-tab :to="{ name: 'categories-id' }" nuxt exact>
+          <v-tab :to="{ name: 'categories-id'}" nuxt exact>
             Description
           </v-tab>
-          <v-tab :to="{ name: 'categories-id-comments' }" nuxt>
+          <v-tab :to="{ name: 'categories-id-comments'}" nuxt>
             Comments
           </v-tab>
         </v-tabs>
       </div>
-      <nuxt-child />
+      <nuxt-child :good="good" />
       <recommendations :good="good" />
       <sharing-block />
     </div>
@@ -46,29 +46,29 @@ export default @Component({
 
 class GoodPage extends Vue {
   @State good
-  @State loading
 
   @Mutation setLoading
 
   @Action loadGood
 
+  loading = true
+
   async mounted () {
-    this.setLoading(true);
     try {
       await this.loadGood(this.$route.params.id);
     } catch (err) {
       console.error(err.message);
     }
-    this.setLoading(false);
+    this.loading = false;
+  }
+
+  created () {
   }
 }
 </script>
 
-<style lang="scss">
-img{
-  font-size: 14px !important;
-}
-.container{
+<style lang="scss" scoped>
+.good-container{
   padding: 0;
   margin: 0 auto;
   max-width: 1280px;
@@ -89,6 +89,9 @@ img{
   justify-content: center;
   align-items: center;
 }
+.good-circular{
+  height: 80vh;
+}
 .v-tabs{
   margin-top: 30px;
   a {
@@ -100,15 +103,5 @@ img{
       background-color: #aaaaaa2b;
     }
   }
-}
-ul, li{
-  margin: 0;
-  padding: 0;
-  text-indent: 0;
-  list-style-type: none;
-}
-
-.d_none{
-  display: none;
 }
 </style>

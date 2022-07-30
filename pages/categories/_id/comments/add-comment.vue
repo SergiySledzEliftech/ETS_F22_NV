@@ -75,13 +75,17 @@
 import { Vue, Component, namespace } from 'nuxt-property-decorator';
 import { disadvantagesRule, advantagesRule, commentRule } from '~/helpers/validators';
 
-const { Action } = namespace('good_comments');
+const { Action: CommentsAction } = namespace('good_comments');
+const { State: UserState, Action: UserAction } = namespace('profile');
 
 export default @Component({
 })
 
 class AddComment extends Vue {
-  @Action createComment
+  @CommentsAction createComment
+
+  @UserState user;
+  @UserAction getUser
 
   valid = true
   commentData = {
@@ -97,6 +101,14 @@ class AddComment extends Vue {
       advantagesRule,
       commentRule
     };
+  }
+
+  async mounted () {
+    try {
+      await this.getUser(this.$auth.user._id);
+    } catch (err) {
+      console.error(err.message);
+    }
   }
 
   validation () {
@@ -119,6 +131,7 @@ class AddComment extends Vue {
     this.commentData.date_created = date.getTime();
     this.commentData.userId = this.$auth.user._id;
     this.commentData.productId = this.$route.params.id;
+    this.commentData.userNickname = this.user.firstName + ' ' + this.user.lastName;
     try {
       await this.createComment(this.commentData);
     } catch (err) {

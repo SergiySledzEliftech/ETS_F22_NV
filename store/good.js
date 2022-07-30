@@ -13,7 +13,7 @@ export const mutations = {
     state.good = good;
   },
   setGoodStatus (state, status) {
-    state.status = status;
+    state.good.status = status;
   },
   setRecommendations (state, recommendations) {
     state.recommendations = recommendations;
@@ -31,16 +31,18 @@ export const actions = {
     await this.$axios.$put('http://localhost:3001/products/' + good._id, good);
   },
   async loadRecommendations ({ state, commit }, params) {
-    console.log(params);
     const { data } = await this.$axios.get(
       'http://localhost:3001/products/' + params.id + '/rec?' +
       'category=' + params.category + '&' +
       'min=' + params.min + '&' +
       'max=' + params.max + '&' +
       'status=' + params.status + '&' +
-      'rating=' + params.rating
+      'minRating=' + params.minRating
     );
     commit('setRecommendations', data);
+  },
+  async updateStatistic () {
+    await this.$axios.$put('https://glomare.herokuapp.com/statistics/update-items-rented');
   }
 }
 ;
