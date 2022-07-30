@@ -60,7 +60,7 @@
             <div class="contacts__list">
               <p class="contacts__list-name contacts__list-item">
                 <span class="red-txt">
-                  <!--                  {{ good.leaser_info.firstName }} + {{ good.leaser_info.lastName }}-->
+                  {{ good.leaser_info.firstName }} {{ good.leaser_info.lastName }}
                 </span>
               </p>
               <div class="contacts__list-phone contacts__list-item">
@@ -109,7 +109,6 @@ export default @Component({
 
 class Info extends Vue {
   @Prop() good;
-  userInfo = {}
 
   messengers = [
     {
@@ -149,6 +148,7 @@ class Info extends Vue {
 
   mounted () {
     this.goodStatus = this.good.status;
+    console.log(this.good.leaser_info);
   }
 }
 </script>

@@ -5,13 +5,13 @@
       color="var(--primary)"
       right
     >
-      <v-tab :to="{name: 'good-comments'}" nuxt exact>
+      <v-tab :to="{name: 'categories-id-comments'}" nuxt exact>
         All
       </v-tab>
-      <v-tab :to="{name: 'good-comments-my-comments'}" nuxt>
+      <v-tab :to="{name: 'categories-id-comments-my-comments'}" nuxt>
         My
       </v-tab>
-      <v-tab :to="{name: 'good-comments-add-comment'}" nuxt>
+      <v-tab :to="{name: 'categories-id-comments-add-comment'}" nuxt>
         Add
       </v-tab>
     </v-tabs>
@@ -29,7 +29,7 @@ class Comments extends Vue {
 }
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss">
 .comments{
   @media only screen and (max-width: 1310px) {
     padding: 0 12px;
@@ -37,5 +37,9 @@ class Comments extends Vue {
 }
 .v-tabs{
   margin-top: 10px;
+}
+.no-comments{
+  font-size: 22px !important;
+  @include responsive-value_important('font-size', 22, 16, 1310)
 }
 </style>

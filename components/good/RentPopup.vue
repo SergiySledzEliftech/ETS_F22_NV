@@ -67,8 +67,10 @@ export default @Component({
 class RentPopup extends Vue {
   @Prop() good;
   @Prop() goodStatus;
+
   @Mutation setGoodStatus;
   @Action updateGood;
+  @Action updateStatistic;
 
   term = 1;
 
@@ -78,15 +80,15 @@ class RentPopup extends Vue {
 
   created () {
     // this.$auth.$storage.removeLocalStorage(this.$auth.user._id);
-    console.log(this.$auth.$storage.getLocalStorage(this.$auth.user._id));
+    // console.log(this.$auth.$storage.getLocalStorage(this.$auth.user._id));
   }
 
   async onRentedGood () {
     try {
-      this.setGoodStatus(this.good, 'unavailable');
-      // this.good.status = 'unavailable';
+      this.setGoodStatus('unavailable');
       this.addToLocalStorage();
       await this.updateGood(this.good);
+      await this.updateStatistic();
     } catch (err) {
       console.error(err.message);
     }
