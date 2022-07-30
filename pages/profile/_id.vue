@@ -56,10 +56,10 @@ class Profile extends Vue {
   }
 
   name = 'profile';
+  authId = this.$auth.loggedIn ? this.$auth.user._id : ''
 
   get isMy () {
-    // return this.$auth.user._id === this.$route.params.id;
-    return this.$route.params.id === '62dbeb38d387887c0b416ab6';
+    return this.authId === this.$route.params.id;
   };
 
   tabsCurrentUser = [

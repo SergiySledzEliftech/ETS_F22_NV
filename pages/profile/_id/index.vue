@@ -112,18 +112,6 @@
               {{ user.firstName }} {{ user.lastName }}
             </h5>
           </v-card>
-          <!--          <v-card>-->
-          <!--            <v-list-item two-line>-->
-          <!--              <v-list-item-content class="rating">-->
-          <!--                <v-list-item-subtitle>-->
-          <!--                  Rating-->
-          <!--                </v-list-item-subtitle>-->
-          <!--                <v-list-item-title>-->
-          <!--                  {{ user.rating }} from 10-->
-          <!--                </v-list-item-title>-->
-          <!--              </v-list-item-content>-->
-          <!--            </v-list-item>-->
-          <!--          </v-card>-->
         </v-col>
 
         <v-col lg="8" md="8" sm="12" xs="12">
@@ -241,7 +229,7 @@
               <v-list-item-content>
                 <v-list-item-title>
                   <v-form id="change-pass" ref="formPass" class="row" @submit.prevent="savePass">
-                    <v-row justify="left">
+                    <v-row>
                       <v-dialog
                         v-if="fab"
                         v-model="dialog"
@@ -328,7 +316,7 @@ import {
   emailValidation, emptyValidation, preventHtmlValidation, preventCapitalsValidation,
   phoneNumberValidation, allowDigitsOnlyValidation, minLengthValidation, lengthValidation, avatarValidation
 } from '~/helpers/validators.js';
-const { Action } = namespace('profile');
+const { State, Action } = namespace('profile');
 
 export default @Component({
   name: 'profileIndex',
@@ -340,9 +328,10 @@ class Config extends Vue {
   @Prop({ type: Object, required: true }) user;
 
   // link for open http://localhost:3000/profile/62dbeb38d387887c0b416ab6
-
+  @State passes
   // @State user
   @Action updateUser
+  @Action updatePass
 
   fab = false; // toggle for edit button
   showPass = false
@@ -385,6 +374,14 @@ class Config extends Vue {
     return this.user.location;
   }
 
+  get oldPass () {
+    return this.passes.oldPass;
+  }
+
+  get newPass () {
+    return this.passes.newPass;
+  }
+
   set firstName (value) {
     this.$store.commit('profile/updateFirstName', value);
   }
@@ -415,6 +412,14 @@ class Config extends Vue {
 
   set location (value) {
     this.$store.commit('profile/updateLocation', value);
+  }
+
+  set oldPass (value) {
+    this.$store.commit('profile/updateOldPass', value);
+  }
+
+  set newPass (value) {
+    this.$store.commit('profile/updateNewPass', value);
   }
 
   ruleEmail = [
@@ -490,7 +495,7 @@ class Config extends Vue {
 
   async saveForm () {
     if (this.$refs.form.validate()) {
-      await this.updateUser(this.$route.params.id);
+      await this.updateUser(this.$auth.user._id);
       alert('Saved');
       this.fab = false;
       this.showPass = false;
@@ -499,10 +504,14 @@ class Config extends Vue {
     }
   };
 
-  savePass () {
+  async savePass () {
     if (this.$refs.formPass.validate()) {
-      // this.updatePass(this.$route.params.id, this.user)
-      alert('Saved');
+      try {
+        await this.updatePass(this.$auth.user._id);
+        alert('Saved');
+      } catch (e) {
+        alert(e);
+      }
       this.fab = false;
       this.showPass = false;
       this.dialog = false;
@@ -532,13 +541,13 @@ class Config extends Vue {
   //   }
   // };
 
-  async updatePass (id, obj) {
-    try {
-      await this.$axios.put('http://localhost:3001/users/' + id, obj);
-    } catch (e) {
-      console.log('Error update');
-    }
-  }
+  // async updatePass (id, obj) {
+  //   try {
+  //     await this.$axios.put('http://localhost:3001/users/' + id, obj);
+  //   } catch (e) {
+  //     console.log('Error update');
+  //   }
+  // }
 }
 
 </script>
