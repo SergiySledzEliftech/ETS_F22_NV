@@ -19,9 +19,10 @@
 </template>
 
 <script>
-import { Component, Vue } from 'nuxt-property-decorator';
+import { Component, Vue, namespace } from 'nuxt-property-decorator';
 import StatisticsItem from './StatisticsItem.vue';
-import { serverApiUrl } from '@/settings/config';
+
+const { Action, State } = namespace('dashboard');
 
 export default @Component({
   components: { StatisticsItem }
@@ -32,11 +33,15 @@ class Statistics extends Vue {
   itemsCreated = [0, 0, 0, 0, 0, 0]
   itemsRented = [0, 0, 0, 0, 0, 0]
 
+  @Action loadStatistics
+
+  @State statistics
+
   async mounted () {
     try {
-      const res = await this.$axios.get(`${serverApiUrl}statistics`);
-      const todayStatistics = res.data.filter(e => e.date === this.getDateTime());
-      const tomorrowStatistics = res.data.filter(e => e.date === this.getDateTime() - 86400000);
+      await this.loadStatistics();
+      const todayStatistics = this.statistics.filter(e => e.date === this.getDateTime());
+      const tomorrowStatistics = this.statistics.filter(e => e.date === this.getDateTime() - 86400000);
       const statistics = [...(this.fillEmptyStatistics(tomorrowStatistics)), ...(this.fillEmptyStatistics(todayStatistics))];
 
       this.users = this.getStatisticsFor24Hours(statistics, 'users');

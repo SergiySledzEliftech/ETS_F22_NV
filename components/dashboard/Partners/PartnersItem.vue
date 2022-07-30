@@ -9,7 +9,7 @@
           color="var(--bg)"
         >
           <v-img
-            v-if="!!img"
+            v-if="!isLoading"
             :src="img"
             width="100px"
             height="100px"
@@ -30,7 +30,7 @@
       color="var(--bg)"
     >
       <v-img
-        v-if="!!img"
+        v-if="!isLoading"
         :src="img"
         width="100px"
         height="100px"
@@ -52,8 +52,9 @@ import { Component, Vue, Prop } from 'nuxt-property-decorator';
 export default @Component
 
 class PartnersItem extends Vue {
-  @Prop({ required: true, default: null }) img
+  @Prop({ required: true }) img
   @Prop({ type: String, required: true, default: 'Loading...' }) companyName
+  @Prop() isLoading
 }
 </script>
 
