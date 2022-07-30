@@ -1,7 +1,7 @@
 export const state = () => ({
   comments: [],
   userComments: [],
-  loading: true
+  loading: false
 });
 
 export const mutations = {
@@ -63,9 +63,5 @@ export const actions = {
         like,
         dislike
       });
-  },
-  // ???
-  setLoading ({ state, commit }, loading) {
-    commit('setLoading', loading);
   }
 };

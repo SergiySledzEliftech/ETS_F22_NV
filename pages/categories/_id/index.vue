@@ -283,15 +283,15 @@ class DescriptionTab extends Vue {
 }
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss">
 h4{
   @include responsive-value("font-size", 30, 18 , $bp_laptop);
   @include responsive-value("margin-top", 30, 15, $bp_tablet);
   @include responsive-value("margin-bottom", 15, 5, $bp_tablet);
 }
 p{
-  margin: 0;
-  padding: 0;
+  margin: 0 !important;
+  padding: 0 !important;
 }
 .description{
   @include responsive-value("margin-top", 30, 15, $bp_tablet);

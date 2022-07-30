@@ -1,7 +1,8 @@
 export const state = () => ({
   good: {},
   rentedGoods: [],
-  loading: true
+  recommendations: [],
+  loading: false
 });
 
 export const mutations = {
@@ -13,6 +14,9 @@ export const mutations = {
   },
   setGoodStatus (state, status) {
     state.status = status;
+  },
+  setRecommendations (state, recommendations) {
+    state.recommendations = recommendations;
   }
 };
 
@@ -23,10 +27,20 @@ export const actions = {
     commit('setGood', data);
     commit('setLoading', false);
   },
-  setLoading ({ state, commit }, loading) {
-    commit('setLoading', loading);
-  },
   async updateGood ({ state, commit }, good) {
     await this.$axios.$put('http://localhost:3001/products/' + good._id, good);
+  },
+  async loadRecommendations ({ state, commit }, params) {
+    console.log(params);
+    const { data } = await this.$axios.get(
+      'http://localhost:3001/products/' + params.id + '/rec?' +
+      'category=' + params.category + '&' +
+      'min=' + params.min + '&' +
+      'max=' + params.max + '&' +
+      'status=' + params.status + '&' +
+      'rating=' + params.rating
+    );
+    commit('setRecommendations', data);
   }
-};
+}
+;

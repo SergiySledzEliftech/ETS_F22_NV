@@ -66,7 +66,7 @@ ul, li{
   list-style-type: none;
 }
 .sharing{
-  margin-top: 30px;
+  margin-top: 40px;
   display: flex;
   flex-direction: column;
   justify-content: center;

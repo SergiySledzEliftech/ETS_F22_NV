@@ -104,7 +104,7 @@ class AddComment extends Vue {
     setTimeout(() => {
       this.clear();
     }, 0);
-    this.$router.push('/good/comments/');
+    this.$router.push('/categories/' + this.$route.params.id + '/comments/');
   }
 
   clear () {
@@ -118,7 +118,7 @@ class AddComment extends Vue {
     const date = new Date();
     this.commentData.date_created = date.getTime();
     this.commentData.userId = this.$auth.user._id;
-    this.commentData.productId = '62dd11d902d8358ce1bb2c95';
+    this.commentData.productId = this.$route.params.id;
     try {
       await this.createComment(this.commentData);
     } catch (err) {
