@@ -4,9 +4,13 @@ export const state = () => ({
 
 export const mutations = {
   setOrderedGoods (state, goods) {
-    state.orderedGoods = goods;
-    console.log(state.orderedGoods);
+    const orderGoods = [];
+    goods.forEach((item) => {
+      orderGoods.push(item.good);
+    });
+    state.orderedGoods = orderGoods;
   },
+
   Delete_Ordered_Good (state, id) {
     const index = state.orderedGoods.findIndex(item => item.id === id);
     state.orderedGoods.splice(index, 1);

@@ -141,21 +141,27 @@ class PaymentCard extends Vue {
   }
 
   async sendPaymentsDataToBase () {
-    const PaymentsData = {
-      cardNumber: this.cardNumber,
-      cardMonth: this.cardMonth,
-      cardYear: this.cardYear,
-      cardCvv: this.cardCvv,
-      paidAmount: this.billOrder.billAmount,
-      billNumber: this.billOrder.billNumber,
-      paidGoods: []
-    };
-    this.paidGoods.forEach((element) => {
-      PaymentsData.paidGoods.push(element);
-    });
-    await this.$axios.post('http://localhost:3001/payments', PaymentsData);
-    this.$router.push('/');
-    console.log(PaymentsData);
+    try {
+      const PaymentsData = {
+        cardNumber: this.cardNumber,
+        cardMonth: this.cardMonth,
+        cardYear: this.cardYear,
+        cardCvv: this.cardCvv,
+        paidAmount: this.billOrder.billAmount,
+        billNumber: this.billOrder.billNumber,
+        paidGoods: []
+      };
+      this.paidGoods.forEach((element) => {
+        PaymentsData.paidGoods.push(element);
+      });
+      await this.$axios.post('http://localhost:3001/payments', PaymentsData);
+      const localRents = this.$auth.$storage.getLocalStorage(this.$auth.user._id);
+      console.log(localRents, 111111111111);
+      this.$router.push('/');
+      console.log(PaymentsData);
+    } catch (err) {
+      // console.error(err.message);
+    }
   }
 }
 </script>

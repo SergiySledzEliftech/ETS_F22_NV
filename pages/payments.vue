@@ -42,30 +42,32 @@ class PaymentsPage extends Vue {
   modalCardVisible = false
   billOrderData
 
-  products = [
-    {
-      id: 1,
-      price: 250,
-      name: 'velobike',
-      img: 'velobike.png',
-      quantity: 1,
-      description: 'bike for cyti bike for cyti bike for cyti bike for cyti bike for cyti '
-    },
-    {
-      id: 2,
-      price: 270,
-      name: 'bmxbike',
-      img: 'bmxbike.png',
-      quantity: 1,
-      description: 'bike for mountain'
-    }
-  ]
+  // products = [
+  //   {
+  //     id: 1,
+  //     price: 250,
+  //     name: 'velobike',
+  //     img: 'velobike.png',
+  //     quantity: 1,
+  //     description: 'bike for cyti bike for cyti bike for cyti bike for cyti bike for cyti '
+  //   },
+  //   {
+  //     id: 2,
+  //     price: 270,
+  //     name: 'bmxbike',
+  //     img: 'bmxbike.png',
+  //     quantity: 1,
+  //     description: 'bike for mountain'
+  //   }
+  // ]
 
   @State orderedGoods;
   @Mutation setOrderedGoods;
 
   fetch () {
-    this.setOrderedGoods(this.products);
+    const orderGoods = this.$auth.$storage.getLocalStorage(this.$auth.user._id);
+    console.log(orderGoods);
+    this.setOrderedGoods(orderGoods);
   }
 
   methods () {

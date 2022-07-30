@@ -14,19 +14,14 @@
         </div>
       </div>
       <div class="orders__items">
-        <div v-for="item in orderGoods" :key="item.id" class="orders__item m-b-4">
+        <div v-for="item in orderGoods" :key="item._id" class="orders__item m-b-4">
           <div class="orders__item-image">
-            <img :src=" require('../../assets/img/payments/' + item.img)" alt="item">
+            <img :src="item.images[0]" alt="item">
           </div>
           <div class="orders__item-content">
             <div class="orders__item-inner m-b-2">
               <div class="orders__item-name">
-                {{ item.name }}
-              </div>
-              <div class="orders__item-quantity m-r-2">
-                <span class="orders__item-quantity--arithmetic">-</span>
-                <span class="orders__item-quantity--number">{{ item.quantity }}</span>
-                <span class="orders__item-quantity--arithmetic">+</span>
+                {{ item.title }}
               </div>
             </div>
             <div class="orders__item-price m-b-2">
@@ -35,7 +30,7 @@
             <div class="orders__item-description m-b-2">
               {{ item.description }}
             </div>
-            <div class="orders__item-actions" @click="deleteOrderedGoodFromList(item.id)">
+            <div class="orders__item-actions" @click="deleteOrderedGoodFromList(item._id)">
               <fa icon="trash-can" />
             </div>
           </div>
@@ -57,7 +52,6 @@
 
 <script>
 import { Vue, Component, Prop, namespace } from 'nuxt-property-decorator';
-// import axios from 'axios';
 const { State, Mutation, Action } = namespace('ordered');
 
 export default @Component({
