@@ -359,12 +359,15 @@
   </v-app>
 </template>
 <script>
+
 import { Vue, Component } from 'nuxt-property-decorator';
 import categoryCard from '../../components/new-advertisement/category-card.vue';
+
 export default @Component({
   name: 'CreateNewAnnouncement',
   components: { categoryCard }
 })
+
 class CreateNewAnnouncement extends Vue {
   step = 1;
   isDisabled = false;

@@ -73,14 +73,20 @@
 
 <script>
 import { Vue, Component, namespace } from 'nuxt-property-decorator';
-import { disadvantagesRule, advantagesRule, commentRule } from '~/helpers/comment-validation';
+import { disadvantagesRule, advantagesRule, commentRule } from '~/helpers/validators';
 
-const { Action } = namespace('good_comments');
+const { Action: CommentsAction } = namespace('good_comments');
+const { State: UserState, Action: UserAction } = namespace('profile');
 
 export default @Component({
 })
 
 class AddComment extends Vue {
+  @CommentsAction createComment
+
+  @UserState user;
+  @UserAction getUser
+
   valid = true
   commentData = {
     advantages: '',
@@ -97,8 +103,20 @@ class AddComment extends Vue {
     };
   }
 
+  async mounted () {
+    try {
+      await this.getUser(this.$auth.user._id);
+    } catch (err) {
+      console.error(err.message);
+    }
+  }
+
   validation () {
     this.$refs.form.validate();
+    setTimeout(() => {
+      this.clear();
+    }, 0);
+    this.$router.push('/categories/' + this.$route.params.id + '/comments/');
   }
 
   clear () {
@@ -106,27 +124,16 @@ class AddComment extends Vue {
     this.commentData.advantages = '';
     this.commentData.disadvantages = '';
     this.commentData.rating = null;
-    const date = new Date();
-    console.log(date);
-    console.log(date.getTime());
   }
 
-  @Action createComment
   async onAddComment () {
     const date = new Date();
-    console.log(date);
-    console.log(date.getTime());
     this.commentData.date_created = date.getTime();
+    this.commentData.userId = this.$auth.user._id;
+    this.commentData.productId = this.$route.params.id;
+    this.commentData.userNickname = this.user.firstName + ' ' + this.user.lastName;
     try {
       await this.createComment(this.commentData);
-    } catch (err) {
-      console.error(err.message);
-    }
-  }
-
-  async mounted () {
-    try {
-      await this.loadUserComments();
     } catch (err) {
       console.error(err.message);
     }

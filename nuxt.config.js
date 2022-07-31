@@ -52,6 +52,7 @@ export default {
   modules: [
     // https://go.nuxtjs.dev/axios
     '@nuxtjs/axios',
+    // '@nuxtjs/auth',
     '@nuxtjs/auth-next',
     '@nuxtjs/axios',
     ['nuxt-gmaps', {
@@ -61,7 +62,8 @@ export default {
 
   // Axios module configuration: https://go.nuxtjs.dev/config-axios
   axios: {
-    baseURL: 'https://glomare.herokuapp.com/auth/signup'
+    baseURL: 'https://glomare.herokuapp.com/'
+    // baseURL: 'http://localhost:3001'
     // Workaround to avoid enforcing hard-coded localhost:3000: https://github.com/nuxt-community/axios-module/issues/308
   },
   // Vuetify module configuration: https://go.nuxtjs.dev/config-vuetify

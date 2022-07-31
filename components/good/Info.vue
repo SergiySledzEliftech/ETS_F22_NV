@@ -2,44 +2,55 @@
   <div class="info">
     <div class="info-wrapper">
       <section class="carousel">
-        <carousel />
+        <carousel :images="good.images" />
       </section>
       <section class="good">
         <div class="good__content">
           <div class="good__status">
-            <v-icon
-              v-if="!goodRented"
-              color="green"
-              class="good__status-icon"
+            <div
+              v-if="goodStatus === 'available'"
+              class="good__status-item good__status-free"
             >
-              mdi-checkbox-marked-circle-outline
-            </v-icon>
-            <v-icon
-              v-if="goodRented"
-              color="red"
-              class="good__status-icon"
+              <v-icon
+                color="green"
+                class="good__status-icon"
+              >
+                mdi-checkbox-marked-circle-outline
+              </v-icon>
+              <p class="good__status-text">
+                In stock
+              </p>
+            </div>
+            <div
+              v-if="goodStatus === 'unavailable'"
+              class="good__status-item good__status-ordered"
             >
-              mdi-close-circle-outline
-            </v-icon>
-            <p class="good__status-text">
-              In stock
-            </p>
+              <v-icon
+                color="red"
+                class="good__status-icon"
+              >
+                mdi-close-circle-outline
+              </v-icon>
+              <p class="good__status-text">
+                Rented
+              </p>
+            </div>
           </div>
           <h1 class="good-title">
-            2-комнатная квартира на Пролетарской, 6А
+            {{ good.title }}
           </h1>
           <div class="good__props">
             <p class="good__props-size good__props-item">
               WxHxL (mm): <span class="red-txt">450x500x900</span>
             </p>
             <p class="good__props-date good__props-item">
-              Published date: <span class="red-txt">4.07.2020</span>
+              Published date: <span class="red-txt"> {{ good.date_created }} </span>
             </p>
             <p class="good__props-rating good__props-item">
-              Rating: <span class="red-txt">9.5/10</span>
+              Rating: <span class="red-txt"> {{ good.rating }} </span>
             </p>
             <p class="good__props-price good__props-item">
-              Price: <span class="red-txt">67 000$</span> | <span class="red-txt">174 267UAN</span>
+              Price: <span class="red-txt">{{ good.price }} UAN</span>
             </p>
           </div>
           <div class="good__contacts">
@@ -49,7 +60,7 @@
             <div class="contacts__list">
               <p class="contacts__list-name contacts__list-item">
                 <span class="red-txt">
-                  Nina Plynska
+                  {{ good.leaser_info.firstName }} {{ good.leaser_info.lastName }}
                 </span>
               </p>
               <div class="contacts__list-phone contacts__list-item">
@@ -73,7 +84,11 @@
               <a href="#" class="contacts__list-mail contacts__list-item"><span class="red-txt">nina-pv@gmail.com</span></a>
             </div>
           </div>
-          <rent-popup />
+          <rent-popup
+            :good="good"
+            :good-status="goodStatus"
+            @changeStatus="onChangeStatus"
+          />
         </div>
       </section>
     </div>
@@ -81,7 +96,7 @@
 </template>
 
 <script>
-import { Vue, Component } from 'nuxt-property-decorator';
+import { Vue, Component, Prop } from 'nuxt-property-decorator';
 import Carousel from '~/components/good/Carousel/Carousel';
 import RentPopup from '~/components/good/RentPopup';
 
@@ -93,6 +108,8 @@ export default @Component({
 })
 
 class Info extends Vue {
+  @Prop() good;
+
   messengers = [
     {
       link: '#',
@@ -123,7 +140,16 @@ class Info extends Vue {
     }
   ]
 
-  goodRented = false
+  goodStatus = '';
+
+  onChangeStatus () {
+    this.goodStatus = 'unavailable';
+  }
+
+  mounted () {
+    this.goodStatus = this.good.status;
+    console.log(this.good.leaser_info);
+  }
 }
 </script>
 
@@ -194,7 +220,7 @@ a{
       width: 100%;
       padding: 20px;
     }
-    .good__status {
+    .good__status-item {
       display: flex;
       align-items: center;
       gap: 5px;

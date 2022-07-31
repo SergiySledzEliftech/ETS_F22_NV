@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="chat">
     <div class="container">
       <div id="glomareChat">
         <div>
@@ -43,26 +43,27 @@
                   </ul>
                 </div>
 
-                <v-textarea
-                  id="textarea"
-                  v-model="text"
-                  solo
-                  name="textarea"
-                  rows="2"
-                  row-height="15"
-                  placeholder="Enter message..."
-                />
+                <div class="chat-row">
+                  <v-textarea
+                    id="textarea"
+                    v-model="text"
+                    solo
+                    rows="2"
+                    name="textarea"
+                    placeholder="Enter message..."
+                  />
 
-                <div class="btn-chat">
-                  <v-btn
-                    id="send"
-                    class="ma-2"
-                    outlined
-                    color="indigo"
-                    @click.prevent="sendMessage"
-                  >
-                    Send
-                  </v-btn>
+                  <div class="btn-chat">
+                    <v-btn
+                      id="send"
+                      class="ma-2"
+                      outlined
+                      color="indigo"
+                      @click.prevent="sendMessage"
+                    >
+                      Send
+                    </v-btn>
+                  </div>
                 </div>
               </div>
             </div>
@@ -87,14 +88,14 @@ class Index extends Vue {
   @State isLogin
   @Mutation changeStatusAuth
 
-  title = 'GloMaRe Chat'
-  name = ''
-  text = ''
-  messages = []
-  socket = io()
-  isChatOpen = true
-  restApiUrl = 'https://glomare.herokuapp.com/'
-  isValid = false
+  title = 'GloMaRe Chat';
+  name = '';
+  text = '';
+  messages = [];
+  socket = io();
+  isChatOpen = true;
+  restApiUrl = 'https://glomare.herokuapp.com/';
+  isValid = false;
 
   sendMessage () {
     if (this.validateInput()) {
@@ -130,7 +131,7 @@ class Index extends Vue {
 
 <style lang="scss" scoped>
   #messages {
-    height: 300px;
+    min-height: calc(60vh);
     overflow-y: scroll;
     box-shadow: 0 3px 1px -2px rgb(0 0 0 / 20%), 0px 2px 2px 0px rgb(0 0 0 / 14%), 0px 1px 5px 0px rgb(0 0 0 / 12%);
     width: 100%;
@@ -145,5 +146,15 @@ class Index extends Vue {
   .btn-chat{
     display: flex;
     justify-content: flex-end;
+  }
+
+  .chat-row{
+    display: flex;
+
+    button {
+      align-self: end;
+      margin-bottom: 28px!important;
+    }
+
   }
 </style>

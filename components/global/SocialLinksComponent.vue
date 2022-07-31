@@ -1,12 +1,12 @@
 <template>
   <div class="header-social">
-    <a href="#">
+    <a href="https://www.viber.com/ua/" target="_blank">
       <img src="~/assets/img/viber.png" alt="viber">
     </a>
-    <a href="#">
+    <a href="https://web.telegram.org/k/" target="_blank">
       <img src="~/assets/img/telegram.png" alt="telegram">
     </a>
-    <a href="#">
+    <a href="https://www.whatsapp.com/?lang=uk" target="_blank">
       <img src="~/assets/img/whatsapp.png" alt="whatsapp">
     </a>
   </div>
