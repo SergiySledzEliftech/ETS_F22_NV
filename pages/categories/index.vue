@@ -275,7 +275,8 @@ import ProgressCircular from '~/components/global/Progress';
 const { State: profileState, Action: profileAction, Mutation: profileMutation } = namespace('profile');
 const { State: categoriesState, Action: categoriesAction, Mutation: categoriesMutation } = namespace('categories');
 export default @Component({
-  components: { ItemsList, SingleItem, ProgressCircular }
+  components: { ItemsList, SingleItem, ProgressCircular },
+  auth: false
 })
 
 class Categories extends Vue {

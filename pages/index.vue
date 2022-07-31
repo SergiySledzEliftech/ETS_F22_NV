@@ -22,7 +22,8 @@ import Partners from '~/components/dashboard/Partners/Partners.vue';
 const { Action } = namespace('dashboard');
 
 export default @Component({
-  components: { Top10Goods, PremiumGoods, News, Statistics, Partners, TestComponent }
+  components: { Top10Goods, PremiumGoods, News, Statistics, Partners, TestComponent },
+  auth: false
 })
 
 class Index extends Vue {
