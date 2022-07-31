@@ -1,3 +1,5 @@
+import { serverApiUrl } from '@/settings/config';
+
 export const state = () => ({
   good: {},
   rentedGoods: [],
@@ -23,26 +25,25 @@ export const mutations = {
 export const actions = {
   async loadGood ({ state, commit }, id) {
     commit('setLoading', true);
-    const { data } = await this.$axios.get('http://localhost:3001/products/' + id);
+    const { data } = await this.$axios.get(`${serverApiUrl}products/${id}`);
     commit('setGood', data);
     commit('setLoading', false);
   },
   async updateGood ({ state, commit }, good) {
-    await this.$axios.$put('http://localhost:3001/products/' + good._id, good);
+    await this.$axios.$put(`${serverApiUrl}products/${good._id}`, good);
   },
   async loadRecommendations ({ state, commit }, params) {
     const { data } = await this.$axios.get(
-      'http://localhost:3001/products/' + params.id + '/rec?' +
-      'category=' + params.category + '&' +
-      'min=' + params.min + '&' +
-      'max=' + params.max + '&' +
-      'status=' + params.status + '&' +
-      'minRating=' + params.minRating
-    );
+      `${serverApiUrl}products/${params.id}/rec?` +
+      `category=${params.category}&` +
+      `min=${params.min}&` +
+      `max=${params.max}&` +
+      `status=${params.status}&` +
+      `minRating=${params.minRating}`);
     commit('setRecommendations', data);
   },
   async updateStatistic () {
-    await this.$axios.$put('https://glomare.herokuapp.com/statistics/update-items-rented');
+    await this.$axios.$put(`${serverApiUrl}statistics/update-items-rented`);
   }
 }
 ;

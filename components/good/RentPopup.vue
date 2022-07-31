@@ -10,7 +10,7 @@
           v-on="goodStatus === 'available' ? on : {}"
         >
           <v-btn
-            :disabled="goodStatus === 'unavailable'"
+            :disabled="goodStatus === 'unavailable' || $auth.user === null"
             class="btn_primary active"
           >
             Rent

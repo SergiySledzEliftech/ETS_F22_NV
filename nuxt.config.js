@@ -95,15 +95,17 @@ export default {
       ]
     }
   },
+  router: {
+    middleware: ['auth']
+  },
   auth: {
     strategies: {
       local: {
         scheme: 'refresh',
         token: {
           property: 'token',
-          global: true
-          // required: true,
-          // type: ''
+          global: true,
+          maxAge: 3600
         },
         refreshToken: {
           property: 'refresh_token',
@@ -117,10 +119,18 @@ export default {
         endpoints: {
           login: { url: '/auth/login', method: 'post' },
           refresh: { url: '/auth/refresh', method: 'post' },
-          logout: false,
+          logout: { url: '/auth/logout', method: 'post' },
           user: { url: '/auth/user', method: 'get' }
-        }
+        },
+        tokenRequired: true
       }
+    },
+    localStorage: false,
+    redirect: {
+      login: '/auth',
+      logout: '/auth',
+      callback: '/auth',
+      home: '/'
     }
   }
 };

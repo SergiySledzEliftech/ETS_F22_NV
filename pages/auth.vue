@@ -5,10 +5,11 @@
         <v-col cols="12" sm="8" md="6" class="mx-auto">
           <v-card class="tab-card">
             <v-tabs
-              v-model="tab"
+              :value="tab"
               background-color="#F9F9FA"
               dark
               color="var(--primary)"
+              @change="changeTab"
             >
               <v-tab
                 id="signin"
@@ -27,7 +28,7 @@
                 Sign Up
               </v-tab>
             </v-tabs>
-            <v-tabs-items v-model="tab">
+            <v-tabs-items :value="tab">
               <v-tab-item>
                 <v-card>
                   <v-card-text class="card-text">
@@ -51,20 +52,20 @@
 </template>
 
 <script>
-import { Vue, Component } from 'nuxt-property-decorator';
+import { Vue, Component, namespace } from 'nuxt-property-decorator';
 import Router from 'vue-router';
-import RegisterComponent from '../components/RegisterComponent';
-import LoginComponent from '../components/LoginComponent';
+import RegisterComponent from '../components/auth/RegisterComponent';
+import LoginComponent from '../components/auth/LoginComponent';
+
+const { State, Mutation } = namespace('global');
 
 Vue.use(Router);
 export default @Component({
   components: { LoginComponent, RegisterComponent }
 })
 class Auth extends Vue {
-  tab = 0;
-  mounted () {
-    this.addHashToLocation('signin');
-  }
+  @State tab
+  @Mutation changeTab
 
   addHashToLocation (params) {
     history.pushState(
@@ -83,7 +84,7 @@ class Auth extends Vue {
   border-radius: 10px;
 }
 .container {
-  margin-top: 50px;
+  margin-top: 30px;
   display: flex;
   justify-content: center;
   align-items: center;

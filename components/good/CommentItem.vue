@@ -158,6 +158,7 @@ class CommentItem extends Vue {
   @LikesState likeStatusExist;
   @LikesAction loadLikeBlock;
   @LikesAction checkLikeBlock;
+  @LikesAction removeCommentLikes;
 
   @GoodAction removeComment;
   @GoodAction updateCommentLikes;
@@ -194,6 +195,7 @@ class CommentItem extends Vue {
   async onDeleteComment () {
     try {
       await this.removeComment(this.comment._id);
+      await this.removeCommentLikes(this.comment._id);
     } catch (err) {
       // eslint-disable-next-line no-console
       console.error(err.message);
