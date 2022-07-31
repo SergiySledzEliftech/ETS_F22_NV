@@ -147,8 +147,8 @@ class PaymentsContact extends Vue {
 $gap: 5
 $vstep: 5
 $bradius: 10
-.noactive
-  display: none
+//.noactive
+//  display: none
 .payments
   position: relative
   margin-right: 0
@@ -162,12 +162,12 @@ $bradius: 10
     padding-bottom: $gap * 2 * 1px
     display: flex
     align-items: center
-    justify-content: space-between
-    h5
-      font-size: 19px
-      margin-bottom: 0
-      font-weight: 700
-      cursor: pointer
+    //justify-content: space-between
+    //h5
+    //  font-size: 19px
+    //  margin-bottom: 0
+    //  font-weight: 700
+    //  cursor: pointer
   &__title-text
     margin-bottom: 0
     font-weight: 700
@@ -206,40 +206,40 @@ $bradius: 10
     line-height: 0
   &__type-image
     max-width: 100%
-  &__orders
-    margin-left: $gap * 3 * -1px
-    margin-right: $gap * 3 * -1px
-    margin-top: $gap * 3 * -1px
-    margin-top: $gap * 3 * -1px
-    padding-left: $gap * 3 * 1px
-    padding-right: $gap * 3 * 1px
-    padding-top: $gap * 3 * 1px
-    padding-bottom: $gap * 3 * 1px
-    border-radius: $bradius * 1px
-    background: #fff
+  //&__orders
+  //  margin-left: $gap * 3 * -1px
+  //  margin-right: $gap * 3 * -1px
+  //  margin-top: $gap * 3 * -1px
+  //  margin-top: $gap * 3 * -1px
+  //  padding-left: $gap * 3 * 1px
+  //  padding-right: $gap * 3 * 1px
+  //  padding-top: $gap * 3 * 1px
+  //  padding-bottom: $gap * 3 * 1px
+  //  border-radius: $bradius * 1px
+  //  background: #fff
 .btn
-  &--payments
-    width: 100%
-    border-radius: 8px
-    margin-bottom: 0
-    letter-spacing: 27px
-    font-size: 25px
-    font-weight: 700
-    background: #183153
-    color: #fff
-    border-color: #E31F26
-    text-transform: none
-    height: 50px
-    padding: 0 20px
-.col
-  width: 100%
-  padding-left: $gap * 3 * 1px
-  padding-right: $gap * 3 * 1px
-  padding-bottom: $gap * 3 * 1px
-  padding-top: $gap * 3 * 1px
-  min-height: 100%
-.col-desktop-2-5
-  max-width: 100 / 2 * 1%
+  //&--payments
+  //  width: 100%
+  //  border-radius: 8px
+  //  margin-bottom: 0
+  //  letter-spacing: 27px
+  //  font-size: 25px
+  //  font-weight: 700
+  //  background: #183153
+  //  color: #fff
+  //  border-color: #E31F26
+  //  text-transform: none
+  //  height: 50px
+  //  padding: 0 20px
+//.col
+//  width: 100%
+//  padding-left: $gap * 3 * 1px
+//  padding-right: $gap * 3 * 1px
+//  padding-bottom: $gap * 3 * 1px
+//  padding-top: $gap * 3 * 1px
+//  min-height: 100%
+//.col-desktop-2-5
+//  max-width: 100 / 2 * 1%
 .form-row
   flex-direction: column
 .form-col

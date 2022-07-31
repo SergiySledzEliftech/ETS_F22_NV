@@ -89,60 +89,69 @@ class PaymentsPage extends Vue {
 
 </script>
 
-<style lang="sass" scoped>
+<style lang="scss" scoped>
 
-$gap: 5
-$vstep: 5
-$bradius: 10
+$gap: 5;
+$vstep: 5;
+$bradius: 10;
 
-.payments
-  position: relative
-  margin-right: 0
-  margin-left: 0
-  padding: $gap * 4 * 1px
-  background: #f4f4f9
-.btn
-  &--payments
-    width: 100%
-    border-radius: 8px
-    margin-bottom: 0
-    letter-spacing: 27px
-    font-size: 25px
-    font-weight: 700
-    background: #183153
-    color: #fff
-    border-color: #E31F26
-    text-transform: none
-    height: 50px
-    padding: 0 20px
-.row__vertical
-  display: flex
-  flex-wrap: wrap
-.col
-  width: 100%
-  padding-left: $gap * 3 * 1px
-  padding-right: $gap * 3 * 1px
-  padding-bottom: $gap * 3 * 1px
-  padding-top: $gap * 3 * 1px
-  min-height: 100%
-.progress-circular
-  position: absolute
-  width: 100%
-  top: 0
-  left: 50%
-  transform: translateX(-50%)
-  align-items: center
-.col-desktop-2-5
-  max-width: 100 / 2 * 1%
-.form-row
-  flex-direction: column
-.form-col
-  max-width: 100%
-@for $i from 1 through 10
-  .m-b-#{$i}
-    margin-bottom: $i * $vstep * 1px
-  .m-r-#{$i}
-    margin-right: $i * $vstep * 1px
-  .m-l-#{$i}
-    margin-left: $i * $vstep * 1px
+.payments{
+  position: relative;
+  margin-right: 0;
+  margin-left: 0;
+  padding: $gap * 4 * 1px;
+  background: #f4f4f9;
+}
+//.btn
+//  &--payments
+//    width: 100%
+//    border-radius: 8px
+//    margin-bottom: 0
+//    letter-spacing: 27px
+//    font-size: 25px
+//    font-weight: 700
+//    background: #183153
+//    color: #fff
+//    border-color: #E31F26
+//    text-transform: none
+//    height: 50px
+//    padding: 0 20px
+.row__vertical{
+  display: flex;
+  flex-wrap: wrap;
+}
+.col{
+  width: 100%;
+  padding-left: $gap * 3 * 1px;
+  padding-right: $gap * 3 * 1px;
+  padding-bottom: $gap * 3 * 1px;
+  padding-top: $gap * 3 * 1px;
+  min-height: 100%;
+}
+.progress-circular{
+  position: absolute;
+  width: 100%;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  align-items: center;
+}
+.col-desktop-2-5{
+  max-width: 100 / 2 * 1%;
+}
+//.form-row
+//  flex-direction: column
+////.form-col
+//  max-width: 100%
+@for $i from 1 through 10{
+  .m-b-#{$i}{
+    margin-bottom: $i * $vstep * 1px;
+  }
+  .m-r-#{$i}{
+    margin-right: $i * $vstep * 1px;
+  }
+  .m-l-#{$i}{
+    margin-left: $i * $vstep * 1px;
+  }
+}
 </style>

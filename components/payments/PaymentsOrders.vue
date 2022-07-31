@@ -100,8 +100,8 @@ $gap: 5
 $vstep: 5
 $bradius: 10
 
-.noactive
-  display: none
+//.noactive
+//  display: none
 .payments
   position: relative
   margin-right: 0
