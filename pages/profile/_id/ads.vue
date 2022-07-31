@@ -64,7 +64,6 @@ class ProfileAds extends Vue {
   @ListAction calcPerPage;
   @Prop({ default: '' }) isMy;
   items = [];
-  disable = true;
   show = this.isMy !== '';
 
   sliceList () {

@@ -16,7 +16,7 @@ export const actions = {
   },
   calcPerPage ({ commit }, num) {
     commit('setPerPage', num);
-    this.calcPage(1);
+    commit('setPage', 1);
   },
   setLoad ({ commit }, val) {
     commit('setLoading', val);
