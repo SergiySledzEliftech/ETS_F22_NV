@@ -1,35 +1,37 @@
 <template>
-  <div class="main">
-    <div v-if="loading" class="progress-circular">
+  <div class="main good-container">
+    <div v-if="loading" class="progress-circular good-circular">
       <progress-circular />
     </div>
     <div v-if="!loading">
-      <info />
+      <info :good="good" />
       <div class="tabs-wrapper">
         <v-tabs class="tabs" color="var(--primary)" left>
-          <v-tab :to="{ name: 'good' }" nuxt exact>
+          <v-tab :to="{ name: 'categories-id'}" nuxt exact>
             Description
           </v-tab>
-          <v-tab :to="{ name: 'good-comments' }" nuxt>
+          <v-tab :to="{ name: 'categories-id-comments'}" nuxt>
             Comments
           </v-tab>
         </v-tabs>
       </div>
-      <nuxt-child />
-      <recommendations />
+      <nuxt-child :good="good" />
+      <recommendations :good="good" />
       <sharing-block />
     </div>
   </div>
 </template>
 
 <script>
-import { Vue, Component } from 'nuxt-property-decorator';
+import { Vue, Component, namespace } from 'nuxt-property-decorator';
 import Carousel from '~/components/good/Carousel/Carousel';
 import Map from '~/components/good/Map';
 import Info from '~/components/good/Info';
 import SharingBlock from '~/components/good/SharingBlock';
 import Recommendations from '~/components/good/Recommendations';
 import ProgressCircular from '~/components/global/Progress';
+
+const { State, Mutation, Action } = namespace('good');
 
 export default @Component({
   components: {
@@ -43,19 +45,30 @@ export default @Component({
 })
 
 class GoodPage extends Vue {
-  loading = true;
+  @State good
+
+  @Mutation setLoading
+
+  @Action loadGood
+
+  loading = true
+
+  async mounted () {
+    try {
+      await this.loadGood(this.$route.params.id);
+    } catch (err) {
+      console.error(err.message);
+    }
+    this.loading = false;
+  }
 
   created () {
-    this.loading = false;
   }
 }
 </script>
 
-<style lang="scss">
-img{
-  font-size: 14px !important;
-}
-.container{
+<style lang="scss" scoped>
+.good-container{
   padding: 0;
   margin: 0 auto;
   max-width: 1280px;
@@ -76,6 +89,9 @@ img{
   justify-content: center;
   align-items: center;
 }
+.good-circular{
+  height: 80vh;
+}
 .v-tabs{
   margin-top: 30px;
   a {
@@ -87,15 +103,5 @@ img{
       background-color: #aaaaaa2b;
     }
   }
-}
-ul, li{
-  margin: 0;
-  padding: 0;
-  text-indent: 0;
-  list-style-type: none;
-}
-
-.d_none{
-  display: none;
 }
 </style>

@@ -23,7 +23,7 @@
               <a href="#" class="footer-facebook" />
             </li>
           </ul>
-          <NuxtLink to="#10" class="footer-link-help">
+          <NuxtLink :to="{ name: 'Services-Help'}" class="footer-link-help">
             Help and Feedback
           </NuxtLink>
         </div>
@@ -31,19 +31,19 @@
           <div class="footer-title">
             Services
           </div>
-          <NuxtLink to="#1" class="footer-link">
+          <nuxt-link :to="{ name: 'Services-MobileApplication'}" class="footer-link">
             Mobile application
-          </NuxtLink>
-          <NuxtLink to="#2" class="footer-link">
+          </nuxt-link>
+          <NuxtLink :to="{name:'Services-GlomarePremium'}" class="footer-link">
             GloMaRe Premium
           </NuxtLink>
-          <NuxtLink to="#3" class="footer-link">
+          <NuxtLink :to="{name:'Services-PaidServices'}" class="footer-link">
             Paid services
           </NuxtLink>
-          <NuxtLink to="#4" class="footer-link">
+          <NuxtLink :to="{name:'Services-GiftSertificates'}" class="footer-link">
             Gift certificates
           </NuxtLink>
-          <NuxtLink to="chat" class="footer-link">
+          <NuxtLink :to="{name:'Chat'}" class="footer-link">
             Chat
           </NuxtLink>
         </div>
@@ -51,19 +51,19 @@
           <div class="footer-title">
             To partners
           </div>
-          <NuxtLink to="#5" class="footer-link">
+          <NuxtLink :to="{name:'to-partners-Cooperations'}" class="footer-link">
             Cooperation with us
           </NuxtLink>
-          <NuxtLink to="#6" class="footer-link">
+          <NuxtLink :to="{name:'to-partners-Franchising'}" class="footer-link">
             Franchising
           </NuxtLink>
-          <NuxtLink to="#7" class="footer-link">
+          <NuxtLink :to="{name:'to-partners-Delivery'}" class="footer-link">
             Delivery: rules and promotions
           </NuxtLink>
-          <NuxtLink to="#8" class="footer-link">
+          <NuxtLink :to="{name:'to-partners-Policy'}" class="footer-link">
             Privacy policy
           </NuxtLink>
-          <NuxtLink to="#9" class="footer-link">
+          <NuxtLink :to="{name:'to-partners-SafetyRules'}" class="footer-link">
             Safety rules
           </NuxtLink>
         </div>

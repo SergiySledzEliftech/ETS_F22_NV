@@ -15,7 +15,7 @@
                 <a href="#" data-toggle="sub-menu">{{ menu[0].item }}<i class="expand" /></a>
                 <ul class="sub-menu">
                   <li v-for="item in subMenuCatalog" :key="item.to" class="menu-item">
-                    <NuxtLink :to="item.to">
+                    <NuxtLink :to="{name: item.to}">
                       {{ item.name }}
                     </NuxtLink>
                   </li>
@@ -26,7 +26,7 @@
                 <a href="#" data-toggle="sub-menu">{{ menu[1].item }}<i class="expand" /></a>
                 <ul class="sub-menu">
                   <li v-for="item in subMenuServices" :key="item.to" class="menu-item">
-                    <NuxtLink :to="item.to">
+                    <NuxtLink :to="{name: item.to}">
                       {{ item.name }}
                     </NuxtLink>
                   </li>
@@ -34,7 +34,7 @@
               </li>
 
               <li class="menu-item menu-item-child">
-                <NuxtLink to="#">
+                <NuxtLink :to="{name: 'Services-About'}">
                   {{ menu[2].item }}
                 </NuxtLink>
               </li>
@@ -46,22 +46,40 @@
 
             <div class="login-profile-mobile">
               <div class="login-profile">
-                <v-btn
-                  v-if="isLogin"
-                  class="ma-2"
-                  outlined
-                  color="indigo"
+                <nuxt-link
+                  v-if="$auth.loggedIn"
+                  :to="{ path: '/'}"
                 >
-                  Profile
-                </v-btn>
-                <v-btn
+                  <nuxt-link :to="'/profile/' + $auth.user._id">
+                    <v-icon
+                      large
+                      color="blue darken-2"
+                    >
+                      mdi-account
+                    </v-icon>
+                  </nuxt-link>
+
+                  <v-btn
+                    class="ma-2 btn-red menu-btn"
+                    outlined
+                    @click="$auth.logout()"
+                  >
+                    Log Out
+                  </v-btn>
+                </nuxt-link>
+                <nuxt-link
                   v-else
-                  class="ma-2 btn-red"
-                  outlined
-                  color="indigo"
+                  :to="{ path: '/auth' }"
                 >
-                  Sign in
-                </v-btn>
+                  <v-btn
+
+                    class="ma-2 btn-red menu-btn"
+                    outlined
+                    color="indigo"
+                  >
+                    Sign in
+                  </v-btn>
+                </nuxt-link>
               </div>
             </div>
           </nav>
@@ -97,15 +115,17 @@
               v-if="$auth.loggedIn"
               :to="{ path: '/'}"
             >
+              <nuxt-link :to="'/profile/' + $auth.user._id">
+                <v-icon
+                  large
+                  color="blue darken-2"
+                >
+                  mdi-account
+                </v-icon>
+              </nuxt-link>
+
               <v-btn
-                class="ma-2"
-                outlined
-                color="indigo"
-              >
-                Profile
-              </v-btn>
-              <v-btn
-                class="ma-2 btn-red"
+                class="ma-2 btn-red menu-btn"
                 outlined
                 @click="$auth.logout()"
               >
@@ -117,8 +137,7 @@
               :to="{ path: '/auth' }"
             >
               <v-btn
-
-                class="ma-2 btn-red"
+                class="ma-2 btn-red menu-btn"
                 outlined
                 color="indigo"
               >
@@ -192,11 +211,11 @@ class HeaderComponent extends Vue {
 
   // SubMenu Services
   subMenuServices = [
-    { name: 'Mobile application', to: '#10' },
-    { name: 'GloMaRe premium', to: '#11' },
-    { name: 'Paid services', to: '#12' },
-    { name: 'Gift Certificates', to: '#13' },
-    { name: 'Chat', to: 'chat' }
+    { name: 'Mobile application', to: 'Services-MobileApplication' },
+    { name: 'GloMaRe premium', to: 'Services-GlomarePremium' },
+    { name: 'Paid services', to: 'Services-PaidServices' },
+    { name: 'Gift Certificates', to: 'Services-GiftSertificates' },
+    { name: 'Chat', to: 'Chat' }
   ]
 
   mounted () {
@@ -676,4 +695,11 @@ class HeaderComponent extends Vue {
       cursor: pointer !important;
     }
   }
+
+  .v-application{
+    .menu-btn{
+      margin-right: 0 !important;
+    }
+  }
+
 </style>

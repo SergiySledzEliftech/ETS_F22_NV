@@ -163,7 +163,7 @@
 </template>
 
 <script>
-import { Vue, Component } from 'nuxt-property-decorator';
+import { Vue, Component, Prop } from 'nuxt-property-decorator';
 import Map from '~/components/good/Map';
 
 export default @Component({
@@ -172,6 +172,8 @@ export default @Component({
   }
 })
 class DescriptionTab extends Vue {
+  @Prop() good
+
   goodProps = {
     goodParams: [
       {
@@ -233,23 +235,16 @@ class DescriptionTab extends Vue {
     ]
   }
 
-  details = 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. ' +
-    'Amet cumque debitis doloremque dolorum enim, eos ex expedita ipsum ' +
-    'laudantium minima, molestiae natus necessitatibus nihil nostrum quia ' +
-    'quis quos tempora temporibus veniam voluptatibus. Autem culpa deserunt ' +
-    'quis quos tempora temporibus veniam voluptatibus. Autem culpa deserunt ' +
-    'quis quos tempora temporibus veniam voluptatibus. Autem culpa deserunt ' +
-    'dignissimos, dolorem eius excepturi explicabo id, impedit inventore ' +
-    'voluptatibus. Autem culpa deserunt dignissimos, dolorem eius excepturi ' +
-    'explicabo id, impedit inventore labore magni officiis pariatur repellat ' +
-    'reprehenderit, voluptatum!'
-
+  details = ''
   detailsContent = ''
   detailsLength = 500
   detailsShowAll = null
   detailsMore = null
 
   created () {
+    this.details = { ...this.good.description };
+    this.details = Object.keys(this.details).map(key => this.details[key]);
+    this.details = this.details.join('');
     this.checkDetailsLength();
   }
 
@@ -281,15 +276,18 @@ class DescriptionTab extends Vue {
 }
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss">
+img{
+  font-size: 14px !important;
+}
 h4{
   @include responsive-value("font-size", 30, 18 , $bp_laptop);
   @include responsive-value("margin-top", 30, 15, $bp_tablet);
   @include responsive-value("margin-bottom", 15, 5, $bp_tablet);
 }
 p{
-  margin: 0;
-  padding: 0;
+  margin: 0 !important;
+  padding: 0 !important;
 }
 .description{
   @include responsive-value("margin-top", 30, 15, $bp_tablet);
@@ -370,6 +368,16 @@ tbody {
       @include responsive-value_important("font-size", 14, 12, $bp_tablet);
     }
   }
+}
+
+.v-tabs{
+  margin-top: 30px;
+}
+ul, li{
+  margin: 0;
+  padding: 0;
+  text-indent: 0;
+  list-style-type: none;
 }
 .d_none{
   display: none !important;

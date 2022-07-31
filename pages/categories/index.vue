@@ -1,12 +1,12 @@
 <template>
   <v-data-iterator
-    :items="goods"
-    :items-per-page.sync="itemsPerPage"
-    :page.sync="page"
+    :items="items"
     :search="searchFromResultsValue"
     :sort-by="sortBy.toLowerCase()"
     :sort-desc="sortDesc"
     hide-default-footer
+    :loading="true"
+    :items-per-page.sync="items.length"
   >
     <template #header>
       <v-container
@@ -20,7 +20,7 @@
           </v-toolbar-title>
           <v-autocomplete
             v-model="autocompleteValue"
-            :loading="isLoading"
+            :loading="autocompleteLoader"
             :items="searchingItems"
             :search-input.sync="isSearch"
             cache-items
@@ -68,7 +68,7 @@
             flat
             prepend-inner-icon="mdi-magnify"
             class="mr-sm-5 mb-2 mb-sm-0"
-            @input="searchFromCategory"
+            @input="setOptions(['category',selectedCategoryValue])"
           />
           <!--↑ INPUT SEARCH FOR CATEGORY ↑ -->
 
@@ -106,6 +106,7 @@
                 label="min"
                 placeholder="min"
                 class="mr-2 teal--text"
+                @input="setOptions(['$gte',+priceMinValue])"
               />
               <v-text-field
                 v-model="priceMaxValue"
@@ -118,6 +119,7 @@
                 color="teal"
                 label="max"
                 placeholder="max"
+                @input="setOptions(['$lte', +priceMaxValue])"
               />
             </v-responsive>
             <!--↑ Inputs  PRICE SORT from largest to smallest ↑ -->
@@ -127,6 +129,7 @@
               background-color="transparent"
               dark
               class="ml-0 ml-sm-2 mb-2 mb-sm-0"
+              @change="setOptions(['condition', sortNewOrUsed])"
             >
               <v-btn
                 id="new"
@@ -163,6 +166,7 @@
               color="teal"
               label="Available"
               class="ml-0 ml-sm-2 mt-auto mb-auto"
+              @change="setOptions(['status','available'])"
             />
             <!--↑ isAvailable SORT ↑ -->
 
@@ -174,6 +178,7 @@
               color="teal"
               label="Free"
               class="ml-0 ml-sm-2 mt-auto mb-auto"
+              @change="setOptions(['isFree',isFree])"
             />
             <!--↑ isFree SORT ↑ -->
           </div>
@@ -232,174 +237,117 @@
         </v-container>
       </v-container>
     </template>
-    <!--↓ CARDS ↓ -->
+
+    <template #loading>
+      <div class="progress">
+        <progress-circular />
+      </div>
+    </template>
+
     <template #default="props">
-      <items-list :list="props.items" :change-view="changeView" :view="view">
-        <li v-for="(item,index) in props.items" :key="index" class="item">
+      <!--        ↓ CARDS ↓-->
+      <items-list
+        :list="props.items"
+        :page="page"
+        :total-pages="totalPages"
+        :set-page="changePage"
+        :set-per-page="changePerPage"
+        :per-page="perPage"
+        :opts-array="perPageArray"
+      >
+        <li v-for="item in props.items" :key="item._id" class="item">
           <single-item
             :item="item"
             :grid="view === 'list'"
           />
         </li>
       </items-list>
-    </template>
-    <!--↑ CARDS ↑ -->
-
-    <template #footer>
-      <v-row
-        class="ma-2 flex-column flex-sm-row justify-sm-space-between"
-        align="center"
-      >
-        <div>
-          <span class="grey--text">Items per page</span>
-          <v-menu offset-y>
-            <template #activator="{ on, attrs }">
-              <v-btn
-                dark
-                text
-                color="primary"
-                class="ml-2"
-                v-bind="attrs"
-                v-on="on"
-              >
-                {{ itemsPerPage }}
-                <v-icon>mdi-chevron-down</v-icon>
-              </v-btn>
-            </template>
-            <v-list>
-              <v-list-item
-                v-for="(number, index) in itemsPerPageArray"
-                :key="index"
-                @click="updateItemsPerPage(number)"
-              >
-                <v-list-item-title>{{ number }}</v-list-item-title>
-              </v-list-item>
-            </v-list>
-          </v-menu>
-        </div>
-
-        <v-spacer />
-
-        <div>
-          <span class="mr-4 grey--text">
-            Page {{ page }} of {{ numberOfPages() }}
-          </span>
-          <v-btn
-            fab
-            dark
-            color="blue darken-3"
-            class="mr-1"
-            @click="prevPage"
-          >
-            <v-icon>mdi-chevron-left</v-icon>
-          </v-btn>
-          <v-btn
-            fab
-            dark
-            color="blue darken-3"
-            class="ml-1"
-            @click="nextPage"
-          >
-            <v-icon>mdi-chevron-right</v-icon>
-          </v-btn>
-        </div>
-      </v-row>
+      <!--        ↑ CARDS ↑-->
     </template>
   </v-data-iterator>
 </template>
 <script>
 
-import { Component, Vue, Watch } from 'nuxt-property-decorator';
-import ItemsList from '@/components/list/ItemsList';
-import SingleItem from '@/components/list/SingleItem';
-// import { productProps, products } from '@/pages/test';
-
+import { Component, namespace, Vue, Watch } from 'nuxt-property-decorator';
+import ItemsList from '~/components/list/ItemsList';
+import SingleItem from '~/components/list/SingleItem';
+import ProgressCircular from '~/components/global/Progress';
+const { State: profileState, Action: profileAction, Mutation: profileMutation } = namespace('profile');
+const { State: categoriesState, Action: categoriesAction, Mutation: categoriesMutation } = namespace('categories');
 export default @Component({
-  name: 'Nazar',
-  components: { ItemsList, SingleItem }
+  components: { ItemsList, SingleItem, ProgressCircular }
 })
-class Nazar extends Vue {
+
+class Categories extends Vue {
+  @categoriesState categories;
+  @categoriesState goods;
+  @categoriesState isLoading;
+  @categoriesState searchingItems;
+  @categoriesState autocompleteLoader;
+  @categoriesState options;
+  @profileState view
+  @profileState page
+  @profileState perPage
+  @profileState perPageArray
+  @profileState totalPages
+  @categoriesAction getAllGoods;
+  @categoriesAction getAllGoodsAndCategories;
+  @categoriesAction search;
+  @categoriesAction filter;
+  @profileAction calcPage;
+  @profileAction calculateTotalPages;
+  @categoriesMutation setOptions
+  @profileMutation setPerPage;
+  sortBy = 'price'
   isAvailable = false
   isFree = false
   goTop = false
-  isCategorySelected = false
-  isLoading = false
   isSearch = null
   sortDesc = false
   sortNewOrUsed = null
-  view = 'grid'
-  sortBy = 'price'
   priceMinValue = null
   priceMaxValue = null
   autocompleteValue = null
   selectedCategoryValue = null
   searchFromResultsValue = null
-  page = 1
-  itemsPerPageArray = [25, 50, 100]
-  itemsPerPage = this.itemsPerPageArray[0]
-  goods = []
-  categories = []
-  searchingItems = []
+  items = [];
 
   @Watch('isSearch')
   searchWatch (value) {
     if (value) {
-      this.fetchEntriesDebounced(value, this.searching, 1000);
+      this.fetchEntriesDebounced({ value, selectedValue: this.autocompleteValue }, this.search);
     }
   }
 
-  async searching (searchValue) {
-    this.isLoading = true;
-    try {
-      const { products } = await this.$axios.$get(`https://dummyjson.com/products/search?q=${searchValue}`);
-      this.searchingItems = products.map(({
-        title,
-        category
-      }) => ({
-        title,
-        category
-      }));
-      if (this.autocompleteValue) {
-        const { products } = await this.$axios.$get(`https://dummyjson.com/products/search?q=${searchValue}`);
-        this.goods = products;
-      }
-    } catch (err) {
-      console.log(err.message);
-    } finally {
-      this.isLoading = false;
-    }
+  @Watch('goods', { deep: true })
+  changeItems () {
+    this.items = this.goods;
+    this.sliceList();
+    this.calculateTotalPages(this.goods);
   }
 
-  fetchEntriesDebounced (searchingValue, searchingFn, delay = 500) {
+  @Watch('options')
+  getFilter () {
+    console.log(123);
+  }
+
+  async mounted () {
+    await this.getAllGoodsAndCategories();
+  }
+
+  fetchEntriesDebounced (searchValue, searchingFn, delay = 800) {
     clearTimeout(this._searchTimerId);
     this._searchTimerId = setTimeout(() => {
-      return searchingFn(searchingValue);
+      return searchingFn(searchValue);
     }, delay); /* delay ms throttle */
-  }
-
-  async fetch () {
-    this.isLoading = true;
-    try {
-      const categories = await this.$axios.$get('https://dummyjson.com/products/categories');
-      // https://dummyjson.com/products?limit=10&skip=10&select=title,price
-      const { products } = await this.$axios.$get('https://dummyjson.com/products?limit=100');
-      this.goods = products;
-      this.categories = categories;
-    } catch (err) {
-      console.log(err.message);
-    } finally {
-      this.isLoading = false;
-    }
   }
 
   async searchFromCategory (categoryValue) {
     this.isLoading = true;
     try {
       if (categoryValue) {
-        const { products } = await this.$axios.$get(`https://dummyjson.com/products/category/${categoryValue}`);
-        this.goods = products;
+        this.goods = await this.$axios.$get(`http://localhost:3001/search/categories/${categoryValue}`);
         this.autocompleteValue = null;
-        console.log(products);
       }
     } catch (err) {
       console.log(err.message);
@@ -408,37 +356,29 @@ class Nazar extends Vue {
     }
   }
 
+  sliceList () {
+    const firstIdx = (this.page - 1) * this.perPage;
+    this.items = this.goods.slice(firstIdx, firstIdx + this.perPage);
+  }
+
+  changePage (num) {
+    this.calcPage(num);
+    this.sliceList();
+  }
+
+  changePerPage (num) {
+    this.setPerPage(num);
+    this.changePage(1);
+    this.calculateTotalPages(this.goods);
+  }
+
   showBtn () {
     return { visibility: this.isFree || this.isAvailable || this.priceMaxValue || this.sortNewOrUsed ? 'visible' : 'hidden' };
   }
 
-  changeView () {
-    this.view = this.view === 'grid' ? 'list' : 'grid';
-  }
-
-  numberOfPages () {
-    return Math.ceil(this.goods.length / this.itemsPerPage);
-  }
-
-  nextPage () {
-    if (this.page + 1 <= this.numberOfPages()) {
-      this.page += 1;
-    }
-  }
-
-  prevPage () {
-    if (this.page - 1 >= 1) {
-      this.page -= 1;
-    }
-  }
-
-  updateItemsPerPage (number) {
-    this.itemsPerPage = number;
-  }
-
   onScroll () {
     if (typeof window !== 'undefined') {
-      this.goTop = window.pageYOffset > 1000;
+      this.goTop = window.pageYOffset > 500;
     }
   }
 
@@ -452,16 +392,23 @@ class Nazar extends Vue {
     this.priceMaxValue = null;
     this.isAvailable = false;
     this.isFree = false;
+    this.getAllGoods();
   }
 }
 
 </script>
 
 <style scoped lang="scss">
-@import '../assets/variables.scss';
+@import '../../assets/variables';
 
 .data-iterator-container {
   background-color: $secondary;
+}
+.progress{
+  height: 70vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 </style>

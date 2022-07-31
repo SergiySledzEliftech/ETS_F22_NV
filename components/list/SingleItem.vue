@@ -1,5 +1,5 @@
 <template>
-  <div :class="{'isGrid': grid}">
+  <NuxtLink :to="{ name : 'categories-id', params: { id : item._id }}" :class="{'isGrid': grid}">
     <div class="img_wrap">
       <img :src="item.images[0]" alt="image" class="item_img">
     </div>
@@ -8,11 +8,11 @@
         <h4 class="item_title">
           {{ item.title }}
         </h4>
-        <a :href="item.location" target="_blank" class="item_location">
-          <v-icon size="16" color="#C10015">mdi-map-marker-outline</v-icon>some location</a>
+        <a :href="item.category" target="_blank" class="item_location">
+          <v-icon size="16" color="var(--negative)">mdi-star-minus</v-icon>{{ item.category }}</a>
       </div>
       <div class="item_details">
-        <p>Price:<span>{{ item.price }}$</span></p>
+        <p>Price:<span v-if="item.price > 0">{{ item.price }}$</span><span v-else>Free</span></p>
         <p>
           Rating:<span>{{ item.rating }} <v-icon
             size="20"
@@ -22,36 +22,32 @@
           </v-icon>
           </span>
         </p>
-        <p>Term:<span>{{ item.term }} day(s)</span></p>
+        <p>Term:<span>1 day(s)</span></p>
       </div>
-      <div class="item_seller">
-        <img
-          :src="item.user.avatar"
-          alt="avatar"
-        >
-        <p>{{ item.user.firstName }} {{ item.user.lastName }}</p>
-      </div>
+      <NuxtLink :to="/profile/ +userId">
+        <div class="item_seller">
+          <img
+            src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSaDVA_pu9U4m-YPEQY5c9v8nqJHzOPgmopaA&usqp=CAU"
+            alt="avatar"
+          >
+          <p>User name</p>
+        </div>
+      </NuxtLink>
     </div>
     <slot />
-  </div>
+  </NuxtLink>
 </template>
 
 <script>
-import { Vue, Component } from 'nuxt-property-decorator';
+import { Vue, Component, Prop } from 'nuxt-property-decorator';
 export default @Component({
-  name: 'single-item',
-  props: {
-    grid: {
-      type: Boolean,
-      required: true
-    },
-    item: {
-      type: Object,
-      required: true
-    }
-  }
+  name: 'single-item'
 })
+
 class SingleItem extends Vue {
+  @Prop({ type: Boolean, required: true }) grid;
+  @Prop({ type: Object, required: true }) item;
+  userId = '62dfd0e96be61376782507d5'
 }
 </script>
 
@@ -85,8 +81,10 @@ class SingleItem extends Vue {
     .item_title {
       margin-top: 10px;
       margin-bottom: 0;
+      font-size: 18px;
+      height: 45px;
       @media screen and (max-width: 899px) {
-        font-size: 18px;
+        font-size: 16px;
         font-weight: 600;
       }
     }

@@ -1,45 +1,31 @@
 <template>
-  <v-app dark>
-    <h1 v-if="error.statusCode === 404">
-      {{ pageNotFound }}
-    </h1>
-    <h1 v-else>
-      {{ otherError }}
-    </h1>
-    <NuxtLink to="/">
-      Home page
-    </NuxtLink>
-  </v-app>
+  <div class="page404">
+    <h1>404 Not Found</h1>
+    <img src="~/assets/img/HelloFromUkraine.png" alt="Hello, we are from Ukraine">
+    <h3>Hello, we are from Ukraine</h3>
+  </div>
 </template>
 
 <script>
-export default {
-  name: 'EmptyLayout',
-  layout: 'empty',
-  props: {
-    error: {
-      type: Object,
-      default: null
-    }
-  },
-  data () {
-    return {
-      pageNotFound: '404 Not Found',
-      otherError: 'An error occurred'
-    };
-  },
-  head () {
-    const title =
-      this.error.statusCode === 404 ? this.pageNotFound : this.otherError;
-    return {
-      title
-    };
-  }
-};
+import { Vue, Component } from 'nuxt-property-decorator';
+
+export default @Component({})
+
+class Error extends Vue {}
 </script>
 
-<style scoped>
-h1 {
-  font-size: 20px;
-}
+<style lang="scss" scoped>
+  .page404{
+  text-align: center;
+    img{
+      display: block;
+      width: 100%;
+      margin: 10px auto 16px auto;
+      max-width: 900px;
+    }
+    h3{
+      margin-top: 0!important;
+      text-align: center!important;
+    }
+  }
 </style>

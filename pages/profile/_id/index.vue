@@ -112,23 +112,23 @@
               {{ user.firstName }} {{ user.lastName }}
             </h5>
           </v-card>
-          <v-card>
-            <v-list-item two-line>
-              <v-list-item-content class="rating">
-                <v-list-item-subtitle>
-                  Rating
-                </v-list-item-subtitle>
-                <v-list-item-title>
-                  {{ user.rating }} from 10
-                </v-list-item-title>
-              </v-list-item-content>
-            </v-list-item>
-          </v-card>
+          <!--          <v-card>-->
+          <!--            <v-list-item two-line>-->
+          <!--              <v-list-item-content class="rating">-->
+          <!--                <v-list-item-subtitle>-->
+          <!--                  Rating-->
+          <!--                </v-list-item-subtitle>-->
+          <!--                <v-list-item-title>-->
+          <!--                  {{ user.rating }} from 10-->
+          <!--                </v-list-item-title>-->
+          <!--              </v-list-item-content>-->
+          <!--            </v-list-item>-->
+          <!--          </v-card>-->
         </v-col>
 
         <v-col lg="8" md="8" sm="12" xs="12">
           <v-card>
-            <v-list-item two-line>
+            <v-list-item v-if="nickname || isMy" two-line>
               <v-list-item-content>
                 <v-list-item-subtitle>
                   Nickname
@@ -137,6 +137,7 @@
                   <v-text-field
                     v-model="nickname"
                     class="disable-input"
+                    placeholder="Enter nickname"
                     :disabled="!fab"
                     type="text"
                     :rules="ruleNickname"
@@ -145,7 +146,7 @@
                 </v-list-item-title>
               </v-list-item-content>
             </v-list-item>
-            <v-list-item two-line>
+            <v-list-item v-if="email || isMy" two-line>
               <v-list-item-content>
                 <v-list-item-subtitle>
                   E-mail
@@ -153,6 +154,7 @@
                 <v-list-item-title>
                   <v-text-field
                     v-model="email"
+                    placeholder="Enter your email"
                     class="disable-input"
                     :disabled="!fab"
                     :rules="ruleEmail"
@@ -162,7 +164,7 @@
                 </v-list-item-title>
               </v-list-item-content>
             </v-list-item>
-            <v-list-item two-line>
+            <v-list-item v-if="phone || isMy" two-line>
               <v-list-item-content>
                 <v-list-item-subtitle>
                   Phone
@@ -171,6 +173,7 @@
                   <v-text-field
                     v-model="phone"
                     class="disable-input"
+                    placeholder="Enter your phone number"
                     :disabled="!fab"
                     type="text"
                     :rules="rulePhone"
@@ -179,7 +182,7 @@
                 </v-list-item-title>
               </v-list-item-content>
             </v-list-item>
-            <v-list-item v-if="optionalPhone" two-line>
+            <v-list-item v-if="optionalPhone || isMy" two-line>
               <v-list-item-content>
                 <v-list-item-subtitle>
                   Optional Phone
@@ -187,6 +190,7 @@
                 <v-list-item-title>
                   <v-text-field
                     v-model="optionalPhone"
+                    placeholder="Enter optional phone number"
                     class="disable-input"
                     :disabled="!fab"
                     type="text"
@@ -196,7 +200,7 @@
                 </v-list-item-title>
               </v-list-item-content>
             </v-list-item>
-            <v-list-item two-line>
+            <v-list-item v-if="location || isMy" two-line>
               <v-list-item-content>
                 <v-list-item-subtitle>
                   Location
@@ -205,6 +209,7 @@
                   <v-text-field
                     v-model="location"
                     class="disable-input"
+                    placeholder="Enter your city"
                     :disabled="!fab"
                     type="text"
                     :rules="ruleAddress"
@@ -213,7 +218,7 @@
                 </v-list-item-title>
               </v-list-item-content>
             </v-list-item>
-            <v-list-item two-line>
+            <v-list-item v-if="about || isMy" two-line>
               <v-list-item-content>
                 <v-list-item-subtitle>
                   About
@@ -221,6 +226,7 @@
                 <v-list-item-title>
                   <v-textarea
                     v-model="about"
+                    placeholder="Write about yourself"
                     class="disable-input"
                     :disabled="!fab"
                     maxlength="240"
@@ -713,6 +719,7 @@ class Config extends Vue {
     .avtr {
       margin-bottom: 10px;
       max-width: 200px;
+      border-radius: 4px;
     }
   }
 }
