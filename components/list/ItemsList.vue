@@ -1,5 +1,5 @@
 <template>
-  <div v-show="list" class="wrapper">
+  <div v-show="list.length > 0" class="wrapper">
     <div v-show="!disablePagination" class="view-wrap">
       <div class="perpage-select">
         <p>Items per page</p>

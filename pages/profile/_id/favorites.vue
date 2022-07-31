@@ -1,27 +1,35 @@
 <template>
   <div>
-    <ItemsList
-      :list="items"
-      :set-page="changePage"
-      :set-per-page="changePerPage"
-    >
-      <li v-for="item in items" :key="item._id" class="item">
-        <SingleItem :item="item" :grid="view === 'list'">
-          <div class="btn">
-            <v-tooltip bottom>
-              <template #activator="{on, attrs}">
-                <v-btn fab class="btn" small v-bind="attrs" v-on="on">
-                  <v-icon color="error">
-                    mdi-heart
-                  </v-icon>
-                </v-btn>
-              </template>
-              <span>Remove from favorites</span>
-            </v-tooltip>
-          </div>
-        </SingleItem>
-      </li>
-    </ItemsList>
+    <div v-if="data.length > 0">
+      <ItemsList
+        :list="items"
+        :set-page="changePage"
+        :set-per-page="changePerPage"
+      >
+        <li v-for="item in items" :key="item._id" class="item">
+          <SingleItem :item="item" :grid="view === 'list'">
+            <div class="btn">
+              <v-tooltip bottom>
+                <template #activator="{on, attrs}">
+                  <v-btn fab class="btn" small v-bind="attrs" v-on="on">
+                    <v-icon color="error">
+                      mdi-heart
+                    </v-icon>
+                  </v-btn>
+                </template>
+                <span>Remove from favorites</span>
+              </v-tooltip>
+            </div>
+          </SingleItem>
+        </li>
+      </ItemsList>
+    </div>
+    <div v-else class="nodata">
+      <p>No favorites yet</p>
+      <NuxtLink :to="{name: 'categories'}" class="link">
+        Find something interesting
+      </NuxtLink>
+    </div>
   </div>
 </template>
 

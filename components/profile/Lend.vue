@@ -118,4 +118,34 @@ class Lend extends Vue {
     font-weight: 600;
   }
 }
+
+.nodata {
+  padding: 40px 20px;
+  width: 100%;
+  height: 100%;
+
+  p {
+    text-align: center;
+    margin: auto;
+    color: $secondary;
+    font-weight: 600;
+  }
+
+  .link {
+    display: block;
+    color: $light;
+    font-size: 18px;
+    text-transform: uppercase;
+    font-weight: 600;
+    text-align: center;
+    margin: 10px auto;
+    &:hover {
+      color: $negative;
+      text-decoration: underline;
+      background-color: transparent;
+      transform: scale(1.02);
+      
+    }
+  }
+}
 </style>

@@ -52,9 +52,11 @@ class Borrow extends Vue {
   @ListAction calcPerPage;
 
   sliceList () {
-    const firstIdx = (this.page - 1) * this.perPage;
-    const result = this.data?.slice(firstIdx, firstIdx + this.perPage);
-    this.items = result;
+    if (this.data && this.data.length > 0) {
+      const firstIdx = (this.page - 1) * this.perPage;
+      const result = this.data?.slice(firstIdx, firstIdx + this.perPage);
+      this.items = result;
+    }
   }
 
   changePage (num) {
@@ -75,8 +77,9 @@ class Borrow extends Vue {
   mounted () {
     this.setLoad(true);
     const localRents = this.$auth.$storage.getLocalStorage(this.$auth.user._id);
-    this.data = localRents !== null ? localRents : [];
-    if (this.data !== []) {
+    this.data = localRents !== undefined ? localRents : [];
+    console.log(this.data, this.data !== []);
+    if (this.data && this.data !== []) {
       this.sliceList();
       this.calculateTotalPages(this.data);
     }
@@ -138,5 +141,4 @@ class Borrow extends Vue {
     }
   }
 }
-
 </style>

@@ -248,12 +248,8 @@
       <!--        ↓ CARDS ↓-->
       <items-list
         :list="props.items"
-        :page="page"
-        :total-pages="totalPages"
         :set-page="changePage"
         :set-per-page="changePerPage"
-        :per-page="perPage"
-        :opts-array="perPageArray"
       >
         <li v-for="item in props.items" :key="item._id" class="item">
           <single-item
@@ -272,7 +268,7 @@ import { Component, namespace, Vue, Watch } from 'nuxt-property-decorator';
 import ItemsList from '~/components/list/ItemsList';
 import SingleItem from '~/components/list/SingleItem';
 import ProgressCircular from '~/components/global/Progress';
-const { State: profileState, Action: profileAction, Mutation: profileMutation } = namespace('profile');
+const { State: listState, Action: listAction } = namespace('list');
 const { State: categoriesState, Action: categoriesAction, Mutation: categoriesMutation } = namespace('categories');
 export default @Component({
   components: { ItemsList, SingleItem, ProgressCircular },
@@ -286,19 +282,19 @@ class Categories extends Vue {
   @categoriesState searchingItems;
   @categoriesState autocompleteLoader;
   @categoriesState options;
-  @profileState view
-  @profileState page
-  @profileState perPage
-  @profileState perPageArray
-  @profileState totalPages
+  @listState view
+  @listState page
+  @listState perPage
+  @listState perPageArray
+  @listState totalPages
   @categoriesAction getAllGoods;
   @categoriesAction getAllGoodsAndCategories;
   @categoriesAction search;
   @categoriesAction filter;
-  @profileAction calcPage;
-  @profileAction calculateTotalPages;
+  @listAction calcPage;
+  @listAction calculateTotalPages;
   @categoriesMutation setOptions
-  @profileMutation setPerPage;
+  @listAction calcPerPage;
   sortBy = 'price'
   isAvailable = false
   isFree = false
@@ -368,8 +364,8 @@ class Categories extends Vue {
   }
 
   changePerPage (num) {
-    this.setPerPage(num);
-    this.changePage(1);
+    this.calcPerPage(num);
+    this.sliceList();
     this.calculateTotalPages(this.goods);
   }
 
