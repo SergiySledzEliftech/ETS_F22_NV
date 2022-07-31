@@ -1,3 +1,5 @@
+import { serverApiUrl } from '@/settings/config';
+
 export const state = () => ({
   likeBlock: {},
   likeStatusExist: false
@@ -18,7 +20,7 @@ export const actions = {
     { commentId, userId }
   ) {
     const { data } = await this.$axios.get(
-      'https://glomare.herokuapp.com/likes/?commentId=' + commentId + '&userId=' + userId
+      `${serverApiUrl}likes/?commentId=${commentId}&userId=${userId}`
     );
     if (!data) {
       commit('setLikeStatus', false);
@@ -32,17 +34,17 @@ export const actions = {
     { commentId, userId, like }
   ) {
     const { data } = await this.$axios.get(
-      'https://glomare.herokuapp.com/likes/?commentId=' + commentId + '&userId=' + userId
+      `${serverApiUrl}likes/?commentId=${commentId}&userId=${userId}`
     );
     if (data) {
-      await this.$axios.$put('https://glomare.herokuapp.com/likes/' + data._id, {
+      await this.$axios.$put(`${serverApiUrl}likes/${data._id}`, {
         commentId,
         userId,
         like
       });
     }
     if (!data) {
-      await this.$axios.$post('https://glomare.herokuapp.com/likes', {
+      await this.$axios.$post(`${serverApiUrl}likes`, {
         commentId,
         userId,
         like

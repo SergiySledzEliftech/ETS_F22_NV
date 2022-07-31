@@ -1,3 +1,5 @@
+import { serverApiUrl } from '@/settings/config';
+
 export const state = () => ({
   comments: [],
   userComments: [],
@@ -31,26 +33,24 @@ export const mutations = {
 export const actions = {
   async loadComments ({ state, commit }, goodId) {
     commit('setLoading', true);
-
-    const { data } = await this.$axios.get('https://glomare.herokuapp.com/comments/?goodId=' + goodId);
+    const { data } = await this.$axios.get(`${serverApiUrl}comments/?goodId=${goodId}`);
     commit('setComments', data);
     commit('setLoading', false);
   },
   async loadUserComments ({ state, commit }, { userId, goodId }) {
     commit('setLoading', true);
-
-    const { data } = await this.$axios.get('https://glomare.herokuapp.com/comments/my?userId=' + userId + '&goodId=' + goodId);
+    const { data } = await this.$axios.get(`${serverApiUrl}comments/my?userId=${userId}&goodId=${goodId}`);
     commit('setUserComments', data);
     commit('setLoading', false);
   },
   async createComment ({ state, commit }, data) {
     commit('setLoading', true);
-    await this.$axios.$post('https://glomare.herokuapp.com/comments', data);
+    await this.$axios.$post(`${serverApiUrl}comments`, data);
     commit('setLoading', false);
   },
   async removeComment ({ state, commit }, id) {
     commit('setLoading', true);
-    await this.$axios.$delete('https://glomare.herokuapp.com/comments/' + id);
+    await this.$axios.$delete(`${serverApiUrl}comments/${id}`);
     commit('setLoading', false);
   },
   async updateCommentLikes (
@@ -58,7 +58,7 @@ export const actions = {
     { id, like, dislike }
   ) {
     await this.$axios.$put(
-      'https://glomare.herokuapp.com/comments/' + id,
+      `${serverApiUrl}comments/${id}`,
       {
         like,
         dislike
