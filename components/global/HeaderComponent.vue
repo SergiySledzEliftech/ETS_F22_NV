@@ -14,7 +14,7 @@
               <li class="menu-item menu-item-child">
                 <a href="#" data-toggle="sub-menu">{{ menu[0].item }}<i class="expand" /></a>
                 <ul class="sub-menu">
-                  <li v-for="item in subMenuCatalog" :key="item.to" class="menu-item">
+                  <li v-for="(item, index) in subMenuCatalog" :key="index" class="menu-item">
                     <NuxtLink :to="{name: item.to}">
                       {{ item.name }}
                     </NuxtLink>
@@ -202,15 +202,15 @@ class HeaderComponent extends Vue {
 
   // SubMenu Catalog
   subMenuCatalog = [
-    { name: 'Smartphones', to: '#1' },
-    { name: 'Laptops', to: '#2' },
-    { name: 'Fragrances', to: '#3' },
-    { name: 'Skincare', to: '#4' },
-    { name: 'Groceries', to: '#5' },
-    { name: 'Home decoration', to: '#6' },
-    { name: 'Automotive', to: '#7' },
-    { name: 'Motorcycle', to: '#8' },
-    { name: 'Lighting', to: '#9' }
+    { name: 'Smartphones', to: 'categories' },
+    { name: 'Laptops', to: 'categories' },
+    { name: 'Fragrances', to: 'categories' },
+    { name: 'Skincare', to: 'categories' },
+    { name: 'Groceries', to: 'categories' },
+    { name: 'Home decoration', to: 'categories' },
+    { name: 'Automotive', to: 'categories' },
+    { name: 'Motorcycle', to: 'categories' },
+    { name: 'Lighting', to: 'categories' }
   ]
 
   // SubMenu Services
