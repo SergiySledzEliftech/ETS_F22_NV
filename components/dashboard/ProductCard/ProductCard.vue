@@ -1,6 +1,7 @@
 <template>
   <v-hover v-slot="{ hover }">
     <v-card
+      :to="{ name : 'categories-id', params: { id : idProp }}"
       class="mx-auto product-card"
       max-width="304px"
       height="304px"
@@ -42,6 +43,7 @@ class ProductCard extends Vue {
   @Prop({ default: 'Loading...' }) title
   @Prop() img
   @Prop() isLoading
+  @Prop() idProp
 
   formatString (str) {
     return str.length > 17 ? str.slice(0, 17) + '...' : str;

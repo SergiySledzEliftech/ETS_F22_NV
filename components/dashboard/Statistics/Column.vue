@@ -42,7 +42,6 @@ class Column extends Vue {
   }
 
   .column:hover{
-    cursor: help;
     .animation-div{
       height: 100%;
     }

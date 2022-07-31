@@ -16,7 +16,14 @@
             height="100%"
           >
             <div class="d-flex align-center justify-space-around">
-              <product-card v-for="e of el" :key="e._id" :img="e.images && e.images[0]" :title="e.title" :is-loading="loading" />
+              <product-card
+                v-for="e of el"
+                :key="e._id"
+                :id-prop="e._id"
+                :img="e.images && e.images[0]"
+                :title="e.title"
+                :is-loading="loading"
+              />
             </div>
           </v-sheet>
         </v-carousel-item>
@@ -35,7 +42,7 @@
             height="100%"
           >
             <div class="d-flex align-center justify-space-around">
-              <product-card :img="el.images && el.images[0]" :title="el.title" :is-loading="loading" />
+              <product-card :id-prop="el._id" :img="el.images && el.images[0]" :title="el.title" :is-loading="loading" />
             </div>
           </v-sheet>
         </v-carousel-item>
@@ -43,15 +50,15 @@
     </div>
     <div class="d-none d-lg-flex align-center flex-wrap justify-space-around">
       <div v-for="el of goodsData.slice(0, 6)" :key="el._id" class="d-flex d-xl-none">
-        <product-card class="six-elements-element" :img="el.images && el.images[0]" :title="el.title" :is-loading="loading" />
+        <product-card :id-prop="el._id" class="six-elements-element" :img="el.images && el.images[0]" :title="el.title" :is-loading="loading" />
       </div>
       <div class="other-top-goods d-xl-none" :class="{ otherTopGoodsShow : showAll }">
         <div v-for="el of goodsData.slice(6)" :key="el._id">
-          <product-card class="six-elements-element" :img="el.images && el.images[0]" :title="el.title" :is-loading="loading" />
+          <product-card :id-prop="el._id" class="six-elements-element" :img="el.images && el.images[0]" :title="el.title" :is-loading="loading" />
         </div>
       </div>
       <div v-for="(el, index) of goodsData" :key="el._id + index.toString()" class="d-none d-xl-flex">
-        <product-card class="ten-elements-element" :img="el.images && el.images[0]" :title="el.title" :is-loading="loading" />
+        <product-card :id-prop="el._id" class="ten-elements-element" :img="el.images && el.images[0]" :title="el.title" :is-loading="loading" />
       </div>
     </div>
     <div class="buttons-wrapper d-lg-flex d-none d-xl-none align-center justify-space-around mx-auto btn-other-margin">

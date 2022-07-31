@@ -7,7 +7,7 @@
         <div
           class="rent-btn"
           v-bind="attrs"
-          v-on="goodStatus === 'available' ? on : {}"
+          v-on="goodStatus === 'available' && $auth.user !== null? on : {}"
         >
           <v-btn
             :disabled="goodStatus === 'unavailable' || $auth.user === null"
@@ -102,7 +102,6 @@ class RentPopup extends Vue {
         lease_term: this.term,
         good: this.good
       });
-      console.log('first element' + goodsRented);
       this.$auth.$storage.setLocalStorage(this.$auth.user._id, goodsRented);
     } else {
       this.$auth.$storage.removeLocalStorage(this.$auth.user._id);
@@ -111,10 +110,8 @@ class RentPopup extends Vue {
         lease_term: this.term,
         good: this.good
       });
-      console.log('more elements' + goodsRented);
       this.$auth.$storage.setLocalStorage(this.$auth.user._id, goodsRented);
     }
-    console.log(this.$auth.$storage.getLocalStorage(this.$auth.user._id));
   }
 }
 </script>

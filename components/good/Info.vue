@@ -148,7 +148,6 @@ class Info extends Vue {
 
   mounted () {
     this.goodStatus = this.good.status;
-    console.log(this.good.leaser_info);
   }
 }
 </script>
