@@ -3,12 +3,8 @@
     <div v-if="data.length > 0">
       <items-list
         :list="data"
-        :page="page"
-        :total-pages="totalPages"
         :set-page="changePage"
         :set-per-page="changePerPage"
-        :per-page="perPage"
-        :opts-array="perPageArray"
       >
         <li v-for="item in items" :key="item.good._id" class="item">
           <single-item :item="item.good" :grid="view === 'list'">
@@ -29,29 +25,31 @@
 </template>
 
 <script>
-import { Vue, Component, Prop, namespace } from 'nuxt-property-decorator';
+import { Vue, Component, namespace } from 'nuxt-property-decorator';
 import moment from 'moment';
 import ItemsList from '@/components/list/ItemsList.vue';
 import SingleItem from '~/components/list/SingleItem.vue';
-const { State, Action, Mutation } = namespace('profile');
+const { Action } = namespace('profile');
+const { State: ListState, Action: ListAction } = namespace('list');
+
 export default @Component({
   name: 'borrow',
   components: { ItemsList, SingleItem }
 })
 
 class Borrow extends Vue {
-  @Prop({ type: String, required: true }) view;
   items = [];
   data = [];
-  @State page;
-  @State perPage;
-  @State perPageArray;
-  @State totalPages;
+  @ListState view;
+  @ListState page;
+  @ListState perPage;
+  @ListState perPageArray;
+  @ListState totalPages;
   @Action deleteElem;
-  @Action calculateTotalPages;
-  @Action calcPage;
-  @Action setLoad;
-  @Mutation setPerPage;
+  @ListAction calculateTotalPages;
+  @ListAction calcPage;
+  @ListAction setLoad;
+  @ListAction calcPerPage;
 
   sliceList () {
     const firstIdx = (this.page - 1) * this.perPage;
@@ -65,8 +63,8 @@ class Borrow extends Vue {
   }
 
   changePerPage (num) {
-    this.setPerPage(num);
-    this.changePage(1);
+    this.calcPerPage(num);
+    this.sliceList();
     this.calculateTotalPages(this.data);
   }
 
@@ -78,7 +76,6 @@ class Borrow extends Vue {
     this.setLoad(true);
     const localRents = this.$auth.$storage.getLocalStorage(this.$auth.user._id);
     this.data = localRents !== null ? localRents : [];
-    console.log(this.data);
     if (this.data !== []) {
       this.sliceList();
       this.calculateTotalPages(this.data);
@@ -92,7 +89,7 @@ class Borrow extends Vue {
 .expire {
   margin: 0;
   position: absolute;
-  padding: 10px;
+  padding: 10px !important;
   right: 0;
   top: 0;
   font-weight: 500;
@@ -109,14 +106,14 @@ class Borrow extends Vue {
   border-top-left-radius: 10px;
   border-bottom-right-radius: 10px;
   left: 0;
-  padding: 5px 10px;
+  padding: 5px 10px !important;
 }
 
 .nodata {
   padding: 40px 20px;
   width: 100%;
   height: 100%;
-  
+
   p {
     text-align: center;
     margin: auto;

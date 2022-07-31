@@ -8,16 +8,18 @@
         <h4 class="item_title">
           {{ item.title }}
         </h4>
-        <a :href="item.category" target="_blank" class="item_location">
-          <v-icon size="16" color="var(--negative)">mdi-map-marker</v-icon>{{ item.location }}</a>
-        <NuxtLink :to="{name: 'categories', params: {category: item.category}}" class="item_location">
-          <v-icon size="16" color="var(--warning)">
-            mdi-star-minus
-          </v-icon>{{ item.category }}
-        </NuxtLink>
+        <div>
+          <a :href="item.category" target="_blank" class="item_location">
+            <v-icon size="16" color="var(--negative)">mdi-map-marker</v-icon>{{ item.location }}</a>
+          <NuxtLink :to="{name: 'categories', params: {category: item.category}}" class="item_location">
+            <v-icon size="16" color="var(--warning)">
+              mdi-star-minus
+            </v-icon>{{ item.category }}
+          </NuxtLink>
+        </div>
       </div>
       <div class="item_details">
-        <p>Price:<span v-if="item.price > 0">{{ item.price }}$</span><span v-else>Free</span></p>
+        <p>Price:<span v-if="item.price > 0">{{ item.price }} UAH</span><span v-else>Free</span></p>
         <p>
           Rating:<span>{{ item.rating }} <v-icon
             size="20"

@@ -19,7 +19,7 @@
           </template>
           <v-list>
             <v-list-item
-              v-for="(number, index) in optsArray"
+              v-for="(number, index) in perPageArray"
               :key="index"
               @click="setPerPage(number)"
             >
@@ -45,8 +45,7 @@
     </ul>
     <v-pagination
       v-show="!disablePagination"
-      v-model="currentPage"
-      value="currentPage"
+      v-model="page"
       :length="totalPages"
       total-visible="5"
       @input="setPage"
@@ -59,7 +58,7 @@
 <script>
 import { Vue, Component, namespace, Prop } from 'nuxt-property-decorator';
 import SingleItem from './SingleItem.vue';
-const { State, Mutation } = namespace('profile');
+const { State: ListState, Mutation: ListMutation } = namespace('list');
 
 export default @Component({
   name: 'items-list',
@@ -68,19 +67,18 @@ export default @Component({
 
 class ItemsList extends Vue {
   icon = 'mdi-format-list-bulleted-square';
-  @State view;
-  @State loading;
-  @Mutation changeView;
+  @ListState view;
+  @ListState loading;
+  @ListState page;
+  @ListState totalPages;
+  @ListState perPage;
+  @ListState perPageArray;
+  @ListMutation changeView;
   @Prop({ type: Array }) list;
-  @Prop({ type: Number, required: true }) page;
-  @Prop({ type: Number, required: true }) totalPages;
   @Prop({ type: Function, required: true }) setPage;
   @Prop({ type: Function, required: true }) setPerPage;
-  @Prop({ type: Number, required: true }) perPage;
-  @Prop({ type: Array, required: true }) optsArray;
   @Prop({ default: false, type: Boolean }) disablePagination;
 
-  currentPage = 0
   changeIcon () {
     this.icon =
       this.icon === 'mdi-view-grid-outline'
@@ -110,7 +108,6 @@ class ItemsList extends Vue {
       this.view === 'grid'
         ? 'mdi-format-list-bulleted-square'
         : 'mdi-view-grid-outline';
-    this.currentPage = this.page;
     this.setPage(1);
   }
 }

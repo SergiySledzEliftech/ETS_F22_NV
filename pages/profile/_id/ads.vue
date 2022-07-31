@@ -2,12 +2,8 @@
   <div>
     <ItemsList
       :list="items"
-      :page="page"
-      :total-pages="totalPages"
       :set-page="changePage"
       :set-per-page="changePerPage"
-      :per-page="perPage"
-      :opts-array="perPageArray"
     >
       <li v-for="item in items" :key="item._id" class="item">
         <SingleItem :item="item" :grid="view === 'list'">
@@ -45,7 +41,7 @@ import { Vue, Component, namespace, Prop } from 'nuxt-property-decorator';
 import ItemsList from '~/components/list/ItemsList.vue';
 import SingleItem from '~/components/list/SingleItem.vue';
 const { State, Action } = namespace('profile');
-// const { ListState } = namespace('list');
+const { State: ListState, Action: ListAction } = namespace('list');
 
 export default @Component({
   name: 'profile-ads',
@@ -54,18 +50,18 @@ export default @Component({
 
 class ProfileAds extends Vue {
   @State data;
-  @State view;
-  @State page;
-  @State perPage;
-  @State perPageArray;
-  @State totalPages;
+  @ListState view;
+  @ListState page;
+  @ListState perPage;
+  @ListState perPageArray;
+  @ListState totalPages;
   @Action getUser;
   @Action getProducts;
   @Action deleteElem;
-  @Action setLoad;
-  @Action calculateTotalPages;
-  @Action calcPage;
-  @Action calcPerPage;
+  @ListAction setLoad;
+  @ListAction calculateTotalPages;
+  @ListAction calcPage;
+  @ListAction calcPerPage;
   @Prop({ default: '' }) isMy;
   items = [];
   disable = true;
@@ -84,6 +80,7 @@ class ProfileAds extends Vue {
 
   changePerPage (num) {
     this.calcPerPage(num);
+    this.sliceList();
     this.calculateTotalPages(this.data);
   }
 

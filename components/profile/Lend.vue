@@ -3,12 +3,8 @@
     <div v-if="data.length > 0">
       <items-list
         :list="data"
-        :page="page"
-        :total-pages="totalPages"
         :set-page="changePage"
         :set-per-page="changePerPage"
-        :per-page="perPage"
-        :opts-array="perPageArray"
       >
         <li v-for="item in items" :key="item._id" class="item">
           <single-item :item="item" :grid="view === 'list'">
@@ -27,30 +23,32 @@
 </template>
 
 <script>
-import { Vue, Component, Prop, namespace } from 'nuxt-property-decorator';
+import { Vue, Component, namespace } from 'nuxt-property-decorator';
 import moment from 'moment';
 import ItemsList from '@/components/list/ItemsList.vue';
 import SingleItem from '~/components/list/SingleItem.vue';
-const { State, Action, Mutation } = namespace('profile');
+const { State, Action } = namespace('profile');
+const { State: ListState, Action: ListAction } = namespace('list');
+
 export default @Component({
   name: 'lend',
   components: { ItemsList, SingleItem }
 })
 
 class Lend extends Vue {
-  @Prop({ type: String, required: true }) view;
   items = [];
   @State data;
-  @State page;
-  @State perPage;
-  @State perPageArray;
-  @State totalPages;
+  @ListState view;
+  @ListState page;
+  @ListState perPage;
+  @ListState perPageArray;
+  @ListState totalPages;
   @Action getProducts;
   @Action deleteElem;
-  @Action calculateTotalPages;
-  @Action calcPage;
-  @Action setLoad;
-  @Mutation setPerPage;
+  @ListAction setLoad;
+  @ListAction calculateTotalPages;
+  @ListAction calcPage;
+  @ListAction calcPerPage;
 
   sliceList () {
     if (this.data.length > 0) {
@@ -66,9 +64,9 @@ class Lend extends Vue {
   }
 
   changePerPage (num) {
-    this.setPerPage(num);
-    this.changePage(1);
-    this.calculateTotalPages(this.list);
+    this.calcPerPage(num);
+    this.sliceList();
+    this.calculateTotalPages(this.data);
   }
 
   formatDate (date) {
@@ -106,7 +104,7 @@ class Lend extends Vue {
   border-top-left-radius: 10px;
   border-bottom-right-radius: 10px;
   left: 0;
-  padding: 5px 10px;
+  padding: 5px 10px !important;
 }
 .nodata{
   padding: 40px 20px;
