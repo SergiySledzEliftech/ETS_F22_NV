@@ -30,7 +30,7 @@
             <div class="orders__item-description m-b-2">
               {{ item.description }}
             </div>
-            <div class="orders__item-actions" @click="deleteOrderedGoodFromList(item._id)">
+            <div class="orders__item-actions" @click="deleteOrderedGoodFromList(item._id, item)">
               <fa icon="trash-can" />
             </div>
           </div>
@@ -87,8 +87,9 @@ class PaymentsOrders extends Vue {
     this.$emit('modalCardVisible', true, bill);
   }
 
-  deleteOrderedGoodFromList (id) {
-    this.deleteOrderedGood(id);
+  deleteOrderedGoodFromList (id, item) {
+    item.status = 'available';
+    this.deleteOrderedGood({ id, item });
   }
 }
 </script>
