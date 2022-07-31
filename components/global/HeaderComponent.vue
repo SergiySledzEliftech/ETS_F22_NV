@@ -12,7 +12,7 @@
           <nav id="navbar" class="navbar" @click="collapseSubMenu2">
             <ul class="menu">
               <li class="menu-item menu-item-child">
-                <a href="#" data-toggle="sub-menu">{{ menu[0].item }}<i class="expand" /></a>
+                <a href="#" class="menu-link" data-toggle="sub-menu">{{ menu[0].item }}<i class="expand" /></a>
                 <ul class="sub-menu">
                   <li v-for="(item, index) in subMenuCatalog" :key="index" class="menu-item">
                     <NuxtLink :to="{name: item.to}">
@@ -23,7 +23,7 @@
               </li>
 
               <li class="menu-item menu-item-child">
-                <a href="#" data-toggle="sub-menu">{{ menu[1].item }}<i class="expand" /></a>
+                <a href="#" class="menu-link" data-toggle="sub-menu">{{ menu[1].item }}<i class="expand" /></a>
                 <ul class="sub-menu">
                   <li v-for="item in subMenuServices" :key="item.to" class="menu-item">
                     <NuxtLink :to="{name: item.to}">
@@ -248,6 +248,10 @@ class HeaderComponent extends Vue {
         const subMenu = menuItemHasChildren.querySelector('.sub-menu');
         subMenu.style.maxHeight = subMenu.scrollHeight + 'px';
       }
+    }
+    // for close mob menu when choose link
+    if (!e.target.classList.contains('menu-link')) {
+      this.toggleMenu();
     }
   }
 
