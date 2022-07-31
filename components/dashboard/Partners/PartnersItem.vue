@@ -3,6 +3,7 @@
     <v-tooltip top>
       <template #activator="{ on, attrs }">
         <v-card
+          to="/Services/About"
           class="partners-item-wrapper ml-5 mr-5 mb-5 d-none d-md-flex"
           min-width="150px"
           height="150px"
@@ -25,6 +26,7 @@
       <span>{{ companyName }}</span>
     </v-tooltip>
     <v-card
+      to="/Services/About"
       class="partners-item-wrapper ml-5 mr-5 mb-5 d-md-none"
       min-width="150px"
       color="var(--bg)"
@@ -61,7 +63,6 @@ class PartnersItem extends Vue {
 <style scoped lang="scss">
   .partners-item-wrapper{
     background-color: $bg;
-    cursor: help;
     padding: 25px;
     padding-bottom: 10px;
   }
@@ -76,5 +77,9 @@ class PartnersItem extends Vue {
       transform: translate(-50%, -50%);
       background-color: $bg;
     }
+  }
+
+  .partner-title{
+    font-weight: normal;
   }
 </style>
