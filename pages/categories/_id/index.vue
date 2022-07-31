@@ -169,7 +169,8 @@ import Map from '~/components/good/Map';
 export default @Component({
   components: {
     Map
-  }
+  },
+  auth: false
 })
 class DescriptionTab extends Vue {
   @Prop() good

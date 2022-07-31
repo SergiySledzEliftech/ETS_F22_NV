@@ -31,7 +31,8 @@ export default @Component({
   components: {
     CommentList,
     ProgressCircular
-  }
+  },
+  auth: false
 })
 class AllComments extends Vue {
   @State comments
@@ -48,10 +49,6 @@ class AllComments extends Vue {
       console.error(err.message);
     }
     this.setLoading(false);
-  }
-
-  created () {
-    console.log(this.comments);
   }
 }
 </script>
