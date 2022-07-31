@@ -50,5 +50,8 @@ export const actions = {
         like
       });
     }
+  },
+  async removeCommentLikes ({ state, commit }, commentId) {
+    await this.$axios.$delete(`${serverApiUrl}likes/?commentId=${commentId}`);
   }
 };
