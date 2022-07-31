@@ -23,16 +23,16 @@ export const mutations = {
 export const actions = {
   async loadGood ({ state, commit }, id) {
     commit('setLoading', true);
-    const { data } = await this.$axios.get('http://localhost:3001/products/' + id);
+    const { data } = await this.$axios.get('https://glomare.herokuapp.com/products/' + id);
     commit('setGood', data);
     commit('setLoading', false);
   },
   async updateGood ({ state, commit }, good) {
-    await this.$axios.$put('http://localhost:3001/products/' + good._id, good);
+    await this.$axios.$put('https://glomare.herokuapp.com/products/' + good._id, good);
   },
   async loadRecommendations ({ state, commit }, params) {
     const { data } = await this.$axios.get(
-      'http://localhost:3001/products/' + params.id + '/rec?' +
+      'https://glomare.herokuapp.com/products/' + params.id + '/rec?' +
       'category=' + params.category + '&' +
       'min=' + params.min + '&' +
       'max=' + params.max + '&' +
