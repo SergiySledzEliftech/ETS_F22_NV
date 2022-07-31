@@ -162,10 +162,10 @@
                     </div>
                   </div>
                   <v-alert
+                    :key="infoAlertForPhoto"
                     type="info"
                     dismissible
                     :value="infoAlertForPhoto"
-                    :key="infoAlertForPhoto"
                   >
                     I'm an info alert.
                   </v-alert>
@@ -359,10 +359,9 @@
   </v-app>
 </template>
 <script>
-import { Vue, Component } from 'nuxt-property-decorator'
-import categoryCard from '../../components/new-advertisement/category-card.vue'
-export default
-@Component({
+import { Vue, Component } from 'nuxt-property-decorator';
+import categoryCard from '../../components/new-advertisement/category-card.vue';
+export default @Component({
   name: 'CreateNewAnnouncement',
   components: { categoryCard }
 })
@@ -397,28 +396,28 @@ class CreateNewAnnouncement extends Vue {
   countries = ['Київ', 'Одеса', 'Львів', 'Харків', 'Херсон']
 
   newCategory (data) {
-    this.selectedCategory = data
-    this.dialog = false
+    this.selectedCategory = data;
+    this.dialog = false;
   }
 
   uploadImg = (files) => {
-    const file = files
+    const file = files;
     if (file.length > 8) {
       if (this.imgUrl.length <= 8) {
-        this.imgToBit(file.slice(0, 8 - this.imgUrl.length))
-        this.infoAlertForPhoto = true
-        console.log(this.infoAlertForPhoto)
+        this.imgToBit(file.slice(0, 8 - this.imgUrl.length));
+        this.infoAlertForPhoto = true;
+        console.log(this.infoAlertForPhoto);
       } else {
-        this.infoAlertForPhoto = true
+        this.infoAlertForPhoto = true;
       }
     } else {
-      console.log('Hello')
+      console.log('Hello');
       if (this.imgUrl.length <= 8) {
-        this.imgToBit(file.slice(0, 8 - this.imgUrl.length))
-        this.infoAlertForPhoto = true
+        this.imgToBit(file.slice(0, 8 - this.imgUrl.length));
+        this.infoAlertForPhoto = true;
       } else {
-        this.imgToBit(file)
-        this.infoAlertForPhoto = true
+        this.imgToBit(file);
+        this.infoAlertForPhoto = true;
       }
     }
   }
@@ -426,39 +425,39 @@ class CreateNewAnnouncement extends Vue {
   updateImg (files) {
     this.imgUrl.forEach((item) => {
       if (item.id === this.id) {
-        const reader = new FileReader()
-        reader.readAsDataURL(files)
+        const reader = new FileReader();
+        reader.readAsDataURL(files);
         reader.onload = function () {
-          const url = this.result.substring(this.result.indexOf(',') + 1)
-          item.url = 'data:image/png;base64,' + url
-        }
+          const url = this.result.substring(this.result.indexOf(',') + 1);
+          item.url = 'data:image/png;base64,' + url;
+        };
       }
-    })
-    this.isDisabled = false
+    });
+    this.isDisabled = false;
   }
 
   remove=(index) => {
-    this.imgUrl.splice(index, 1)
+    this.imgUrl.splice(index, 1);
   }
 
   idNumber (data) {
-    this.isDisabled = true
-    this.id = data
+    this.isDisabled = true;
+    this.id = data;
   }
 
   imgToBit (data) {
     data.forEach((item) => {
-      const that = this
-      const reader = new FileReader()
-      reader.readAsDataURL(item)
+      const that = this;
+      const reader = new FileReader();
+      reader.readAsDataURL(item);
       reader.onload = function () {
-        const url = this.result.substring(this.result.indexOf(',') + 1)
+        const url = this.result.substring(this.result.indexOf(',') + 1);
         that.imgUrl.push({
           id: that.imgUrl.length + 1,
           url: 'data:image/png;base64,' + url
-        })
-      }
-    })
+        });
+      };
+    });
   }
 }
 </script>

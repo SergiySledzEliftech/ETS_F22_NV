@@ -3,9 +3,9 @@
 </template>
 
 <script>
-import { Vue, Component, namespace } from 'nuxt-property-decorator'
-import ProfileRents from '~/components/profile/ProfileRents.vue'
-const { State } = namespace('profile_myRents')
+import { Vue, Component, namespace } from 'nuxt-property-decorator';
+import ProfileRents from '~/components/profile/ProfileRents.vue';
+const { State } = namespace('profile_myRents');
 export default @Component({
   name: 'rent',
   layout: 'profile',
@@ -33,8 +33,8 @@ class Rent extends Vue {
   ]
 
   mounted () {
-    this.content[0].data = this.borrowed
-    this.content[1].data = this.lent
+    this.content[0].data = this.borrowed;
+    this.content[1].data = this.lent;
   }
 }
 </script>
