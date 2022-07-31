@@ -1,7 +1,7 @@
 <template>
   <div>
     <items-list
-      :list="items"
+      :list="data"
       :page="page"
       :total-pages="totalPages"
       :set-page="changePage"
@@ -9,10 +9,10 @@
       :per-page="perPage"
       :opts-array="perPageArray"
     >
-      <li v-for="item in items" :key="item.id" class="item">
+      <li v-for="item in items" :key="item._id" class="item">
         <single-item :item="item" :grid="view === 'list'">
-          <p class="expire">
-            Expires at: {{ item.expired }}
+          <p v-if="item.expires_at !== ''" class="expire">
+            Expires at: {{ formatDate(item.expires_at) }}
           </p>
         </single-item>
       </li>
@@ -22,31 +22,36 @@
 
 <script>
 import { Vue, Component, Prop, namespace } from 'nuxt-property-decorator';
+import moment from 'moment';
 import ItemsList from '@/components/list/ItemsList.vue';
 import SingleItem from '~/components/list/SingleItem.vue';
 const { State, Action, Mutation } = namespace('profile');
 export default @Component({
-  name: 'history',
+  name: 'lend',
   components: { ItemsList, SingleItem }
 })
 
-class History extends Vue {
-  @Prop({ type: Array, required: true }) list;
+class Lend extends Vue {
   @Prop({ type: String, required: true }) view;
   items = [];
+  @State data;
   @State page;
   @State perPage;
   @State perPageArray;
   @State totalPages;
+  @Action getProducts;
   @Action deleteElem;
   @Action calculateTotalPages;
   @Action calcPage;
+  @Action setLoad;
   @Mutation setPerPage;
 
   sliceList () {
-    const firstIdx = (this.page - 1) * this.perPage;
-    const result = this.list.slice(firstIdx, firstIdx + this.perPage);
-    this.items = result;
+    if (this.data.length > 0) {
+      const firstIdx = (this.page - 1) * this.perPage;
+      const result = this.data.slice(firstIdx, firstIdx + this.perPage);
+      this.items = result;
+    }
   }
 
   changePage (num) {
@@ -60,9 +65,17 @@ class History extends Vue {
     this.calculateTotalPages(this.list);
   }
 
-  mounted () {
+  formatDate (date) {
+    return moment(date).format('DD MMM YYYY hh:mm');
+  }
+
+  async mounted () {
+    this.setLoad(true);
+    await this.getProducts();
     this.sliceList();
-    this.calculateTotalPages(this.list);
+    this.calculateTotalPages(this.data);
+    console.log('lend', this.data);
+    this.setLoad(false);
   }
 }
 </script>
