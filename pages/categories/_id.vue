@@ -41,7 +41,8 @@ export default @Component({
     Recommendations,
     SharingBlock,
     ProgressCircular
-  }
+  },
+  auth: false
 })
 
 class GoodPage extends Vue {

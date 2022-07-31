@@ -14,13 +14,13 @@
           </p>
           <ul class="footer-social">
             <li>
-              <a href="#" class="footer-instagram" />
+              <a href="https://www.instagram.com/" class="footer-instagram" target="_blank" />
             </li>
             <li>
-              <a href="#" class="footer-youtube" />
+              <a href="https://www.youtube.com/" class="footer-youtube" target="_blank" />
             </li>
             <li>
-              <a href="#" class="footer-facebook" />
+              <a href="https://www.facebook.com/" class="footer-facebook" target="_blank" />
             </li>
           </ul>
           <NuxtLink :to="{ name: 'Services-Help'}" class="footer-link-help">

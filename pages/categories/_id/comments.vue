@@ -8,10 +8,18 @@
       <v-tab :to="{name: 'categories-id-comments'}" nuxt exact>
         All
       </v-tab>
-      <v-tab :to="{name: 'categories-id-comments-my-comments'}" nuxt>
+      <v-tab
+        :to="{name: 'categories-id-comments-my-comments'}"
+        nuxt
+        :disabled="$auth.user === null"
+      >
         My
       </v-tab>
-      <v-tab :to="{name: 'categories-id-comments-add-comment'}" nuxt>
+      <v-tab
+        :to="{name: 'categories-id-comments-add-comment'}"
+        nuxt
+        :disabled="$auth.user === null"
+      >
         Add
       </v-tab>
     </v-tabs>
@@ -23,9 +31,9 @@
 import { Vue, Component } from 'nuxt-property-decorator';
 
 export default @Component({
+  auth: false
 })
 class Comments extends Vue {
-
 }
 </script>
 

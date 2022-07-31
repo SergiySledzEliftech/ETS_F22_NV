@@ -27,7 +27,7 @@
                 text
                 icon
                 color="gray lighten-2"
-                :class="$auth.user._id === comment.userId ? '' : 'hide'"
+                :class="$auth.user !== null && $auth.user._id === comment.userId ? '' : 'hide'"
                 @click="
                   $emit('onDelete', index);
                   onDeleteComment();
@@ -95,8 +95,8 @@
                   height="30"
                   text
                   icon
-                  :color="$auth.user._id === comment.userId ? '' : 'blue lighten-2'"
-                  :disabled="$auth.user._id === comment.userId"
+                  :color="$auth.user !== null && $auth.user._id === comment.userId ? '' : 'blue lighten-2'"
+                  :disabled="$auth.user === null || $auth.user._id === comment.userId"
                   @click="onClickLike"
                 >
                   <v-icon size="18" class="like">
@@ -117,8 +117,8 @@
                   height="30"
                   text
                   icon
-                  :color="$auth.user._id === comment.userId ? '' : 'red lighten-2'"
-                  :disabled="$auth.user._id === comment.userId"
+                  :color="$auth.user !== null && $auth.user._id === comment.userId ? '' : 'red lighten-2'"
+                  :disabled="$auth.user === null || $auth.user._id === comment.userId"
                   @click="onClickDislike"
                 >
                   <v-icon size="18" class="dislike">
@@ -158,6 +158,7 @@ class CommentItem extends Vue {
   @LikesState likeStatusExist;
   @LikesAction loadLikeBlock;
   @LikesAction checkLikeBlock;
+  @LikesAction removeCommentLikes;
 
   @GoodAction removeComment;
   @GoodAction updateCommentLikes;
@@ -169,7 +170,7 @@ class CommentItem extends Vue {
 
   async mounted () {
     // getting likes status of all users accept current
-    if (this.$auth.user !== this.comment.userId) {
+    if (this.$auth.user !== this.comment.userId && this.$auth.user !== null) {
       try {
         await this.loadLikeBlock({
           commentId: this.comment._id,
@@ -194,6 +195,7 @@ class CommentItem extends Vue {
   async onDeleteComment () {
     try {
       await this.removeComment(this.comment._id);
+      await this.removeCommentLikes(this.comment._id);
     } catch (err) {
       // eslint-disable-next-line no-console
       console.error(err.message);

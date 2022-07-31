@@ -4,7 +4,7 @@
       <v-text-field
         v-model="loginInfo.email"
         :rules="[emptyValidation(), emailValidation()]"
-        label="E-mail"
+        label="E-mail*"
         type="text"
         required
         class="input-form mb-6 mt-6"
@@ -16,7 +16,7 @@
         :rules="[emptyValidation(), passwordValidation()]"
         :type="show ? 'text' : 'password'"
         :counter="8"
-        label="Password"
+        label="Password*"
         required
         class="input-form mb-6"
         solo
@@ -31,7 +31,7 @@
 </template>
 <script>
 import { Component, Vue } from 'nuxt-property-decorator';
-import { emptyValidation, emailValidation, passwordValidation } from '../helpers/validators';
+import { emptyValidation, emailValidation, passwordValidation } from '../../helpers/validators';
 
 export default @Component({
   name: 'LoginComponent'
@@ -40,8 +40,8 @@ export default @Component({
 class LoginComponent extends Vue {
   valid = true;
   loginInfo = {
-    email: 'tony@g.c',
-    password: '123456aA'
+    email: '',
+    password: ''
   }
 
   data () {
@@ -54,9 +54,7 @@ class LoginComponent extends Vue {
     if (this.$refs.form.validate()) {
       try {
         await this.$auth.loginWith('local', { data: this.loginInfo });
-        console.log(this.$auth.loggedIn);
-        console.log(this.$auth.user._id);
-        this.$router.push('/');
+        this.$router.push(`/profile/${this.$auth.user._id}`);
       } catch (error) {
         console.log(error);
       }

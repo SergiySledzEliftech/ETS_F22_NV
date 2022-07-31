@@ -132,6 +132,7 @@ class AddComment extends Vue {
     this.commentData.userId = this.$auth.user._id;
     this.commentData.productId = this.$route.params.id;
     this.commentData.userNickname = this.user.firstName + ' ' + this.user.lastName;
+    this.commentData.avatar = this.user.avatar;
     try {
       await this.createComment(this.commentData);
     } catch (err) {

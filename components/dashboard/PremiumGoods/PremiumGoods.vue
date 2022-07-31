@@ -22,6 +22,7 @@
               :title="e.title"
               :img="e.images && e.images[0]"
               :is-loading="loading"
+              :id-prop="e._id"
             />
           </div>
         </v-sheet>
@@ -49,6 +50,7 @@
               :title="e.title"
               :img="e.images && e.images[0]"
               :is-loading="loading"
+              :id-prop="e._id"
             />
           </div>
         </v-sheet>
@@ -75,6 +77,7 @@
               :title="el.title"
               :img="el.images && el.images[0]"
               :is-loading="loading"
+              :id-prop="el._id"
             />
           </div>
         </v-sheet>
