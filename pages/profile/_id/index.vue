@@ -323,6 +323,7 @@ import {
   phoneNumberValidation, allowDigitsOnlyValidation, minLengthValidation, lengthValidation, avatarValidation
 } from '~/helpers/validators.js';
 const { State, Action } = namespace('profile');
+const { State: ListState, Action: ListAction } = namespace('list');
 
 export default @Component({
   name: 'profileIndex',
@@ -334,13 +335,13 @@ class Config extends Vue {
   @Prop({ type: Object, required: true }) user;
 
   @State passes
-  @State loading
   @State serverUrl
+  @ListState loading
   // @State user
   @Action updateUser
   @Action updatePass
   @Action updateAvatar
-  @Action setLoad
+  @ListAction setLoad
 
   created () {
     this.setLoad(true);
