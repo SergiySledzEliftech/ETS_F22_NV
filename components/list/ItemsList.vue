@@ -1,6 +1,6 @@
 <template>
-  <div class="wrapper">
-    <div v-if="!disablePagination" class="view-wrap">
+  <div v-show="list" class="wrapper">
+    <div v-show="!disablePagination" class="view-wrap">
       <div class="perpage-select">
         <p>Items per page</p>
         <v-menu offset-y>
@@ -37,23 +37,22 @@
         </v-btn>
       </div>
     </div>
-    <div v-if="loading" class="loader">
+    <div v-show="loading" class="loader">
       <img src="https://upload.wikimedia.org/wikipedia/commons/b/b1/Loading_icon.gif?20151024034921" alt="loading">
     </div>
-    <ul v-if="!loading" :class="view">
+    <ul v-show="!loading" :class="view">
       <slot />
     </ul>
-    <template v-if="!disablePagination">
-      <v-pagination
-        v-model="currentPage"
-        value="currentPage"
-        :length="totalPages"
-        total-visible="5"
-        @input="setPage"
-        @next="nextPage"
-        @previous="previousPage"
-      />
-    </template>
+    <v-pagination
+      v-show="!disablePagination"
+      v-model="currentPage"
+      value="currentPage"
+      :length="totalPages"
+      total-visible="5"
+      @input="setPage"
+      @next="nextPage"
+      @previous="previousPage"
+    />
   </div>
 </template>
 
@@ -72,7 +71,7 @@ class ItemsList extends Vue {
   @State view;
   @State loading;
   @Mutation changeView;
-  @Prop({ type: Array, required: true }) list;
+  @Prop({ type: Array }) list;
   @Prop({ type: Number, required: true }) page;
   @Prop({ type: Number, required: true }) totalPages;
   @Prop({ type: Function, required: true }) setPage;

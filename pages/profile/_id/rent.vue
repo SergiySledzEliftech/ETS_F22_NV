@@ -24,7 +24,6 @@ export default @Component({
 })
 class ProfileRents extends Vue {
   @State view
-  @Action getProducts
   @Action setLoad
   content = [
     {

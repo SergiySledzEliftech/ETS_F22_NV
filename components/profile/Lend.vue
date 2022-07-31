@@ -1,22 +1,28 @@
 <template>
   <div>
-    <items-list
-      :list="data"
-      :page="page"
-      :total-pages="totalPages"
-      :set-page="changePage"
-      :set-per-page="changePerPage"
-      :per-page="perPage"
-      :opts-array="perPageArray"
-    >
-      <li v-for="item in items" :key="item._id" class="item">
-        <single-item :item="item" :grid="view === 'list'">
-          <p v-if="item.expires_at !== ''" class="expire">
-            Expires at: {{ formatDate(item.expires_at) }}
-          </p>
-        </single-item>
-      </li>
-    </items-list>
+    <div v-if="data.length > 0">
+      <items-list
+        :list="data"
+        :page="page"
+        :total-pages="totalPages"
+        :set-page="changePage"
+        :set-per-page="changePerPage"
+        :per-page="perPage"
+        :opts-array="perPageArray"
+      >
+        <li v-for="item in items" :key="item._id" class="item">
+          <single-item :item="item" :grid="view === 'list'">
+            <p v-if="item.expires_at !== ''" class="expire">
+              Expires at: {{ formatDate(item.expires_at) }}
+            </p>
+          </single-item>
+        </li>
+      </items-list>
+    </div>
+    <div v-else class="nodata">
+      <p>No history yet</p>
+    </div>
+  </div>
   </div>
 </template>
 
@@ -74,7 +80,6 @@ class Lend extends Vue {
     await this.getProducts();
     this.sliceList();
     this.calculateTotalPages(this.data);
-    console.log('lend', this.data);
     this.setLoad(false);
   }
 }
@@ -84,7 +89,7 @@ class Lend extends Vue {
 .expire {
   margin: 0;
   position: absolute;
-  padding: 10px;
+  padding: 10px !important;
   right: 0;
   top: 0;
   font-weight: 500;
@@ -103,5 +108,16 @@ class Lend extends Vue {
   left: 0;
   padding: 5px 10px;
 }
-
+.nodata{
+  padding: 40px 20px;
+  width: 100%;
+  height: 100%;
+  
+  p {
+    text-align: center;
+    margin: auto;
+    color: $secondary;
+    font-weight: 600;
+  }
+}
 </style>

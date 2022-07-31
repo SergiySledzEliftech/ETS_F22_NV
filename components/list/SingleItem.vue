@@ -9,7 +9,12 @@
           {{ item.title }}
         </h4>
         <a :href="item.category" target="_blank" class="item_location">
-          <v-icon size="16" color="var(--negative)">mdi-star-minus</v-icon>{{ item.category }}</a>
+          <v-icon size="16" color="var(--negative)">mdi-map-marker</v-icon>{{ item.location }}</a>
+        <NuxtLink :to="{name: 'categories', params: {category: item.category}}" class="item_location">
+          <v-icon size="16" color="var(--warning)">
+            mdi-star-minus
+          </v-icon>{{ item.category }}
+        </NuxtLink>
       </div>
       <div class="item_details">
         <p>Price:<span v-if="item.price > 0">{{ item.price }}$</span><span v-else>Free</span></p>
@@ -22,7 +27,12 @@
           </v-icon>
           </span>
         </p>
-        <p>Term:<span>1 day(s)</span></p>
+        <p v-show="isProfile">
+          Term:<span>{{ item.lease_term }} day(s)</span>
+        </p>
+        <p v-show="!isProfile">
+          Status:<span>{{ item.status === 'unavailable' ? 'Rented' : 'In stock' }}</span>
+        </p>
       </div>
       <NuxtLink :to="/profile/ +item.leaser_info.userId">
         <div class="item_seller">
@@ -49,6 +59,7 @@ export default @Component({
 class SingleItem extends Vue {
   @Prop({ type: Boolean, required: true }) grid;
   @Prop({ type: Object, required: true }) item;
+  isProfile = this.$route.path.includes('/rent');
 }
 
 </script>
@@ -66,7 +77,7 @@ class SingleItem extends Vue {
     }
     .item_location {
       display: block;
-      margin-top: 10px;
+      margin-top: 3px;
       font-size: 14px;
       font-weight: 400;
       @media (max-width: 899px) {

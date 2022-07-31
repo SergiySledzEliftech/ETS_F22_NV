@@ -1,22 +1,30 @@
 <template>
   <div>
-    <items-list
-      :list="data"
-      :page="page"
-      :total-pages="totalPages"
-      :set-page="changePage"
-      :set-per-page="changePerPage"
-      :per-page="perPage"
-      :opts-array="perPageArray"
-    >
-      <li v-for="item in items" :key="item._id" class="item">
-        <single-item :item="item" :grid="view === 'list'">
-          <p v-if="item.expires_at !== ''" class="expire">
-            Expires at: {{ formatDate(item.expires_at) }}
-          </p>
-        </single-item>
-      </li>
-    </items-list>
+    <div v-if="data.length > 0">
+      <items-list
+        :list="data"
+        :page="page"
+        :total-pages="totalPages"
+        :set-page="changePage"
+        :set-per-page="changePerPage"
+        :per-page="perPage"
+        :opts-array="perPageArray"
+      >
+        <li v-for="item in items" :key="item.good._id" class="item">
+          <single-item :item="item.good" :grid="view === 'list'">
+            <p v-if="item.good.expires_at !== ''" class="expire">
+              Expires at: {{ formatDate(item.expires_at) }}
+            </p>
+          </single-item>
+        </li>
+      </items-list>
+    </div>
+    <div v-else class="nodata">
+      <p>No history yet</p>
+      <NuxtLink :to="{name: 'categories'}" class="link">
+        Find something interesting
+      </NuxtLink>
+    </div>
   </div>
 </template>
 
@@ -34,12 +42,11 @@ export default @Component({
 class Borrow extends Vue {
   @Prop({ type: String, required: true }) view;
   items = [];
-  @State data;
+  data = [];
   @State page;
   @State perPage;
   @State perPageArray;
   @State totalPages;
-  @Action getProducts;
   @Action deleteElem;
   @Action calculateTotalPages;
   @Action calcPage;
@@ -47,11 +54,9 @@ class Borrow extends Vue {
   @Mutation setPerPage;
 
   sliceList () {
-    if (this.data.length > 0) {
-      const firstIdx = (this.page - 1) * this.perPage;
-      const result = this.data.slice(firstIdx, firstIdx + this.perPage);
-      this.items = result;
-    }
+    const firstIdx = (this.page - 1) * this.perPage;
+    const result = this.data?.slice(firstIdx, firstIdx + this.perPage);
+    this.items = result;
   }
 
   changePage (num) {
@@ -62,19 +67,22 @@ class Borrow extends Vue {
   changePerPage (num) {
     this.setPerPage(num);
     this.changePage(1);
-    this.calculateTotalPages(this.list);
+    this.calculateTotalPages(this.data);
   }
 
   formatDate (date) {
     return moment(date).format('DD MMM YYYY hh:mm');
   }
 
-  async mounted () {
+  mounted () {
     this.setLoad(true);
-    await this.getProducts();
-    this.sliceList();
-    this.calculateTotalPages(this.data);
-    console.log('borrow', this.data);
+    const localRents = this.$auth.$storage.getLocalStorage(this.$auth.user._id);
+    this.data = localRents !== null ? localRents : [];
+    console.log(this.data);
+    if (this.data !== []) {
+      this.sliceList();
+      this.calculateTotalPages(this.data);
+    }
     this.setLoad(false);
   }
 }
@@ -102,6 +110,36 @@ class Borrow extends Vue {
   border-bottom-right-radius: 10px;
   left: 0;
   padding: 5px 10px;
+}
+
+.nodata {
+  padding: 40px 20px;
+  width: 100%;
+  height: 100%;
+  
+  p {
+    text-align: center;
+    margin: auto;
+    color: $secondary;
+    font-weight: 600;
+  }
+
+  .link {
+    display: block;
+    color: $light;
+    font-size: 18px;
+    text-transform: uppercase;
+    font-weight: 600;
+    text-align: center;
+    margin: 10px auto;
+    &:hover {
+      color: $negative;
+      text-decoration: underline;
+      background-color: transparent;
+      transform: scale(1.02);
+      
+    }
+  }
 }
 
 </style>
