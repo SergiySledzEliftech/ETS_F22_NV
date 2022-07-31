@@ -3,7 +3,7 @@
     <h3>Statistics</h3>
     <div class="d-flex justify-space-around align-center flex-wrap statistics-items-wrapper">
       <statistics-item
-        name="Users entered"
+        name="Customers entered"
         :statistics-value="users"
       />
       <statistics-item
@@ -54,7 +54,7 @@ class Statistics extends Vue {
   }
 
   getStatisticsFor24Hours (statistics, field) {
-    const index = Math.floor((new Date()).getHours(0, 0, 0, 0) / 4);
+    const index = Math.floor(((new Date()).getHours(0, 0, 0, 0) + 3) / 4);
     statistics = [...statistics[0][field], ...statistics[1][field]];
     
     const statisticsForToday = statistics.slice(index, index + 6);
@@ -63,8 +63,6 @@ class Statistics extends Vue {
     for (let i = 0; i < statisticsForToday.length; i++) {
       res.unshift(statisticsForToday.slice(i).reduce((e1, e2) => e1 + e2));
     }
-
-    console.log(res);
 
     return res;
   }

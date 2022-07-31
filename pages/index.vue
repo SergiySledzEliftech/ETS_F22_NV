@@ -1,12 +1,10 @@
 <template>
-  <div class="container">
-    <div>
-      <top10-goods />
-      <premium-goods />
-      <news />
-      <statistics />
-      <partners />
-    </div>
+  <div>
+    <top10-goods />
+    <premium-goods />
+    <news />
+    <statistics />
+    <partners />
   </div>
 </template>
 
