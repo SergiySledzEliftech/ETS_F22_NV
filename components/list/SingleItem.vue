@@ -1,5 +1,5 @@
 <template>
-  <NuxtLink :to="{ name : 'categories-id', params: { id : item._id }}" :class="{'isGrid': grid}">
+  <NuxtLink :to="{name: 'categories-id', params: {id: item._id }}" :class="{'isGrid': grid}">
     <div class="img_wrap">
       <img :src="item.images[0]" alt="image" class="item_img">
     </div>
@@ -24,13 +24,15 @@
         </p>
         <p>Term:<span>1 day(s)</span></p>
       </div>
-      <NuxtLink :to="/profile/ +userId">
+      <NuxtLink :to="/profile/ +item.leaser_info.userId">
         <div class="item_seller">
           <img
-            src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSaDVA_pu9U4m-YPEQY5c9v8nqJHzOPgmopaA&usqp=CAU"
+            :src="item.leaser_info.avatar !== '' ?
+              item.leaser_info.avatar :
+              'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSaDVA_pu9U4m-YPEQY5c9v8nqJHzOPgmopaA&usqp=CAU'"
             alt="avatar"
           >
-          <p>User name</p>
+          <p>{{ item.leaser_info.nickname }}</p>
         </div>
       </NuxtLink>
     </div>
@@ -47,8 +49,8 @@ export default @Component({
 class SingleItem extends Vue {
   @Prop({ type: Boolean, required: true }) grid;
   @Prop({ type: Object, required: true }) item;
-  userId = '62dfd0e96be61376782507d5'
 }
+
 </script>
 
 <style lang="scss" scoped>

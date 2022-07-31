@@ -9,9 +9,9 @@
       :per-page="perPage"
       :opts-array="perPageArray"
     >
-      <li v-for="item in items" :key="item.id" class="item">
+      <li v-for="item in items" :key="item._id" class="item">
         <SingleItem :item="item" :grid="view === 'list'">
-          <div class="buttons">
+          <div v-if="show" class="buttons">
             <v-tooltip bottom>
               <template #activator="{on, attrs}">
                 <!-- на кліку має бути функція переходу на сторінку редагування товару-->
@@ -25,7 +25,7 @@
             </v-tooltip>
             <v-tooltip bottom>
               <template #activator="{on,attrs}">
-                <v-btn v-bind="attrs" icon small v-on="on" @click.prevent="deleteElem(item.id)">
+                <v-btn v-bind="attrs" icon small v-on="on" @click.prevent="deleteElem(item._id)">
                   <v-icon :class="view">
                     mdi-trash-can
                   </v-icon>
@@ -41,31 +41,35 @@
 </template>
 
 <script>
-import { Vue, Component, namespace } from 'nuxt-property-decorator';
+import { Vue, Component, namespace, Prop } from 'nuxt-property-decorator';
 import ItemsList from '~/components/list/ItemsList.vue';
 import SingleItem from '~/components/list/SingleItem.vue';
-const { State, Action, Mutation } = namespace('profile');
+const { State, Action } = namespace('profile');
+// const { ListState } = namespace('list');
 
 export default @Component({
   name: 'profile-ads',
   components: { ItemsList, SingleItem }
 })
+
 class ProfileAds extends Vue {
-  // @State data;
+  @State data;
   @State view;
   @State page;
   @State perPage;
   @State perPageArray;
   @State totalPages;
   @Action getUser;
-  @Action setLoad;
+  @Action getProducts;
   @Action deleteElem;
+  @Action setLoad;
   @Action calculateTotalPages;
   @Action calcPage;
-  @Mutation setPerPage;
-  data = [];
+  @Action calcPerPage;
+  @Prop({ default: '' }) isMy;
   items = [];
   disable = true;
+  show = this.isMy !== '';
 
   sliceList () {
     const firstIdx = (this.page - 1) * this.perPage;
@@ -79,25 +83,18 @@ class ProfileAds extends Vue {
   }
 
   changePerPage (num) {
-    this.setPerPage(num);
-    this.changePage(1);
+    this.calcPerPage(num);
     this.calculateTotalPages(this.data);
   }
 
   async mounted () {
-    try {
-      const { products } = await this.$axios.$get('https://dummyjson.com/products?limit=50');
-      this.data = products;
-      console.log(this.items);
-      this.sliceList();
-      this.calculateTotalPages(products);
-      this.setLoad(false);
-    } catch (e) {
-      console.log('data failed', e.message);
-    }
+    this.setLoad(true);
+    await this.getProducts();
+    this.sliceList();
+    this.calculateTotalPages(this.data);
+    this.setLoad(false);
   }
 }
-
 </script>
 
 <style lang="scss" scoped>

@@ -119,5 +119,9 @@ class Profile extends Vue {
       background-color: #aaaaaa
     }
   }
+
+  .item a:hover {
+    background-color: transparent
+  }
 }
 </style>
