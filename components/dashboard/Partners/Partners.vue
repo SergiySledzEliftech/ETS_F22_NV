@@ -7,15 +7,17 @@
         :key="el._id"
         :company-name="el.name"
         :img="el.img"
+        :is-loading="loading"
       />
     </div>
   </div>
 </template>
 
 <script>
-import { Component, Vue } from 'nuxt-property-decorator';
+import { Component, Vue, namespace } from 'nuxt-property-decorator';
 import PartnersItem from './PartnersItem.vue';
-import { serverApiUrl } from '@/settings/config';
+
+const { Action, State } = namespace('dashboard');
 
 export default @Component({
   components: { PartnersItem }
@@ -24,10 +26,15 @@ export default @Component({
 class Partners extends Vue {
   partnersData = [...Array(5).keys()]
 
+  @Action loadPartners
+
+  @State partners
+  @State loading
+
   async mounted () {
     try {
-      const res = await this.$axios.get(`${serverApiUrl}partners`);
-      this.partnersData = res.data;
+      await this.loadPartners();
+      this.partnersData = this.partners;
     } catch (err) {
     }
   }

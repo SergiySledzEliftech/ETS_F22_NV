@@ -1,7 +1,8 @@
 export const state = () => ({
   good: {},
   rentedGoods: [],
-  loading: true
+  recommendations: [],
+  loading: false
 });
 
 export const mutations = {
@@ -12,7 +13,10 @@ export const mutations = {
     state.good = good;
   },
   setGoodStatus (state, status) {
-    state.status = status;
+    state.good.status = status;
+  },
+  setRecommendations (state, recommendations) {
+    state.recommendations = recommendations;
   }
 };
 
@@ -23,10 +27,22 @@ export const actions = {
     commit('setGood', data);
     commit('setLoading', false);
   },
-  setLoading ({ state, commit }, loading) {
-    commit('setLoading', loading);
-  },
   async updateGood ({ state, commit }, good) {
     await this.$axios.$put('http://localhost:3001/products/' + good._id, good);
+  },
+  async loadRecommendations ({ state, commit }, params) {
+    const { data } = await this.$axios.get(
+      'http://localhost:3001/products/' + params.id + '/rec?' +
+      'category=' + params.category + '&' +
+      'min=' + params.min + '&' +
+      'max=' + params.max + '&' +
+      'status=' + params.status + '&' +
+      'minRating=' + params.minRating
+    );
+    commit('setRecommendations', data);
+  },
+  async updateStatistic () {
+    await this.$axios.$put('https://glomare.herokuapp.com/statistics/update-items-rented');
   }
-};
+}
+;

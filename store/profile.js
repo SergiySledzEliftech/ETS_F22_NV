@@ -4,7 +4,7 @@ export const state = () => ({
   perPage: 6,
   perPageArray: [6, 12, 24, 48, 96],
   totalPages: 1,
-  loading: true,
+  loading: false,
   data: [],
   user: {
     firstName: '',

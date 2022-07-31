@@ -1,5 +1,5 @@
 <template>
-  <NuxtLink :to="/good/ +item.id" :class="{'isGrid': grid}">
+  <NuxtLink :to="{ name : 'categories-id', params: { id : item._id }}" :class="{'isGrid': grid}">
     <div class="img_wrap">
       <img :src="item.images[0]" alt="image" class="item_img">
     </div>
