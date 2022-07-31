@@ -1,6 +1,6 @@
 <template>
   <v-container class="profile">
-    <v-row class="profile-row" no-gutters>
+    <v-row v-if="!loading" class="profile-row" no-gutters>
       <v-form id="profile-data" ref="form" class="row" @submit.prevent="saveForm">
         <div v-if="isMy" class="float-btn btn-edit">
           <v-btn-toggle v-model="fab">
@@ -30,7 +30,9 @@
         <v-col lg="4" md="4" sm="12" xs="12">
           <v-card class="profile-avtr">
             <div class="editing" :class="{ active: fab }">
-              <v-img :src="user.avatar" alt="avtr" class="avtr" />
+              <!--              <v-img v-if="user.avatar" :src="serverUrl + user.avatar" alt="avtr" class="avtr" />-->
+              <v-img v-if="user.avatar" :src="user.avatar" alt="avtr" class="avtr" />
+              <v-img v-else :src="require('@/assets/img/default-avatar.png')" alt="avtr" class="avtr" />
 
               <v-form v-if="fab" id="form-avatar" ref="formAvatar" class="row" @submit.prevent="saveAvatar">
                 <v-dialog
@@ -79,6 +81,7 @@
                       <v-btn
                         color="blue darken-1"
                         text
+                        type="submit"
                         @click="saveAvatar"
                       >
                         Save
@@ -307,6 +310,9 @@
         </v-col>
       </v-form>
     </v-row>
+    <div v-if="loading" class="loader">
+      <img src="https://upload.wikimedia.org/wikipedia/commons/b/b1/Loading_icon.gif?20151024034921" alt="loading">
+    </div>
   </v-container>
 </template>
 
@@ -327,18 +333,28 @@ class Config extends Vue {
   @Prop({ type: Boolean, required: true }) isMy
   @Prop({ type: Object, required: true }) user;
 
-  // link for open http://localhost:3000/profile/62dbeb38d387887c0b416ab6
   @State passes
+  @State loading
+  @State serverUrl
   // @State user
   @Action updateUser
   @Action updatePass
+  @Action updateAvatar
+  @Action setLoad
+
+  created () {
+    this.setLoad(true);
+  }
+
+  mounted () {
+    this.setLoad(false);
+  }
 
   fab = false; // toggle for edit button
   showPass = false
   showPass2 = false
   dialog = false
   dialogAvatar = false
-  avatarUpload = ''
 
   defaultUser = {}
 
@@ -382,6 +398,10 @@ class Config extends Vue {
     return this.passes.newPass;
   }
 
+  get avatarUpload () {
+    return this.avatarUploader;
+  }
+
   set firstName (value) {
     this.$store.commit('profile/updateFirstName', value);
   }
@@ -420,6 +440,10 @@ class Config extends Vue {
 
   set newPass (value) {
     this.$store.commit('profile/updateNewPass', value);
+  }
+
+  set avatarUpload (value) {
+    this.$store.commit('profile/uploadAvatar', value);
   }
 
   ruleEmail = [
@@ -496,7 +520,6 @@ class Config extends Vue {
   async saveForm () {
     if (this.$refs.form.validate()) {
       await this.updateUser(this.$auth.user._id);
-      alert('Saved');
       this.fab = false;
       this.showPass = false;
     } else {
@@ -506,12 +529,7 @@ class Config extends Vue {
 
   async savePass () {
     if (this.$refs.formPass.validate()) {
-      try {
-        await this.updatePass(this.$auth.user._id);
-        alert('Saved');
-      } catch (e) {
-        alert(e);
-      }
+      await this.updatePass(this.$auth.user._id);
       this.fab = false;
       this.showPass = false;
       this.dialog = false;
@@ -520,11 +538,9 @@ class Config extends Vue {
     }
   };
 
-  saveAvatar () {
+  async saveAvatar () {
     if (this.$refs.formAvatar.validate()) {
-      // this.updatePass(this.$route.params.id, this.user)
-      // console.log(this.avatarUpload)
-      alert('Saved');
+      await this.updateAvatar(this.$auth.user._id);
       this.fab = false;
       this.showPass = false;
       this.dialogAvatar = false;
@@ -532,22 +548,6 @@ class Config extends Vue {
       alert('Please enter valid data');
     }
   };
-
-  // async updateUser (id, obj) {
-  //   try {
-  //     await this.$axios.put('http://localhost:3001/users/' + id, obj)
-  //   } catch (e) {
-  //     console.log('Error update')
-  //   }
-  // };
-
-  // async updatePass (id, obj) {
-  //   try {
-  //     await this.$axios.put('http://localhost:3001/users/' + id, obj);
-  //   } catch (e) {
-  //     console.log('Error update');
-  //   }
-  // }
 }
 
 </script>
@@ -570,6 +570,8 @@ class Config extends Vue {
 }
 
 .profile {
+  position: relative;
+
   .profile-row {
     position: relative;
     .v-card {
@@ -730,6 +732,12 @@ class Config extends Vue {
       max-width: 200px;
       border-radius: 4px;
     }
+  }
+  .loader {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    position: absolute;
   }
 }
 </style>

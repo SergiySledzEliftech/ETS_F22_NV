@@ -1,11 +1,15 @@
+import { serverApiUrl } from '~/settings/config';
+
 export const state = () => ({
   view: 'grid',
   page: 1,
   perPage: 6,
   perPageArray: [6, 12, 24, 48, 96],
   totalPages: 1,
-  loading: true,
+  loading: false,
   data: [],
+  avatarUploader: {},
+  serverUrl: serverApiUrl,
   user: {
     firstName: '',
     lastName: '',
@@ -35,7 +39,7 @@ export const actions = {
 
   async getUser ({ state, commit }, id) {
     try {
-      const res = await this.$axios.get('http://localhost:3001/users/' + id);
+      const res = await this.$axios.get(`${serverApiUrl}users/` + id);
       commit('setUserData', res);
     } catch (error) {
       this.error = error.message;
@@ -46,18 +50,34 @@ export const actions = {
 
   async updateUser ({ state, commit }, id) {
     try {
-      await this.$axios.put('http://localhost:3001/users/' + id, state.user);
+      await this.$axios
+        .put(`${serverApiUrl}users/` + id, state.user)
+        .then(response => alert(response.data));
     } catch (e) {
       // eslint-disable-next-line no-console
       console.log('Error update');
     }
   },
+
   async updatePass ({ state, commit }, id) {
-    return await this.$axios.put('http://localhost:3001/users/' + id + '/pass', state.passes);
+    await this.$axios
+      .put(`${serverApiUrl}users/` + id + '/pass', state.passes)
+      .then(response => alert(response.data));
   },
+
+  async updateAvatar ({ state, commit }, id) {
+    await this.$axios
+      .post(`${serverApiUrl}files/` + id, state.avatarUploader)
+      .then(async (response) => {
+        alert(response.message);
+        await this.$axios.put(`${serverApiUrl}users/` + id, { avatar: `files/${response.data.filename}` });
+      });
+  },
+
   setLoad ({ commit }, val) {
     commit('setLoading', val);
   },
+
   async getProducts ({ commit }) {
     try {
       const { products } = await this.$axios.$get('https://dummyjson.com/products?limit=100');
@@ -124,6 +144,9 @@ export const mutations = {
   },
   updateNewPass (state, value) {
     state.passes.newPass = value;
+  },
+  uploadAvatar (state, value) {
+    state.avatarUploader = value;
   }
 };
 
