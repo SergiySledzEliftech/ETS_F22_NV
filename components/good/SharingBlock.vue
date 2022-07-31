@@ -26,28 +26,20 @@ export default @Component({
 class SharingBlock extends Vue {
   icons = [
     {
-      link: '#',
+      link: 'https://www.facebook.com/',
       name: 'facebook'
     },
     {
-      link: '#',
+      link: 'https://web.telegram.org/',
       name: 'telegram'
     },
     {
-      link: '#',
+      link: 'https://twitter.com/',
       name: 'twitter'
     },
     {
-      link: '#',
+      link: 'https://www.viber.com/',
       name: 'viber'
-    },
-    {
-      link: '#',
-      name: 'vk'
-    },
-    {
-      link: '#',
-      name: 'classmates'
     }
   ]
 }
