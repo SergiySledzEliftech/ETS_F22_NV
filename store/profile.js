@@ -1,10 +1,4 @@
 export const state = () => ({
-  view: 'grid',
-  page: 1,
-  perPage: 6,
-  perPageArray: [6, 12, 24, 48, 96],
-  totalPages: 1,
-  loading: false,
   data: [],
   user: {
     firstName: '',
@@ -25,12 +19,6 @@ export const state = () => ({
 export const actions = {
   deleteElem ({ commit }, id) {
     commit('deleteItem', id);
-  },
-  calculateTotalPages ({ commit }, list) {
-    commit('setTotalPages', list);
-  },
-  calcPage ({ commit }, num) {
-    commit('setPage', num);
   },
 
   async getUser ({ state, commit }, id) {
@@ -58,9 +46,10 @@ export const actions = {
   setLoad ({ commit }, val) {
     commit('setLoading', val);
   },
-  async getProducts ({ commit }) {
+
+  async getProducts ({ commit }, id) {
     try {
-      const products = await this.$axios.$get('http://localhost:3001/search/all');
+      const products = await this.$axios.$get(`http://localhost:3001/search/ads?id=${String(id)}`);
       commit('setData', products);
     } catch (error) {
       // eslint-disable-next-line no-console
@@ -73,24 +62,8 @@ export const mutations = {
   setData (state, array) {
     state.data = array;
   },
-  changeView (state) {
-    state.view = state.view === 'grid' ? 'list' : 'grid';
-  },
-  setLoading (state, val) {
-    state.loading = val;
-  },
   deleteItem (state, id) {
     state.dataAds = state.dataAds.filter(item => item.id !== id);
-  },
-  setTotalPages (state, list) {
-    state.totalPages = Math.ceil(list.length / state.perPage);
-  },
-  setPerPage (state, num) {
-    state.perPage = num;
-    state.page = 1;
-  },
-  setPage (state, num) {
-    state.page = num;
   },
   setUserData (state, user) {
     state.user = user.data;

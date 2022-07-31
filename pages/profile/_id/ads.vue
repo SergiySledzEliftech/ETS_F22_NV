@@ -85,7 +85,7 @@ class ProfileAds extends Vue {
 
   async mounted () {
     this.setLoad(true);
-    await this.getProducts();
+    await this.getProducts(this.$route.params.id);
     this.sliceList();
     this.calculateTotalPages(this.data);
     this.setLoad(false);
