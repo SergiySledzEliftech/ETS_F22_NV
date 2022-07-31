@@ -3,8 +3,8 @@
     <v-form ref="form" v-model="valid" lazy-validation>
       <v-text-field
         v-model="registerInfo.firstName"
-        :rules="[emptyValidation(), lengthValidation(10)]"
-        label="First Name"
+        :rules="[emptyValidation(), allowAlphanumericOnlyValidation()]"
+        label="First Name*"
         type="text"
         required
         class="input-form mb-6"
@@ -13,8 +13,8 @@
 
       <v-text-field
         v-model="registerInfo.lastName"
-        :rules="[emptyValidation(), lengthValidation(10)]"
-        label="Last Name"
+        :rules="[emptyValidation(), allowAlphanumericOnlyValidation()]"
+        label="Last Name*"
         type="text"
         required
         class="input-form mb-6"
@@ -23,7 +23,7 @@
       <v-text-field
         v-model="registerInfo.phone"
         :rules="[emptyValidation(), phoneNumberValidation(), numberValidation(), equalLengthValidation(10)]"
-        label="Phone Number"
+        label="Phone Number*"
         type="text"
         required
         class="input-form mb-6"
@@ -32,7 +32,7 @@
       <v-text-field
         v-model="registerInfo.email"
         :rules="[emptyValidation(), emailValidation()]"
-        label="E-mail"
+        label="E-mail*"
         type="text"
         required
         class="input-form mb-6"
@@ -45,7 +45,7 @@
         :rules="[emptyValidation(), passwordValidation()]"
         :type="show ? 'text' : 'password'"
         :counter="8"
-        label="Password"
+        label="Password*"
         required
         class="input-form mb-6"
         solo
@@ -54,7 +54,7 @@
       <v-checkbox
         v-model="checkbox"
         :rules="[checkboxValidation()]"
-        label="I agree with rules"
+        label="*I agree with rules"
         color="#E31F26"
         value="red"
         hide-details
@@ -68,7 +68,7 @@
 </template>
 <script>
 import { Component, Vue } from 'nuxt-property-decorator';
-import { emptyValidation, emailValidation, passwordValidation, phoneNumberValidation, lengthValidation, checkboxValidation, numberValidation, equalLengthValidation } from '../helpers/validators';
+import { emptyValidation, emailValidation, passwordValidation, allowAlphanumericOnlyValidation, phoneNumberValidation, checkboxValidation, numberValidation, equalLengthValidation } from '../../helpers/validators';
 
 export default @Component({
   name: 'RegisterComponent'
@@ -87,27 +87,20 @@ class RegisterComponent extends Vue {
   show = false;
   checkbox = false;
   data () {
-    return { emptyValidation, emailValidation, passwordValidation, phoneNumberValidation, lengthValidation, checkboxValidation, numberValidation, equalLengthValidation };
+    return { emptyValidation, emailValidation, passwordValidation, allowAlphanumericOnlyValidation, phoneNumberValidation, checkboxValidation, numberValidation, equalLengthValidation };
   }
 
   async validateFunction () {
     if (this.$refs.form.validate()) {
       try {
-        const res = await this.$axios.post('http://localhost:3001/auth/signup', this.registerInfo);
-        console.log(res);
+        await this.$axios.post('https://glomare.herokuapp.com/auth/signup', this.registerInfo);
         await this.$auth.loginWith('local', {
           data: {
             email: this.registerInfo.email,
             password: this.registerInfo.passHash
           }
         });
-        this.$router.push('/');
-        // .then(function (response) {
-        //   console.log(response)
-        // })
-        // .catch(function (error) {
-        //   console.log(error)
-        // })
+        this.$router.push(`/profile/${this.$auth.user._id}`);
       } catch (error) {
         console.log(error);
       }

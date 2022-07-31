@@ -75,7 +75,10 @@ $body-font-family: 'Montserrat';
   }
 
   .red-txt{
-    color: $primary;
+    color: $primary !important;
+  }
+  .blue-txt{
+    color: $info !important;
   }
   .hidden{
     display: none;
@@ -116,9 +119,6 @@ $body-font-family: 'Montserrat';
 }
 
 .v-main__wrap {
-  min-height: calc(100vh - 64px);
+  min-height: calc(50vh - 64px);
 }
 
-.v-main__wrap {
-  min-height: calc(100vh - 64px);
-}

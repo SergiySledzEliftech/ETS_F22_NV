@@ -3,26 +3,41 @@
     <h3>Our partners</h3>
     <div class="d-flex align-center flex-wrap justify-space-around partners-wrapper">
       <partners-item
-        v-for="i in 6"
-        :key="i"
-        :company-name="companyName"
-        :url="url"
+        v-for="el of partnersData"
+        :key="el._id"
+        :company-name="el.name"
+        :img="el.img"
+        :is-loading="loading"
       />
     </div>
   </div>
 </template>
 
 <script>
-import { Component, Vue } from 'nuxt-property-decorator';
+import { Component, Vue, namespace } from 'nuxt-property-decorator';
 import PartnersItem from './PartnersItem.vue';
+
+const { Action, State } = namespace('dashboard');
 
 export default @Component({
   components: { PartnersItem }
 })
 
 class Partners extends Vue {
-  companyName = 'Company'
-  url = 'https://upload.wikimedia.org/wikipedia/commons/f/f1/Vue.png'
+  partnersData = [...Array(5).keys()]
+
+  @Action loadPartners
+
+  @State partners
+  @State loading
+
+  async mounted () {
+    try {
+      await this.loadPartners();
+      this.partnersData = this.partners;
+    } catch (err) {
+    }
+  }
 }
 </script>
 
@@ -34,6 +49,6 @@ class Partners extends Vue {
 
   .partners-wrapper{
     padding-bottom: 10px;
-    gap:50px;
+    gap:20px 0;
   }
 </style>

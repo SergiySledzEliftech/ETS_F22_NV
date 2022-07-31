@@ -12,7 +12,7 @@
 import { Vue, Component } from 'nuxt-property-decorator';
 
 export default @Component({
-
+  auth: false
 })
 
 class Policy extends Vue {

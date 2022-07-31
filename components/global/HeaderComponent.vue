@@ -12,9 +12,9 @@
           <nav id="navbar" class="navbar" @click="collapseSubMenu2">
             <ul class="menu">
               <li class="menu-item menu-item-child">
-                <a href="#" data-toggle="sub-menu">{{ menu[0].item }}<i class="expand" /></a>
+                <a href="#" class="menu-link" data-toggle="sub-menu">{{ menu[0].item }}<i class="expand" /></a>
                 <ul class="sub-menu">
-                  <li v-for="item in subMenuCatalog" :key="item.to" class="menu-item">
+                  <li v-for="(item, index) in subMenuCatalog" :key="index" class="menu-item">
                     <NuxtLink :to="{name: item.to}">
                       {{ item.name }}
                     </NuxtLink>
@@ -23,7 +23,7 @@
               </li>
 
               <li class="menu-item menu-item-child">
-                <a href="#" data-toggle="sub-menu">{{ menu[1].item }}<i class="expand" /></a>
+                <a href="#" class="menu-link" data-toggle="sub-menu">{{ menu[1].item }}<i class="expand" /></a>
                 <ul class="sub-menu">
                   <li v-for="item in subMenuServices" :key="item.to" class="menu-item">
                     <NuxtLink :to="{name: item.to}">
@@ -60,7 +60,7 @@
                   </nuxt-link>
 
                   <v-btn
-                    class="ma-2 btn-red"
+                    class="ma-2 btn-red menu-btn"
                     outlined
                     @click="$auth.logout()"
                   >
@@ -73,7 +73,7 @@
                 >
                   <v-btn
 
-                    class="ma-2 btn-red"
+                    class="ma-2 btn-red menu-btn"
                     outlined
                     color="indigo"
                   >
@@ -125,7 +125,7 @@
               </nuxt-link>
 
               <v-btn
-                class="ma-2 btn-red"
+                class="ma-2 btn-red menu-btn"
                 outlined
                 @click="$auth.logout()"
               >
@@ -137,10 +137,10 @@
               :to="{ path: '/auth' }"
             >
               <v-btn
-
-                class="ma-2 btn-red"
+                class="ma-2 btn-red menu-btn"
                 outlined
                 color="indigo"
+                @click="changeTab"
               >
                 Sign in
               </v-btn>
@@ -181,6 +181,9 @@ class HeaderComponent extends Vue {
   @State isLogin
   @Mutation changeStatusAuth
 
+  @State tab
+  @Mutation changeTab
+
   // Button select city
   itemsCity = [
     { title: 'Kyiv' },
@@ -199,15 +202,15 @@ class HeaderComponent extends Vue {
 
   // SubMenu Catalog
   subMenuCatalog = [
-    { name: 'Smartphones', to: '#1' },
-    { name: 'Laptops', to: '#2' },
-    { name: 'Fragrances', to: '#3' },
-    { name: 'Skincare', to: '#4' },
-    { name: 'Groceries', to: '#5' },
-    { name: 'Home decoration', to: '#6' },
-    { name: 'Automotive', to: '#7' },
-    { name: 'Motorcycle', to: '#8' },
-    { name: 'Lighting', to: '#9' }
+    { name: 'Smartphones', to: 'categories' },
+    { name: 'Laptops', to: 'categories' },
+    { name: 'Fragrances', to: 'categories' },
+    { name: 'Skincare', to: 'categories' },
+    { name: 'Groceries', to: 'categories' },
+    { name: 'Home decoration', to: 'categories' },
+    { name: 'Automotive', to: 'categories' },
+    { name: 'Motorcycle', to: 'categories' },
+    { name: 'Lighting', to: 'categories' }
   ]
 
   // SubMenu Services
@@ -245,6 +248,10 @@ class HeaderComponent extends Vue {
         const subMenu = menuItemHasChildren.querySelector('.sub-menu');
         subMenu.style.maxHeight = subMenu.scrollHeight + 'px';
       }
+    }
+    // for close mob menu when choose link
+    if (!e.target.classList.contains('menu-link')) {
+      this.toggleMenu();
     }
   }
 
@@ -696,4 +703,11 @@ class HeaderComponent extends Vue {
       cursor: pointer !important;
     }
   }
+
+  .v-application{
+    .menu-btn{
+      margin-right: 0 !important;
+    }
+  }
+
 </style>

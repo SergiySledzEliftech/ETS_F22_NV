@@ -5,7 +5,7 @@
         {{ el.title }}
       </v-tab>
       <v-tab-item v-for="el in content" :key="el.id">
-        <component :is="el.component" :list="el.data" :view="view" />
+        <component :is="el.component" :view="view" />
       </v-tab-item>
     </v-tabs>
   </div>
@@ -13,40 +13,29 @@
 
 <script>
 import { Vue, Component, namespace } from 'nuxt-property-decorator';
-import History from '~/components/profile/History.vue';
+import Lend from '~/components/profile/Lend.vue';
+import Borrow from '~/components/profile/Borrow.vue';
+
 const { State, Action } = namespace('profile');
 export default @Component({
   name: 'profile-rents',
-  components: { History }
+  components: { Lend, Borrow }
 
 })
 class ProfileRents extends Vue {
-  @State data
   @State view
   @Action setLoad
   content = [
     {
       id: 1,
       title: 'Borrowed',
-      component: 'history',
-      data: []
+      component: 'borrow'
     },
     {
       id: 2,
       title: 'Lent',
-      component: 'history',
-      data: []
+      component: 'lend'
     }
   ]
-
-  mounted () {
-    this.content[0].data = this.data;
-    this.content[1].data = this.data;
-    this.setLoad(false);
-  }
 }
 </script>
-
-<style lang="scss" scoped>
-
-</style>

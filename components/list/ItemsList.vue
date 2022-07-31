@@ -1,6 +1,6 @@
 <template>
-  <div class="wrapper">
-    <div v-if="!disablePagination" class="view-wrap">
+  <div v-show="list.length > 0" class="wrapper">
+    <div v-show="!disablePagination" class="view-wrap">
       <div class="perpage-select">
         <p>Items per page</p>
         <v-menu offset-y>
@@ -19,7 +19,7 @@
           </template>
           <v-list>
             <v-list-item
-              v-for="(number, index) in optsArray"
+              v-for="(number, index) in perPageArray"
               :key="index"
               @click="setPerPage(number)"
             >
@@ -37,30 +37,28 @@
         </v-btn>
       </div>
     </div>
-    <div v-if="loading" class="loader">
+    <div v-show="loading" class="loader">
       <img src="https://upload.wikimedia.org/wikipedia/commons/b/b1/Loading_icon.gif?20151024034921" alt="loading">
     </div>
-    <ul v-if="!loading" :class="view">
+    <ul v-show="!loading" :class="view">
       <slot />
     </ul>
-    <template v-if="!disablePagination">
-      <v-pagination
-        v-model="currentPage"
-        value="currentPage"
-        :length="totalPages"
-        total-visible="5"
-        @input="setPage"
-        @next="nextPage"
-        @previous="previousPage"
-      />
-    </template>
+    <v-pagination
+      v-show="!disablePagination"
+      v-model="page"
+      :length="totalPages"
+      total-visible="5"
+      @input="setPage"
+      @next="nextPage"
+      @previous="previousPage"
+    />
   </div>
 </template>
 
 <script>
 import { Vue, Component, namespace, Prop } from 'nuxt-property-decorator';
 import SingleItem from './SingleItem.vue';
-const { State, Mutation } = namespace('profile');
+const { State: ListState, Mutation: ListMutation } = namespace('list');
 
 export default @Component({
   name: 'items-list',
@@ -69,19 +67,18 @@ export default @Component({
 
 class ItemsList extends Vue {
   icon = 'mdi-format-list-bulleted-square';
-  @State view;
-  @State loading;
-  @Mutation changeView;
-  @Prop({ type: Array, required: true }) list;
-  @Prop({ type: Number, required: true }) page;
-  @Prop({ type: Number, required: true }) totalPages;
+  @ListState view;
+  @ListState loading;
+  @ListState page;
+  @ListState totalPages;
+  @ListState perPage;
+  @ListState perPageArray;
+  @ListMutation changeView;
+  @Prop({ type: Array }) list;
   @Prop({ type: Function, required: true }) setPage;
   @Prop({ type: Function, required: true }) setPerPage;
-  @Prop({ type: Number, required: true }) perPage;
-  @Prop({ type: Array, required: true }) optsArray;
   @Prop({ default: false, type: Boolean }) disablePagination;
 
-  currentPage = 0
   changeIcon () {
     this.icon =
       this.icon === 'mdi-view-grid-outline'
@@ -111,7 +108,6 @@ class ItemsList extends Vue {
       this.view === 'grid'
         ? 'mdi-format-list-bulleted-square'
         : 'mdi-view-grid-outline';
-    this.currentPage = this.page;
     this.setPage(1);
   }
 }

@@ -6,7 +6,16 @@
     <div v-else>
       <comment-list
         :comments-list="comments"
+        :class="comments.length === 0 ? 'd_none' : ''"
       />
+      <div
+        v-if="comments.length === 0"
+        class="d-flex justify-center align-content-center my-12"
+      >
+        <p class="no-comments">
+          There are no comments here yet
+        </p>
+      </div>
     </div>
   </div>
 </template>
@@ -16,7 +25,7 @@ import { Vue, Component, namespace } from 'nuxt-property-decorator';
 import CommentList from '~/components/good/CommentList';
 import ProgressCircular from '~/components/global/Progress';
 
-const { State, Action } = namespace('good_comments');
+const { State, Mutation, Action } = namespace('good_comments');
 
 export default @Component({
   components: {
@@ -28,21 +37,21 @@ class AllComments extends Vue {
   @State comments
   @State loading
 
+  @Mutation setLoading
   @Action loadComments
-  @Action setLoading
 
-  // also can be used fetch
   async mounted () {
+    this.setLoading(true);
     try {
-      await this.loadComments();
+      await this.loadComments(this.$route.params.id);
     } catch (err) {
-      // eslint-disable-next-line no-console
       console.error(err.message);
     }
+    this.setLoading(false);
   }
 
   created () {
-    this.setLoading(false);
+    console.log(this.comments);
   }
 }
 </script>

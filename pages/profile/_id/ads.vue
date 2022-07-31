@@ -1,71 +1,78 @@
 <template>
   <div>
-    <ItemsList
-      :list="items"
-      :page="page"
-      :total-pages="totalPages"
-      :set-page="changePage"
-      :set-per-page="changePerPage"
-      :per-page="perPage"
-      :opts-array="perPageArray"
-    >
-      <li v-for="item in items" :key="item.id" class="item">
-        <SingleItem :item="item" :grid="view === 'list'">
-          <div class="buttons">
-            <v-tooltip bottom>
-              <template #activator="{on, attrs}">
-                <!-- на кліку має бути функція переходу на сторінку редагування товару-->
-                <v-btn v-bind="attrs" icon small v-on="on" @click.prevent="">
-                  <v-icon :class="view">
-                    mdi-pencil
-                  </v-icon>
-                </v-btn>
-              </template>
-              <span>Edit</span>
-            </v-tooltip>
-            <v-tooltip bottom>
-              <template #activator="{on,attrs}">
-                <v-btn v-bind="attrs" icon small v-on="on" @click.prevent="deleteElem(item.id)">
-                  <v-icon :class="view">
-                    mdi-trash-can
-                  </v-icon>
-                </v-btn>
-              </template>
-              <span>Delete</span>
-            </v-tooltip>
-          </div>
-        </SingleItem>
-      </li>
-    </ItemsList>
+    <div v-if="data.length > 0">
+      <ItemsList
+        :list="items"
+        :set-page="changePage"
+        :set-per-page="changePerPage"
+      >
+        <li v-for="item in items" :key="item._id" class="item">
+          <SingleItem :item="item" :grid="view === 'list'">
+            <div v-if="show" class="buttons">
+              <v-tooltip bottom>
+                <template #activator="{on, attrs}">
+                  <!-- на кліку має бути функція переходу на сторінку редагування товару-->
+                  <v-btn v-bind="attrs" icon small v-on="on" @click.prevent="">
+                    <v-icon :class="view">
+                      mdi-pencil
+                    </v-icon>
+                  </v-btn>
+                </template>
+                <span>Edit</span>
+              </v-tooltip>
+              <v-tooltip bottom>
+                <template #activator="{on,attrs}">
+                  <v-btn v-bind="attrs" icon small v-on="on" @click.prevent="deleteElem(item._id)">
+                    <v-icon :class="view">
+                      mdi-trash-can
+                    </v-icon>
+                  </v-btn>
+                </template>
+                <span>Delete</span>
+              </v-tooltip>
+            </div>
+          </SingleItem>
+        </li>
+      </ItemsList>
+    </div>
+    <div v-else class="nodata">
+      <p>You haven't created any adverts yet</p>
+      <NuxtLink :to="{name: 'categories'}" class="link">
+        Create new advert
+      </NuxtLink>
+    </div>
   </div>
 </template>
 
 <script>
-import { Vue, Component, namespace } from 'nuxt-property-decorator';
+import { Vue, Component, namespace, Prop } from 'nuxt-property-decorator';
 import ItemsList from '~/components/list/ItemsList.vue';
 import SingleItem from '~/components/list/SingleItem.vue';
-const { State, Action, Mutation } = namespace('profile');
+const { State, Action } = namespace('profile');
+const { State: ListState, Action: ListAction } = namespace('list');
 
 export default @Component({
   name: 'profile-ads',
   components: { ItemsList, SingleItem }
 })
+
 class ProfileAds extends Vue {
-  // @State data;
-  @State view;
-  @State page;
-  @State perPage;
-  @State perPageArray;
-  @State totalPages;
+  @State data;
+  @ListState view;
+  @ListState page;
+  @ListState perPage;
+  @ListState perPageArray;
+  @ListState totalPages;
   @Action getUser;
-  @Action setLoad;
+  @Action getProducts;
   @Action deleteElem;
-  @Action calculateTotalPages;
-  @Action calcPage;
-  @Mutation setPerPage;
-  data = [];
+  @ListAction setLoad;
+  @ListAction calculateTotalPages;
+  @ListAction calcPage;
+  @ListAction calcPerPage;
+  @Prop({ default: '' }) isMy;
   items = [];
-  disable = true;
+  show = this.isMy !== '';
 
   sliceList () {
     const firstIdx = (this.page - 1) * this.perPage;
@@ -79,25 +86,19 @@ class ProfileAds extends Vue {
   }
 
   changePerPage (num) {
-    this.setPerPage(num);
-    this.changePage(1);
+    this.calcPerPage(num);
+    this.sliceList();
     this.calculateTotalPages(this.data);
   }
 
   async mounted () {
-    try {
-      const { products } = await this.$axios.$get('https://dummyjson.com/products?limit=50');
-      this.data = products;
-      console.log(this.items);
-      this.sliceList();
-      this.calculateTotalPages(products);
-      this.setLoad(false);
-    } catch (e) {
-      console.log('data failed', e.message);
-    }
+    this.setLoad(true);
+    await this.getProducts(this.$route.params.id);
+    this.sliceList();
+    this.calculateTotalPages(this.data);
+    this.setLoad(false);
   }
 }
-
 </script>
 
 <style lang="scss" scoped>
