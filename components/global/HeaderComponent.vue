@@ -140,6 +140,7 @@
                 class="ma-2 btn-red menu-btn"
                 outlined
                 color="indigo"
+                @click="changeTab"
               >
                 Sign in
               </v-btn>
@@ -179,6 +180,9 @@ class HeaderComponent extends Vue {
   // For Auth
   @State isLogin
   @Mutation changeStatusAuth
+
+  @State tab
+  @Mutation changeTab
 
   // Button select city
   itemsCity = [

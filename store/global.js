@@ -1,13 +1,14 @@
 export const state = () => ({
   selectedCity: 'Kyiv',
-  isLogin: false
+  tab: 0
 });
 
 export const mutations = {
   changeCity (state, newCity) {
     state.selectedCity = newCity.target.innerText;
   },
-  changeStatusAuth (state, newStatus) {
-    state.isLogin = newStatus;
+
+  changeTab (state, newTab) {
+    state.tab = newTab;
   }
 };
