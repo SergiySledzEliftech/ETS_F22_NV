@@ -1,5 +1,5 @@
-// import { serverApiUrl } from '~/settings/config';
-const serverApiUrl = 'http://localhost:3001/';
+import { serverApiUrl } from '~/settings/config';
+// const serverApiUrl = 'http://localhost:3001/';
 export const state = () => ({
   data: [],
   dataBorrow: [],
