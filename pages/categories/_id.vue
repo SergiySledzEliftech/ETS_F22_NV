@@ -73,8 +73,32 @@ class GoodPage extends Vue {
 </script>
 
 <style lang="scss" scoped>
+.v-main__wrap {
+  min-height: calc(100vh - 64px);
+  ::v-deep .container{
+    max-width: 1280px !important;
+  }
+  @media (min-width: 960px) {
+    ::v-deep .container {
+      max-width: 100% !important;
+    }
+  }
+  @media (min-width: 1264px) {
+    ::v-deep .container {
+      max-width: 1280px !important;
+    }
+  }
+  @media (min-width: 1904px) {
+    ::v-deep .container {
+      max-width: 1280px !important;
+    }
+  }
+}
+
 .main{
   height: 100%;
+  max-width: 1280px;
+  margin: 0 auto;
 }
 .tabs-wrapper{
   @media only screen and (max-width: 1310px) {
