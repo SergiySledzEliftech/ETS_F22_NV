@@ -363,7 +363,33 @@
           <single-item
             :item="item"
             :grid="view === 'list'"
-          />
+          >
+            <ul class="status-list">
+              <li class="status-item">
+                <p>
+                  Seller status:<span :class="item.sellerStatus === 'business' ? 'greenText' : 'redText'">
+                    {{ item.sellerStatus }}
+                  </span>
+                </p>
+              </li>
+              <li class="status-item">
+                <p>
+                  Price negotiable:
+                  <span :class="item.isContractPrice ? 'greenText' : 'redText'">
+                    {{ item.isContractPrice ? 'Yes' : 'No' }}
+                  </span>
+                </p>
+              </li>
+              <li class="status-item">
+                <p>
+                  Condition:
+                  <span :class="item.condition === 'new' ? 'greenText' : 'redText'">
+                    {{ item.condition }}
+                  </span>
+                </p>
+              </li>
+            </ul>
+          </single-item>
         </li>
       </items-list>
       <!--        ↑ CARDS ↑-->
@@ -444,20 +470,21 @@ class Categories extends Vue {
 
   onFind () {
     if (this.price.$gte && this.price.$lte) {
-      let minPrice = this.priceMinValue;
-      let maxPrice = this.priceMaxValue;
+      let minPrice = +this.priceMinValue;
+      let maxPrice = +this.priceMaxValue;
       if (minPrice > maxPrice) {
         this.priceMinValue = maxPrice;
         this.priceMaxValue = minPrice;
         minPrice = this.priceMinValue;
         maxPrice = this.priceMaxValue;
-      } else if (minPrice === maxPrice) {
-        this.filterProducts({ ...this.options, price: { $lte: maxPrice } });
+        return this.filterProducts({ ...this.options, price: { $gte: minPrice, $lte: maxPrice } });
+      } if (minPrice === maxPrice) {
+        return this.filterProducts({ ...this.options, price: { $lte: maxPrice } });
       } else {
         this.filterProducts({ ...this.options, price: { $gte: minPrice, $lte: maxPrice } });
       }
     } else {
-      this.filterProducts(this.options);
+      return this.filterProducts(this.options);
     }
   }
 
@@ -537,6 +564,43 @@ class Categories extends Vue {
   background-color: $secondary;
   position: relative;
 }
+//ul .item:hover .status-list {
+//  color: $secondary;
+//}
+.item{
+  .status-list{
+    padding: 6px 0 0;
+    margin-top: 6px;
+    border-top: 2px solid rgba($light, 0.4);
+    @media (max-width: 899px) {
+      border-top: 1px solid rgba($light, 0.4);
+    }
+    .status-item{
+      p{
+        font-size: 16px;
+        @media (max-width: 899px) {
+          font-size: 14px;
+        }
+        :not(:last-child){
+          margin-bottom: 10px;
+        }
+        span{
+          font-weight: 600;
+          @media (max-width: 899px) {
+            font-size: 14px;
+          }
+        }
+        .greenText{
+          color: $positive;
+        }
+        .redText{
+          color: $negative;
+        }
+      }
+    }
+  }
+}
+
 .progress{
   height: 70vh;
   display: flex;
