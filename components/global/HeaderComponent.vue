@@ -13,6 +13,7 @@
             <ul class="menu">
               <li class="menu-item menu-item-child">
                 <a href="#" class="menu-link" data-toggle="sub-menu">{{ menu[0].item }}<i class="expand" /></a>
+
                 <ul class="sub-menu">
                   <li v-for="(item, index) in subMenuCatalog" :key="index" class="menu-item">
                     <NuxtLink :to="item.to">
@@ -53,9 +54,29 @@
                   <nuxt-link :to="'/profile/' + $auth.user._id">
                     <v-icon
                       large
-                      color="blue darken-2"
+                      color="var(--secondary)"
                     >
                       mdi-account
+                    </v-icon>
+                  </nuxt-link>
+
+                  <nuxt-link to="/payments">
+                    <v-icon
+                      dense
+                      large
+                      color="var(--secondary)"
+                    >
+                      mdi-cart
+                    </v-icon>
+                  </nuxt-link>
+
+                  <nuxt-link to="/categories">
+                    <v-icon
+                      large
+                      dense
+                      color="var(--secondary)"
+                    >
+                      mdi-plus-box
                     </v-icon>
                   </nuxt-link>
 
@@ -118,9 +139,29 @@
               <nuxt-link :to="'/profile/' + $auth.user._id">
                 <v-icon
                   large
-                  color="blue darken-2"
+                  color="var(--secondary)"
                 >
                   mdi-account
+                </v-icon>
+              </nuxt-link>
+
+              <nuxt-link to="/payments">
+                <v-icon
+                  dense
+                  large
+                  color="var(--secondary)"
+                >
+                  mdi-cart
+                </v-icon>
+              </nuxt-link>
+
+              <nuxt-link to="/categories">
+                <v-icon
+                  large
+                  dense
+                  color="var(--secondary)"
+                >
+                  mdi-plus-box
                 </v-icon>
               </nuxt-link>
 
@@ -188,8 +229,8 @@ class HeaderComponent extends Vue {
   itemsCity = [
     { title: 'Kyiv' },
     { title: 'Kharkiv' },
-    { title: 'Chernivtsi' },
     { title: 'Poltava' },
+    { title: 'Rivne' },
     { title: 'Dnipro' }
   ]
 
@@ -653,10 +694,11 @@ class HeaderComponent extends Vue {
     // Phone
     .header-city {
       position: relative;
-      width: 102px;
+      width: 75px;
       color: $secondary;
       margin-bottom: 0;
       margin-right: 10px;
+      margin-left: 5px;
       font-size: 20px;
 
       @media only screen and (max-width: 992px) {
