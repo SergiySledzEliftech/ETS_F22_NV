@@ -180,7 +180,7 @@
                     class="disable-input"
                     placeholder="Enter your phone number"
                     :disabled="!fab"
-                    type="text"
+                    type="number"
                     :rules="rulePhone"
                     append-icon="mdi-pencil"
                   />
@@ -334,7 +334,7 @@
 import { Vue, Component, Prop, namespace } from 'nuxt-property-decorator';
 import {
   emailValidation, emptyValidation, preventHtmlValidation, preventCapitalsValidation,
-  allowDigitsOnlyValidation, minLengthValidation, lengthValidation, avatarValidation
+  allowDigitsOnlyValidation, minLengthValidation, lengthValidation, avatarValidation, passwordValidation
 } from '~/helpers/validators.js';
 const { State, Action, Mutation } = namespace('profile');
 const { State: ListState, Action: ListAction } = namespace('list');
@@ -498,7 +498,8 @@ class Config extends Vue {
 
   rulePassword = [
     minLengthValidation(8),
-    lengthValidation(32)
+    lengthValidation(8),
+    passwordValidation()
   ]
 
   ruleAvatar = [

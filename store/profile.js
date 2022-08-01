@@ -1,5 +1,5 @@
-// import { serverApiUrl } from '~/settings/config';
-const serverApiUrl = 'http://localhost:3001/';
+import { serverApiUrl } from '~/settings/config';
+// const serverApiUrl = 'http://localhost:3001/';
 export const state = () => ({
   data: [],
   dataBorrow: [],
@@ -13,7 +13,7 @@ export const state = () => ({
     about: '',
     avatar: '',
     email: '',
-    phone: '',
+    phone: 1,
     optionalPhone: '',
     location: ''
   },
@@ -129,7 +129,7 @@ export const mutations = {
     state.user.email = value;
   },
   updatePhone (state, value) {
-    state.user.phone = value;
+    state.user.phone = +value;
   },
   updateOptionalPhone (state, value) {
     state.user.optionalPhone = value;
