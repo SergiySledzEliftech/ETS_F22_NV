@@ -2,7 +2,7 @@
   <div :class="{rotateY : rotateY}" class="news-item-wrapper-mobile">
     <v-card
       class="mx-auto"
-      max-width="100%"
+      width="100%"
       :class="{rotateY : rotateY}"
     >
       <v-img
