@@ -34,6 +34,7 @@ class CarouselIndicators extends Vue {
   .carousel__indicators-item{
     @include responsive-value_restrained('height', 110, 80, $bp_tablet, 1310);
     max-width: 140px;
+    width: 140px;
   }
   .carousel__indicators-item > img{
     width: 100%;
@@ -56,5 +57,10 @@ class CarouselIndicators extends Vue {
     opacity: 0.7;
     transition: all 0.25s linear;
   }
+}
+img{
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
 }
 </style>

@@ -49,7 +49,7 @@ class SharingBlock extends Vue {
 @import "assets/css/good-media.scss";
 
 .container{
-  padding: 0;
+  padding: 0 !important;
 }
 ul, li{
   margin: 0;

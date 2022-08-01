@@ -122,6 +122,7 @@ class RentPopup extends Vue {
     letter-spacing: 2px !important;
     font-size: 17px !important;
     @include responsive-value('width', 210, 80, $bp_tablet);
+    @include responsive-value_important('height', 50, 20, 1310);
     @include responsive-value_important('height', 50, 30, $bp_tablet);
     @include responsive-value_important('font-size', 16, 12, $bp_tablet);
     @include responsive-value_important('padding-right', 20, 10, $bp_tablet);

@@ -40,17 +40,22 @@
             {{ good.title }}
           </h1>
           <div class="good__props">
-            <p class="good__props-size good__props-item">
-              WxHxL (mm): <span class="red-txt">450x500x900</span>
+            <p class="good__props-location good__props-item">
+              Location: <span class="red-txt">{{ good.location }}</span>
             </p>
             <p class="good__props-date good__props-item">
-              Published date: <span class="red-txt"> {{ good.date_created }} </span>
+              Published date: <span class="red-txt">{{ formatDate(good.date_created) }}</span>
             </p>
             <p class="good__props-rating good__props-item">
               Rating: <span class="red-txt"> {{ good.rating }} </span>
             </p>
+            <p class="good__props-brand good__props-item">
+              Brand: <span class="red-txt">{{ good.brand }}</span>
+            </p>
             <p class="good__props-price good__props-item">
-              Price: <span class="red-txt">{{ good.price }} UAN</span>
+              Price:
+              <span v-if="!good.isFree" class="red-txt">{{ good.price }} Fr</span>
+              <span v-else class="red-txt"> Free </span>
             </p>
           </div>
           <div class="good__contacts">
@@ -60,13 +65,13 @@
             <div class="contacts__list">
               <p class="contacts__list-name contacts__list-item">
                 <span class="red-txt">
-                  {{ good.leaser_info.firstName }} {{ good.leaser_info.lastName }}
+                  {{ user.firstName }} {{ user.lastName }}
                 </span>
               </p>
               <div class="contacts__list-phone contacts__list-item">
                 <p class="phone-number">
                   <span class="red-txt">
-                    +375 (29) 867-33-86
+                    +380{{ user.phone }}
                   </span>
                 </p>
                 <ul class="phone__messengers pa-0">
@@ -81,7 +86,7 @@
                   </li>
                 </ul>
               </div>
-              <a href="#" class="contacts__list-mail contacts__list-item"><span class="red-txt">nina-pv@gmail.com</span></a>
+              <a href="#" class="contacts__list-mail contacts__list-item"><span class="red-txt">{{ user.email }}</span></a>
             </div>
           </div>
           <rent-popup
@@ -97,6 +102,7 @@
 
 <script>
 import { Vue, Component, Prop } from 'nuxt-property-decorator';
+import moment from 'moment';
 import Carousel from '~/components/good/Carousel/Carousel';
 import RentPopup from '~/components/good/RentPopup';
 
@@ -109,6 +115,7 @@ export default @Component({
 
 class Info extends Vue {
   @Prop() good;
+  @Prop() user;
 
   messengers = [
     {
@@ -125,21 +132,6 @@ class Info extends Vue {
     }
   ]
 
-  items = [
-    {
-      src: 'https://cdn.vuetifyjs.com/images/carousel/squirrel.jpg'
-    },
-    {
-      src: 'https://cdn.vuetifyjs.com/images/carousel/sky.jpg'
-    },
-    {
-      src: 'https://cdn.vuetifyjs.com/images/carousel/bird.jpg'
-    },
-    {
-      src: 'https://cdn.vuetifyjs.com/images/carousel/planet.jpg'
-    }
-  ]
-
   goodStatus = '';
 
   onChangeStatus () {
@@ -148,6 +140,10 @@ class Info extends Vue {
 
   mounted () {
     this.goodStatus = this.good.status;
+  }
+
+  formatDate (date) {
+    return moment(date).format('DD.MM.YYYY');
   }
 }
 </script>
@@ -184,7 +180,7 @@ a{
   }
 }
 .carousel{
-  @include responsive-value_restrained('width', 610, 430, 960, 1310);
+  @include responsive-value_restrained('width', 610, 400, 960, 1310);
   @include responsive-value_restrained('height', 534, 434, 960, 1310);
   margin-right: 60px;
   @media only screen and (max-width: $bp_tablet + px) {

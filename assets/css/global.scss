@@ -16,6 +16,7 @@ $body-font-family: 'Montserrat';
     font-size: 60px;
     font-weight: 600;
     line-height: 3.8rem;
+    // margin-bottom: 16px;
     color: $secondary;
   }
 
@@ -23,6 +24,7 @@ $body-font-family: 'Montserrat';
     font-size: 40px;
     font-weight: normal;
     line-height: 3rem;
+    // margin-bottom: 16px;
     color: $secondary;
   }
 
@@ -38,6 +40,7 @@ $body-font-family: 'Montserrat';
     font-size: 24px;
     font-weight: normal;
     line-height: 1.4rem;
+    //margin-bottom: 16px;
     color: $secondary;
   }
 
@@ -52,6 +55,7 @@ $body-font-family: 'Montserrat';
   a {
     font-size: 18px;
     font-weight: bold;
+    //margin-bottom: 16px;
     line-height: 1.4rem;
     text-decoration: none;
     color: $light;
@@ -66,6 +70,7 @@ $body-font-family: 'Montserrat';
     font-size: 18px;
     font-weight: normal;
     line-height: 1.5rem;
+    // margin-bottom: 16px;
     color: $secondary;
   }
 
@@ -95,6 +100,7 @@ $body-font-family: 'Montserrat';
     letter-spacing: normal;
     height: 50px!important;
     padding: 0 20px!important;
+    // margin-bottom: 16px;
   }
   .btn_secondary {
     background: #fff !important;
@@ -114,4 +120,23 @@ $body-font-family: 'Montserrat';
 
 .v-main__wrap {
   min-height: calc(100vh - 64px);
+}
+
+.v-main__wrap {
+  min-height: calc(100vh - 64px);
+  @media (min-width: 960px) {
+    .container {
+      max-width: none !important;
+    }
+  }
+  @media (min-width: 1264px) {
+    .container {
+      max-width: none !important;
+    }
+  }
+  @media (min-width: 1904px) {
+    .container {
+      max-width: none !important;
+    }
+  }
 }
