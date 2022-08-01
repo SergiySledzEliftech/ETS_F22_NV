@@ -4,7 +4,7 @@
       <progress-circular />
     </div>
     <div v-if="!loading">
-      <info :good="good" />
+      <info :good="good" :user="user" />
       <div class="tabs-wrapper">
         <v-tabs class="tabs" color="var(--primary)" left>
           <v-tab :to="{ name: 'categories-id'}" nuxt exact>
@@ -31,7 +31,8 @@ import SharingBlock from '~/components/good/SharingBlock';
 import Recommendations from '~/components/good/Recommendations';
 import ProgressCircular from '~/components/global/Progress';
 
-const { State, Mutation, Action } = namespace('good');
+const { State: GoodState, Mutation: GoodMutation, Action: GoodAction } = namespace('good');
+const { State: UserState, Action: UserAction } = namespace('profile');
 
 export default @Component({
   components: {
@@ -46,17 +47,20 @@ export default @Component({
 })
 
 class GoodPage extends Vue {
-  @State good
+  @GoodState good
+  @UserState user
 
-  @Mutation setLoading
+  @GoodMutation setLoading
 
-  @Action loadGood
+  @UserAction getUser
+  @GoodAction loadGood
 
   loading = true
 
   async mounted () {
     try {
       await this.loadGood(this.$route.params.id);
+      await this.getUser(this.good.leaser_info.userId);
     } catch (err) {
       console.error(err.message);
     }
