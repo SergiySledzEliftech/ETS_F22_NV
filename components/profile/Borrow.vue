@@ -1,8 +1,8 @@
 <template>
   <div>
-    <div v-if="data.length > 0">
+    <div v-if="dataLend.length > 0">
       <items-list
-        :list="data"
+        :list="dataLend"
         :set-page="changePage"
         :set-per-page="changePerPage"
       >
@@ -40,7 +40,7 @@ export default @Component({
 class Borrow extends Vue {
   items = [];
   // data = [];
-  @State data;
+  @State dataLend;
   @Action getLentProducts;
   @ListState view;
   @ListState page;
@@ -54,9 +54,9 @@ class Borrow extends Vue {
   @ListAction calcPerPage;
 
   sliceList () {
-    if (this.data && this.data.length > 0) {
+    if (this.dataLend && this.dataLend.length > 0) {
       const firstIdx = (this.page - 1) * this.perPage;
-      const result = this.data?.slice(firstIdx, firstIdx + this.perPage);
+      const result = this.dataLend?.slice(firstIdx, firstIdx + this.perPage);
       this.items = result;
     }
   }
@@ -69,23 +69,21 @@ class Borrow extends Vue {
   changePerPage (num) {
     this.calcPerPage(num);
     this.sliceList();
-    this.calculateTotalPages(this.data);
+    this.calculateTotalPages(this.dataLend);
   }
 
   formatDate (date) {
-    console.log(date);
     return date === '' ? '' : moment(date).format('DD MMM YYYY hh:mm');
   }
 
   async mounted () {
     this.setLoad(true);
     // const localRents = this.$auth.$storage.getLocalStorage(this.$auth.user._id);
-    // this.data = localRents !== undefined ? localRents : [];
+    // this.dataLend = localRents !== undefined ? localRents : [];
     await this.getLentProducts('62d68778176755ec2e579c3b');
-    console.log('here', this.data);
-    if (this.data && this.data !== []) {
+    if (this.dataLend && this.dataLend !== []) {
       this.sliceList();
-      this.calculateTotalPages(this.data);
+      this.calculateTotalPages(this.dataLend);
     }
     this.setLoad(false);
   }

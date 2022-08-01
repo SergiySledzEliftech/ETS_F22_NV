@@ -1,8 +1,8 @@
 <template>
   <div>
-    <div v-if="data.length > 0">
+    <div v-if="dataLend.length > 0">
       <items-list
-        :list="data"
+        :list="dataLend"
         :set-page="changePage"
         :set-per-page="changePerPage"
       >
@@ -37,7 +37,7 @@ export default @Component({
 
 class Lend extends Vue {
   items = [];
-  @State data;
+  @State dataLend;
   @ListState view;
   @ListState page;
   @ListState perPage;
@@ -51,9 +51,9 @@ class Lend extends Vue {
   @ListAction calcPerPage;
 
   sliceList () {
-    if (this.data.length > 0) {
+    if (this.dataLend.length > 0) {
       const firstIdx = (this.page - 1) * this.perPage;
-      const result = this.data.slice(firstIdx, firstIdx + this.perPage);
+      const result = this.dataLend.slice(firstIdx, firstIdx + this.perPage);
       this.items = result;
     }
   }
@@ -66,7 +66,7 @@ class Lend extends Vue {
   changePerPage (num) {
     this.calcPerPage(num);
     this.sliceList();
-    this.calculateTotalPages(this.data);
+    this.calculateTotalPages(this.dataLend);
   }
 
   formatDate (date) {
@@ -75,9 +75,9 @@ class Lend extends Vue {
 
   async mounted () {
     this.setLoad(true);
-    await this.getProducts();
+    await this.getProducts(this.$route.params.id);
     this.sliceList();
-    this.calculateTotalPages(this.data);
+    this.calculateTotalPages(this.dataLend);
     this.setLoad(false);
   }
 }

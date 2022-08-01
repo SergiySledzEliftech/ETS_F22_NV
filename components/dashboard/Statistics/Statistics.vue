@@ -45,6 +45,8 @@ class Statistics extends Vue {
       const statistics = [...(this.fillEmptyStatistics(tomorrowStatistics)), ...(this.fillEmptyStatistics(todayStatistics))];
 
       this.users = this.getStatisticsFor24Hours(statistics, 'users');
+      this.itemsCreated = this.getStatisticsFor24Hours(statistics, 'itemsCreated');
+      this.itemsRented = this.getStatisticsFor24Hours(statistics, 'itemsRented');
     } catch (err) {
     }
   }
@@ -55,9 +57,13 @@ class Statistics extends Vue {
 
   getStatisticsFor24Hours (statistics, field) {
     const index = Math.floor(((new Date()).getHours(0, 0, 0, 0)) / 4) + 1;
-    statistics = [...statistics[0][field], ...statistics[1][field]].slice(0, index + 6).reverse().slice(0, 6);
-    
-    return statistics;
+    statistics = [...statistics[0][field], ...statistics[1][field]].slice(0, index + 6).reverse().slice(0, 6).reverse();
+    const res = [];
+
+    for (let i = 0; i < statistics.length; i++) {
+      res.push(statistics.slice(i).reduce((e1, e2) => e1 + e2));
+    }
+    return res.reverse();
   }
 
   fillEmptyStatistics (arr) {
