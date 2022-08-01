@@ -4,7 +4,7 @@
       <progress-circular />
     </div>
     <div v-if="!loading">
-      <info :good="good" />
+      <info :good="good" :user-id="userId" />
       <div class="tabs-wrapper">
         <v-tabs class="tabs" color="var(--primary)" left>
           <v-tab :to="{ name: 'categories-id'}" nuxt exact>
@@ -53,6 +53,8 @@ class GoodPage extends Vue {
   @Action loadGood
 
   loading = true
+
+  userId = this.$auth.user._id;
 
   async mounted () {
     try {

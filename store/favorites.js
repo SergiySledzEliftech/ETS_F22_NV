@@ -1,11 +1,12 @@
 export const state = () => ({
-  data: []
+  data: [],
+  isFav: []
 });
 
 export const actions = {
   async getFavorites ({ commit }, id) {
     try {
-      const res = await this.$axios.$get(`http://localhost:3001/favorites?userId=${String(id)}`);
+      const res = await this.$axios.$get(`http://localhost:3001/favorites?user=${String(id)}`);
       commit('setData', res);
     } catch (error) {
       console.log(error.message);
@@ -14,17 +15,25 @@ export const actions = {
 
   async addToFavorites ({ commit }, item) {
     try {
-      const res = await this.$axios.post('http://localhost:3001/favorites', item);
-      console.log(res);
+      await this.$axios.post('http://localhost:3001/favorites', item);
     } catch (error) {
       console.log(error.message);
     }
   },
 
-  async removeFromFavorites ({ commit }, id) {
+  async removeFromFavorites ({ state, commit }, id) {
     try {
       await this.$axios.$delete('http://localhost:3001/favorites/' + String(id));
-      return;
+    } catch (error) {
+      console.log(error.message);
+    }
+  },
+
+  async checkFavorite ({ commit }, { id, user }) {
+    try {
+      const res = await this.$axios.$get(`http://localhost:3001/favorites/isfav?id=${String(id)}&user=${String(user)}`);
+      console.log('res', res);
+      commit('setFav', res);
     } catch (error) {
       console.log(error.message);
     }
@@ -34,6 +43,9 @@ export const actions = {
 export const mutations = {
   setData (state, array) {
     state.data = array;
+  },
+  setFav (state, val) {
+    state.isFav = val;
   }
 };
 

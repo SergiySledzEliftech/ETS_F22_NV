@@ -84,11 +84,30 @@
               <a href="#" class="contacts__list-mail contacts__list-item"><span class="red-txt">nina-pv@gmail.com</span></a>
             </div>
           </div>
-          <rent-popup
-            :good="good"
-            :good-status="goodStatus"
-            @changeStatus="onChangeStatus"
-          />
+          <div class="buttons">
+            <rent-popup
+              :good="good"
+              :good-status="goodStatus"
+              @changeStatus="onChangeStatus"
+            />
+            <v-tooltip bottom>
+              <template #activator="{on, attrs}">
+                <v-btn
+                  icon
+                  class="btn"
+                  large
+                  v-bind="attrs"
+                  v-on="on"
+                  @click.prevent="isFav.length > 0 ? removeFromFavs() : addToFavs(good)"
+                >
+                  <v-icon :color="isFav.length > 0 ? 'error' : 'disabled'">
+                    mdi-heart
+                  </v-icon>
+                </v-btn>
+              </template>
+              <span>{{ tooltip }}</span>
+            </v-tooltip>
+          </div>
         </div>
       </section>
     </div>
@@ -96,10 +115,10 @@
 </template>
 
 <script>
-import { Vue, Component, Prop } from 'nuxt-property-decorator';
+import { Vue, Component, Prop, namespace } from 'nuxt-property-decorator';
 import Carousel from '~/components/good/Carousel/Carousel';
 import RentPopup from '~/components/good/RentPopup';
-
+const { State: FavsState, Action: FavsAction } = namespace('favorites');
 export default @Component({
   components: {
     Carousel,
@@ -109,6 +128,13 @@ export default @Component({
 
 class Info extends Vue {
   @Prop() good;
+  @Prop() userId;
+  @FavsState isFav;
+  @FavsAction addToFavorites;
+  @FavsAction checkFavorite;
+  @FavsAction removeFromFavorites;
+  
+  tooltip = '';
 
   messengers = [
     {
@@ -146,8 +172,38 @@ class Info extends Vue {
     this.goodStatus = 'unavailable';
   }
 
-  mounted () {
+  changeTooltip () {
+    this.tooltip = this.isFav.length > 0
+      ? 'Remove from favorites'
+      : 'Add to favorites';
+  }
+
+  async addToFavs (item) {
+    console.log('add');
+    try {
+      await this.addToFavorites({ userId: this.userId, item }).then(() => this.checkFavorite({ id: this.good._id, user: this.userId }));
+    } catch (err) {
+      console.log(err.message);
+    } finally {
+      this.changeTooltip();
+    }
+  }
+
+  async removeFromFavs () {
+    try {
+      await this.removeFromFavorites(this.isFav[0]._id).then(() =>
+        this.checkFavorite({ id: this.good._id, user: this.userId }));
+    } catch (err) {
+      console.log(err.message);
+    } finally {
+      this.changeTooltip();
+    }
+  }
+
+  async mounted () {
     this.goodStatus = this.good.status;
+    await this.checkFavorite({ id: this.good._id, user: this.userId });
+    this.changeTooltip();
   }
 }
 </script>
@@ -309,6 +365,15 @@ a{
           }
         }
       }
+    }
+  }
+
+  .buttons {
+    display: flex;
+    align-items: center;
+
+    .btn {
+      margin-left: 15px;
     }
   }
 }
