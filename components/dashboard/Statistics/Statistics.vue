@@ -52,11 +52,12 @@ class Statistics extends Vue {
   }
 
   getDateTime () {
-    return (new Date()).setHours(0, 0, 0, 0);
+    return (new Date()).setHours(0, 0, 0, 0) + 10800000;
   }
 
   getStatisticsFor24Hours (statistics, field) {
-    const index = Math.floor(((new Date()).getHours(0, 0, 0, 0)) / 4) + 1;
+    console.log(statistics);
+    const index = Math.floor(((new Date()).getHours(0, 0, 0, 0) + 3) / 4);
     statistics = [...statistics[0][field], ...statistics[1][field]].slice(0, index + 6).reverse().slice(0, 6).reverse();
     const res = [];
 
