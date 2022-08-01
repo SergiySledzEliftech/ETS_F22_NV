@@ -102,7 +102,6 @@ class RentPopup extends Vue {
       });
       this.$auth.$storage.setLocalStorage(this.$auth.user._id, goodsRented);
     } else {
-      console.log('there');
       this.$auth.$storage.removeLocalStorage(this.$auth.user._id);
       goodsRented = localRents;
       goodsRented.push({
