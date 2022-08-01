@@ -84,14 +84,10 @@ class PaymentsOrders extends Vue {
       billAmount: this.totalCost,
       billNumber: Math.floor(Math.random() * this.totalCost)
     };
-    console.log(bill);
     this.$emit('modalCardVisible', true, bill);
   }
 
   deleteOrderedGoodFromList (id, item) {
-    // item.status = 'available';
-    console.log(id, 222222);
-    console.log(item, 33333);
     this.deleteOrderedGood({ id, item });
   }
 }
@@ -103,8 +99,6 @@ $gap: 5
 $vstep: 5
 $bradius: 10
 
-//.noactive
-//  display: none
 .payments
   position: relative
   margin-right: 0
@@ -114,7 +108,6 @@ $bradius: 10
   &__orders
     margin-left: $gap * 3 * -1px
     margin-right: $gap * 3 * -1px
-    margin-top: $gap * 3 * -1px
     margin-top: $gap * 3 * -1px
     padding-left: $gap * 3 * 1px
     padding-right: $gap * 3 * 1px

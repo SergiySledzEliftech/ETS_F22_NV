@@ -42,25 +42,6 @@ class PaymentsPage extends Vue {
   modalCardVisible = false
   billOrderData
 
-  // products = [
-  //   {
-  //     id: 1,
-  //     price: 250,
-  //     name: 'velobike',
-  //     img: 'velobike.png',
-  //     quantity: 1,
-  //     description: 'bike for cyti bike for cyti bike for cyti bike for cyti bike for cyti '
-  //   },
-  //   {
-  //     id: 2,
-  //     price: 270,
-  //     name: 'bmxbike',
-  //     img: 'bmxbike.png',
-  //     quantity: 1,
-  //     description: 'bike for mountain'
-  //   }
-  // ]
-
   @State orderedGoods;
   @Mutation setOrderedGoods;
 
@@ -69,9 +50,7 @@ class PaymentsPage extends Vue {
     const data = orderGoods.map((el) => {
       return el.good;
     });
-    console.log(data, '(((((((((((((');
-    console.log(orderGoods, 33333333);
-    console.log(this.$auth.user._id);
+    console.log(this.$auth.$storage.getLocalStorage(this.$auth.user._id));
     this.setOrderedGoods(data);
   }
 
@@ -107,20 +86,6 @@ $bradius: 10;
   padding: $gap * 4 * 1px;
   background: #f4f4f9;
 }
-//.btn
-//  &--payments
-//    width: 100%
-//    border-radius: 8px
-//    margin-bottom: 0
-//    letter-spacing: 27px
-//    font-size: 25px
-//    font-weight: 700
-//    background: #183153
-//    color: #fff
-//    border-color: #E31F26
-//    text-transform: none
-//    height: 50px
-//    padding: 0 20px
 .row__vertical{
   display: flex;
   flex-wrap: wrap;
@@ -144,10 +109,7 @@ $bradius: 10;
 .col-desktop-2-5{
   max-width: 100 / 2 * 1%;
 }
-//.form-row
-//  flex-direction: column
-////.form-col
-//  max-width: 100%
+
 @for $i from 1 through 10{
   .m-b-#{$i}{
     margin-bottom: $i * $vstep * 1px;

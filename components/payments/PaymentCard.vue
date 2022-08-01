@@ -158,9 +158,7 @@ class PaymentCard extends Vue {
       const localRents = this.$auth.$storage.getLocalStorage(this.$auth.user._id);
       console.log(localRents, 111111111111);
       this.$router.push('/');
-      console.log(PaymentsData);
     } catch (err) {
-      // console.error(err.message);
     }
   }
 }
