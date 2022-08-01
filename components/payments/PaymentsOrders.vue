@@ -20,7 +20,7 @@
           </div>
           <div class="orders__item-content">
             <div class="orders__item-inner m-b-2">
-              <div class="orders__item-name">
+              <div class="orders__item-name" @click="openItem(item._id)">
                 {{ item.title }}
               </div>
             </div>
@@ -89,6 +89,10 @@ class PaymentsOrders extends Vue {
 
   deleteOrderedGoodFromList (id, item) {
     this.deleteOrderedGood({ id, item });
+  }
+
+  openItem (id) {
+    this.$router.push('/categories/' + id);
   }
 }
 </script>

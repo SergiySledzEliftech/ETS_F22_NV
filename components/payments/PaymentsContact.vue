@@ -61,7 +61,7 @@
             <img :src=" require('../../assets/img/payments/visa-logo.png')" alt="visa" class="payments__type-image">
           </div>
         </div>
-        <p>Безпечна онлайн-оплата карткою</p>
+        <p>Secure online card payment</p>
       </div>
     </div>
     <div class="payments__contact">
@@ -75,7 +75,7 @@
             >
           </div>
         </div>
-        <p>Оплата готівкою при отриманні замовлення</p>
+        <p>Payment in cash upon receipt of the order</p>
       </div>
     </div>
   </div>

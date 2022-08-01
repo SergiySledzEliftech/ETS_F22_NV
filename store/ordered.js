@@ -5,7 +5,6 @@ export const state = () => ({
 export const mutations = {
   setOrderedGoods (state, goods) {
     state.orderedGoods = goods;
-    console.log(state.orderedGoods, 111111);
   },
 
   Delete_Ordered_Good (state, id) {

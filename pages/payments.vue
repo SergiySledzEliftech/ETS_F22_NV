@@ -50,7 +50,6 @@ class PaymentsPage extends Vue {
     const data = orderGoods.map((el) => {
       return el.good;
     });
-    console.log(this.$auth.$storage.getLocalStorage(this.$auth.user._id));
     this.setOrderedGoods(data);
   }
 
