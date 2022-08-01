@@ -57,26 +57,24 @@
 <script>
 import { Vue, Component, Prop, namespace } from 'nuxt-property-decorator';
 
-const { Mutation, Action } = namespace('good');
+const { State, Mutation, Action } = namespace('good');
 
 export default @Component({
-  components: {
-  }
+  components: {}
 })
 
 class RentPopup extends Vue {
   @Prop() good;
   @Prop() goodStatus;
 
+  @State rentedGoods;
+
   @Mutation setGoodStatus;
+  @Mutation setRentedGood;
   @Action updateGood;
   @Action updateStatistic;
 
   term = 1;
-
-  mounted () {
-    this.goodRented = this.good.status;
-  }
 
   created () {
     // this.$auth.$storage.removeLocalStorage(this.$auth.user._id);
@@ -97,13 +95,14 @@ class RentPopup extends Vue {
   addToLocalStorage () {
     const localRents = this.$auth.$storage.getLocalStorage(this.$auth.user._id);
     let goodsRented = [];
-    if (localRents === null) {
+    if (localRents === undefined || localRents === null) {
       goodsRented.push({
         lease_term: this.term,
         good: this.good
       });
       this.$auth.$storage.setLocalStorage(this.$auth.user._id, goodsRented);
     } else {
+      console.log('there');
       this.$auth.$storage.removeLocalStorage(this.$auth.user._id);
       goodsRented = localRents;
       goodsRented.push({

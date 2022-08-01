@@ -40,7 +40,6 @@ const { State, Action } = namespace('profile');
 
 export default @Component({
   components: {}
-
 })
 
 class Profile extends Vue {

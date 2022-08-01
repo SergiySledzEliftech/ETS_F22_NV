@@ -18,7 +18,6 @@ const { State, Action } = namespace('profile');
 export default @Component({
   name: 'profile-rents',
   components: { History }
-
 })
 class ProfileRents extends Vue {
   @State data
