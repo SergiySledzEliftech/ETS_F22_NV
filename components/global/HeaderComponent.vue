@@ -70,7 +70,7 @@
                     </v-icon>
                   </nuxt-link>
 
-                  <nuxt-link to="/add-new-advert">
+                  <nuxt-link to="/categories">
                     <v-icon
                       large
                       dense
@@ -155,7 +155,7 @@
                 </v-icon>
               </nuxt-link>
 
-              <nuxt-link to="/add-new-advert">
+              <nuxt-link to="/categories">
                 <v-icon
                   large
                   dense
