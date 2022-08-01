@@ -2,7 +2,6 @@ import { serverApiUrl } from '@/settings/config';
 
 export const state = () => ({
   good: {},
-  rentedGoods: [],
   recommendations: [],
   loading: false
 });

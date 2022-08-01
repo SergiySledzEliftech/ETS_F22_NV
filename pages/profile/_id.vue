@@ -149,7 +149,7 @@ class Profile extends Vue {
       text-decoration: underline;
       background-color: transparent;
       transform: scale(1.02);
-      
+
     }
   }
 }

@@ -125,7 +125,7 @@ export default {
         tokenRequired: true
       }
     },
-    localStorage: false,
+    // localStorage: false,
     redirect: {
       login: '/auth',
       logout: '/auth',
