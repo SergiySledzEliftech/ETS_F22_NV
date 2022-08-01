@@ -3,6 +3,7 @@
     <div class="img_wrap">
       <img :src="item.images[0]" alt="image" class="item_img">
     </div>
+
     <div class="item_content">
       <div class="title_wrap">
         <h4 class="item_title">
@@ -47,8 +48,8 @@
           <p>{{ item.leaser_info.nickname }}</p>
         </div>
       </NuxtLink>
-      <slot />
     </div>
+    <slot />
   </NuxtLink>
 </template>
 

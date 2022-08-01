@@ -144,8 +144,8 @@ export function checkboxValidation (message = 'You must accept rules to continue
   return v => !!v || message;
 }
 
-export function avatarValidation (message = 'Avatar size should be less than 2 MB!') {
-  return v => !v || v.size < 2000000 || message;
+export function avatarValidation (message = 'Avatar size should be less than 400kb!') {
+  return v => !v || v.size < 400000 || message;
 }
 
 // add-comment form rules

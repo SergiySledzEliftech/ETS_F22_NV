@@ -1,7 +1,9 @@
 import { serverApiUrl } from '~/settings/config';
-
+// const serverApiUrl = 'http://localhost:3001/';
 export const state = () => ({
   data: [],
+  dataBorrow: [],
+  dataLend: [],
   avatarUploader: {},
   serverUrl: serverApiUrl,
   user: {
@@ -9,8 +11,9 @@ export const state = () => ({
     lastName: '',
     nickname: '',
     about: '',
+    avatar: '',
     email: '',
-    phone: '',
+    phone: 1,
     optionalPhone: '',
     location: ''
   },
@@ -31,19 +34,18 @@ export const actions = {
       commit('setUserData', res);
     } catch (error) {
       this.error = error.message;
-      // eslint-disable-next-line no-console
-      console.log('in profile ' + error.message);
+      alert('in profile ' + error.message);
     }
   },
 
   async updateUser ({ state, commit }, id) {
     try {
+      console.log(state.user);
       await this.$axios
         .put(`${serverApiUrl}users/` + id, state.user)
         .then(response => alert(response.data));
     } catch (e) {
-      // eslint-disable-next-line no-console
-      console.log('Error update');
+      alert('Error update');
     }
   },
 
@@ -54,18 +56,43 @@ export const actions = {
   },
 
   async updateAvatar ({ state, commit }, id) {
+    const formData = new FormData();
+    formData.append('avatarUploader', state.avatarUploader);
     await this.$axios
-      .post(`${serverApiUrl}files/` + id, state.avatarUploader)
+      .post(`${serverApiUrl}files/` + id, formData)
       .then(async (response) => {
-        alert(response.message);
-        await this.$axios.put(`${serverApiUrl}users/` + id, { avatar: `files/${response.data.filename}` });
+        const avatar = {
+          avatar: await response.data.data.filename
+        };
+        await alert(response.data.message);
+        await this.$axios.put(`${serverApiUrl}users/` + id + '/avatar', avatar);
       });
   },
 
   async getProducts ({ commit }, id) {
     try {
-      const products = await this.$axios.$get(`${serverApiUrl}/search/ads?id=${String(id)}`);
+      const products = await this.$axios.$get(`${serverApiUrl}search/items?id=${String(id)}`);
+      // const products = await this.$axios.$get(`${serverApiUrl}search/all`);
       commit('setData', products);
+    } catch (error) {
+      alert('data ' + error.message);
+    }
+  },
+
+  async deleteProduct ({ commit }, id) {
+    try {
+      await this.$axios.$delete(`${serverApiUrl}search/` + String(id));
+      return;
+    } catch (error) {
+      console.log(error.message);
+    }
+  },
+
+  async getLentProducts ({ commit }, id) {
+    try {
+      const products = await this.$axios.$get(`${serverApiUrl}search/lent?id=${String(id)}`);
+      console.log(products);
+      commit('setDataLend', products);
     } catch (error) {
       // eslint-disable-next-line no-console
       console.log('data ' + error.message);
@@ -76,6 +103,12 @@ export const actions = {
 export const mutations = {
   setData (state, array) {
     state.data = array;
+  },
+  setDataLend (state, array) {
+    state.dataLend = array;
+  },
+  setDataBorrow (state, array) {
+    state.dataBorrow = array;
   },
   deleteItem (state, id) {
     state.dataAds = state.dataAds.filter(item => item.id !== id);
@@ -96,7 +129,7 @@ export const mutations = {
     state.user.email = value;
   },
   updatePhone (state, value) {
-    state.user.phone = value;
+    state.user.phone = +value;
   },
   updateOptionalPhone (state, value) {
     state.user.optionalPhone = value;

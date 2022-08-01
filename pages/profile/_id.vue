@@ -8,7 +8,7 @@
               Hello, {{ user.firstName }} {{ user.lastName }}
             </div>
             <div v-else class="center-align">
-              <v-img :src="user.avatar" alt="avtr" class="avtr" contain />
+              <v-img v-if="user.avatar" :src="serverUrl + 'files/' + user.avatar" alt="avtr" class="avtr" contain />
               {{ user.firstName }} {{ user.lastName }}
             </div>
           </nuxtLink>
@@ -45,6 +45,7 @@ export default @Component({
 
 class Profile extends Vue {
   @State user;
+  @State serverUrl
   @Action getUser;
 
   async mounted () {
@@ -55,6 +56,7 @@ class Profile extends Vue {
     }
   }
 
+  auth = false;
   name = 'profile';
   authId = this.$auth.loggedIn ? this.$auth.user._id : ''
 

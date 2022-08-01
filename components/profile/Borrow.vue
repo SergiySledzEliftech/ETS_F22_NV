@@ -1,14 +1,14 @@
 <template>
   <div>
-    <div v-if="data.length > 0">
+    <div v-if="dataLend.length > 0">
       <items-list
-        :list="data"
+        :list="dataLend"
         :set-page="changePage"
         :set-per-page="changePerPage"
       >
-        <li v-for="item in items" :key="item.good._id" class="item">
-          <single-item :item="item.good" :grid="view === 'list'">
-            <p v-if="item.good.expires_at !== ''" class="expire">
+        <li v-for="item in items" :key="item._id" class="item">
+          <single-item :item="item" :grid="view === 'list'">
+            <p v-if="item.expires_at !== ''" class="expire">
               Expires at: {{ formatDate(item.expires_at) }}
             </p>
           </single-item>
@@ -29,7 +29,7 @@ import { Vue, Component, namespace } from 'nuxt-property-decorator';
 import moment from 'moment';
 import ItemsList from '@/components/list/ItemsList.vue';
 import SingleItem from '~/components/list/SingleItem.vue';
-const { Action } = namespace('profile');
+const { State, Action } = namespace('profile');
 const { State: ListState, Action: ListAction } = namespace('list');
 
 export default @Component({
@@ -39,7 +39,9 @@ export default @Component({
 
 class Borrow extends Vue {
   items = [];
-  data = [];
+  // data = [];
+  @State dataLend;
+  @Action getLentProducts;
   @ListState view;
   @ListState page;
   @ListState perPage;
@@ -52,9 +54,9 @@ class Borrow extends Vue {
   @ListAction calcPerPage;
 
   sliceList () {
-    if (this.data && this.data.length > 0) {
+    if (this.dataLend && this.dataLend.length > 0) {
       const firstIdx = (this.page - 1) * this.perPage;
-      const result = this.data?.slice(firstIdx, firstIdx + this.perPage);
+      const result = this.dataLend?.slice(firstIdx, firstIdx + this.perPage);
       this.items = result;
     }
   }
@@ -67,21 +69,21 @@ class Borrow extends Vue {
   changePerPage (num) {
     this.calcPerPage(num);
     this.sliceList();
-    this.calculateTotalPages(this.data);
+    this.calculateTotalPages(this.dataLend);
   }
 
   formatDate (date) {
-    return moment(date).format('DD MMM YYYY hh:mm');
+    return date === '' ? '' : moment(date).format('DD MMM YYYY hh:mm');
   }
 
-  mounted () {
+  async mounted () {
     this.setLoad(true);
-    const localRents = this.$auth.$storage.getLocalStorage(this.$auth.user._id);
-    this.data = localRents !== undefined ? localRents : [];
-    console.log(this.data, this.data !== []);
-    if (this.data && this.data !== []) {
+    // const localRents = this.$auth.$storage.getLocalStorage(this.$auth.user._id);
+    // this.dataLend = localRents !== undefined ? localRents : [];
+    await this.getLentProducts('62d68778176755ec2e579c3b');
+    if (this.dataLend && this.dataLend !== []) {
       this.sliceList();
-      this.calculateTotalPages(this.data);
+      this.calculateTotalPages(this.dataLend);
     }
     this.setLoad(false);
   }
