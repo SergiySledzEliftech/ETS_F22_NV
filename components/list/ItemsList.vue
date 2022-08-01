@@ -93,13 +93,13 @@ class ItemsList extends Vue {
 
   nextPage () {
     if (this.page < this.totalPages) {
-      this.setPage(this.page + 1);
+      this.setPage(this.page);
     }
   }
 
   previousPage () {
     if (this.page > 1) {
-      this.setPage(this.page - 1);
+      this.setPage(this.page);
     }
   }
 

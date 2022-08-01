@@ -1,7 +1,9 @@
-import { serverApiUrl } from '~/settings/config';
-
+// import { serverApiUrl } from '~/settings/config';
+const serverApiUrl = 'http://localhost:3001/';
 export const state = () => ({
   data: [],
+  dataBorrow: [],
+  dataLend: [],
   avatarUploader: {},
   serverUrl: serverApiUrl,
   user: {
@@ -69,10 +71,31 @@ export const actions = {
 
   async getProducts ({ commit }, id) {
     try {
-      const products = await this.$axios.$get(`${serverApiUrl}/search/ads?id=${String(id)}`);
+      const products = await this.$axios.$get(`${serverApiUrl}search/items?id=${String(id)}`);
+      // const products = await this.$axios.$get(`${serverApiUrl}search/all`);
       commit('setData', products);
     } catch (error) {
       alert('data ' + error.message);
+    }
+  },
+
+  async deleteProduct ({ commit }, id) {
+    try {
+      await this.$axios.$delete(`${serverApiUrl}search/` + String(id));
+      return;
+    } catch (error) {
+      console.log(error.message);
+    }
+  },
+
+  async getLentProducts ({ commit }, id) {
+    try {
+      const products = await this.$axios.$get(`${serverApiUrl}search/lent?id=${String(id)}`);
+      console.log(products);
+      commit('setDataLend', products);
+    } catch (error) {
+      // eslint-disable-next-line no-console
+      console.log('data ' + error.message);
     }
   }
 };
@@ -80,6 +103,12 @@ export const actions = {
 export const mutations = {
   setData (state, array) {
     state.data = array;
+  },
+  setDataLend (state, array) {
+    state.dataLend = array;
+  },
+  setDataBorrow (state, array) {
+    state.dataBorrow = array;
   },
   deleteItem (state, id) {
     state.dataAds = state.dataAds.filter(item => item.id !== id);
