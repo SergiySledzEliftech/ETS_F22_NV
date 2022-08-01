@@ -55,6 +55,7 @@ class Profile extends Vue {
     }
   }
 
+  auth = false;
   name = 'profile';
   authId = this.$auth.loggedIn ? this.$auth.user._id : ''
 
