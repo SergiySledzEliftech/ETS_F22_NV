@@ -284,7 +284,6 @@
               color="teal"
               plain
               height="40px"
-              class="mb-2"
               @click="clear"
             >
               clear
@@ -292,18 +291,22 @@
             <!--↑ CLEAR SORT ↑ -->
 
             <!--↓ PRICE SORT from largest to smallest ↓ -->
-            <v-responsive
-              max-width="80"
-              min-width="40"
-            >
-              <select class="select v-input theme--dark" name="select" @click="onChangeSelection">
-                <option class="v-list-item v-list-item--link theme--light" value="price" selected>
-                  price
-                </option>
-                <option class="v-list-item v-list-item--link theme--light" value="rating">
-                  rating
-                </option>
-              </select>
+            <div>
+              <div class="aselect" :data-value="value" :data-list="list">
+                <div class="selector" @click="toggle()">
+                  <div class="label">
+                    <span>{{ value }}</span>
+                  </div>
+                  <div class="arrow" :class="{ expanded : visible }" />
+                  <div :class="{ hidden : !visible, visible }">
+                    <ul class="rounded">
+                      <li v-for="item in list" :key="item" :class="{ current : item === value }" @click="select(item)">
+                        {{ item }}
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
               <v-btn-toggle
                 v-model="sortDesc"
                 background-color="transparent"
@@ -335,7 +338,7 @@
                   </v-icon>
                 </v-btn>
               </v-btn-toggle>
-            </v-responsive>
+            </div>
           <!--↑ PRICE SORT from largest to smallest ↑ -->
           </div>
         </v-container>
@@ -410,28 +413,28 @@ export default @Component({
 })
 
 class Categories extends Vue {
-  @categoriesState categories;
-  @categoriesState goods;
-  @categoriesState isLoading;
-  @categoriesState searchingItems;
-  @categoriesState autocompleteLoader;
-  @categoriesState options;
-  @categoriesState price;
+  @categoriesState categories
+  @categoriesState goods
+  @categoriesState isLoading
+  @categoriesState searchingItems
+  @categoriesState autocompleteLoader
+  @categoriesState options
+  @categoriesState price
   @listState view
   @listState page
   @listState perPage
   @listState perPageArray
   @listState totalPages
   @categoriesAction getAllCategories
-  @categoriesAction clearOpt;
+  @categoriesAction clearOpt
   @categoriesAction getAllGoodsAndCategories;
-  @categoriesAction searchProduct;
-  @categoriesAction filterProducts;
-  @listAction calcPage;
-  @listAction calculateTotalPages;
+  @categoriesAction searchProduct
+  @categoriesAction filterProducts
+  @listAction calcPage
+  @listAction calculateTotalPages
   @categoriesMutation setOptions
   @categoriesMutation setPrice
-  @listMutation setPerPage;
+  @listMutation setPerPage
   sortBy = 'price'
   isAvailable = false
   isContractPrice=false
@@ -448,6 +451,9 @@ class Categories extends Vue {
   selectedCategoryValue = null
   searchFromResultsValue = null
   items = [];
+  list= ['price', 'rating']
+  value= this.list[0]
+  visible= false
 
   @Watch('selectedCategoryValue')
   clearAutocompleteValue () {
@@ -507,10 +513,6 @@ class Categories extends Vue {
     }, delay); /* delay ms throttle */
   }
 
-  onChangeSelection (e) {
-    this.sortBy = e.target.value;
-  }
-
   sliceList () {
     const firstIdx = (this.page - 1) * this.perPage;
     this.items = this.goods.slice(firstIdx, firstIdx + this.perPage);
@@ -553,6 +555,15 @@ class Categories extends Vue {
     this.isFree = false;
     this.clearOpt();
   }
+
+  toggle () {
+    this.visible = !this.visible;
+  }
+
+  select (option) {
+    this.value = option;
+    this.sortBy = option;
+  }
 }
 
 </script>
@@ -564,9 +575,6 @@ class Categories extends Vue {
   background-color: $secondary;
   position: relative;
 }
-//ul .item:hover .status-list {
-//  color: $secondary;
-//}
 .item{
   .status-list{
     padding: 6px 0 0;
@@ -612,10 +620,73 @@ class Categories extends Vue {
   right: 12px;
   bottom: 23px;
 }
-.select{
+.aselect {
   width: 100%;
-  text-align: center;
-  outline: unset;
-  color: teal;
+  .selector {
+    background: transparent;
+    position: relative;
+    z-index: 1;
+    .arrow {
+      position: absolute;
+      right: 7px;
+      top: 40%;
+      width: 0;
+      height: 0;
+      border-left: 5px solid transparent;
+      border-right: 5px solid transparent;
+      border-top: 8px solid teal;
+      transform: rotateZ(0deg) translateY(0px);
+      transition-duration: 0.3s;
+      transition-timing-function: cubic-bezier(.59,1.39,.37,1.01);
+    }
+    .expanded {
+      transform: rotateZ(180deg) translateY(2px);
+    }
+    .label {
+      display: block;
+      padding: 0 12px;
+      font-size: 16px;
+      color: teal;
+      cursor: pointer;
+    }
+  }
+  ul {
+    width: 100%;
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+    font-size: 16px;
+    position: absolute;
+    z-index: 1;
+    background: #fff;
+  }
+  li {
+    padding: 0 12px;
+    color: #666;
+    cursor: pointer;
+    &:first-child{
+      border-top-right-radius:4px;
+      border-top-left-radius: 4px;
+    }
+    &:last-child{
+      border-bottom-right-radius: 4px;
+      border-bottom-left-radius: 4px;
+    }
+    &:hover {
+      color: white;
+      background: #02bbbb;
+
+    }
+  }
+  .current {
+    color: white;
+    background: teal;
+  }
+  .hidden {
+    visibility: hidden;
+  }
+  .visible {
+    visibility: visible;
+  }
 }
 </style>
