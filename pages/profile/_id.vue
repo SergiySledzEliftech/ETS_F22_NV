@@ -56,10 +56,10 @@ class Profile extends Vue {
   }
 
   name = 'profile';
+  authId = this.$auth.loggedIn ? this.$auth.user._id : ''
 
   get isMy () {
-    // return this.$auth.user._id === this.$route.params.id;
-    return this.$route.params.id === '62dbeb38d387887c0b416ab6';
+    return this.authId === this.$route.params.id;
   };
 
   tabsCurrentUser = [
@@ -112,12 +112,46 @@ class Profile extends Vue {
   }
 
   .tabs a {
-    height: 100%;
     font-size: 14px;
     font-weight: 500;
     &:hover {
       background-color: #aaaaaa
     }
   }
+
+  .item a:hover {
+    background-color: transparent
+  }
 }
+
+.nodata {
+  padding: 40px 20px;
+  width: 100%;
+  height: 100%;
+
+  p {
+    text-align: center;
+    margin: auto;
+    color: $secondary;
+    font-weight: 600;
+  }
+
+  .link {
+    display: block;
+    color: $light;
+    font-size: 18px;
+    text-transform: uppercase;
+    font-weight: 600;
+    text-align: center;
+    margin: 10px auto;
+    &:hover {
+      color: $negative;
+      text-decoration: underline;
+      background-color: transparent;
+      transform: scale(1.02);
+
+    }
+  }
+}
+
 </style>
