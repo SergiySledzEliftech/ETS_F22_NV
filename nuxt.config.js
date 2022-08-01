@@ -105,7 +105,7 @@ export default {
         token: {
           property: 'token',
           global: true,
-          maxAge: 3600
+          maxAge: 60 * 60 * 3
         },
         refreshToken: {
           property: 'refresh_token',
