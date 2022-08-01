@@ -89,6 +89,8 @@ class PaymentsOrders extends Vue {
 
   deleteOrderedGoodFromList (id, item) {
     item.status = 'available';
+    console.log(id, 222222);
+    console.log(item, 33333);
     this.deleteOrderedGood({ id, item });
   }
 }

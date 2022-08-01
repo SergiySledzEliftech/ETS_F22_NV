@@ -64,19 +64,15 @@ class PaymentsPage extends Vue {
   @State orderedGoods;
   @Mutation setOrderedGoods;
 
-  fetch () {
+  mounted () {
     const orderGoods = this.$auth.$storage.getLocalStorage(this.$auth.user._id);
-    // const user = this.$auth.user._id;
-    // console.log(user);
-    // const myStorage = window.localStorage;
-    // console.log(myStorage, 7777777777);
-    // console.log(this.$auth.$storage.getLocalStorage(this.$auth.user._id));
-    // console.log(this.$auth.$storage, 5555555);
-    // console.log(localStorage.length);
-    // console.log(localStorage.auth.user);
-    // console.log(localStorage.getItem(this.$auth.user._id), 5646464646464);
-    // console.log(orderGoods, 2222222222);
-    this.setOrderedGoods(orderGoods);
+    const data = orderGoods.map((el) => {
+      return el.good;
+    });
+    console.log(data, '(((((((((((((');
+    console.log(orderGoods, 33333333);
+    console.log(this.$auth.user._id);
+    this.setOrderedGoods(data);
   }
 
   methods () {
