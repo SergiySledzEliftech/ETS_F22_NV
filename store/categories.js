@@ -51,7 +51,7 @@ export const actions = {
   async getAllCategories ({ _, commit }) {
     commit('setLoading', true);
     try {
-      const categoriesRes = await this.$axios.$get(`${serverApiUrl}/search/categories`);
+      const categoriesRes = await this.$axios.$get(`${serverApiUrl}search/categories`);
       commit('setCategories', categoriesRes);
     } catch (err) {
       commit('setError', err.message);
@@ -62,9 +62,9 @@ export const actions = {
   async getAllGoodsAndCategories ({ _, commit }) {
     commit('setLoading', true);
     try {
-      const productsRes = await this.$axios.$get(`${serverApiUrl}/search/all`);
+      const productsRes = await this.$axios.$get(`${serverApiUrl}search/all`);
       commit('setGoods', productsRes);
-      const categoriesRes = await this.$axios.$get(`${serverApiUrl}/search/categories`);
+      const categoriesRes = await this.$axios.$get(`${serverApiUrl}search/categories`);
       commit('setCategories', categoriesRes);
     } catch (err) {
       commit('setError', err.message);
@@ -76,11 +76,11 @@ export const actions = {
     const { value, selectedValue } = values;
     commit('setAutocompleteLoading', true);
     try {
-      const items = await this.$axios.$get(`${serverApiUrl}/search?q=${value}`);
+      const items = await this.$axios.$get(`${serverApiUrl}search?q=${value}`);
       const itemsRes = items.map(({ title, category }) => ({ title, category }));
       commit('setSearchingItems', itemsRes);
       if (selectedValue) {
-        const productsRes = await this.$axios.$get(`${serverApiUrl}/search?q=${selectedValue}`);
+        const productsRes = await this.$axios.$get(`${serverApiUrl}search?q=${selectedValue}`);
         commit('setGoods', productsRes);
       }
     } catch (err) {
@@ -92,7 +92,7 @@ export const actions = {
   async filterProducts ({ _, commit }, values) {
     commit('setLoading', true);
     try {
-      const productsRes = await this.$axios.$post(`${serverApiUrl}/search/filter`, values);
+      const productsRes = await this.$axios.$post(`${serverApiUrl}search/filter`, values);
       commit('setGoods', productsRes);
     } catch (err) {
       commit('setError', err.message);
@@ -103,7 +103,7 @@ export const actions = {
   async clearOpt ({ _, commit }) {
     commit('setLoading', true);
     try {
-      const productsRes = await this.$axios.$post(`${serverApiUrl}/search/filter`, {});
+      const productsRes = await this.$axios.$post(`${serverApiUrl}search/filter`, {});
       commit('setGoods', productsRes);
       commit('setClearPrice', { $gte: null, $lte: null });
       commit('setClearOption', {});
