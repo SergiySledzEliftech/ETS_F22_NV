@@ -30,8 +30,22 @@
         <v-col lg="4" md="4" sm="12" xs="12">
           <v-card class="profile-avtr">
             <div class="editing" :class="{ active: fab }">
-              <v-img v-if="user.avatar" :src="serverUrl + 'files/' + user.avatar" alt="avtr" class="avtr" />
-              <v-img v-else :src="require('@/assets/img/default-avatar.png')" alt="avtr" class="avtr" />
+              <v-img
+                v-if="user.avatar"
+                :src="serverUrl + 'files/' + user.avatar"
+                alt="avtr"
+                class="avtr"
+                width="200"
+                height="200"
+              />
+              <v-img
+                v-else
+                :src="require('@/assets/img/default-avatar.png')"
+                alt="avtr"
+                class="avtr"
+                width="200"
+                height="200"
+              />
 
               <v-form v-if="fab" id="form-avatar" ref="formAvatar" class="row" @submit.prevent="saveAvatar">
                 <v-dialog
@@ -54,7 +68,7 @@
                     </v-card-title>
                     <v-card-text>
                       <v-container>
-                        <v-row>
+                        <v-row class="modal-window">
                           <v-col cols="12">
                             <v-file-input
                               :value="avatarUploader"
@@ -255,7 +269,7 @@
                           </v-card-title>
                           <v-card-text>
                             <v-container>
-                              <v-row>
+                              <v-row class="modal-window">
                                 <v-col cols="12">
                                   <v-text-field
                                     v-model="oldPass"
@@ -468,13 +482,11 @@ class Config extends Vue {
   ]
 
   rulePhone = [
-    // phoneNumberValidation(),
     emptyValidation(),
     allowDigitsOnlyValidation()
   ]
 
   ruleOptionalPhone = [
-    // phoneNumberValidation(),
     allowDigitsOnlyValidation()
   ]
 
@@ -564,6 +576,15 @@ class Config extends Vue {
   }
 }
 
+.v-dialog {
+  .modal-window {
+    .col {
+      padding-left: 0;
+      padding-right: 0;
+    }
+  }
+}
+
 .profile {
   position: relative;
 
@@ -576,10 +597,6 @@ class Config extends Vue {
 
       .half {
         width: 100%;
-
-        input {
-          //width: 50%;
-        }
 
         & > :first-child {
           padding-right: 5px;
@@ -607,10 +624,6 @@ class Config extends Vue {
         .v-input__slot:before {
           content: none;
         }
-      }
-
-      .avtr {
-        max-width: 200px;
       }
 
       .v-list-item:last-child {
@@ -729,7 +742,7 @@ class Config extends Vue {
 
     .avtr {
       margin-bottom: 10px;
-      max-width: 200px;
+      //max-width: 200px;
       border-radius: 4px;
     }
   }

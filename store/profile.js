@@ -32,8 +32,7 @@ export const actions = {
       commit('setUserData', res);
     } catch (error) {
       this.error = error.message;
-      // eslint-disable-next-line no-console
-      console.log('in profile ' + error.message);
+      alert('in profile ' + error.message);
     }
   },
 
@@ -44,8 +43,7 @@ export const actions = {
         .put(`${serverApiUrl}users/` + id, state.user)
         .then(response => alert(response.data));
     } catch (e) {
-      // eslint-disable-next-line no-console
-      console.log('Error update');
+      alert('Error update');
     }
   },
 
@@ -56,22 +54,15 @@ export const actions = {
   },
 
   async updateAvatar ({ state, commit }, id) {
-    console.log(state.avatarUploader);
-
     const formData = new FormData();
-    await formData.append('avatarUploader', state.avatarUploader);
-    console.log(formData);
+    formData.append('avatarUploader', state.avatarUploader);
     await this.$axios
       .post(`${serverApiUrl}files/` + id, formData)
       .then(async (response) => {
         const avatar = {
           avatar: await response.data.data.filename
         };
-
-        console.log(avatar);
         await alert(response.data.message);
-        // commit('updateAvatarValue', response.data.data.filename);
-
         await this.$axios.put(`${serverApiUrl}users/` + id + '/avatar', avatar);
       });
   },
@@ -81,8 +72,7 @@ export const actions = {
       const products = await this.$axios.$get(`${serverApiUrl}/search/ads?id=${String(id)}`);
       commit('setData', products);
     } catch (error) {
-      // eslint-disable-next-line no-console
-      console.log('data ' + error.message);
+      alert('data ' + error.message);
     }
   }
 };
@@ -105,9 +95,6 @@ export const mutations = {
   },
   updateNickname (state, value) {
     state.user.nickname = value;
-  },
-  updateAvatarValue (state, value) {
-    state.user.avatar = value;
   },
   updateEmail (state, value) {
     state.user.email = value;
