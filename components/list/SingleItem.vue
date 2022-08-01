@@ -1,8 +1,11 @@
 <template>
-  <NuxtLink :to="{name: 'categories-id', params: {id: item._id }}" :class="{'isGrid': grid}">
-    <div class="img_wrap">
-      <img :src="item.images[0]" alt="image" class="item_img">
-    </div>
+  <div>
+    <NuxtLink :to="{name: 'categories-id', params: {id: item._id }}" :class="{'isGrid': grid}">
+      <div class="img_wrap">
+        <img :src="item.images[0]" alt="image" class="item_img">
+      </div>
+    </NuxtLink>
+
     <div class="item_content">
       <div class="title_wrap">
         <h4 class="item_title">
@@ -49,7 +52,7 @@
       </NuxtLink>
     </div>
     <slot />
-  </NuxtLink>
+  </div>
 </template>
 
 <script>

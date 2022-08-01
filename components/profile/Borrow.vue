@@ -6,9 +6,9 @@
         :set-page="changePage"
         :set-per-page="changePerPage"
       >
-        <li v-for="item in items" :key="item.good._id" class="item">
-          <single-item :item="item.good" :grid="view === 'list'">
-            <p v-if="item.good.expires_at !== ''" class="expire">
+        <li v-for="item in items" :key="item._id" class="item">
+          <single-item :item="item" :grid="view === 'list'">
+            <p v-if="item.expires_at !== ''" class="expire">
               Expires at: {{ formatDate(item.expires_at) }}
             </p>
           </single-item>
@@ -29,7 +29,7 @@ import { Vue, Component, namespace } from 'nuxt-property-decorator';
 import moment from 'moment';
 import ItemsList from '@/components/list/ItemsList.vue';
 import SingleItem from '~/components/list/SingleItem.vue';
-const { Action } = namespace('profile');
+const { State, Action } = namespace('profile');
 const { State: ListState, Action: ListAction } = namespace('list');
 
 export default @Component({
@@ -39,7 +39,9 @@ export default @Component({
 
 class Borrow extends Vue {
   items = [];
-  data = [];
+  // data = [];
+  @State data;
+  @Action getLentProducts;
   @ListState view;
   @ListState page;
   @ListState perPage;
@@ -71,14 +73,16 @@ class Borrow extends Vue {
   }
 
   formatDate (date) {
-    return moment(date).format('DD MMM YYYY hh:mm');
+    console.log(date);
+    return date === '' ? '' : moment(date).format('DD MMM YYYY hh:mm');
   }
 
-  mounted () {
+  async mounted () {
     this.setLoad(true);
-    const localRents = this.$auth.$storage.getLocalStorage(this.$auth.user._id);
-    this.data = localRents !== undefined ? localRents : [];
-    console.log(this.data, this.data !== []);
+    // const localRents = this.$auth.$storage.getLocalStorage(this.$auth.user._id);
+    // this.data = localRents !== undefined ? localRents : [];
+    await this.getLentProducts('62d68778176755ec2e579c3b');
+    console.log('here', this.data);
     if (this.data && this.data !== []) {
       this.sliceList();
       this.calculateTotalPages(this.data);

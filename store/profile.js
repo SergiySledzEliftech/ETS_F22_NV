@@ -64,7 +64,18 @@ export const actions = {
 
   async getProducts ({ commit }, id) {
     try {
-      const products = await this.$axios.$get(`${serverApiUrl}/search/ads?id=${String(id)}`);
+      const products = await this.$axios.$get(`${serverApiUrl}search/ads?id=${String(id)}`);
+      commit('setData', products);
+    } catch (error) {
+      // eslint-disable-next-line no-console
+      console.log('data ' + error.message);
+    }
+  },
+
+  async getLentProducts ({ commit }, id) {
+    try {
+      const products = await this.$axios.$get(`http://localhost:3001/search/lent?id=${String(id)}`);
+      console.log(products);
       commit('setData', products);
     } catch (error) {
       // eslint-disable-next-line no-console
