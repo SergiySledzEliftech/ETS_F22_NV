@@ -132,6 +132,7 @@ $bradius: 10
   &__items
     width: 100%
     padding: $gap * 2 * 1px
+
   &__item
     border-color: #dadae8
     box-shadow: 0 1px 10px #dadae8
@@ -153,6 +154,7 @@ $bradius: 10
   &__item-content
     width: 65%
     padding: 0 10px
+
   &__item-inner
     display: flex
     justify-content: space-between

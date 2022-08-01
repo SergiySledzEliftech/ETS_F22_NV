@@ -143,73 +143,93 @@ class PaymentsContact extends Vue {
 }
 </script>
 
-<style  lang="sass" scoped>
-$gap: 5
-$vstep: 5
-$bradius: 10
-.payments
-  position: relative
-  margin-right: 0
-  margin-left: 0
-  padding: $gap * 3 * 1px
-  background: #f4f4f9
-  &__list-title
-    margin-left: $gap * 3 * -1px
-    margin-right: $gap * 3 * -1px
-    padding-top: $gap * 2 * 1px
-    padding-bottom: $gap * 2 * 1px
-    display: flex
-    align-items: center
-  &__title-text
-    margin-bottom: 0
-    font-weight: 700
-    font-size: 30px
-  &__contact
-    margin-left: $gap * 3 * -1px
-    margin-right: $gap * 3 * -1px
-    padding-left: $gap * 3 * 1px
-    padding-right: $gap * 3 * 1px
-    padding-top: $gap * 3 * 1px
-    padding-bottom: $gap * 3 * 1px
-    border-radius: $bradius * 1px
-    background: #fff
-  &__contact-inner
-    border: 3px solid yellow
-    border-radius: $bradius * 1px
-    padding: $gap * 3 * 1px
-  &__type
-    padding: $gap * 3 * 1px
-    border: 3px solid yellow
-    border-radius: $bradius * 1px
-    min-height: 115px
-    p
-      margin-bottom: 0
-      padding-left: 24px
-  &__active
-    border: 3px solid #183153
-    border-radius: $bradius * 1px
-    min-height: 115px
-    padding: $gap * 3 * 1px
-  &__type-inner
-    display: flex
-    padding-left: 24px
-  &__type-images
-    width: 70px
-    line-height: 0
-  &__type-image
-    max-width: 100%
+<style  lang="scss" scoped>
+$gap: 5;
+$vstep: 5;
+$bradius: 10;
 
-.form-row
-  flex-direction: column
-.form-col
-  max-width: 100%
-@for $i from 1 through 10
-  .m-b-#{$i}
-    margin-bottom: $i * $vstep * 1px
-  .m-r-#{$i}
-    margin-right: $i * $vstep * 1px
-  .m-l-#{$i}
-    margin-left: $i * $vstep * 1px
-  .p-b-#{i}
-    padding-bottom: $i * $vstep * 1px
+.payments{
+  position: relative;
+  margin-right: 0;
+  margin-left: 0;
+  padding: $gap * 3 * 1px;
+  background: #f4f4f9;
+  &__list-title{
+    margin-left: $gap * 3 * -1px;
+    margin-right: $gap * 3 * -1px;
+    padding-top: $gap * 2 * 1px;
+    padding-bottom: $gap * 2 * 1px;
+    display: flex;
+    align-items: center;
+  }
+  &__title-text{
+    margin-bottom: 0;
+    font-weight: 700;
+    font-size: 30px;
+  }
+  &__contact{
+    margin-left: $gap * 3 * -1px;
+    margin-right: $gap * 3 * -1px;
+    padding-left: $gap * 3 * 1px;
+    padding-right: $gap * 3 * 1px;
+    padding-top: $gap * 3 * 1px;
+    padding-bottom: $gap * 3 * 1px;
+    border-radius: $bradius * 1px;
+    background: #fff;
+  }
+  &__contact-inner{
+    border: 3px solid yellow;
+    border-radius: $bradius * 1px;
+    padding: $gap * 3 * 1px;
+  }
+  &__type{
+    padding: $gap * 3 * 1px;
+    border: 3px solid yellow;
+    border-radius: $bradius * 1px;
+    min-height: 115px;
+    p{
+      margin-bottom: 0;
+      padding-left: 24px;
+      @media only screen and (max-width: 1264px){
+        font-size: 12px;
+        font-weight: 700;
+      }
+    }
+  }
+  &__active{
+    border: 3px solid #183153;
+    border-radius: $bradius * 1px;
+    min-height: 115px;
+    padding: $gap * 3 * 1px;
+  }
+  &__type-inner{
+    display: flex;
+    padding-left: 24px;
+  }
+  &__type-images{
+    width: 70px;
+    line-height: 0;
+  }
+  &__type-image{
+    max-width: 100%;
+  }
+}
+
+.form-row{
+  flex-direction: column;
+}
+.form-col{
+  max-width: 100%;
+}
+@for $i from 1 through 10{
+  .m-b-#{$i}{
+    margin-bottom: $i * $vstep * 1px;
+  }
+  .m-r-#{$i}{
+    margin-right: $i * $vstep * 1px;
+  }
+  .m-l-#{$i}{
+    margin-left: $i * $vstep * 1px;
+  }
+}
 </style>

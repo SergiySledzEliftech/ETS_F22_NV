@@ -97,14 +97,6 @@ $bradius: 10;
   padding-top: $gap * 3 * 1px;
   min-height: 100%;
 }
-.progress-circular{
-  position: absolute;
-  width: 100%;
-  top: 0;
-  left: 50%;
-  transform: translateX(-50%);
-  align-items: center;
-}
 .col-desktop-2-5{
   max-width: 100 / 2 * 1%;
 }
