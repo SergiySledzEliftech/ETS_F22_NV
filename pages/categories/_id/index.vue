@@ -58,6 +58,107 @@
         </div>
       </div>
     </div>
+    <div class="description__tables">
+      <v-container class="lighten-5">
+        <v-row class="d-flex justify-space-between">
+          <v-col
+            cols="12"
+            md="6"
+            lg="6"
+            class="pa-0 px-4 pr-md-8"
+          >
+            <v-card
+              class="description__tables-table rounded-0"
+              outlined
+              tile
+            >
+              <div class="description__tables-table description__params">
+                <h4 class="description__item-title">
+                  Good's properties
+                </h4>
+                <v-simple-table>
+                  <tbody>
+                    <tr
+                      v-for="(prop, index) in goodProps.goodParams"
+                      :key="index"
+                      class="table-row"
+                    >
+                      <td class="rounded-0">
+                        {{ prop.name }}
+                      </td>
+                      <td class="rounded-0">
+                        {{ prop.value }}
+                      </td>
+                    </tr>
+                  </tbody>
+                </v-simple-table>
+              </div>
+            </v-card>
+          </v-col>
+          <v-col
+            cols="12"
+            md="6"
+            lg="6"
+            class="pa-0 px-4 pl-md-8"
+          >
+            <v-card
+              class="mb-11 description__tables-table rounded-0"
+              outlined
+              tile
+            >
+              <div class="description__location">
+                <h4 class="description__item-title">
+                  Location
+                </h4>
+                <v-simple-table>
+                  <tbody>
+                    <tr
+                      v-for="(prop, index) in goodProps.goodLocation"
+                      :key="index"
+                      class="table-row"
+                    >
+                      <td class="rounded-0">
+                        {{ prop.name }}
+                      </td>
+                      <td class="rounded-0">
+                        {{ prop.value }}
+                      </td>
+                    </tr>
+                  </tbody>
+                </v-simple-table>
+              </div>
+            </v-card>
+            <v-card
+              class="description__tables-table rounded-0"
+              outlined
+              tile
+            >
+              <div class="description__tables-table description__another">
+                <h4 class="description__item-title">
+                  Another
+                </h4>
+                <v-simple-table>
+                  <tbody>
+                    <tr
+                      v-for="(prop, index) in goodProps.goodAnotherProps"
+                      :key="index"
+                      class="table-row "
+                    >
+                      <td class="rounded-0">
+                        {{ prop.name }}
+                      </td>
+                      <td class="rounded-0">
+                        {{ prop.value }}
+                      </td>
+                    </tr>
+                  </tbody>
+                </v-simple-table>
+              </div>
+            </v-card>
+          </v-col>
+        </v-row>
+      </v-container>
+    </div>
   </div>
 </template>
 
@@ -248,6 +349,29 @@ p{
     }
   }
 }
+.description__tables-table{
+  border: 0 !important;
+}
+.table-row{
+  &:nth-child(even){
+    background: $bg;
+  }
+}
+tbody {
+  tr{
+    &:hover:nth-child(even) {
+      background-color: $bg !important;
+    }
+    &:hover:nth-child(odd){
+      background-color: #fff !important;
+    }
+    td{
+      width: 50% !important;
+      @include responsive-value_important("font-size", 14, 12, $bp_tablet);
+    }
+  }
+}
+
 .v-tabs{
   margin-top: 30px;
 }
