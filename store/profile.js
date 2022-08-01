@@ -9,6 +9,7 @@ export const state = () => ({
     lastName: '',
     nickname: '',
     about: '',
+    avatar: '',
     email: '',
     phone: '',
     optionalPhone: '',
@@ -38,6 +39,7 @@ export const actions = {
 
   async updateUser ({ state, commit }, id) {
     try {
+      console.log(state.user);
       await this.$axios
         .put(`${serverApiUrl}users/` + id, state.user)
         .then(response => alert(response.data));
@@ -54,11 +56,23 @@ export const actions = {
   },
 
   async updateAvatar ({ state, commit }, id) {
+    console.log(state.avatarUploader);
+
+    const formData = new FormData();
+    await formData.append('avatarUploader', state.avatarUploader);
+    console.log(formData);
     await this.$axios
-      .post(`${serverApiUrl}files/` + id, state.avatarUploader)
+      .post(`${serverApiUrl}files/` + id, formData)
       .then(async (response) => {
-        alert(response.message);
-        await this.$axios.put(`${serverApiUrl}users/` + id, { avatar: `files/${response.data.filename}` });
+        const avatar = {
+          avatar: await response.data.data.filename
+        };
+
+        console.log(avatar);
+        await alert(response.data.message);
+        // commit('updateAvatarValue', response.data.data.filename);
+
+        await this.$axios.put(`${serverApiUrl}users/` + id + '/avatar', avatar);
       });
   },
 
@@ -102,6 +116,9 @@ export const mutations = {
   },
   updateNickname (state, value) {
     state.user.nickname = value;
+  },
+  updateAvatarValue (state, value) {
+    state.user.avatar = value;
   },
   updateEmail (state, value) {
     state.user.email = value;

@@ -30,8 +30,7 @@
         <v-col lg="4" md="4" sm="12" xs="12">
           <v-card class="profile-avtr">
             <div class="editing" :class="{ active: fab }">
-              <!--              <v-img v-if="user.avatar" :src="serverUrl + user.avatar" alt="avtr" class="avtr" />-->
-              <v-img v-if="user.avatar" :src="user.avatar" alt="avtr" class="avtr" />
+              <v-img v-if="user.avatar" :src="serverUrl + 'files/' + user.avatar" alt="avtr" class="avtr" />
               <v-img v-else :src="require('@/assets/img/default-avatar.png')" alt="avtr" class="avtr" />
 
               <v-form v-if="fab" id="form-avatar" ref="formAvatar" class="row" @submit.prevent="saveAvatar">
@@ -58,12 +57,13 @@
                         <v-row>
                           <v-col cols="12">
                             <v-file-input
-                              v-model="avatarUpload"
+                              :value="avatarUploader"
                               :rules="ruleAvatar"
                               accept="image/png, image/jpeg, image/bmp"
                               placeholder="Pick an avatar"
                               prepend-icon="mdi-camera"
                               label="New avatar"
+                              @change="uploadAvatar"
                             />
                           </v-col>
                         </v-row>
@@ -320,9 +320,9 @@
 import { Vue, Component, Prop, namespace } from 'nuxt-property-decorator';
 import {
   emailValidation, emptyValidation, preventHtmlValidation, preventCapitalsValidation,
-  phoneNumberValidation, allowDigitsOnlyValidation, minLengthValidation, lengthValidation, avatarValidation
+  allowDigitsOnlyValidation, minLengthValidation, lengthValidation, avatarValidation
 } from '~/helpers/validators.js';
-const { State, Action } = namespace('profile');
+const { State, Action, Mutation } = namespace('profile');
 const { State: ListState, Action: ListAction } = namespace('list');
 
 export default @Component({
@@ -336,12 +336,15 @@ class Config extends Vue {
 
   @State passes
   @State serverUrl
+  @State avatarUploader
   @ListState loading
   // @State user
   @Action updateUser
   @Action updatePass
   @Action updateAvatar
   @ListAction setLoad
+
+  @Mutation uploadAvatar
 
   created () {
     this.setLoad(true);
@@ -356,6 +359,7 @@ class Config extends Vue {
   showPass2 = false
   dialog = false
   dialogAvatar = false
+  auth = false
 
   defaultUser = {}
 
@@ -399,10 +403,6 @@ class Config extends Vue {
     return this.passes.newPass;
   }
 
-  get avatarUpload () {
-    return this.avatarUploader;
-  }
-
   set firstName (value) {
     this.$store.commit('profile/updateFirstName', value);
   }
@@ -443,10 +443,6 @@ class Config extends Vue {
     this.$store.commit('profile/updateNewPass', value);
   }
 
-  set avatarUpload (value) {
-    this.$store.commit('profile/uploadAvatar', value);
-  }
-
   ruleEmail = [
     emailValidation(),
     emptyValidation(),
@@ -472,15 +468,13 @@ class Config extends Vue {
   ]
 
   rulePhone = [
-    preventHtmlValidation(),
-    phoneNumberValidation(),
+    // phoneNumberValidation(),
     emptyValidation(),
     allowDigitsOnlyValidation()
   ]
 
   ruleOptionalPhone = [
-    preventHtmlValidation(),
-    phoneNumberValidation(),
+    // phoneNumberValidation(),
     allowDigitsOnlyValidation()
   ]
 
@@ -491,7 +485,6 @@ class Config extends Vue {
   ]
 
   rulePassword = [
-    // emptyValidation(),
     minLengthValidation(8),
     lengthValidation(32)
   ]
@@ -545,6 +538,7 @@ class Config extends Vue {
       this.fab = false;
       this.showPass = false;
       this.dialogAvatar = false;
+      location.reload();
     } else {
       alert('Please enter valid data');
     }
@@ -710,6 +704,11 @@ class Config extends Vue {
 
         }
       }
+
+      .mdi:before {
+        text-shadow: 0 0 5px white;
+      }
+
       .avtr-edit {
         position: absolute;
         top: 0;

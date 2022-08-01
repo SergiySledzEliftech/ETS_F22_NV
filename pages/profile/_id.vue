@@ -55,6 +55,7 @@ class Profile extends Vue {
     }
   }
 
+  auth = false;
   name = 'profile';
   authId = this.$auth.loggedIn ? this.$auth.user._id : ''
 
@@ -149,7 +150,7 @@ class Profile extends Vue {
       text-decoration: underline;
       background-color: transparent;
       transform: scale(1.02);
-      
+
     }
   }
 }
