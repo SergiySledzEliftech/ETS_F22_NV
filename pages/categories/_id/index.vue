@@ -174,7 +174,6 @@ export default @Component({
 })
 class DescriptionTab extends Vue {
   @Prop() good
-
   goodProps = {
     goodParams: [
       {
