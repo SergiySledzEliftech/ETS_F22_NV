@@ -284,7 +284,6 @@
               color="teal"
               plain
               height="40px"
-              class="mb-2"
               @click="clear"
             >
               clear
@@ -292,18 +291,22 @@
             <!--↑ CLEAR SORT ↑ -->
 
             <!--↓ PRICE SORT from largest to smallest ↓ -->
-            <v-responsive
-              max-width="80"
-              min-width="40"
-            >
-              <select class="select v-input theme--dark" name="select" @click="onChangeSelection">
-                <option class="v-list-item v-list-item--link theme--light" value="price" selected>
-                  price
-                </option>
-                <option class="v-list-item v-list-item--link theme--light" value="rating">
-                  rating
-                </option>
-              </select>
+            <div>
+              <div class="aselect" :data-value="value" :data-list="list">
+                <div class="selector" @click="toggle()">
+                  <div class="label">
+                    <span>{{ value }}</span>
+                  </div>
+                  <div class="arrow" :class="{ expanded : visible }" />
+                  <div :class="{ hidden : !visible, visible }">
+                    <ul class="rounded">
+                      <li v-for="item in list" :key="item" :class="{ current : item === value }" @click="select(item)">
+                        {{ item }}
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
               <v-btn-toggle
                 v-model="sortDesc"
                 background-color="transparent"
@@ -335,7 +338,7 @@
                   </v-icon>
                 </v-btn>
               </v-btn-toggle>
-            </v-responsive>
+            </div>
           <!--↑ PRICE SORT from largest to smallest ↑ -->
           </div>
         </v-container>
@@ -363,7 +366,33 @@
           <single-item
             :item="item"
             :grid="view === 'list'"
-          />
+          >
+            <ul class="status-list">
+              <li class="status-item">
+                <p>
+                  Seller status:<span :class="item.sellerStatus === 'business' ? 'greenText' : 'redText'">
+                    {{ item.sellerStatus }}
+                  </span>
+                </p>
+              </li>
+              <li class="status-item">
+                <p>
+                  Price negotiable:
+                  <span :class="item.isContractPrice ? 'greenText' : 'redText'">
+                    {{ item.isContractPrice ? 'Yes' : 'No' }}
+                  </span>
+                </p>
+              </li>
+              <li class="status-item">
+                <p>
+                  Condition:
+                  <span :class="item.condition === 'new' ? 'greenText' : 'redText'">
+                    {{ item.condition }}
+                  </span>
+                </p>
+              </li>
+            </ul>
+          </single-item>
         </li>
       </items-list>
       <!--        ↑ CARDS ↑-->
@@ -384,28 +413,28 @@ export default @Component({
 })
 
 class Categories extends Vue {
-  @categoriesState categories;
-  @categoriesState goods;
-  @categoriesState isLoading;
-  @categoriesState searchingItems;
-  @categoriesState autocompleteLoader;
-  @categoriesState options;
-  @categoriesState price;
+  @categoriesState categories
+  @categoriesState goods
+  @categoriesState isLoading
+  @categoriesState searchingItems
+  @categoriesState autocompleteLoader
+  @categoriesState options
+  @categoriesState price
   @listState view
   @listState page
   @listState perPage
   @listState perPageArray
   @listState totalPages
   @categoriesAction getAllCategories
-  @categoriesAction clearOpt;
+  @categoriesAction clearOpt
   @categoriesAction getAllGoodsAndCategories;
-  @categoriesAction searchProduct;
-  @categoriesAction filterProducts;
-  @listAction calcPage;
-  @listAction calculateTotalPages;
+  @categoriesAction searchProduct
+  @categoriesAction filterProducts
+  @listAction calcPage
+  @listAction calculateTotalPages
   @categoriesMutation setOptions
   @categoriesMutation setPrice
-  @listMutation setPerPage;
+  @listMutation setPerPage
   sortBy = 'price'
   isAvailable = false
   isContractPrice=false
@@ -422,6 +451,9 @@ class Categories extends Vue {
   selectedCategoryValue = null
   searchFromResultsValue = null
   items = [];
+  list= ['price', 'rating']
+  value= this.list[0]
+  visible= false
 
   @Watch('selectedCategoryValue')
   clearAutocompleteValue () {
@@ -444,20 +476,21 @@ class Categories extends Vue {
 
   onFind () {
     if (this.price.$gte && this.price.$lte) {
-      let minPrice = this.priceMinValue;
-      let maxPrice = this.priceMaxValue;
+      let minPrice = +this.priceMinValue;
+      let maxPrice = +this.priceMaxValue;
       if (minPrice > maxPrice) {
         this.priceMinValue = maxPrice;
         this.priceMaxValue = minPrice;
         minPrice = this.priceMinValue;
         maxPrice = this.priceMaxValue;
-      } else if (minPrice === maxPrice) {
-        this.filterProducts({ ...this.options, price: { $lte: maxPrice } });
+        return this.filterProducts({ ...this.options, price: { $gte: minPrice, $lte: maxPrice } });
+      } if (minPrice === maxPrice) {
+        return this.filterProducts({ ...this.options, price: { $lte: maxPrice } });
       } else {
         this.filterProducts({ ...this.options, price: { $gte: minPrice, $lte: maxPrice } });
       }
     } else {
-      this.filterProducts(this.options);
+      return this.filterProducts(this.options);
     }
   }
 
@@ -478,10 +511,6 @@ class Categories extends Vue {
     this._searchTimerId = setTimeout(() => {
       return searchingFn(searchValue);
     }, delay); /* delay ms throttle */
-  }
-
-  onChangeSelection (e) {
-    this.sortBy = e.target.value;
   }
 
   sliceList () {
@@ -526,6 +555,15 @@ class Categories extends Vue {
     this.isFree = false;
     this.clearOpt();
   }
+
+  toggle () {
+    this.visible = !this.visible;
+  }
+
+  select (option) {
+    this.value = option;
+    this.sortBy = option;
+  }
 }
 
 </script>
@@ -537,6 +575,40 @@ class Categories extends Vue {
   background-color: $secondary;
   position: relative;
 }
+.item{
+  .status-list{
+    padding: 6px 0 0;
+    margin-top: 6px;
+    border-top: 2px solid rgba($light, 0.4);
+    @media (max-width: 899px) {
+      border-top: 1px solid rgba($light, 0.4);
+    }
+    .status-item{
+      p{
+        font-size: 16px;
+        @media (max-width: 899px) {
+          font-size: 14px;
+        }
+        :not(:last-child){
+          margin-bottom: 10px;
+        }
+        span{
+          font-weight: 600;
+          @media (max-width: 899px) {
+            font-size: 14px;
+          }
+        }
+        .greenText{
+          color: $positive;
+        }
+        .redText{
+          color: $negative;
+        }
+      }
+    }
+  }
+}
+
 .progress{
   height: 70vh;
   display: flex;
@@ -548,10 +620,73 @@ class Categories extends Vue {
   right: 12px;
   bottom: 23px;
 }
-.select{
+.aselect {
   width: 100%;
-  text-align: center;
-  outline: unset;
-  color: teal;
+  .selector {
+    background: transparent;
+    position: relative;
+    z-index: 1;
+    .arrow {
+      position: absolute;
+      right: 7px;
+      top: 40%;
+      width: 0;
+      height: 0;
+      border-left: 5px solid transparent;
+      border-right: 5px solid transparent;
+      border-top: 8px solid teal;
+      transform: rotateZ(0deg) translateY(0px);
+      transition-duration: 0.3s;
+      transition-timing-function: cubic-bezier(.59,1.39,.37,1.01);
+    }
+    .expanded {
+      transform: rotateZ(180deg) translateY(2px);
+    }
+    .label {
+      display: block;
+      padding: 0 12px;
+      font-size: 16px;
+      color: teal;
+      cursor: pointer;
+    }
+  }
+  ul {
+    width: 100%;
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+    font-size: 16px;
+    position: absolute;
+    z-index: 1;
+    background: #fff;
+  }
+  li {
+    padding: 0 12px;
+    color: #666;
+    cursor: pointer;
+    &:first-child{
+      border-top-right-radius:4px;
+      border-top-left-radius: 4px;
+    }
+    &:last-child{
+      border-bottom-right-radius: 4px;
+      border-bottom-left-radius: 4px;
+    }
+    &:hover {
+      color: white;
+      background: #02bbbb;
+
+    }
+  }
+  .current {
+    color: white;
+    background: teal;
+  }
+  .hidden {
+    visibility: hidden;
+  }
+  .visible {
+    visibility: visible;
+  }
 }
 </style>

@@ -47,8 +47,8 @@
           <p>{{ item.leaser_info.nickname }}</p>
         </div>
       </NuxtLink>
+      <slot />
     </div>
-    <slot />
   </NuxtLink>
 </template>
 
