@@ -18,6 +18,7 @@
     </button>
     <v-dialog
       max-width="1200px"
+      max-height="400px"
     >
       <template #activator="{ on, attrs }">
         <v-btn
@@ -151,5 +152,8 @@ class CarouselControls extends Vue {
     width: 40px !important;
     height: 40px !important;
   }
+}
+::v-deep .v-dialog {
+  overflow-y: hidden !important;
 }
 </style>

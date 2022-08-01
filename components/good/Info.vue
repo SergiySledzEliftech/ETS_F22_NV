@@ -44,7 +44,7 @@
               Location: <span class="red-txt">{{ good.location }}</span>
             </p>
             <p class="good__props-date good__props-item">
-              Published date: <span class="red-txt">{{ moment(good.date_created).format('L') }}</span>
+              Published date: <span class="red-txt">{{ formatDate(good.date_created) }}</span>
             </p>
             <p class="good__props-rating good__props-item">
               Rating: <span class="red-txt"> {{ good.rating }} </span>
@@ -102,6 +102,7 @@
 
 <script>
 import { Vue, Component, Prop } from 'nuxt-property-decorator';
+import moment from 'moment';
 import Carousel from '~/components/good/Carousel/Carousel';
 import RentPopup from '~/components/good/RentPopup';
 
@@ -139,6 +140,10 @@ class Info extends Vue {
 
   mounted () {
     this.goodStatus = this.good.status;
+  }
+
+  formatDate (date) {
+    return moment(date).format('DD.MM.YYYY');
   }
 }
 </script>

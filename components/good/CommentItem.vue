@@ -18,7 +18,7 @@
             </p>
             <v-spacer />
             <p class="ma-0 mr-1 card__item-date">
-              {{ date }}
+              {{ formatDate(date) }}
             </p>
             <v-card-actions
               class="pa-0 btn-basket basket_active"
@@ -142,6 +142,7 @@
 
 <script>
 import { Vue, Component, Prop, namespace } from 'nuxt-property-decorator';
+import moment from 'moment';
 
 const { Action: GoodAction } = namespace('good_comments');
 const { State: LikesState, Action: LikesAction } = namespace('likes');
@@ -187,9 +188,13 @@ class CommentItem extends Vue {
     }
     // converting time according to utc
     const localOffset = new Date().getTimezoneOffset() * 60000;
-    this.date = new Date(this.comment.date_created - localOffset).toJSON().slice(0, 10).replace(/-/g, '.').split('.').reverse().join('.');
+    this.date = new Date(this.comment.date_created - localOffset).toJSON();
     this.likes = this.comment.like;
     this.dislikes = this.comment.dislike;
+  }
+
+  formatDate (date) {
+    return moment(date).format('DD.MM.YYYY');
   }
 
   async onDeleteComment () {
