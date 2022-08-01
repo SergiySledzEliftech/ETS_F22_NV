@@ -62,7 +62,7 @@ export const actions = {
     commit('setLoading', false);
   },
   async updateUsersEnteredStatistics ({ state, commit }) {
-    await this.$axios.put(`${serverApiUrl}statistics/update-users`);
+    await this.$axios.put(`${serverApiUrl}statistics/users`);
   },
   setLoading ({ state, commit }, loading) {
     commit('setLoading', loading);
