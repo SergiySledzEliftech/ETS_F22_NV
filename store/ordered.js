@@ -17,11 +17,16 @@ export const mutations = {
     const index = state.orderedGoods.findIndex(item => item.id === id);
     state.orderedGoods.splice(index, 1);
     console.log(state.orderedGoods, '--------------');
+  },
+
+  setItemStatus (state, item) {
+    item.status = 'available';
   }
 };
 
 export const actions = {
   async deleteOrderedGood ({ commit }, { id, item }) {
+    commit('setItemStatus', item);
     console.log(id, 'ggggggg');
     console.log(item, 'wwwwwwwwwwwww');
     await this.$axios.$put('http://localhost:3001/products/' + item._id, item);

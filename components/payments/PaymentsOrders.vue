@@ -65,6 +65,7 @@ class PaymentsOrders extends Vue {
 
   @State orderedGoods;
   @Mutation setOrderedGoods;
+  @Mutation setItemStatus;
   @Action deleteOrderedGood;
 
   get totalCost () {
@@ -88,7 +89,7 @@ class PaymentsOrders extends Vue {
   }
 
   deleteOrderedGoodFromList (id, item) {
-    item.status = 'available';
+    // item.status = 'available';
     console.log(id, 222222);
     console.log(item, 33333);
     this.deleteOrderedGood({ id, item });
