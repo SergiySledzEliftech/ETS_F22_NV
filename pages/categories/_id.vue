@@ -1,5 +1,5 @@
 <template>
-  <div class="main good-container">
+  <div class="main">
     <div v-if="loading" class="progress-circular good-circular">
       <progress-circular />
     </div>
@@ -73,12 +73,6 @@ class GoodPage extends Vue {
 </script>
 
 <style lang="scss" scoped>
-.good-container{
-  padding: 0;
-  margin: 0 auto;
-  max-width: 1280px;
-  height: 100%;
-}
 .main{
   height: 100%;
 }

@@ -54,7 +54,7 @@
             </p>
             <p class="good__props-price good__props-item">
               Price:
-              <span v-if="!good.isFree" class="red-txt">{{ good.price }} UAN</span>
+              <span v-if="!good.isFree" class="red-txt">{{ good.price }} Fr</span>
               <span v-else class="red-txt"> Free </span>
             </p>
           </div>
@@ -180,7 +180,7 @@ a{
   }
 }
 .carousel{
-  @include responsive-value_restrained('width', 610, 430, 960, 1310);
+  @include responsive-value_restrained('width', 610, 400, 960, 1310);
   @include responsive-value_restrained('height', 534, 434, 960, 1310);
   margin-right: 60px;
   @media only screen and (max-width: $bp_tablet + px) {
