@@ -106,6 +106,7 @@ class AddComment extends Vue {
   async mounted () {
     try {
       await this.getUser(this.$auth.user._id);
+      await this.get;
     } catch (err) {
       console.error(err.message);
     }
@@ -116,7 +117,7 @@ class AddComment extends Vue {
     setTimeout(() => {
       this.clear();
     }, 0);
-    this.$router.push('/categories/' + this.$route.params.id + '/comments/');
+    this.$router.push('/categories/' + this.$route.params.id + '/comments/my-comments');
   }
 
   clear () {
