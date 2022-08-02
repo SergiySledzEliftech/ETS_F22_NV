@@ -45,7 +45,7 @@ export const actions = {
         .put(`${serverApiUrl}users/` + id, state.user)
         .then(response => alert(response.data));
     } catch (e) {
-      alert('Error update');
+      console.log('Error update');
     }
   },
 

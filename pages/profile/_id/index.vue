@@ -593,7 +593,7 @@ class Config extends Vue {
     position: relative;
     .v-card {
       margin-bottom: 10px;
-      box-shadow: none;
+      box-shadow: none !important;
       background-color: transparent;
 
       .half {
