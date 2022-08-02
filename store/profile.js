@@ -72,7 +72,6 @@ export const actions = {
   async getProducts ({ commit }, id) {
     try {
       const products = await this.$axios.$get(`${serverApiUrl}search/items?id=${String(id)}`);
-      // const products = await this.$axios.$get(`${serverApiUrl}search/all`);
       commit('setData', products);
     } catch (error) {
       alert('data ' + error.message);

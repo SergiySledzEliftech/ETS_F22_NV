@@ -1,7 +1,7 @@
 <template>
   <NuxtLink :to="{name: 'categories-id', params: {id: item._id }}" :class="{'isGrid': grid}">
     <div class="img_wrap">
-      <img :src="item.images[0]" alt="image" class="item_img">
+      <img :src="item.images[0] || 'https://www.svo.aero/assets/default-image.jpg'" alt="image" class="item_img">
     </div>
 
     <div class="item_content">
@@ -10,8 +10,11 @@
           {{ item.title }}
         </h4>
         <div>
-          <a :href="item.category" target="_blank" class="item_location">
-            <v-icon size="16" color="var(--negative)">mdi-map-marker</v-icon>{{ item.location }}</a>
+          <p class="item_location">
+            <v-icon size="16" color="var(--negative)">
+              mdi-map-marker
+            </v-icon>{{ item.location }}
+          </p>
           <NuxtLink :to="{name: 'categories', params: {category: item.category}}" class="item_location">
             <v-icon size="16" color="var(--warning)">
               mdi-star-minus
@@ -31,7 +34,7 @@
           </span>
         </p>
         <p v-show="isProfile">
-          Term:<span>{{ item.lease_term }} day(s)</span>
+          Term:<span>{{ term && term !== '' ? term || '0' : item.lease_term || '0' }} day(s)</span>
         </p>
         <p v-show="!isProfile">
           Status:<span>{{ item.status === 'unavailable' ? 'Rented' : 'In stock' }}</span>
@@ -48,8 +51,8 @@
           <p>{{ item.leaser_info.nickname }}</p>
         </div>
       </NuxtLink>
+      <slot />
     </div>
-    <slot />
   </NuxtLink>
 </template>
 
@@ -62,6 +65,7 @@ export default @Component({
 class SingleItem extends Vue {
   @Prop({ type: Boolean, required: true }) grid;
   @Prop({ type: Object, required: true }) item;
+  @Prop() term;
   isProfile = this.$route.path.includes('/rent');
 }
 
@@ -92,6 +96,9 @@ class SingleItem extends Vue {
       i {
         margin-bottom: 5px;
       }
+    }
+    p.item_location {
+      cursor: text;
     }
 
     .item_title {
