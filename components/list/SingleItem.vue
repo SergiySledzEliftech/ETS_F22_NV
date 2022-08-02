@@ -1,18 +1,29 @@
 <template>
-  <div :class="{'isGrid': grid}">
+  <NuxtLink :to="{name: 'categories-id', params: {id: item._id }}" :class="{'isGrid': grid}">
     <div class="img_wrap">
-      <img :src="item.images[0]" alt="image" class="item_img">
+      <img :src="item.images[0] || 'https://www.svo.aero/assets/default-image.jpg'" alt="image" class="item_img">
     </div>
+
     <div class="item_content">
       <div class="title_wrap">
         <h4 class="item_title">
           {{ item.title }}
         </h4>
-        <a :href="item.location" target="_blank" class="item_location">
-          <v-icon size="16" color="#C10015">mdi-map-marker-outline</v-icon>some location</a>
+        <div>
+          <p class="item_location">
+            <v-icon size="16" color="var(--negative)">
+              mdi-map-marker
+            </v-icon>{{ item.location }}
+          </p>
+          <NuxtLink :to="{name: 'categories', params: {category: item.category}}" class="item_location">
+            <v-icon size="16" color="var(--warning)">
+              mdi-star-minus
+            </v-icon>{{ item.category }}
+          </NuxtLink>
+        </div>
       </div>
       <div class="item_details">
-        <p>Price:<span>{{ item.price }}$</span></p>
+        <p>Price:<span v-if="item.price > 0">{{ item.price }} UAH</span><span v-else>Free</span></p>
         <p>
           Rating:<span>{{ item.rating }} <v-icon
             size="20"
@@ -22,37 +33,42 @@
           </v-icon>
           </span>
         </p>
-        <p>Term:<span>{{ item.term }} day(s)</span></p>
+        <p v-show="isProfile">
+          Term:<span>{{ term && term !== '' ? term || '0' : item.lease_term || '0' }} day(s)</span>
+        </p>
+        <p v-show="!isProfile">
+          Status:<span>{{ item.status === 'unavailable' ? 'Rented' : 'In stock' }}</span>
+        </p>
       </div>
-      <div class="item_seller">
-        <img
-          :src="item.user.avatar"
-          alt="avatar"
-        >
-        <p>{{ item.user.firstName }} {{ item.user.lastName }}</p>
-      </div>
+      <NuxtLink :to="/profile/ +item.leaser_info.userId">
+        <div class="item_seller">
+          <img
+            :src="item.leaser_info.avatar !== '' ?
+              item.leaser_info.avatar :
+              'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSaDVA_pu9U4m-YPEQY5c9v8nqJHzOPgmopaA&usqp=CAU'"
+            alt="avatar"
+          >
+          <p>{{ item.leaser_info.nickname }}</p>
+        </div>
+      </NuxtLink>
+      <slot />
     </div>
-    <slot />
-  </div>
+  </NuxtLink>
 </template>
 
 <script>
-import { Vue, Component } from 'nuxt-property-decorator';
+import { Vue, Component, Prop } from 'nuxt-property-decorator';
 export default @Component({
-  name: 'single-item',
-  props: {
-    grid: {
-      type: Boolean,
-      required: true
-    },
-    item: {
-      type: Object,
-      required: true
-    }
-  }
+  name: 'single-item'
 })
+
 class SingleItem extends Vue {
+  @Prop({ type: Boolean, required: true }) grid;
+  @Prop({ type: Object, required: true }) item;
+  @Prop() term;
+  isProfile = this.$route.path.includes('/rent');
 }
+
 </script>
 
 <style lang="scss" scoped>
@@ -68,7 +84,7 @@ class SingleItem extends Vue {
     }
     .item_location {
       display: block;
-      margin-top: 10px;
+      margin-top: 3px;
       font-size: 14px;
       font-weight: 400;
       @media (max-width: 899px) {
@@ -81,12 +97,17 @@ class SingleItem extends Vue {
         margin-bottom: 5px;
       }
     }
+    p.item_location {
+      cursor: text;
+    }
 
     .item_title {
       margin-top: 10px;
       margin-bottom: 0;
+      font-size: 18px;
+      height: 45px;
       @media screen and (max-width: 899px) {
-        font-size: 18px;
+        font-size: 16px;
         font-weight: 600;
       }
     }

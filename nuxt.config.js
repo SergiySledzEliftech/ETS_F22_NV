@@ -62,7 +62,8 @@ export default {
 
   // Axios module configuration: https://go.nuxtjs.dev/config-axios
   axios: {
-    baseURL: 'http://localhost:3001'
+    baseURL: 'https://glomare.herokuapp.com/'
+    // baseURL: 'http://localhost:3001'
     // Workaround to avoid enforcing hard-coded localhost:3000: https://github.com/nuxt-community/axios-module/issues/308
   },
   // Vuetify module configuration: https://go.nuxtjs.dev/config-vuetify
@@ -94,15 +95,17 @@ export default {
       ]
     }
   },
+  router: {
+    middleware: ['auth']
+  },
   auth: {
     strategies: {
       local: {
         scheme: 'refresh',
         token: {
           property: 'token',
-          global: true
-          // required: true,
-          // type: ''
+          global: true,
+          maxAge: 60 * 60 * 3
         },
         refreshToken: {
           property: 'refresh_token',
@@ -116,10 +119,18 @@ export default {
         endpoints: {
           login: { url: '/auth/login', method: 'post' },
           refresh: { url: '/auth/refresh', method: 'post' },
-          logout: false,
+          logout: { url: '/auth/logout', method: 'post' },
           user: { url: '/auth/user', method: 'get' }
-        }
+        },
+        tokenRequired: true
       }
+    },
+    // localStorage: false,
+    redirect: {
+      login: '/auth',
+      logout: '/auth',
+      callback: '/auth',
+      home: '/'
     }
   }
 };

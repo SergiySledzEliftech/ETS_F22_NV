@@ -10,20 +10,20 @@
             GloMaRe service helps you buy or sell almost anything from hand to hand.
           </p>
           <p class="footer-text">
-            Lorem Ipsum text
+            Follow as:
           </p>
           <ul class="footer-social">
             <li>
-              <a href="#" class="footer-instagram" />
+              <a href="https://www.instagram.com/" class="footer-instagram" target="_blank" />
             </li>
             <li>
-              <a href="#" class="footer-youtube" />
+              <a href="https://www.youtube.com/" class="footer-youtube" target="_blank" />
             </li>
             <li>
-              <a href="#" class="footer-facebook" />
+              <a href="https://www.facebook.com/" class="footer-facebook" target="_blank" />
             </li>
           </ul>
-          <NuxtLink to="#10" class="footer-link-help">
+          <NuxtLink :to="{ name: 'Services-Help'}" class="footer-link-help">
             Help and Feedback
           </NuxtLink>
         </div>
@@ -31,19 +31,19 @@
           <div class="footer-title">
             Services
           </div>
-          <NuxtLink to="#1" class="footer-link">
+          <nuxt-link :to="{ name: 'Services-MobileApplication'}" class="footer-link">
             Mobile application
-          </NuxtLink>
-          <NuxtLink to="#2" class="footer-link">
+          </nuxt-link>
+          <NuxtLink :to="{name:'Services-GlomarePremium'}" class="footer-link">
             GloMaRe Premium
           </NuxtLink>
-          <NuxtLink to="#3" class="footer-link">
+          <NuxtLink :to="{name:'Services-PaidServices'}" class="footer-link">
             Paid services
           </NuxtLink>
-          <NuxtLink to="#4" class="footer-link">
+          <NuxtLink :to="{name:'Services-GiftSertificates'}" class="footer-link">
             Gift certificates
           </NuxtLink>
-          <NuxtLink to="chat" class="footer-link">
+          <NuxtLink :to="{name:'Chat'}" class="footer-link">
             Chat
           </NuxtLink>
         </div>
@@ -51,19 +51,19 @@
           <div class="footer-title">
             To partners
           </div>
-          <NuxtLink to="#5" class="footer-link">
+          <NuxtLink :to="{name:'to-partners-Cooperations'}" class="footer-link">
             Cooperation with us
           </NuxtLink>
-          <NuxtLink to="#6" class="footer-link">
+          <NuxtLink :to="{name:'to-partners-Franchising'}" class="footer-link">
             Franchising
           </NuxtLink>
-          <NuxtLink to="#7" class="footer-link">
+          <NuxtLink :to="{name:'to-partners-Delivery'}" class="footer-link">
             Delivery: rules and promotions
           </NuxtLink>
-          <NuxtLink to="#8" class="footer-link">
+          <NuxtLink :to="{name:'to-partners-Policy'}" class="footer-link">
             Privacy policy
           </NuxtLink>
-          <NuxtLink to="#9" class="footer-link">
+          <NuxtLink :to="{name:'to-partners-SafetyRules'}" class="footer-link">
             Safety rules
           </NuxtLink>
         </div>
@@ -78,7 +78,7 @@
             Сб: 09:00 – 15:00
           </div>
           <a class="footer-email" href="mailto:info@glomare.com">info@glomare.com</a>
-          <a class="header-phone" href="tel:+375295967676">+375 (29) 596 76 76</a>
+          <a class="header-phone" href="tel:+375295967676">+38 (067) 111-33-88</a>
           <a class="footer-location" href="https://www.google.com/maps/place/%D1%83%D0%BB.+%D0%9D%D0%B8%D0%B6%D0%BD%D0%B8%D0%B9+%D0%92%D0%B0%D0%BB,+33,+%D0%9A%D0%B8%D0%B5%D0%B2,+02000/data=!4m2!3m1!1s0x40d4ce6b2ddd9b35:0xc4bb50f80bfb300c?sa=X&ved=2ahUKEwi4gonQ5In5AhUFqIsKHS0nD4wQ8gF6BAgTEAE">33 Nizhniy Val Street, Kyiv, 02000</a>
         </div>
       </div>
@@ -277,6 +277,10 @@
     .footer-row-copyright{
       font-size: 0.75rem;
       text-align: center;
+    }
+
+    h3, p {
+      margin-bottom: 16px!important;
     }
   }
 </style>

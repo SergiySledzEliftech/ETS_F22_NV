@@ -12,9 +12,12 @@
           <nav id="navbar" class="navbar" @click="collapseSubMenu2">
             <ul class="menu">
               <li class="menu-item menu-item-child">
-                <a href="#" data-toggle="sub-menu">{{ menu[0].item }}<i class="expand" /></a>
+                <NuxtLink :to="{name: 'categories'}" class="menu-link" data-toggle="sub-menu">
+                  {{ menu[0].item }}<i class="expand" />
+                </NuxtLink>
+
                 <ul class="sub-menu">
-                  <li v-for="item in subMenuCatalog" :key="item.to" class="menu-item">
+                  <li v-for="(item, index) in subMenuCatalog" :key="index" class="menu-item">
                     <NuxtLink :to="item.to">
                       {{ item.name }}
                     </NuxtLink>
@@ -23,10 +26,10 @@
               </li>
 
               <li class="menu-item menu-item-child">
-                <a href="#" data-toggle="sub-menu">{{ menu[1].item }}<i class="expand" /></a>
+                <a href="#" class="menu-link" data-toggle="sub-menu">{{ menu[1].item }}<i class="expand" /></a>
                 <ul class="sub-menu">
                   <li v-for="item in subMenuServices" :key="item.to" class="menu-item">
-                    <NuxtLink :to="item.to">
+                    <NuxtLink :to="{name: item.to}">
                       {{ item.name }}
                     </NuxtLink>
                   </li>
@@ -34,7 +37,7 @@
               </li>
 
               <li class="menu-item menu-item-child">
-                <NuxtLink to="#">
+                <NuxtLink :to="{name: 'Services-About'}">
                   {{ menu[2].item }}
                 </NuxtLink>
               </li>
@@ -46,22 +49,60 @@
 
             <div class="login-profile-mobile">
               <div class="login-profile">
-                <v-btn
-                  v-if="isLogin"
-                  class="ma-2"
-                  outlined
-                  color="indigo"
+                <nuxt-link
+                  v-if="$auth.loggedIn"
+                  :to="{ path: '/'}"
                 >
-                  Profile
-                </v-btn>
-                <v-btn
+                  <nuxt-link :to="'/profile/' + $auth.user._id">
+                    <v-icon
+                      large
+                      color="var(--secondary)"
+                    >
+                      mdi-account
+                    </v-icon>
+                  </nuxt-link>
+
+                  <nuxt-link to="/payments">
+                    <v-icon
+                      dense
+                      large
+                      color="var(--secondary)"
+                    >
+                      mdi-cart
+                    </v-icon>
+                  </nuxt-link>
+
+                  <nuxt-link to="/add-new-ad">
+                    <v-icon
+                      large
+                      dense
+                      color="var(--secondary)"
+                    >
+                      mdi-plus-box
+                    </v-icon>
+                  </nuxt-link>
+
+                  <v-btn
+                    class="ma-2 btn-red menu-btn"
+                    outlined
+                    @click="$auth.logout()"
+                  >
+                    Log Out
+                  </v-btn>
+                </nuxt-link>
+                <nuxt-link
                   v-else
-                  class="ma-2 btn-red"
-                  outlined
-                  color="indigo"
+                  :to="{ path: '/auth' }"
                 >
-                  Sign in
-                </v-btn>
+                  <v-btn
+
+                    class="ma-2 btn-red menu-btn"
+                    outlined
+                    color="indigo"
+                  >
+                    Sign in
+                  </v-btn>
+                </nuxt-link>
               </div>
             </div>
           </nav>
@@ -97,15 +138,37 @@
               v-if="$auth.loggedIn"
               :to="{ path: '/'}"
             >
+              <nuxt-link :to="'/profile/' + $auth.user._id">
+                <v-icon
+                  large
+                  color="var(--secondary)"
+                >
+                  mdi-account
+                </v-icon>
+              </nuxt-link>
+
+              <nuxt-link to="/payments">
+                <v-icon
+                  dense
+                  large
+                  color="var(--secondary)"
+                >
+                  mdi-cart
+                </v-icon>
+              </nuxt-link>
+
+              <nuxt-link to="/add-new-ad">
+                <v-icon
+                  large
+                  dense
+                  color="var(--secondary)"
+                >
+                  mdi-plus-box
+                </v-icon>
+              </nuxt-link>
+
               <v-btn
-                class="ma-2"
-                outlined
-                color="indigo"
-              >
-                Profile
-              </v-btn>
-              <v-btn
-                class="ma-2 btn-red"
+                class="ma-2 btn-red menu-btn"
                 outlined
                 @click="$auth.logout()"
               >
@@ -117,10 +180,10 @@
               :to="{ path: '/auth' }"
             >
               <v-btn
-
-                class="ma-2 btn-red"
+                class="ma-2 btn-red menu-btn"
                 outlined
                 color="indigo"
+                @click="changeTab"
               >
                 Sign in
               </v-btn>
@@ -161,12 +224,15 @@ class HeaderComponent extends Vue {
   @State isLogin
   @Mutation changeStatusAuth
 
+  @State tab
+  @Mutation changeTab
+
   // Button select city
   itemsCity = [
     { title: 'Kyiv' },
     { title: 'Kharkiv' },
-    { title: 'Chernivtsi' },
     { title: 'Poltava' },
+    { title: 'Rivne' },
     { title: 'Dnipro' }
   ]
 
@@ -179,24 +245,24 @@ class HeaderComponent extends Vue {
 
   // SubMenu Catalog
   subMenuCatalog = [
-    { name: 'Smartphones', to: '#1' },
-    { name: 'Laptops', to: '#2' },
-    { name: 'Fragrances', to: '#3' },
-    { name: 'Skincare', to: '#4' },
-    { name: 'Groceries', to: '#5' },
-    { name: 'Home decoration', to: '#6' },
-    { name: 'Automotive', to: '#7' },
-    { name: 'Motorcycle', to: '#8' },
-    { name: 'Lighting', to: '#9' }
+    { name: 'Smartphones', to: { name: 'categories', params: { category: 'smartphones' } } },
+    { name: 'Laptops', to: { name: 'categories', params: { category: 'laptops' } } },
+    { name: 'Fragrances', to: { name: 'categories', params: { category: 'fragrances' } } },
+    { name: 'Skincare', to: { name: 'categories', params: { category: 'skincare' } } },
+    { name: 'Groceries', to: { name: 'categories', params: { category: 'groceries' } } },
+    { name: 'Home decoration', to: { name: 'categories', params: { category: 'home-decoration' } } },
+    { name: 'Automotive', to: { name: 'categories', params: { category: 'automotive' } } },
+    { name: 'Motorcycle', to: { name: 'categories', params: { category: 'motorcycle' } } },
+    { name: 'Lighting', to: { name: 'categories', params: { category: 'lighting' } } }
   ]
 
   // SubMenu Services
   subMenuServices = [
-    { name: 'Mobile application', to: '#10' },
-    { name: 'GloMaRe premium', to: '#11' },
-    { name: 'Paid services', to: '#12' },
-    { name: 'Gift Certificates', to: '#13' },
-    { name: 'Chat', to: 'chat' }
+    { name: 'Mobile application', to: 'Services-MobileApplication' },
+    { name: 'GloMaRe premium', to: 'Services-GlomarePremium' },
+    { name: 'Paid services', to: 'Services-PaidServices' },
+    { name: 'Gift Certificates', to: 'Services-GiftSertificates' },
+    { name: 'Chat', to: 'Chat' }
   ]
 
   mounted () {
@@ -225,6 +291,10 @@ class HeaderComponent extends Vue {
         const subMenu = menuItemHasChildren.querySelector('.sub-menu');
         subMenu.style.maxHeight = subMenu.scrollHeight + 'px';
       }
+    }
+    // for close mob menu when choose link
+    if (!e.target.classList.contains('menu-link')) {
+      this.toggleMenu();
     }
   }
 
@@ -626,10 +696,11 @@ class HeaderComponent extends Vue {
     // Phone
     .header-city {
       position: relative;
-      width: 102px;
+      width: 75px;
       color: $secondary;
       margin-bottom: 0;
       margin-right: 10px;
+      margin-left: 5px;
       font-size: 20px;
 
       @media only screen and (max-width: 992px) {
@@ -676,4 +747,11 @@ class HeaderComponent extends Vue {
       cursor: pointer !important;
     }
   }
+
+  .v-application{
+    .menu-btn{
+      margin-right: 0 !important;
+    }
+  }
+
 </style>

@@ -17,7 +17,8 @@
       </v-icon>
     </button>
     <v-dialog
-      max-width="1200px"
+      max-width="800px"
+      max-height="600px"
     >
       <template #activator="{ on, attrs }">
         <v-btn
@@ -34,28 +35,27 @@
         </v-btn>
       </template>
       <template #default="dialog">
-        <v-card class="popup rounded-lg">
-          <v-img
-            max-width="1200"
-            max-height="900"
-            :src="slides[currentSlide]"
-            alt=""
-          >
-            <v-card-actions class="close-card">
-              <v-btn
-                class="btn-close"
-                @click="dialog.value = false"
+        <v-img
+          max-height="900"
+          max-width="1200"
+          class="fullscreen-img rounded-lg popup"
+          :src="slides[currentSlide]"
+          alt=""
+        >
+          <v-card-actions class="close-card">
+            <v-btn
+              class="btn-close"
+              @click="dialog.value = false"
+            >
+              <v-icon
+                color="black"
+                class="btn-close-icon"
               >
-                <v-icon
-                  color="black"
-                  class="btn-close-icon"
-                >
-                  mdi-close
-                </v-icon>
-              </v-btn>
-            </v-card-actions>
-          </v-img>
-        </v-card>
+                mdi-close
+              </v-icon>
+            </v-btn>
+          </v-card-actions>
+        </v-img>
       </template>
     </v-dialog>
   </div>
@@ -139,6 +139,7 @@ class CarouselControls extends Vue {
 }
 
 .popup{
+  //height: 50% !important;
   .close-card{
     display: block;
     position: absolute;
@@ -151,5 +152,13 @@ class CarouselControls extends Vue {
     width: 40px !important;
     height: 40px !important;
   }
+}
+::v-deep .v-dialog {
+  overflow-y: hidden !important;
+}
+::v-deep .v-image{
+  width: 100%;
+  height: 100%;
+  object-fit: contain !important;
 }
 </style>

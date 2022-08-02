@@ -2,20 +2,25 @@
   <div class="card">
     <div class="wrapper">
       <div class="conteiner">
+        <v-row no-gutters justify="end" class="mb-2">
+          <v-icon large color="#213342" @click="closeModal">
+            mdi-close-circle
+          </v-icon>
+        </v-row>
         <div class="card-header">
           <div class="card-header__info-sum">
             <div>
-              <p>До сплати</p>
+              <p>Payable</p>
             </div>
             <div>
               <p>
-                <span>520.00</span>
-                <span> uah</span>
+                <span>{{ billOrder.billAmount }}</span>
+                <span> UAH</span>
               </p>
             </div>
           </div>
           <div class="card-header__info-text">
-            <p>Оплата за замовлення №740070864 на суму 520 грн, в т.ч. ПДВ</p>
+            <p>Payment for order №{{ billOrder.billNumber }} in the amount of {{ billOrder.billAmount }} UAH</p>
           </div>
         </div>
         <div class="card-form">
@@ -23,49 +28,142 @@
             <div class="card-form__count">
               <div class="card-form__card">
                 <label>Номер картки</label>
-                <input type="text" class="input" placeholder="**** **** **** ****">
+                <div class="card-form__count-inner">
+                  <input
+                    v-model="cardNumber"
+                    v-mask="'#### #### #### ####'"
+                    type="text"
+                    placeholder="**** **** **** ****"
+                    class="input"
+                  >
+                  <v-img
+                    class="ml-4"
+                    contain
+                    max-height="59"
+                    max-width="145"
+                    :src="require('../../assets/img/payments/' + getCardType + '-logo.png')"
+                  />
+                </div>
               </div>
               <div class="card-form__validaty">
-                <div class="card-form__validity-date validate">
+                <div class="card-form__validity-date">
                   <div class="validity-date__inner">
                     <label>Термін дії:</label>
-                    <input type="text" class="input input--validate" placeholder="MM / YY">
+                    <div>
+                      <span>
+                        <input
+                          v-model="cardMonth"
+                          v-mask="'##'"
+                          type="text"
+                          class="input input--validate"
+                          placeholder="month"
+                        >
+                      </span>
+                      <span>
+                        <input
+                          v-model="cardYear"
+                          v-mask="'####'"
+                          type="text"
+                          class="input input--validate"
+                          placeholder="year"
+                        >
+                      </span>
+                    </div>
                   </div>
                 </div>
                 <div class="card-form__validity-cvv validate">
                   <div class="validity-date__inner">
                     <label>CVV</label>
-                    <input type="text" class="input input--validate" placeholder="XXX">
+                    <input
+                      v-model="cardCvv"
+                      v-mask="'###'"
+                      type="password"
+                      class="input input--validate"
+                      placeholder="XXX"
+                    >
                   </div>
                 </div>
               </div>
             </div>
           </div>
         </div>
-        <div class="card-button">
-          <v-btn
-            class="ma-2 btn--card"
-            outlined
-            color="indigo"
-          >
-            PAYMENTS
-          </v-btn>
-        </div>
+        <v-btn
+          class="btn--card"
+          block
+          outlined
+          color="indigo"
+          @click="sendPaymentsDataToBase"
+        >
+          PAYMENTS
+        </v-btn>
       </div>
     </div>
   </div>
 </template>
 
 <script>
-import { Vue, Component } from 'nuxt-property-decorator';
+import { Vue, Component, Prop } from 'nuxt-property-decorator';
+import { mask } from 'vue-the-mask';
+import { serverApiUrl } from '@/settings/config';
 
 export default @Component({
   name: 'PaymentCard',
-  components: {}
+  directives: { mask },
+  components: { }
 })
 
 class PaymentCard extends Vue {
+  cardNumber = ''
+  cardMonth = ''
+  cardYear = ''
+  cardCvv = ''
 
+  @Prop() billOrder
+  @Prop() paidGoods
+
+  get getCardType () {
+    const number = this.cardNumber;
+    let re = /^4/;
+    if (number.match(re) != null) {
+      return 'visa';
+    };
+
+    re = /^5[1-5]/;
+    if (number.match(re) != null) {
+      return 'mastercard';
+    };
+
+    return 'visa'; // default type
+  }
+
+  methods () {
+  }
+
+  closeModal () {
+    this.$emit('closeModal', false);
+  }
+
+  async sendPaymentsDataToBase () {
+    try {
+      const PaymentsData = {
+        cardNumber: this.cardNumber,
+        cardMonth: this.cardMonth,
+        cardYear: this.cardYear,
+        cardCvv: this.cardCvv,
+        paidAmount: this.billOrder.billAmount,
+        billNumber: this.billOrder.billNumber,
+        paidGoods: []
+      };
+      this.paidGoods.forEach((element) => {
+        PaymentsData.paidGoods.push(element);
+      });
+      await this.$axios.post(`${serverApiUrl}, PaymentsData`);
+      const localRents = this.$auth.$storage.getLocalStorage(this.$auth.user._id);
+      console.log(localRents, 111111111111);
+      this.$router.push('/');
+    } catch (err) {
+    }
+  }
 }
 </script>
 
@@ -112,22 +210,28 @@ label
   &__validaty
     display: flex
     flex-wrap: wrap
+  &__validity-date
+    width: 70%
+  &__count-inner
+    display: flex
+  &__validity-cvv
+    max-width: 20%
+    margin-left: 35px
 .card-button
   padding: 16px
   text-align: center
-.validate
-  max-width: 50%
-  flex: 1
-  padding: 5px
-  width: 50%
 .validity-date
   &__inner
-    margin: 0 -5px
     display: flex
     flex-direction: column
+    div
+      display: flex
+      justify-content: space-between
+      span
+        width: 40%
 .input
   display: block
-  width: 60%
+  width: 100%
   height: 60px
   padding: 10px
   font-size: 28px
@@ -147,12 +251,7 @@ label
       box-shadow: 0px 0px 0px 3px #ced4da
 .btn
   &--card
-    width: 100%
-    border-radius: 8px
-    letter-spacing: 27px
     font-size: 25px
-    color: #fff
     text-transform: none
-    height: 50px
-    padding: 0 20px
+    padding: 20px 0px!important
 </style>

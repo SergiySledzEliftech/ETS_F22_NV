@@ -5,13 +5,21 @@
       color="var(--primary)"
       right
     >
-      <v-tab :to="{name: 'good-comments'}" nuxt exact>
+      <v-tab :to="{name: 'categories-id-comments'}" nuxt exact>
         All
       </v-tab>
-      <v-tab :to="{name: 'good-comments-my-comments'}" nuxt>
+      <v-tab
+        :to="{name: 'categories-id-comments-my-comments'}"
+        nuxt
+        :disabled="$auth.user === null"
+      >
         My
       </v-tab>
-      <v-tab :to="{name: 'good-comments-add-comment'}" nuxt>
+      <v-tab
+        :to="{name: 'categories-id-comments-add-comment'}"
+        nuxt
+        :disabled="$auth.user === null"
+      >
         Add
       </v-tab>
     </v-tabs>
@@ -23,9 +31,9 @@
 import { Vue, Component } from 'nuxt-property-decorator';
 
 export default @Component({
+  auth: false
 })
 class Comments extends Vue {
-
 }
 </script>
 
@@ -37,5 +45,9 @@ class Comments extends Vue {
 }
 .v-tabs{
   margin-top: 10px;
+}
+.no-comments{
+  font-size: 22px !important;
+  @include responsive-value_important('font-size', 22, 16, 1310)
 }
 </style>

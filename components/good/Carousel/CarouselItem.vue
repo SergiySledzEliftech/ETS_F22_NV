@@ -30,7 +30,9 @@ class CarouselItem extends Vue {
 
 <style lang="scss" scoped>
 .carousel-item {
-  @include responsive-value('width', 610, 500, 1310);
+  margin: 0 !important;
+  @include responsive-value_restrained('height', 405, 335, $bp_tablet, 1310);
+  @include responsive-value_restrained('width', 610, 431, $bp_tablet, 1310);
   border-radius: 10px;
   @media only screen and (max-width: $bp_tablet + px) {
     width: 100%;
@@ -38,7 +40,9 @@ class CarouselItem extends Vue {
   }
   img{
     width: 100%;
-    @include responsive-value('min-height', 500, 300, 1310);
+    height: 100%;
+    object-fit: contain;
+    //@include responsive-value('min-height', 500, 300, 1310);
     @media only screen and (max-width: $bp_tablet + px) {
       min-height: 0;
       height: 100%;

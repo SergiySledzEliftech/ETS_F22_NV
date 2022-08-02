@@ -26,28 +26,20 @@ export default @Component({
 class SharingBlock extends Vue {
   icons = [
     {
-      link: '#',
+      link: 'https://www.facebook.com/',
       name: 'facebook'
     },
     {
-      link: '#',
+      link: 'https://web.telegram.org/',
       name: 'telegram'
     },
     {
-      link: '#',
+      link: 'https://twitter.com/',
       name: 'twitter'
     },
     {
-      link: '#',
+      link: 'https://www.viber.com/',
       name: 'viber'
-    },
-    {
-      link: '#',
-      name: 'vk'
-    },
-    {
-      link: '#',
-      name: 'classmates'
     }
   ]
 }
@@ -57,7 +49,7 @@ class SharingBlock extends Vue {
 @import "assets/css/good-media.scss";
 
 .container{
-  padding: 0;
+  padding: 0 !important;
 }
 ul, li{
   margin: 0;
@@ -66,7 +58,7 @@ ul, li{
   list-style-type: none;
 }
 .sharing{
-  margin-top: 30px;
+  margin-top: 40px;
   display: flex;
   flex-direction: column;
   justify-content: center;

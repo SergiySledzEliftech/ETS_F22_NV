@@ -1,15 +1,14 @@
 <template>
-  <div>
+  <div class="profile-wrap">
     <v-row>
       <v-col lg="6" md="12" sm="12" xs="12" class="profile-title">
         <h4>
           <nuxtLink :to="{ name: 'profile-id', params: { id: $route.params.id}}">
-            <!--<v-img :src="userData.avatar" alt="avtr" class="avtr" contain />-->
             <div v-if="isMy">
               Hello, {{ user.firstName }} {{ user.lastName }}
             </div>
             <div v-else class="center-align">
-              <v-img :src="user.avatar" alt="avtr" class="avtr" contain />
+              <v-img v-if="user.avatar" :src="serverUrl + 'files/' + user.avatar" alt="avtr" class="avtr" contain />
               {{ user.firstName }} {{ user.lastName }}
             </div>
           </nuxtLink>
@@ -46,6 +45,7 @@ export default @Component({
 
 class Profile extends Vue {
   @State user;
+  @State serverUrl
   @Action getUser;
 
   async mounted () {
@@ -56,12 +56,12 @@ class Profile extends Vue {
     }
   }
 
+  auth = false;
   name = 'profile';
-  myId = '62dbeb38d387887c0b416ab6';
-  // currentIndex = this.$route.params.id - 1;
+  authId = this.$auth.loggedIn ? this.$auth.user._id : ''
 
   get isMy () {
-    return this.myId === this.$route.params.id.toString();
+    return this.authId === this.$route.params.id;
   };
 
   tabsCurrentUser = [
@@ -79,44 +79,90 @@ class Profile extends Vue {
 </script>
 
 <style lang="scss">
+.profile-wrap {
+  width: 100%;
+  margin-left: auto;
+  margin-right: auto;
+  @media (min-width: 960px) {
+  max-width: 900px
+  }
 
-.row{
-  margin: 10px 0;
+  @media (min-width: 1264px) {
+    max-width: 1185px;
+  }
+
+  .row {
+    margin: 10px 0;
+  }
+
+  .profile-title{
+    margin: auto 0;
+    .avtr {
+      max-width: 50px;
+      height: auto;
+      box-sizing: border-box;
+      clip-path: circle();
+      display: inline-block;
+      margin-right: 20px;
+    }
+    .center-align {
+      display: flex;
+      align-items: center;
+    }
+    h4 {
+      margin: 0;
+      padding: 0;
+    }
+    a{
+      display: flex;
+      align-items: center;
+      font-size: 24px;
+      padding: 0;
+      margin: 0;
+      color: $secondary
+    }
+  }
+
+  .tabs a {
+    font-size: 14px;
+    font-weight: 500;
+    &:hover {
+      background-color: #aaaaaa
+    }
+  }
+
+  .item a:hover {
+    background-color: transparent
+  }
 }
 
-.profile-title{
-  margin: auto 0;
-  .avtr {
-    max-width: 50px;
-    border: 1px solid $secondary;
-    border-radius: 50%;
-    display: inline-block;
-    margin-right: 20px;
-  }
-  .center-align {
-    display: flex;
-    align-items: center;
-  }
-  h4 {
-    margin: 0;
-    padding: 0;
-  }
-  a{
-    display: flex;
-    align-items: center;
-    font-size: 24px;
-    padding: 0;
-    margin: 0;
-    color: $secondary
-  }
-}
-
-.tabs a {
+.nodata {
+  padding: 40px 20px;
+  width: 100%;
   height: 100%;
-  font-size: 14px;
-  font-weight: 500;
-  &:hover {
-    background-color: #aaaaaa
+
+  p {
+    text-align: center;
+    margin: auto;
+    color: $secondary;
+    font-weight: 600;
+  }
+
+  .link {
+    display: block;
+    color: $light;
+    font-size: 18px;
+    text-transform: uppercase;
+    font-weight: 600;
+    text-align: center;
+    margin: 10px auto;
+    &:hover {
+      color: $negative;
+      text-decoration: underline;
+      background-color: transparent;
+      transform: scale(1.02);
+
+    }
   }
 }
 

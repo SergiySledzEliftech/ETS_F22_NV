@@ -2,7 +2,7 @@
   <div :class="{rotateY : rotateY}" class="news-item-wrapper-mobile">
     <v-card
       class="mx-auto"
-      max-width="100%"
+      width="100%"
       :class="{rotateY : rotateY}"
     >
       <v-img
@@ -52,9 +52,9 @@ import { Component, Vue, Prop } from 'nuxt-property-decorator';
 export default @Component
 
 class NewsItem extends Vue {
-  @Prop({ type: String, required: true }) img
-  @Prop({ type: String, required: true }) newsItemTitle
-  @Prop({ type: String, required: true }) newsItemArticle
+  @Prop({ required: true }) img
+  @Prop({ required: true }) newsItemTitle
+  @Prop({ required: true }) newsItemArticle
   @Prop({ type: Boolean, required: true }) isLast
 
   show = false

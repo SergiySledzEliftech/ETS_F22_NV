@@ -1,6 +1,6 @@
 <template>
   <v-container class="profile">
-    <v-row class="profile-row" no-gutters>
+    <v-row v-if="!loading" class="profile-row" no-gutters>
       <v-form id="profile-data" ref="form" class="row" @submit.prevent="saveForm">
         <div v-if="isMy" class="float-btn btn-edit">
           <v-btn-toggle v-model="fab">
@@ -30,7 +30,22 @@
         <v-col lg="4" md="4" sm="12" xs="12">
           <v-card class="profile-avtr">
             <div class="editing" :class="{ active: fab }">
-              <v-img :src="user.avatar" alt="avtr" class="avtr" />
+              <v-img
+                v-if="user.avatar"
+                :src="serverUrl + 'files/' + user.avatar"
+                alt="avtr"
+                class="avtr"
+                width="200"
+                height="200"
+              />
+              <v-img
+                v-else
+                :src="require('@/assets/img/default-avatar.png')"
+                alt="avtr"
+                class="avtr"
+                width="200"
+                height="200"
+              />
 
               <v-form v-if="fab" id="form-avatar" ref="formAvatar" class="row" @submit.prevent="saveAvatar">
                 <v-dialog
@@ -53,15 +68,16 @@
                     </v-card-title>
                     <v-card-text>
                       <v-container>
-                        <v-row>
+                        <v-row class="modal-window">
                           <v-col cols="12">
                             <v-file-input
-                              v-model="avatarUpload"
+                              :value="avatarUploader"
                               :rules="ruleAvatar"
                               accept="image/png, image/jpeg, image/bmp"
                               placeholder="Pick an avatar"
                               prepend-icon="mdi-camera"
                               label="New avatar"
+                              @change="uploadAvatar"
                             />
                           </v-col>
                         </v-row>
@@ -79,6 +95,7 @@
                       <v-btn
                         color="blue darken-1"
                         text
+                        type="submit"
                         @click="saveAvatar"
                       >
                         Save
@@ -112,23 +129,11 @@
               {{ user.firstName }} {{ user.lastName }}
             </h5>
           </v-card>
-          <v-card>
-            <v-list-item two-line>
-              <v-list-item-content class="rating">
-                <v-list-item-subtitle>
-                  Rating
-                </v-list-item-subtitle>
-                <v-list-item-title>
-                  {{ user.rating }} from 10
-                </v-list-item-title>
-              </v-list-item-content>
-            </v-list-item>
-          </v-card>
         </v-col>
 
         <v-col lg="8" md="8" sm="12" xs="12">
           <v-card>
-            <v-list-item two-line>
+            <v-list-item v-if="nickname || isMy" two-line>
               <v-list-item-content>
                 <v-list-item-subtitle>
                   Nickname
@@ -137,6 +142,7 @@
                   <v-text-field
                     v-model="nickname"
                     class="disable-input"
+                    placeholder="Enter nickname"
                     :disabled="!fab"
                     type="text"
                     :rules="ruleNickname"
@@ -145,7 +151,7 @@
                 </v-list-item-title>
               </v-list-item-content>
             </v-list-item>
-            <v-list-item two-line>
+            <v-list-item v-if="email || isMy" two-line>
               <v-list-item-content>
                 <v-list-item-subtitle>
                   E-mail
@@ -153,6 +159,7 @@
                 <v-list-item-title>
                   <v-text-field
                     v-model="email"
+                    placeholder="Enter your email"
                     class="disable-input"
                     :disabled="!fab"
                     :rules="ruleEmail"
@@ -162,7 +169,7 @@
                 </v-list-item-title>
               </v-list-item-content>
             </v-list-item>
-            <v-list-item two-line>
+            <v-list-item v-if="phone || isMy" two-line>
               <v-list-item-content>
                 <v-list-item-subtitle>
                   Phone
@@ -171,15 +178,16 @@
                   <v-text-field
                     v-model="phone"
                     class="disable-input"
+                    placeholder="Enter your phone number"
                     :disabled="!fab"
-                    type="text"
+                    type="number"
                     :rules="rulePhone"
                     append-icon="mdi-pencil"
                   />
                 </v-list-item-title>
               </v-list-item-content>
             </v-list-item>
-            <v-list-item v-if="optionalPhone" two-line>
+            <v-list-item v-if="optionalPhone || isMy" two-line>
               <v-list-item-content>
                 <v-list-item-subtitle>
                   Optional Phone
@@ -187,6 +195,7 @@
                 <v-list-item-title>
                   <v-text-field
                     v-model="optionalPhone"
+                    placeholder="Enter optional phone number"
                     class="disable-input"
                     :disabled="!fab"
                     type="text"
@@ -196,7 +205,7 @@
                 </v-list-item-title>
               </v-list-item-content>
             </v-list-item>
-            <v-list-item two-line>
+            <v-list-item v-if="location || isMy" two-line>
               <v-list-item-content>
                 <v-list-item-subtitle>
                   Location
@@ -205,6 +214,7 @@
                   <v-text-field
                     v-model="location"
                     class="disable-input"
+                    placeholder="Enter your city"
                     :disabled="!fab"
                     type="text"
                     :rules="ruleAddress"
@@ -213,7 +223,7 @@
                 </v-list-item-title>
               </v-list-item-content>
             </v-list-item>
-            <v-list-item two-line>
+            <v-list-item v-if="about || isMy" two-line>
               <v-list-item-content>
                 <v-list-item-subtitle>
                   About
@@ -221,6 +231,7 @@
                 <v-list-item-title>
                   <v-textarea
                     v-model="about"
+                    placeholder="Write about yourself"
                     class="disable-input"
                     :disabled="!fab"
                     maxlength="240"
@@ -235,7 +246,7 @@
               <v-list-item-content>
                 <v-list-item-title>
                   <v-form id="change-pass" ref="formPass" class="row" @submit.prevent="savePass">
-                    <v-row justify="left">
+                    <v-row>
                       <v-dialog
                         v-if="fab"
                         v-model="dialog"
@@ -258,7 +269,7 @@
                           </v-card-title>
                           <v-card-text>
                             <v-container>
-                              <v-row>
+                              <v-row class="modal-window">
                                 <v-col cols="12">
                                   <v-text-field
                                     v-model="oldPass"
@@ -313,6 +324,9 @@
         </v-col>
       </v-form>
     </v-row>
+    <div v-if="loading" class="loader">
+      <img src="https://upload.wikimedia.org/wikipedia/commons/b/b1/Loading_icon.gif?20151024034921" alt="loading">
+    </div>
   </v-container>
 </template>
 
@@ -320,9 +334,10 @@
 import { Vue, Component, Prop, namespace } from 'nuxt-property-decorator';
 import {
   emailValidation, emptyValidation, preventHtmlValidation, preventCapitalsValidation,
-  phoneNumberValidation, allowDigitsOnlyValidation, minLengthValidation, lengthValidation, avatarValidation
+  allowDigitsOnlyValidation, minLengthValidation, lengthValidation, avatarValidation, passwordValidation
 } from '~/helpers/validators.js';
-const { Action } = namespace('profile');
+const { State, Action, Mutation } = namespace('profile');
+const { State: ListState, Action: ListAction } = namespace('list');
 
 export default @Component({
   name: 'profileIndex',
@@ -333,17 +348,32 @@ class Config extends Vue {
   @Prop({ type: Boolean, required: true }) isMy
   @Prop({ type: Object, required: true }) user;
 
-  // link for open http://localhost:3000/profile/62dbeb38d387887c0b416ab6
-
+  @State passes
+  @State serverUrl
+  @State avatarUploader
+  @ListState loading
   // @State user
   @Action updateUser
+  @Action updatePass
+  @Action updateAvatar
+  @ListAction setLoad
+
+  @Mutation uploadAvatar
+
+  created () {
+    this.setLoad(true);
+  }
+
+  mounted () {
+    this.setLoad(false);
+  }
 
   fab = false; // toggle for edit button
   showPass = false
   showPass2 = false
   dialog = false
   dialogAvatar = false
-  avatarUpload = ''
+  auth = false
 
   defaultUser = {}
 
@@ -379,6 +409,14 @@ class Config extends Vue {
     return this.user.location;
   }
 
+  get oldPass () {
+    return this.passes.oldPass;
+  }
+
+  get newPass () {
+    return this.passes.newPass;
+  }
+
   set firstName (value) {
     this.$store.commit('profile/updateFirstName', value);
   }
@@ -411,6 +449,14 @@ class Config extends Vue {
     this.$store.commit('profile/updateLocation', value);
   }
 
+  set oldPass (value) {
+    this.$store.commit('profile/updateOldPass', value);
+  }
+
+  set newPass (value) {
+    this.$store.commit('profile/updateNewPass', value);
+  }
+
   ruleEmail = [
     emailValidation(),
     emptyValidation(),
@@ -436,15 +482,11 @@ class Config extends Vue {
   ]
 
   rulePhone = [
-    preventHtmlValidation(),
-    phoneNumberValidation(),
     emptyValidation(),
     allowDigitsOnlyValidation()
   ]
 
   ruleOptionalPhone = [
-    preventHtmlValidation(),
-    phoneNumberValidation(),
     allowDigitsOnlyValidation()
   ]
 
@@ -455,9 +497,9 @@ class Config extends Vue {
   ]
 
   rulePassword = [
-    // emptyValidation(),
     minLengthValidation(8),
-    lengthValidation(32)
+    lengthValidation(8),
+    passwordValidation()
   ]
 
   ruleAvatar = [
@@ -484,8 +526,7 @@ class Config extends Vue {
 
   async saveForm () {
     if (this.$refs.form.validate()) {
-      await this.updateUser(this.$route.params.id);
-      alert('Saved');
+      await this.updateUser(this.$auth.user._id);
       this.fab = false;
       this.showPass = false;
     } else {
@@ -493,10 +534,9 @@ class Config extends Vue {
     }
   };
 
-  savePass () {
+  async savePass () {
     if (this.$refs.formPass.validate()) {
-      // this.updatePass(this.$route.params.id, this.user)
-      alert('Saved');
+      await this.updatePass(this.$auth.user._id);
       this.fab = false;
       this.showPass = false;
       this.dialog = false;
@@ -505,34 +545,17 @@ class Config extends Vue {
     }
   };
 
-  saveAvatar () {
+  async saveAvatar () {
     if (this.$refs.formAvatar.validate()) {
-      // this.updatePass(this.$route.params.id, this.user)
-      // console.log(this.avatarUpload)
-      alert('Saved');
+      await this.updateAvatar(this.$auth.user._id);
       this.fab = false;
       this.showPass = false;
       this.dialogAvatar = false;
+      location.reload();
     } else {
       alert('Please enter valid data');
     }
   };
-
-  // async updateUser (id, obj) {
-  //   try {
-  //     await this.$axios.put('http://localhost:3001/users/' + id, obj)
-  //   } catch (e) {
-  //     console.log('Error update')
-  //   }
-  // };
-
-  async updatePass (id, obj) {
-    try {
-      await this.$axios.put('http://localhost:3001/users/' + id, obj);
-    } catch (e) {
-      console.log('Error update');
-    }
-  }
 }
 
 </script>
@@ -554,20 +577,27 @@ class Config extends Vue {
   }
 }
 
+.v-dialog {
+  .modal-window {
+    .col {
+      padding-left: 0;
+      padding-right: 0;
+    }
+  }
+}
+
 .profile {
+  position: relative;
+
   .profile-row {
     position: relative;
     .v-card {
       margin-bottom: 10px;
-      box-shadow: none;
+      box-shadow: none !important;
       background-color: transparent;
 
       .half {
         width: 100%;
-
-        input {
-          //width: 50%;
-        }
 
         & > :first-child {
           padding-right: 5px;
@@ -595,10 +625,6 @@ class Config extends Vue {
         .v-input__slot:before {
           content: none;
         }
-      }
-
-      .avtr {
-        max-width: 200px;
       }
 
       .v-list-item:last-child {
@@ -692,12 +718,15 @@ class Config extends Vue {
 
         }
       }
+
+      .mdi:before {
+        text-shadow: 0 0 5px white;
+      }
+
       .avtr-edit {
         position: absolute;
-        top: 0;
-        bottom: 0;
-        right: 0;
-        left: 0;
+        top: 15px;
+        right: 15px;
         color: $secondary;
 
         &:hover {
@@ -712,8 +741,15 @@ class Config extends Vue {
 
     .avtr {
       margin-bottom: 10px;
-      max-width: 200px;
+      //max-width: 200px;
+      border-radius: 4px;
     }
+  }
+  .loader {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    position: absolute;
   }
 }
 </style>

@@ -144,6 +144,19 @@ export function checkboxValidation (message = 'You must accept rules to continue
   return v => !!v || message;
 }
 
-export function avatarValidation (message = 'Avatar size should be less than 2 MB!') {
-  return v => !v || v.size < 2000000 || message;
+export function avatarValidation (message = 'Avatar size should be less than 400kb!') {
+  return v => !v || v.size < 400000 || message;
+}
+
+// add-comment form rules
+export function disadvantagesRule (message = 'Advantages must be less than 150 characters') {
+  return v => (v && v.length <= 150) || (v.length === 0) || message;
+}
+
+export function advantagesRule (message = 'Disadvantages must be less than 150 characters') {
+  return v => (v && v.length <= 150) || (v.length === 0) || message;
+}
+
+export function commentRule (message = 'Comment must be less than 2000 characters') {
+  return v => (v && v.length <= 2000) || (v.length === 0) || message;
 }
