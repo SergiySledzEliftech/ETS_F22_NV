@@ -325,7 +325,7 @@
 <script>
 import { Vue, Component, Prop, namespace } from 'nuxt-property-decorator';
 import {
-  emailValidation, emptyValidation, preventHtmlValidation, preventCapitalsValidation,
+  emailValidation, emptyValidation, preventCapitalsValidation,
   phoneNumberValidation, allowDigitsOnlyValidation, minLengthValidation, lengthValidation, avatarValidation
 } from '~/helpers/validators.js';
 const { Action } = namespace('profile');
@@ -419,43 +419,43 @@ class Config extends Vue {
 
   ruleEmail = [
     emailValidation(),
-    emptyValidation(),
-    preventHtmlValidation()
+    emptyValidation()
+    // preventHtmlValidation()
   ]
 
   ruleName = [
-    preventHtmlValidation(),
+    // preventHtmlValidation(),
     emptyValidation(),
     preventCapitalsValidation(),
     minLengthValidation(3)
   ]
 
   ruleNickname = [
-    preventHtmlValidation(),
+    // preventHtmlValidation(),
     minLengthValidation(3)
   ]
 
   ruleAbout = [
-    preventHtmlValidation(),
+    // preventHtmlValidation(),
     minLengthValidation(20),
     lengthValidation(240)
   ]
 
   rulePhone = [
-    preventHtmlValidation(),
+    // preventHtmlValidation(),
     phoneNumberValidation(),
     emptyValidation(),
     allowDigitsOnlyValidation()
   ]
 
   ruleOptionalPhone = [
-    preventHtmlValidation(),
+    // preventHtmlValidation(),
     phoneNumberValidation(),
     allowDigitsOnlyValidation()
   ]
 
   ruleAddress = [
-    preventHtmlValidation(),
+    // preventHtmlValidation(),
     preventCapitalsValidation(),
     minLengthValidation(3)
   ]
