@@ -54,7 +54,7 @@
             </p>
             <p class="good__props-price good__props-item">
               Price:
-              <span v-if="!good.isFree" class="red-txt">{{ good.price }} Fr</span>
+              <span v-if="!good.isFree" class="red-txt">{{ good.price }} UAH</span>
               <span v-else class="red-txt"> Free </span>
             </p>
           </div>

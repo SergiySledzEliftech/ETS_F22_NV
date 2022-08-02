@@ -9,9 +9,11 @@
           <v-card-title class="py-2 pr-2 d-flex align-center">
             <v-avatar class="card__item-avatar">
               <img
+                v-if="comment.avatar"
                 alt="User's avatar"
-                :src="comment.avatar"
+                :src="serverUrl + 'files/' + comment.avatar"
               >
+              <img v-else :src="require('@/assets/img/default-avatar.png')" alt="">
             </v-avatar>
             <p class="ma-0 ml-3 card__item-name">
               {{ comment.userNickname }}
@@ -146,6 +148,7 @@ import moment from 'moment';
 
 const { Action: GoodAction } = namespace('good_comments');
 const { State: LikesState, Action: LikesAction } = namespace('likes');
+const { State: ProfileState } = namespace('profile');
 
 export default @Component({
   components: {}
@@ -154,6 +157,8 @@ export default @Component({
 class CommentItem extends Vue {
   @Prop() comment;
   @Prop() index;
+
+  @ProfileState serverUrl;
 
   @LikesState likeBlock;
   @LikesState likeStatusExist;
