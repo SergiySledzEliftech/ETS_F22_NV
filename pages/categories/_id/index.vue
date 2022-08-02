@@ -174,7 +174,6 @@ export default @Component({
 })
 class DescriptionTab extends Vue {
   @Prop() good
-
   goodProps = {
     goodParams: [
       {
@@ -278,6 +277,7 @@ class DescriptionTab extends Vue {
 </script>
 
 <style lang="scss">
+
 img{
   font-size: 14px !important;
 }

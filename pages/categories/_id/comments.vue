@@ -37,7 +37,7 @@ class Comments extends Vue {
 }
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
 .comments{
   @media only screen and (max-width: 1310px) {
     padding: 0 12px;

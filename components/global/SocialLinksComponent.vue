@@ -22,8 +22,13 @@
     }
 
     a {
+      display: flex;
       margin-right: 10px;
       margin-bottom: 0;
+
+      @media only screen and (max-width: 992px) {
+        display: inline-block;
+      }
     }
   }
 </style>

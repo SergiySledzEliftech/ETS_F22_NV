@@ -1,10 +1,10 @@
 <template>
-  <div class="main good-container">
+  <div class="main">
     <div v-if="loading" class="progress-circular good-circular">
       <progress-circular />
     </div>
     <div v-if="!loading">
-      <info :good="good" />
+      <info :good="good" :user-id="userId" :user="user" />
       <div class="tabs-wrapper">
         <v-tabs class="tabs" color="var(--primary)" left>
           <v-tab :to="{ name: 'categories-id'}" nuxt exact>
@@ -31,7 +31,8 @@ import SharingBlock from '~/components/good/SharingBlock';
 import Recommendations from '~/components/good/Recommendations';
 import ProgressCircular from '~/components/global/Progress';
 
-const { State, Mutation, Action } = namespace('good');
+const { State: GoodState, Mutation: GoodMutation, Action: GoodAction } = namespace('good');
+const { State: UserState, Action: UserAction } = namespace('profile');
 
 export default @Component({
   components: {
@@ -46,17 +47,22 @@ export default @Component({
 })
 
 class GoodPage extends Vue {
-  @State good
+  @GoodState good
+  @UserState user
 
-  @Mutation setLoading
+  @GoodMutation setLoading
 
-  @Action loadGood
+  @UserAction getUser
+  @GoodAction loadGood
 
   loading = true
+
+  userId = this.$auth.user._id;
 
   async mounted () {
     try {
       await this.loadGood(this.$route.params.id);
+      await this.getUser(this.good.leaser_info.userId);
     } catch (err) {
       console.error(err.message);
     }
@@ -69,14 +75,32 @@ class GoodPage extends Vue {
 </script>
 
 <style lang="scss" scoped>
-.good-container{
-  padding: 0;
-  margin: 0 auto;
-  max-width: 1280px;
-  height: 100%;
+.v-main__wrap {
+  min-height: calc(100vh - 64px);
+  ::v-deep .container{
+    max-width: 1280px !important;
+  }
+  @media (min-width: 960px) {
+    ::v-deep .container {
+      max-width: 100% !important;
+    }
+  }
+  @media (min-width: 1264px) {
+    ::v-deep .container {
+      max-width: 1280px !important;
+    }
+  }
+  @media (min-width: 1904px) {
+    ::v-deep .container {
+      max-width: 1280px !important;
+    }
+  }
 }
+
 .main{
   height: 100%;
+  max-width: 1280px;
+  margin: 0 auto;
 }
 .tabs-wrapper{
   @media only screen and (max-width: 1310px) {

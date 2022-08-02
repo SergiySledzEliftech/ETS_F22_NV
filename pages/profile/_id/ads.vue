@@ -22,7 +22,7 @@
               </v-tooltip>
               <v-tooltip bottom>
                 <template #activator="{on,attrs}">
-                  <v-btn v-bind="attrs" icon small v-on="on" @click.prevent="deleteElem(item._id)">
+                  <v-btn v-bind="attrs" icon small v-on="on" @click.prevent="deleteItem(item._id)">
                     <v-icon :class="view">
                       mdi-trash-can
                     </v-icon>
@@ -65,7 +65,7 @@ class ProfileAds extends Vue {
   @ListState totalPages;
   @Action getUser;
   @Action getProducts;
-  @Action deleteElem;
+  @Action deleteProduct;
   @ListAction setLoad;
   @ListAction calculateTotalPages;
   @ListAction calcPage;
@@ -89,6 +89,15 @@ class ProfileAds extends Vue {
     this.calcPerPage(num);
     this.sliceList();
     this.calculateTotalPages(this.data);
+  }
+
+  async deleteItem (id) {
+    this.setLoad(true);
+    await this.deleteProduct(id).then(() =>
+      this.getProducts(this.$route.params.id));
+    this.sliceList();
+    this.calculateTotalPages(this.data);
+    this.setLoad(false);
   }
 
   async mounted () {

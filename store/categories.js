@@ -1,8 +1,13 @@
 import Vue from 'vue';
+import { serverApiUrl } from '~/settings/config';
 export const state = () => ({
   goods: [],
   categories: [],
   searchingItems: [],
+  price: {
+    $gte: null,
+    $lte: null
+  },
   options: {},
   isLoading: false,
   autocompleteLoader: false,
@@ -19,12 +24,17 @@ export const mutations = {
   setSearchingItems (state, searchingItems) {
     state.searchingItems = searchingItems;
   },
+  setClearPrice (state, price) {
+    state.price = price;
+  },
+  setClearOption (state, options) {
+    state.options = options;
+  },
+  setPrice (state, [param, value]) {
+    Vue.set(state.price, param, value);
+  },
   setOptions (state, [param, value]) {
-    if (Object.keys(value).length > 0) {
-      Vue.set(state.options, 'price', { param: value });
-    } else {
-      Vue.set(state.options, param, value);
-    }
+    Vue.set(state.options, param, value);
   },
   setLoading (state, isLoading) {
     state.isLoading = isLoading;
@@ -38,11 +48,11 @@ export const mutations = {
 };
 
 export const actions = {
-  async getAllGoods ({ _, commit }) {
+  async getAllCategories ({ _, commit }) {
     commit('setLoading', true);
     try {
-      const productsRes = await this.$axios.$get('http://localhost:3001/search/all');
-      commit('setGoods', productsRes);
+      const categoriesRes = await this.$axios.$get(`${serverApiUrl}search/categories`);
+      commit('setCategories', categoriesRes);
     } catch (err) {
       commit('setError', err.message);
     } finally {
@@ -52,9 +62,9 @@ export const actions = {
   async getAllGoodsAndCategories ({ _, commit }) {
     commit('setLoading', true);
     try {
-      const productsRes = await this.$axios.$get('http://localhost:3001/search/all');
+      const productsRes = await this.$axios.$get(`${serverApiUrl}search/all`);
       commit('setGoods', productsRes);
-      const categoriesRes = await this.$axios.$get('http://localhost:3001/search/categories');
+      const categoriesRes = await this.$axios.$get(`${serverApiUrl}search/categories`);
       commit('setCategories', categoriesRes);
     } catch (err) {
       commit('setError', err.message);
@@ -62,15 +72,15 @@ export const actions = {
       commit('setLoading', false);
     }
   },
-  async search ({ _, commit }, values) {
+  async searchProduct ({ _, commit }, values) {
     const { value, selectedValue } = values;
     commit('setAutocompleteLoading', true);
     try {
-      const items = await this.$axios.$get(`http://localhost:3001/search?q=${value}`);
+      const items = await this.$axios.$get(`${serverApiUrl}search?q=${value}`);
       const itemsRes = items.map(({ title, category }) => ({ title, category }));
       commit('setSearchingItems', itemsRes);
       if (selectedValue) {
-        const productsRes = await this.$axios.$get(`http://localhost:3001/search?q=${selectedValue}`);
+        const productsRes = await this.$axios.$get(`${serverApiUrl}search?q=${selectedValue}`);
         commit('setGoods', productsRes);
       }
     } catch (err) {
@@ -79,12 +89,24 @@ export const actions = {
       commit('setAutocompleteLoading', false);
     }
   },
-  async filter ({ _, commit }, values) {
-    const { value } = values;
+  async filterProducts ({ _, commit }, values) {
     commit('setLoading', true);
     try {
-      const productsRes = await this.$axios.$get(`http://localhost:3001/search?q=${value}`);
+      const productsRes = await this.$axios.$post(`${serverApiUrl}search/filter`, values);
       commit('setGoods', productsRes);
+    } catch (err) {
+      commit('setError', err.message);
+    } finally {
+      commit('setLoading', false);
+    }
+  },
+  async clearOpt ({ _, commit }) {
+    commit('setLoading', true);
+    try {
+      const productsRes = await this.$axios.$post(`${serverApiUrl}search/filter`, {});
+      commit('setGoods', productsRes);
+      commit('setClearPrice', { $gte: null, $lte: null });
+      commit('setClearOption', {});
     } catch (err) {
       commit('setError', err.message);
     } finally {

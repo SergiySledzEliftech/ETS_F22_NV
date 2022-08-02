@@ -5,7 +5,7 @@
         <v-card
           to="/Services/About"
           class="partners-item-wrapper ml-5 mr-5 mb-5 d-none d-md-flex"
-          min-width="150px"
+          width="150px"
           height="150px"
           color="var(--bg)"
         >

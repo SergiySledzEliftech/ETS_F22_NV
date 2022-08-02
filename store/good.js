@@ -42,7 +42,7 @@ export const actions = {
     commit('setRecommendations', data);
   },
   async updateStatistic () {
-    await this.$axios.$put(`${serverApiUrl}statistics/update-items-rented`);
+    await this.$axios.$put(`${serverApiUrl}statistics/itemsRented`);
   }
 }
 ;
