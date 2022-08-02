@@ -1,6 +1,8 @@
 # GloMaRe (ETS_F22_NV)
 Eliftech School, Front End, 2022, Node.JS, Vue.JS
 
+Deploy: https://glomare-front.vercel.app/
+
 ## Build Setup
 
 ```bash

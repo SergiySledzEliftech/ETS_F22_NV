@@ -74,7 +74,7 @@ class Lend extends Vue {
 
   async mounted () {
     this.setLoad(true);
-    await this.getLentProducts('62d68778176755ec2e579c3b');
+    await this.getLentProducts(this.$route.params.id);
     this.sliceList();
     this.calculateTotalPages(this.dataLend);
     this.setLoad(false);
@@ -109,7 +109,7 @@ class Lend extends Vue {
   padding: 40px 20px;
   width: 100%;
   height: 100%;
-  
+
   p {
     text-align: center;
     margin: auto;
@@ -143,7 +143,7 @@ class Lend extends Vue {
       text-decoration: underline;
       background-color: transparent;
       transform: scale(1.02);
-      
+
     }
   }
 }
