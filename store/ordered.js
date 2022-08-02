@@ -1,3 +1,5 @@
+import { serverApiUrl } from '@/settings/config';
+
 export const state = () => ({
   orderedGoods: []
 });
@@ -21,7 +23,7 @@ export const mutations = {
 export const actions = {
   async deleteOrderedGood ({ commit }, { id, item }) {
     commit('setItemStatus', item);
-    await this.$axios.$put('http://localhost:3001/products/' + item._id, item);
+    await this.$axios.$put(`${serverApiUrl} + item._id, item`);
     const newData = this.$auth.$storage.getLocalStorage(this.$auth.user._id);
     newData.forEach((el) => {
       if (el.good._id === id) {

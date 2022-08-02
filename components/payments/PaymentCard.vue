@@ -30,17 +30,19 @@
                 <label>Номер картки</label>
                 <div class="card-form__count-inner">
                   <input
+                    v-model="cardNumber"
+                    v-mask="'#### #### #### ####'"
                     type="text"
                     placeholder="**** **** **** ****"
-                    v-mask="'#### #### #### ####'"
-                    v-model="cardNumber"
-                    class="input">
+                    class="input"
+                  >
                   <v-img
                     class="ml-4"
                     contain
                     max-height="59"
                     max-width="145"
-                    :src="require('../../assets/img/payments/' + getCardType + '-logo.png')" />
+                    :src="require('../../assets/img/payments/' + getCardType + '-logo.png')"
+                  />
                 </div>
               </div>
               <div class="card-form__validaty">
@@ -50,19 +52,19 @@
                     <div>
                       <span>
                         <input
-                          type="text"
-                          class="input input--validate"
                           v-model="cardMonth"
                           v-mask="'##'"
+                          type="text"
+                          class="input input--validate"
                           placeholder="month"
                         >
                       </span>
                       <span>
                         <input
-                          type="text"
-                          class="input input--validate"
                           v-model="cardYear"
                           v-mask="'####'"
+                          type="text"
+                          class="input input--validate"
                           placeholder="year"
                         >
                       </span>
@@ -73,10 +75,10 @@
                   <div class="validity-date__inner">
                     <label>CVV</label>
                     <input
-                      type="password"
-                      class="input input--validate"
                       v-model="cardCvv"
                       v-mask="'###'"
+                      type="password"
+                      class="input input--validate"
                       placeholder="XXX"
                     >
                   </div>
@@ -102,6 +104,7 @@
 <script>
 import { Vue, Component, Prop } from 'nuxt-property-decorator';
 import { mask } from 'vue-the-mask';
+import { serverApiUrl } from '@/settings/config';
 
 export default @Component({
   name: 'PaymentCard',
@@ -154,7 +157,7 @@ class PaymentCard extends Vue {
       this.paidGoods.forEach((element) => {
         PaymentsData.paidGoods.push(element);
       });
-      await this.$axios.post('http://localhost:3001/payments', PaymentsData);
+      await this.$axios.post(`${serverApiUrl}, PaymentsData`);
       const localRents = this.$auth.$storage.getLocalStorage(this.$auth.user._id);
       console.log(localRents, 111111111111);
       this.$router.push('/');

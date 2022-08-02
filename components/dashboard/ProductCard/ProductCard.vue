@@ -53,7 +53,7 @@
         <v-progress-circular class="circle" indeterminate :size="100" />
       </div>
 
-      <div class="product-card-title-bg"></div>
+      <div class="product-card-title-bg" />
       <v-card-title
         class="product-card-title-mobile"
       >
