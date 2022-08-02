@@ -52,7 +52,7 @@ class Statistics extends Vue {
   }
 
   getDateTime () {
-    return (new Date()).setHours(0, 0, 0, 0);
+    return ((new Date())).setHours(0, 0, 0, 0) - -10800000;
   }
 
   getStatisticsFor24Hours (statistics, field) {
