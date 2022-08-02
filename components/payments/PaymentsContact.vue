@@ -1,6 +1,6 @@
 <template>
   <div class="col m-r-7">
-    <div class="payments__list-title m-b-3">
+    <div class="payments__list-title">
       <p class="payments__title-text">
         Сontacts
       </p>
@@ -42,7 +42,7 @@
         </v-form>
       </div>
     </div>
-    <div class="payments__list-title m-b-3">
+    <div class="payments__list-title">
       <p class="payments__title-text">
         Payments
       </p>
@@ -161,11 +161,22 @@ $bradius: 10;
     padding-bottom: $gap * 2 * 1px;
     display: flex;
     align-items: center;
+    margin-bottom: 15px;
+    @media only screen and (max-width: 820px){
+      margin-bottom: 0px;
+      padding-top: 0;
+    }
   }
   &__title-text{
     margin-bottom: 0;
     font-weight: 700;
     font-size: 30px;
+    @media only screen and (max-width: 820px){
+      font-size: 20px;
+    }
+    @media only screen and (max-width: 320px){
+      font-size: 18px;
+    }
   }
   &__contact{
     margin-left: $gap * 3 * -1px;
@@ -187,12 +198,22 @@ $bradius: 10;
     border: 3px solid yellow;
     border-radius: $bradius * 1px;
     min-height: 115px;
+    @media only screen and (max-width: 320px){
+      max-height: 40px;
+    }
     p{
       margin-bottom: 0;
       padding-left: 24px;
       @media only screen and (max-width: 1264px){
         font-size: 12px;
         font-weight: 700;
+      }
+      @media only screen and (max-width: 820px){
+        font-size: 10px;
+        font-weight: 700;
+      }
+      @media only screen and (max-width: 320px){
+        display: none;
       }
     }
   }
@@ -220,6 +241,9 @@ $bradius: 10;
 }
 .form-col{
   max-width: 100%;
+  @media only screen and (max-width: 1264px){
+    padding-bottom: 0;
+  }
 }
 @for $i from 1 through 10{
   .m-b-#{$i}{

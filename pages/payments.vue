@@ -84,6 +84,10 @@ $bradius: 10;
   margin-left: 0;
   padding: $gap * 4 * 1px;
   background: #f4f4f9;
+  @media only screen and (max-width: 820px){
+    padding-bottom: 0px;
+    padding-top: 0px;
+  }
 }
 .row__vertical{
   display: flex;

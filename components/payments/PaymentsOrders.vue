@@ -126,9 +126,13 @@ $bradius: 10
     justify-content: space-between
     padding-bottom: $gap * 2 * 1px
     padding-top: $gap * 2 * 1px
+    @media only screen and (max-width: 820px)
+      font-size: 24px
     h4
       font-size: 30px
       font-weight: bold
+      @media only screen and (max-width: 820px)
+        font-size: 20px
   &__items
     width: 100%
     padding: $gap * 2 * 1px
@@ -140,6 +144,8 @@ $bradius: 10
     display: flex
     justify-content: space-between
     height: 230px
+    @media only screen and (max-width: 820px)
+      max-height: 150px
   &__item-image
     width: 35%
     padding: 0 5px
@@ -151,36 +157,32 @@ $bradius: 10
       margin-top: auto
       margin-left: auto
       margin-right: auto
+
   &__item-content
     width: 65%
     padding: 0 10px
-
   &__item-inner
     display: flex
     justify-content: space-between
   &__item-name
     font-size: 40px
     font-weight: 400
-  &__item-quantity
-    font-size: 20px
-    font-weight: 400
-    margin-top: auto
-    margin-bottom: auto
-    &--number
-      margin-left: 10px
-      margin-right: 10px
-      cursor: inherit
-    &--arithmetic
-      cursor: pointer
+    cursor: pointer
+    @media only screen and (max-width: 820px)
+      font-size: 24px
   &__item-price
     font-size: 30px
     font-weight: 600
+    @media only screen and (max-width: 820px)
+      font-size: 18px
   &__item-description
     font-size: 20px
     color: black
     overflow: hidden
     text-overflow: ellipsis
     white-space: nowrap
+    @media only screen and (max-width: 820px)
+      font-size: 14px
   &__item-actions
     position: relative
     svg
