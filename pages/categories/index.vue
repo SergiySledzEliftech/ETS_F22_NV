@@ -428,7 +428,8 @@ const { State: listState, Action: listAction, Mutation: listMutation } = namespa
 const { State: categoriesState, Action: categoriesAction, Mutation: categoriesMutation } = namespace('categories');
 
 export default @Component({
-  components: { ItemsList, SingleItem, ProgressCircular }
+  components: { ItemsList, SingleItem, ProgressCircular },
+  auth: false
 })
 
 class Categories extends Vue {

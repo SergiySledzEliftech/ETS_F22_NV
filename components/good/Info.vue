@@ -134,14 +134,13 @@ export default @Component({
 
 class Info extends Vue {
   @Prop() good;
-  @Prop() userId;
+  @Prop() user;
   @FavsState isFav;
   @FavsAction addToFavorites;
   @FavsAction checkFavorite;
   @FavsAction removeFromFavorites;
-  
+
   tooltip = '';
-  @Prop() user;
 
   messengers = [
     {
@@ -172,30 +171,36 @@ class Info extends Vue {
 
   async addToFavs (item) {
     console.log('add');
-    try {
-      await this.addToFavorites({ userId: this.userId, item }).then(() => this.checkFavorite({ id: this.good._id, user: this.userId }));
-    } catch (err) {
-      console.log(err.message);
-    } finally {
-      this.changeTooltip();
+    if (this.$auth.user._id !== null) {
+      try {
+        await this.addToFavorites({ userId: this.$auth.user._id, item }).then(() => this.checkFavorite({ id: this.good._id, user: this.$auth.user._id }));
+      } catch (err) {
+        console.log(err.message);
+      } finally {
+        this.changeTooltip();
+      }
     }
   }
 
   async removeFromFavs () {
-    try {
-      await this.removeFromFavorites(this.isFav[0]._id).then(() =>
-        this.checkFavorite({ id: this.good._id, user: this.userId }));
-    } catch (err) {
-      console.log(err.message);
-    } finally {
-      this.changeTooltip();
+    if (this.$auth.user._id !== null) {
+      try {
+        await this.removeFromFavorites(this.isFav[0]._id).then(() =>
+          this.checkFavorite({ id: this.good._id, user: this.$auth.user._id }));
+      } catch (err) {
+        console.log(err.message);
+      } finally {
+        this.changeTooltip();
+      }
     }
   }
 
   async mounted () {
     this.goodStatus = this.good.status;
-    await this.checkFavorite({ id: this.good._id, user: this.userId });
-    this.changeTooltip();
+    if (this.$auth.user._id !== null) {
+      await this.checkFavorite({ id: this.good._id, user: this.$auth.user._id });
+      this.changeTooltip();
+    }
   }
 
   formatDate (date) {
