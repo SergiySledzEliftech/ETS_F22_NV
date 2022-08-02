@@ -12,7 +12,9 @@
           <nav id="navbar" class="navbar" @click="collapseSubMenu2">
             <ul class="menu">
               <li class="menu-item menu-item-child">
-                <a href="#" class="menu-link" data-toggle="sub-menu">{{ menu[0].item }}<i class="expand" /></a>
+                <NuxtLink :to="{name: 'categories'}" class="menu-link" data-toggle="sub-menu">
+                  {{ menu[0].item }}<i class="expand" />
+                </NuxtLink>
 
                 <ul class="sub-menu">
                   <li v-for="(item, index) in subMenuCatalog" :key="index" class="menu-item">
@@ -70,7 +72,7 @@
                     </v-icon>
                   </nuxt-link>
 
-                  <nuxt-link to="/categories">
+                  <nuxt-link to="/add-new-ad">
                     <v-icon
                       large
                       dense
@@ -155,7 +157,7 @@
                 </v-icon>
               </nuxt-link>
 
-              <nuxt-link to="/categories">
+              <nuxt-link to="/add-new-ad">
                 <v-icon
                   large
                   dense
