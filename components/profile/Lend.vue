@@ -74,7 +74,7 @@ class Lend extends Vue {
 
   async mounted () {
     this.setLoad(true);
-    await this.getLentProducts('62d68778176755ec2e579c3b');
+    await this.getLentProducts(this.$route.params.id);
     this.sliceList();
     this.calculateTotalPages(this.dataLend);
     this.setLoad(false);
