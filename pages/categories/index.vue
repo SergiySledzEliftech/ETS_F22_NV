@@ -5,8 +5,9 @@
     :sort-by="sortBy.toLowerCase()"
     :sort-desc="sortDesc"
     hide-default-footer
-    :loading="true"
+    :loading="isLoading"
     :items-per-page.sync="items.length"
+    :page.sync="page"
   >
     <template #header>
       <v-container
@@ -257,39 +258,41 @@
             </v-responsive>
             <!--↑ Rating btn ↑ -->
 
-            <!--↓ Find btn ↓ -->
-            <v-btn
-              :style="showBtn()"
-              dark
-              small
-              outlined
-              color="teal"
-              plain
-              height="40px"
-              class="mt-3"
-              @click="onFind"
-            >
-              find
-            </v-btn>
-            <!--↑ Find btn ↑ -->
+            <div class="mt-3">
+              <!--↓ Find btn ↓ -->
+              <v-btn
+                :disabled="showBtn()"
+                dark
+                small
+                outlined
+                color="teal"
+                plain
+                height="40px"
+                class="mr-4"
+                @click="onFind"
+              >
+                find
+              </v-btn>
+              <!--↑ Find btn ↑ -->
+
+              <!--↓ CLEAR SORT ↓ -->
+              <v-btn
+                :disabled="showBtn()"
+                dark
+                small
+                outlined
+                color="teal"
+                plain
+                height="40px"
+                @click="clear"
+              >
+                clear
+              </v-btn>
+            <!--↑ CLEAR SORT ↑ -->
+            </div>
           </div>
 
           <div class="clearAndSortPrice d-flex flex-column">
-            <!--↓ CLEAR SORT ↓ -->
-            <v-btn
-              :style="showBtn()"
-              dark
-              small
-              outlined
-              color="teal"
-              plain
-              height="40px"
-              @click="clear"
-            >
-              clear
-            </v-btn>
-            <!--↑ CLEAR SORT ↑ -->
-
             <!--↓ PRICE SORT from largest to smallest ↓ -->
             <div>
               <div class="aselect" :data-value="value" :data-list="list">
@@ -345,6 +348,26 @@
       </v-container>
     </template>
 
+    <template #no-data>
+      <div class="mt-5">
+        <v-alert
+          prominent
+          type="error"
+        >
+          <v-row align="center">
+            <v-col class="grow">
+              Sorry by your parameters the product was not found. Try cleaning the filter and try again.
+            </v-col>
+            <v-col class="shrink">
+              <v-btn @click="clear">
+                Clear parameters
+              </v-btn>
+            </v-col>
+          </v-row>
+        </v-alert>
+      </div>
+    </template>
+
     <template #loading>
       <div class="progress">
         <progress-circular />
@@ -355,12 +378,8 @@
       <!--        ↓ CARDS ↓-->
       <items-list
         :list="props.items"
-        :page="page"
-        :total-pages="totalPages"
         :set-page="changePage"
         :set-per-page="changePerPage"
-        :per-page="perPage"
-        :opts-array="perPageArray"
       >
         <li v-for="item in props.items" :key="item._id" class="item">
           <single-item
@@ -432,6 +451,7 @@ class Categories extends Vue {
   @categoriesAction filterProducts
   @listAction calcPage
   @listAction calculateTotalPages
+  @listAction calcPerPage
   @categoriesMutation setOptions
   @categoriesMutation setPrice
   @listMutation setPerPage
@@ -451,8 +471,8 @@ class Categories extends Vue {
   selectedCategoryValue = null
   searchFromResultsValue = null
   items = [];
-  list= ['price', 'rating']
-  value= this.list[0]
+  list = ['price', 'rating']
+  value = this.list[0]
   visible= false
 
   @Watch('selectedCategoryValue')
@@ -506,7 +526,7 @@ class Categories extends Vue {
     }
   }
 
-  fetchEntriesDebounced (searchValue, searchingFn, delay = 800) {
+  fetchEntriesDebounced (searchValue, searchingFn, delay = 500) {
     clearTimeout(this._searchTimerId);
     this._searchTimerId = setTimeout(() => {
       return searchingFn(searchValue);
@@ -524,13 +544,13 @@ class Categories extends Vue {
   }
 
   changePerPage (num) {
-    this.setPerPage(num);
-    this.changePage(1);
+    this.calcPerPage(num);
+    this.sliceList();
     this.calculateTotalPages(this.goods);
   }
 
   showBtn () {
-    return { visibility: this.selectedCategoryValue || this.rating || this.isFree || this.sellerStatus || this.isContractPrice || this.isAvailable || this.priceMaxValue || this.sortNewOrUsed ? 'visible' : 'hidden' };
+    return !(this.selectedCategoryValue || this.rating || this.isFree || this.sellerStatus || this.isContractPrice || this.isAvailable || this.priceMaxValue || this.sortNewOrUsed);
   }
 
   onScroll () {
