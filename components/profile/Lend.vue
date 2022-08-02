@@ -8,8 +8,8 @@
       >
         <li v-for="item in items" :key="item._id" class="item">
           <single-item :item="item" :grid="view === 'list'">
-            <p v-if="item.expires_at !== ''" class="expire">
-              Expires at: {{ formatDate(item.expires_at) }}
+            <p v-if="item.lease_term !== ''" class="expire">
+              Expires in: {{ item.lease_term || '0' }} day(s)
             </p>
           </single-item>
         </li>
@@ -43,8 +43,7 @@ class Lend extends Vue {
   @ListState perPage;
   @ListState perPageArray;
   @ListState totalPages;
-  @Action getProducts;
-  @Action deleteElem;
+  @Action getLentProducts;
   @ListAction setLoad;
   @ListAction calculateTotalPages;
   @ListAction calcPage;
@@ -75,7 +74,7 @@ class Lend extends Vue {
 
   async mounted () {
     this.setLoad(true);
-    await this.getProducts(this.$route.params.id);
+    await this.getLentProducts('62d68778176755ec2e579c3b');
     this.sliceList();
     this.calculateTotalPages(this.dataLend);
     this.setLoad(false);
