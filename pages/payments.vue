@@ -2,6 +2,9 @@
   <div class="payments">
     <payment-card
       v-if="modalCardVisible"
+      :bill-order="billOrderData"
+      :paid-goods="orderedGoods"
+      @closeModal="closePaymentCard"
     />
     <div class="row__vertical">
       <payments-contact
@@ -37,95 +40,80 @@ export default @Component({
 class PaymentsPage extends Vue {
   PayValidBtn = true
   modalCardVisible = false
-
-  products = [
-    {
-      id: 1,
-      price: 250,
-      name: 'velobike',
-      img: 'velobike.png',
-      quantity: 1,
-      description: 'bike for cyti bike for cyti bike for cyti bike for cyti bike for cyti '
-    },
-    {
-      id: 2,
-      price: 270,
-      name: 'bmxbike',
-      img: 'bmxbike.png',
-      quantity: 1,
-      description: 'bike for mountain'
-    }
-  ]
+  billOrderData
 
   @State orderedGoods;
   @Mutation setOrderedGoods;
 
   mounted () {
-    this.setOrderedGoods(this.products);
+    const orderGoods = this.$auth.$storage.getLocalStorage(this.$auth.user._id);
+    const data = orderGoods.map((el) => {
+      return el.good;
+    });
+    this.setOrderedGoods(data);
   }
 
   methods () {
   }
 
-  showModalCard (data) {
+  showModalCard (data, bill) {
+    this.billOrderData = bill;
+    this.modalCardVisible = data;
+  }
+
+  closePaymentCard (data) {
     this.modalCardVisible = data;
   }
 
   PayValidateBtn (data) {
     this.PayValidBtn = data;
-    console.log(this.PayValidBtn);
   }
 }
 
 </script>
 
-<style lang="sass" scoped>
+<style lang="scss" scoped>
 
-$gap: 5
-$vstep: 5
-$bradius: 10
+$gap: 5;
+$vstep: 5;
+$bradius: 10;
 
-.payments
-  position: relative
-  margin-right: 0
-  margin-left: 0
-  padding: $gap * 4 * 1px
-  background: #f4f4f9
-.btn
-  &--payments
-    width: 100%
-    border-radius: 8px
-    margin-bottom: 0
-    letter-spacing: 27px
-    font-size: 25px
-    font-weight: 700
-    background: #183153
-    color: #fff
-    border-color: #E31F26
-    text-transform: none
-    height: 50px
-    padding: 0 20px
-.row__vertical
-  display: flex
-  flex-wrap: wrap
-.col
-  width: 100%
-  padding-left: $gap * 3 * 1px
-  padding-right: $gap * 3 * 1px
-  padding-bottom: $gap * 3 * 1px
-  padding-top: $gap * 3 * 1px
-  min-height: 100%
-.col-desktop-2-5
-  max-width: 100 / 2 * 1%
-.form-row
-  flex-direction: column
-.form-col
-  max-width: 100%
-@for $i from 1 through 10
-  .m-b-#{$i}
-    margin-bottom: $i * $vstep * 1px
-  .m-r-#{$i}
-    margin-right: $i * $vstep * 1px
-  .m-l-#{$i}
-    margin-left: $i * $vstep * 1px
+.payments{
+  position: relative;
+  margin-right: 0;
+  margin-left: 0;
+  padding: $gap * 4 * 1px;
+  background: #f4f4f9;
+  @media only screen and (max-width: 820px){
+    padding-bottom: 0px;
+    padding-top: 0px;
+  }
+}
+.row__vertical{
+  display: flex;
+  flex-wrap: wrap;
+}
+.col{
+  width: 100%;
+  padding-left: $gap * 3 * 1px;
+  padding-right: $gap * 3 * 1px;
+  padding-bottom: $gap * 3 * 1px;
+  padding-top: $gap * 3 * 1px;
+  min-height: 100%;
+}
+.col-desktop-2-5{
+  max-width: 100 / 2 * 1%;
+}
+
+@for $i from 1 through 10{
+  .m-b-#{$i}{
+    margin-bottom: $i * $vstep * 1px;
+  }
+  .m-r-#{$i}{
+    margin-right: $i * $vstep * 1px;
+  }
+  .m-l-#{$i}{
+    margin-left: $i * $vstep * 1px;
+  }
+}
 </style>

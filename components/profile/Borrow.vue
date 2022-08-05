@@ -6,10 +6,10 @@
         :set-page="changePage"
         :set-per-page="changePerPage"
       >
-        <li v-for="item in items" :key="item._id" class="item">
-          <single-item :item="item" :grid="view === 'list'">
-            <p v-if="item.expires_at !== ''" class="expire">
-              Expires at: {{ formatDate(item.expires_at) }}
+        <li v-for="item in items" :key="item.good._id" class="item">
+          <single-item :item="item.good" :term="item.lease_term" :grid="view === 'list'">
+            <p v-if="item.lease_term !== ''" class="expire">
+              Expires in: {{ item.lease_term }} day(s)
             </p>
           </single-item>
         </li>
@@ -29,7 +29,6 @@ import { Vue, Component, namespace } from 'nuxt-property-decorator';
 import moment from 'moment';
 import ItemsList from '@/components/list/ItemsList.vue';
 import SingleItem from '~/components/list/SingleItem.vue';
-const { State, Action } = namespace('profile');
 const { State: ListState, Action: ListAction } = namespace('list');
 
 export default @Component({
@@ -39,15 +38,12 @@ export default @Component({
 
 class Borrow extends Vue {
   items = [];
-  // data = [];
-  @State dataLend;
-  @Action getLentProducts;
+  dataLend = [];
   @ListState view;
   @ListState page;
   @ListState perPage;
   @ListState perPageArray;
   @ListState totalPages;
-  @Action deleteElem;
   @ListAction calculateTotalPages;
   @ListAction calcPage;
   @ListAction setLoad;
@@ -76,11 +72,11 @@ class Borrow extends Vue {
     return date === '' ? '' : moment(date).format('DD MMM YYYY hh:mm');
   }
 
-  async mounted () {
+  mounted () {
     this.setLoad(true);
-    // const localRents = this.$auth.$storage.getLocalStorage(this.$auth.user._id);
-    // this.dataLend = localRents !== undefined ? localRents : [];
-    await this.getLentProducts('62d68778176755ec2e579c3b');
+    const localRents = this.$auth.$storage.getLocalStorage(this.$auth.user._id);
+    this.dataLend = localRents !== undefined && localRents ? localRents : [];
+    console.log(this.dataLend);
     if (this.dataLend && this.dataLend !== []) {
       this.sliceList();
       this.calculateTotalPages(this.dataLend);
