@@ -1,41 +1,40 @@
 <template>
   <div>
-    <div v-if="data.length > 0">
-      <ItemsList
-        :list="items"
-        :set-page="changePage"
-        :set-per-page="changePerPage"
-      >
-        <li v-for="item in items" :key="item._id" class="item">
-          <SingleItem :item="item" :grid="view === 'list'">
-            <div v-if="show" class="buttons">
-              <v-tooltip bottom>
-                <template #activator="{on, attrs}">
-                  <!-- на кліку має бути функція переходу на сторінку редагування товару-->
-                  <v-btn v-bind="attrs" icon small v-on="on" @click.prevent="">
+    <ItemsList
+      :list="items"
+      :set-page="changePage"
+      :set-per-page="changePerPage"
+    >
+      <li v-for="item in items" :key="item._id" class="item">
+        <SingleItem :item="item" :grid="view === 'list'">
+          <div v-if="show" class="buttons">
+            <v-tooltip bottom>
+              <template #activator="{on, attrs}">
+                <NuxtLink :to="/edit-ad/ +item._id">
+                  <v-btn v-bind="attrs" icon small v-on="on">
                     <v-icon :class="view">
                       mdi-pencil
                     </v-icon>
                   </v-btn>
-                </template>
-                <span>Edit</span>
-              </v-tooltip>
-              <v-tooltip bottom>
-                <template #activator="{on,attrs}">
-                  <v-btn v-bind="attrs" icon small v-on="on" @click.prevent="deleteItem(item._id)">
-                    <v-icon :class="view">
-                      mdi-trash-can
-                    </v-icon>
-                  </v-btn>
-                </template>
-                <span>Delete</span>
-              </v-tooltip>
-            </div>
-          </SingleItem>
-        </li>
-      </ItemsList>
-    </div>
-    <div v-else class="nodata">
+                </NuxtLink>
+              </template>
+              <span>Edit</span>
+            </v-tooltip>
+            <v-tooltip bottom>
+              <template #activator="{on,attrs}">
+                <v-btn v-bind="attrs" icon small v-on="on" @click.prevent="deleteItem(item._id)">
+                  <v-icon :class="view">
+                    mdi-trash-can
+                  </v-icon>
+                </v-btn>
+              </template>
+              <span>Delete</span>
+            </v-tooltip>
+          </div>
+        </SingleItem>
+      </li>
+    </ItemsList>
+    <div v-if="!isData" class="nodata">
       <p>You haven't created any adverts yet</p>
       <NuxtLink :to="{name: 'categories'}" class="link">
         Create new advert
@@ -73,7 +72,7 @@ class ProfileAds extends Vue {
   @Prop({ default: '' }) isMy;
   items = [];
   show = this.isMy !== '';
-
+  isData = true;
   sliceList () {
     const firstIdx = (this.page - 1) * this.perPage;
     const result = this.data.slice(firstIdx, firstIdx + this.perPage);
@@ -106,6 +105,7 @@ class ProfileAds extends Vue {
     this.sliceList();
     this.calculateTotalPages(this.data);
     this.setLoad(false);
+    this.isData = this.data.length > 0;
   }
 }
 </script>

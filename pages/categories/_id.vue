@@ -66,9 +66,6 @@ class GoodPage extends Vue {
     }
     this.loading = false;
   }
-
-  created () {
-  }
 }
 </script>
 
