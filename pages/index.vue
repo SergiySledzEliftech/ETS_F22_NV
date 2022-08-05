@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="content-container">
     <top10-goods />
     <premium-goods />
     <news />
