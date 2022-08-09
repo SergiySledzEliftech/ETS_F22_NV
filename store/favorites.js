@@ -1,5 +1,4 @@
 import { serverApiUrl } from '~/settings/config';
-// const serverApiUrl = 'http://localhost:3001/';
 
 export const state = () => ({
   data: [],
@@ -51,5 +50,3 @@ export const mutations = {
     state.isFav = val;
   }
 };
-
-// 62e676835b46728ec8a083f5

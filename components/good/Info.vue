@@ -98,6 +98,7 @@
             <v-tooltip bottom>
               <template #activator="{on, attrs}">
                 <v-btn
+                  v-show="$auth.user !== null"
                   icon
                   class="btn"
                   large
@@ -171,7 +172,7 @@ class Info extends Vue {
 
   async addToFavs (item) {
     console.log('add');
-    if (this.$auth.user._id !== null) {
+    if (this.$auth.user !== null) {
       try {
         await this.addToFavorites({ userId: this.$auth.user._id, item }).then(() => this.checkFavorite({ id: this.good._id, user: this.$auth.user._id }));
       } catch (err) {
@@ -183,7 +184,7 @@ class Info extends Vue {
   }
 
   async removeFromFavs () {
-    if (this.$auth.user._id !== null) {
+    if (this.$auth.user !== null) {
       try {
         await this.removeFromFavorites(this.isFav[0]._id).then(() =>
           this.checkFavorite({ id: this.good._id, user: this.$auth.user._id }));
@@ -197,7 +198,7 @@ class Info extends Vue {
 
   async mounted () {
     this.goodStatus = this.good.status;
-    if (this.$auth.user._id !== null) {
+    if (this.$auth.user !== null) {
       await this.checkFavorite({ id: this.good._id, user: this.$auth.user._id });
       this.changeTooltip();
     }
