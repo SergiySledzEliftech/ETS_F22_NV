@@ -45,6 +45,15 @@ class Comments extends Vue {
 }
 .v-tabs{
   margin-top: 10px;
+  a {
+    @include responsive-value("font-size", 14, 12, $bp_tablet);
+    @include responsive-value("padding", 16, 10, $bp_tablet);
+    font-weight: 500;
+    height: 100%;
+    &:hover {
+      background-color: #aaaaaa2b;
+    }
+  }
 }
 .no-comments{
   font-size: 22px !important;

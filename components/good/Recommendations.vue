@@ -56,14 +56,15 @@ class Recommendations extends Vue {
         await this.loadRecommendations({
           id: this.$route.params.id,
           category: this.good.category,
-          min: this.good.price * 0.2,
-          max: this.good.price * 5,
+          min: 0,
+          max: 100000,
           status: 'available',
           minRating: 3
         });
       } catch (err) {
         console.error(err.message);
       }
+      this.setLoading(this.loading, false);
     }
   }
 }

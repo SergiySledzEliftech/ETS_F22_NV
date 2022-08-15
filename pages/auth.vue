@@ -103,10 +103,11 @@ class Auth extends Vue {
 .v-tab {
   color: #213342 !important;
   width: 100% !important;
+  max-width: 100% !important;
 }
 .tab-sign-in {
   border-radius: 10px 0px 0px 0px !important;
-  width: 50%;
+  width: 50% !important;
   height: 48px;
 }
 .tab-sign-in:before {
@@ -114,7 +115,7 @@ class Auth extends Vue {
 }
 .tab-sign-up {
   border-radius: 0px 10px 0px 0px !important;
-  width: 50%;
+  width: 50% !important;
   height: 48px;
 }
 .tab-sign-up:before {

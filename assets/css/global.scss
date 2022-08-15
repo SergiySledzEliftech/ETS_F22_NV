@@ -124,6 +124,10 @@ $body-font-family: 'Montserrat';
 
 .v-main__wrap {
   min-height: calc(100vh - 64px);
+  .container {
+    display: flex;
+    justify-content: center;
+  }
   @media (min-width: 960px) {
     .container {
       max-width: none !important;
@@ -138,5 +142,17 @@ $body-font-family: 'Montserrat';
     .container {
       max-width: none !important;
     }
+  }
+}
+
+.content-container{
+  @media (min-width: 960px) {
+    max-width: 900px;
+  }
+  @media (min-width: 1264px) {
+    max-width: 1185px;
+  }
+  @media (min-width: 1904px) {
+    max-width: 1785px;
   }
 }

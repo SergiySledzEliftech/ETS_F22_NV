@@ -53,6 +53,7 @@
         <v-progress-circular class="circle" indeterminate :size="100" />
       </div>
 
+      <div class="product-card-title-bg" />
       <v-card-title
         class="product-card-title-mobile"
       >
@@ -148,12 +149,16 @@ class ProductCard extends Vue {
     font-size: 20px;
     font-weight: bold;
     line-height: 1.4rem;
-    background-color: rgb(76, 76, 76);
-    opacity: 0.8;
     width: 100%;
   }
 
-  .product-card-img-mobile{
-    filter: brightness(50%);
+  .product-card-title-bg{
+    position: absolute;
+    padding: 15px !important;
+    bottom: 0px;
+    width: 100%;
+    height: 52px;
+    background-color: black;
+    opacity: 0.7;
   }
 </style>

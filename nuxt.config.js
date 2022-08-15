@@ -14,6 +14,7 @@ export default {
       { hid: 'description', name: 'description', content: '' },
       { name: 'format-detection', content: 'telephone=no' }
     ],
+    script: [],
     link: [
       { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }
     ]
@@ -54,10 +55,7 @@ export default {
     '@nuxtjs/axios',
     // '@nuxtjs/auth',
     '@nuxtjs/auth-next',
-    '@nuxtjs/axios',
-    ['nuxt-gmaps', {
-      key: 'AIzaSyBVI659t57iK61VMUdHijm3uG460BqkBoI'
-    }]
+    '@nuxtjs/axios'
   ],
 
   // Axios module configuration: https://go.nuxtjs.dev/config-axios

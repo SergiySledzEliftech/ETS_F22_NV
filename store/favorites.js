@@ -1,3 +1,5 @@
+import { serverApiUrl } from '~/settings/config';
+
 export const state = () => ({
   data: [],
   isFav: []
@@ -6,7 +8,7 @@ export const state = () => ({
 export const actions = {
   async getFavorites ({ commit }, id) {
     try {
-      const res = await this.$axios.$get(`http://localhost:3001/favorites?user=${String(id)}`);
+      const res = await this.$axios.$get(`${serverApiUrl}favorites?user=${String(id)}`);
       commit('setData', res);
     } catch (error) {
       console.log(error.message);
@@ -15,15 +17,15 @@ export const actions = {
 
   async addToFavorites ({ commit }, item) {
     try {
-      await this.$axios.post('http://localhost:3001/favorites', item);
+      await this.$axios.post(`${serverApiUrl}favorites`, item);
     } catch (error) {
       console.log(error.message);
     }
   },
 
-  async removeFromFavorites ({ state, commit }, id) {
+  async removeFromFavorites ({ commit }, id) {
     try {
-      await this.$axios.$delete('http://localhost:3001/favorites/' + String(id));
+      await this.$axios.$delete(`${serverApiUrl}favorites/` + String(id));
     } catch (error) {
       console.log(error.message);
     }
@@ -31,7 +33,7 @@ export const actions = {
 
   async checkFavorite ({ commit }, { id, user }) {
     try {
-      const res = await this.$axios.$get(`http://localhost:3001/favorites/isfav?id=${String(id)}&user=${String(user)}`);
+      const res = await this.$axios.$get(`${serverApiUrl}favorites/isfav?id=${String(id)}&user=${String(user)}`);
       console.log('res', res);
       commit('setFav', res);
     } catch (error) {
@@ -48,5 +50,3 @@ export const mutations = {
     state.isFav = val;
   }
 };
-
-// 62e676835b46728ec8a083f5

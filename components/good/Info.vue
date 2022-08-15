@@ -54,7 +54,7 @@
             </p>
             <p class="good__props-price good__props-item">
               Price:
-              <span v-if="!good.isFree" class="red-txt">{{ good.price }} Fr</span>
+              <span v-if="!good.isFree" class="red-txt">{{ good.price }} UAH</span>
               <span v-else class="red-txt"> Free </span>
             </p>
           </div>
@@ -98,6 +98,7 @@
             <v-tooltip bottom>
               <template #activator="{on, attrs}">
                 <v-btn
+                  v-show="$auth.user !== null"
                   icon
                   class="btn"
                   large
@@ -134,14 +135,13 @@ export default @Component({
 
 class Info extends Vue {
   @Prop() good;
-  @Prop() userId;
+  @Prop() user;
   @FavsState isFav;
   @FavsAction addToFavorites;
   @FavsAction checkFavorite;
   @FavsAction removeFromFavorites;
-  
+
   tooltip = '';
-  @Prop() user;
 
   messengers = [
     {
@@ -172,30 +172,36 @@ class Info extends Vue {
 
   async addToFavs (item) {
     console.log('add');
-    try {
-      await this.addToFavorites({ userId: this.userId, item }).then(() => this.checkFavorite({ id: this.good._id, user: this.userId }));
-    } catch (err) {
-      console.log(err.message);
-    } finally {
-      this.changeTooltip();
+    if (this.$auth.user !== null) {
+      try {
+        await this.addToFavorites({ userId: this.$auth.user._id, item }).then(() => this.checkFavorite({ id: this.good._id, user: this.$auth.user._id }));
+      } catch (err) {
+        console.log(err.message);
+      } finally {
+        this.changeTooltip();
+      }
     }
   }
 
   async removeFromFavs () {
-    try {
-      await this.removeFromFavorites(this.isFav[0]._id).then(() =>
-        this.checkFavorite({ id: this.good._id, user: this.userId }));
-    } catch (err) {
-      console.log(err.message);
-    } finally {
-      this.changeTooltip();
+    if (this.$auth.user !== null) {
+      try {
+        await this.removeFromFavorites(this.isFav[0]._id).then(() =>
+          this.checkFavorite({ id: this.good._id, user: this.$auth.user._id }));
+      } catch (err) {
+        console.log(err.message);
+      } finally {
+        this.changeTooltip();
+      }
     }
   }
 
   async mounted () {
     this.goodStatus = this.good.status;
-    await this.checkFavorite({ id: this.good._id, user: this.userId });
-    this.changeTooltip();
+    if (this.$auth.user !== null) {
+      await this.checkFavorite({ id: this.good._id, user: this.$auth.user._id });
+      this.changeTooltip();
+    }
   }
 
   formatDate (date) {
