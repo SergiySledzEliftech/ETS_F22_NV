@@ -20,6 +20,7 @@
     "@nuxtjs/auth-next": "^5.0.0-1648802546.c9880dc",
     "@nuxtjs/axios": "^5.13.6",
     "@nuxtjs/fontawesome": "^1.1.2",
+    "@tomtom-international/web-sdk-maps": "^6.20.0",
     "cookieparser": "^0.1.0",
     "core-js": "^3.19.3",
     "js-cookie": "^3.0.1",
