@@ -14,7 +14,7 @@ export const mutations = {
 
   setItemStatus (state, item) {
     item.status = 'available';
-    console.log(item, 'nskfjhskfjshdfkj');
+    // console.log(item, 'nskfjhskfjshdfkj');
   }
 };
 

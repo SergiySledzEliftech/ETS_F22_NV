@@ -155,8 +155,8 @@ class PaymentCard extends Vue {
         PaymentsData.paidGoods.push(element);
       });
       await this.$axios.post('http://localhost:3001/payments', PaymentsData);
-      const localRents = this.$auth.$storage.getLocalStorage(this.$auth.user._id);
-      console.log(localRents, 111111111111);
+      // const localRents = this.$auth.$storage.getLocalStorage(this.$auth.user._id);
+      // console.log(localRents, 111111111111);
       this.$router.push('/');
     } catch (err) {
     }
