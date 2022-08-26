@@ -22,7 +22,7 @@
 
 <script>
 import { Component, Vue } from 'nuxt-property-decorator';
-import tt from '@tomtom-international/web-sdk-maps';
+// import tt from '@tomtom-international/web-sdk-maps';
 
 export default @Component({
   components: {}
@@ -37,11 +37,11 @@ class Map extends Vue {
 
   mounted () {
     // this.initMap();
-    tt.setProductInfo('213', '1');
-    tt.map({
-      key: 'z7rneEtjGJ4Ggbr7hEiw3iTsQ3vK6yQB',
-      container: 'map'
-    });
+    // tt.setProductInfo('213', '1');
+    // tt.map({
+    //   key: 'z7rneEtjGJ4Ggbr7hEiw3iTsQ3vK6yQB',
+    //   container: 'map'
+    // });
 
     // map.addControl(new tt.FullscreenControl());
     // map.addControl(new tt.NavigationControl());

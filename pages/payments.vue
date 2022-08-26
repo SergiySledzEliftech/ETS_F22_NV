@@ -1,5 +1,5 @@
 <template>
-  <div class="payments">
+  <div class="payments content-container">
     <payment-card
       v-if="modalCardVisible"
       :bill-order="billOrderData"
@@ -12,7 +12,7 @@
       />
       <div class="col col-desktop-2-5">
         <payments-orders
-          :order-goods="orderedGoods"
+          :order-goods="orderedGoodsInfo"
           :btn-disabled="PayValidBtn"
           @modalCardVisible="showModalCard"
         />
@@ -26,7 +26,7 @@ import { Vue, Component, namespace } from 'nuxt-property-decorator';
 import PaymentCard from '../components/payments/PaymentCard';
 import PaymentsContact from '../components/payments/PaymentsContact';
 import PaymentsOrders from '../components/payments/PaymentsOrders';
-const { State, Mutation } = namespace('ordered');
+const { State, Mutation, Action } = namespace('ordered');
 
 export default @Component({
   name: 'PaymentsPage',
@@ -34,7 +34,8 @@ export default @Component({
     PaymentCard,
     PaymentsContact,
     PaymentsOrders
-  }
+  },
+  auth: true
 })
 
 class PaymentsPage extends Vue {
@@ -43,17 +44,30 @@ class PaymentsPage extends Vue {
   billOrderData
 
   @State orderedGoods;
+  @State orderedGoodsInfo;
+
   @Mutation setOrderedGoods;
+  @Mutation setOrderedGoodsInfo;
 
-  mounted () {
-    const orderGoods = this.$auth.$storage.getLocalStorage(this.$auth.user._id);
-    const data = orderGoods.map((el) => {
-      return el.good;
-    });
-    this.setOrderedGoods(data);
-  }
+  @Action getUserOrders;
+  @Action getOrderedGoodsInfo;
+  @Action removeOrdersList;
+  @Action removeGood;
 
-  methods () {
+  async mounted () {
+    // clearing orders data
+    this.setOrderedGoods([]);
+    this.setOrderedGoodsInfo([]);
+    // getting ordered goods
+    try {
+      await this.getUserOrders(this.$auth.user._id);
+      // ordered goods exist in list
+      if (this.orderedGoods) {
+        await this.getOrderedGoodsInfo();
+      }
+    } catch (err) {
+      console.error(err);
+    }
   }
 
   showModalCard (data, bill) {
@@ -85,8 +99,8 @@ $bradius: 10;
   padding: $gap * 4 * 1px;
   background: #f4f4f9;
   @media only screen and (max-width: 820px){
-    padding-bottom: 0px;
-    padding-top: 0px;
+    padding-bottom: 0;
+    padding-top: 0;
   }
 }
 .row__vertical{
@@ -95,10 +109,7 @@ $bradius: 10;
 }
 .col{
   width: 100%;
-  padding-left: $gap * 3 * 1px;
-  padding-right: $gap * 3 * 1px;
-  padding-bottom: $gap * 3 * 1px;
-  padding-top: $gap * 3 * 1px;
+  padding: $gap * 3 * 1px;
   min-height: 100%;
 }
 .col-desktop-2-5{

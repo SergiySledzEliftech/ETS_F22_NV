@@ -57,7 +57,8 @@
 <script>
 import { Vue, Component, Prop, namespace } from 'nuxt-property-decorator';
 
-const { Mutation, Action } = namespace('good');
+const { Mutation: MutationGood, Action: ActionGood } = namespace('good');
+const { State: StateOrders, Action: ActionOrders } = namespace('ordered');
 
 export default @Component({
   components: {}
@@ -67,45 +68,29 @@ class RentPopup extends Vue {
   @Prop() good;
   @Prop() goodStatus;
 
-  @Mutation setGoodStatus;
-  @Action updateGood;
-  @Action updateStatistic;
+  @StateOrders orderedGoods;
+  @ActionOrders addGoodToOrderList;
+
+  @MutationGood setGoodStatus;
+  @ActionGood updateGood;
+  @ActionGood updateStatistic;
 
   term = 1;
-
-  created () {
-    // this.$auth.$storage.removeLocalStorage(this.$auth.user._id);
-    // console.log(this.$auth.$storage.getLocalStorage(this.$auth.user._id));
-  }
 
   async onRentedGood () {
     try {
       this.setGoodStatus('unavailable');
-      this.addToLocalStorage();
+      await this.addGoodToOrderList({
+        userId: this.$auth.user._id,
+        good: {
+          term: this.term,
+          goodId: this.$route.params.id
+        }
+      });
       await this.updateGood(this.good);
       await this.updateStatistic();
     } catch (err) {
       console.error(err.message);
-    }
-  };
-
-  addToLocalStorage () {
-    const localRents = this.$auth.$storage.getLocalStorage(this.$auth.user._id);
-    let goodsRented = [];
-    if (localRents === undefined || localRents === null) {
-      goodsRented.push({
-        lease_term: this.term,
-        good: this.good
-      });
-      this.$auth.$storage.setLocalStorage(this.$auth.user._id, goodsRented);
-    } else {
-      this.$auth.$storage.removeLocalStorage(this.$auth.user._id);
-      goodsRented = localRents;
-      goodsRented.push({
-        lease_term: this.term,
-        good: this.good
-      });
-      this.$auth.$storage.setLocalStorage(this.$auth.user._id, goodsRented);
     }
   }
 }

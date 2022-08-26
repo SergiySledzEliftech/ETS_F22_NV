@@ -125,7 +125,9 @@ import { Vue, Component, Prop, namespace } from 'nuxt-property-decorator';
 import moment from 'moment';
 import Carousel from '~/components/good/Carousel/Carousel';
 import RentPopup from '~/components/good/RentPopup';
+
 const { State: FavsState, Action: FavsAction } = namespace('favorites');
+
 export default @Component({
   components: {
     Carousel,
@@ -136,6 +138,7 @@ export default @Component({
 class Info extends Vue {
   @Prop() good;
   @Prop() user;
+
   @FavsState isFav;
   @FavsAction addToFavorites;
   @FavsAction checkFavorite;
@@ -171,7 +174,6 @@ class Info extends Vue {
   }
 
   async addToFavs (item) {
-    console.log('add');
     if (this.$auth.user !== null) {
       try {
         await this.addToFavorites({ userId: this.$auth.user._id, item }).then(() => this.checkFavorite({ id: this.good._id, user: this.$auth.user._id }));

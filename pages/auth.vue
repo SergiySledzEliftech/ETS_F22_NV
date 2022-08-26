@@ -78,6 +78,9 @@ class Auth extends Vue {
 </script>
 <style lang="scss" scoped>
 @import '../assets/variables.scss';
+.v-application {
+  width: 100%;
+}
 .v-window {
   overflow: hidden !important;
   border-bottom: 5px;

@@ -113,11 +113,11 @@ export function allowAlphanumericOnlyValidation (message = 'This field must cont
   return v => !v || !!v.match(/^[a-zA-Z]*$/) || message;
 }
 
-export function zipCodeValidation (message = 'This field must be a number (format 12345).') {
+export function zipCodeValidation (message = 'Required format 12345') {
   return v => !v || !!v.toString().match(ZIP_CODE_REGEXP) || message;
 }
 
-export function phoneNumberValidation (message = 'This field must be a number (format 123 456 7890).') {
+export function phoneNumberValidation (message = 'Required format 123 456 7890') {
   return v => !v || !!v.toString().match(PHONE_NUMBER_REGEXP) || message;
 }
 

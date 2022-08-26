@@ -102,9 +102,10 @@
 </template>
 
 <script>
-import { Vue, Component, Prop } from 'nuxt-property-decorator';
+import { Vue, Component, Prop, namespace } from 'nuxt-property-decorator';
 import { mask } from 'vue-the-mask';
-import { serverApiUrl } from '@/settings/config';
+
+const { State, Action } = namespace('ordered');
 
 export default @Component({
   name: 'PaymentCard',
@@ -121,22 +122,22 @@ class PaymentCard extends Vue {
   @Prop() billOrder
   @Prop() paidGoods
 
+  @State orderedGoods;
+  @Action removeOrdersList;
+
   get getCardType () {
     const number = this.cardNumber;
     let re = /^4/;
     if (number.match(re) != null) {
       return 'visa';
-    };
+    }
 
     re = /^5[1-5]/;
     if (number.match(re) != null) {
       return 'mastercard';
-    };
+    }
 
     return 'visa'; // default type
-  }
-
-  methods () {
   }
 
   closeModal () {
@@ -145,22 +146,11 @@ class PaymentCard extends Vue {
 
   async sendPaymentsDataToBase () {
     try {
-      const PaymentsData = {
-        cardNumber: this.cardNumber,
-        cardMonth: this.cardMonth,
-        cardYear: this.cardYear,
-        cardCvv: this.cardCvv,
-        paidAmount: this.billOrder.billAmount,
-        billNumber: this.billOrder.billNumber,
-        paidGoods: []
-      };
-      this.paidGoods.forEach((element) => {
-        PaymentsData.paidGoods.push(element);
+      this.removeOrdersList({
+        userId: this.$auth.user._id,
+        goods: this.orderedGoods
       });
-      await this.$axios.post(`${serverApiUrl}, PaymentsData`);
-      const localRents = this.$auth.$storage.getLocalStorage(this.$auth.user._id);
-      console.log(localRents, 111111111111);
-      this.$router.push('/');
+      await this.$router.push('/');
     } catch (err) {
     }
   }
@@ -170,8 +160,8 @@ class PaymentCard extends Vue {
 <style lang="sass" scoped>
 .card
   position: absolute
-  top: 0px
-  bottom: 0px
+  top: 0
+  bottom: 0
   right: 0
   left: 0
   background: rgba(249, 249, 250, 0.9)
@@ -188,7 +178,7 @@ label
   height: 600px
   padding: 5px
   background: #F9F9FA
-  box-shadow: 0px 0px 10px rgba(33, 33, 33, 0.25)
+  box-shadow: 0 0 10px rgba(33, 33, 33, 0.25)
   border-radius: 8px
 .card-header
   border: 1px solid rgb(224, 230, 237)
@@ -243,15 +233,15 @@ label
   transition: border-color .15s ease-in-out,box-shadow .15s ease-in-out
   outline: none
   &:focus
-    box-shadow: 0px 0px 0px 3px #ced4da
+    box-shadow: 0 0 0 3px #ced4da
   &--validate
     width: 100%
     text-align: center
     &:focus
-      box-shadow: 0px 0px 0px 3px #ced4da
+      box-shadow: 0 0 0 3px #ced4da
 .btn
   &--card
     font-size: 25px
     text-transform: none
-    padding: 20px 0px!important
+    padding: 20px 0!important
 </style>

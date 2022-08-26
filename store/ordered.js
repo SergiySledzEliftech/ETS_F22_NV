@@ -1,7 +1,8 @@
 import { serverApiUrl } from '@/settings/config';
 
 export const state = () => ({
-  orderedGoods: []
+  orderedGoods: [],
+  orderedGoodsInfo: []
 });
 
 export const mutations = {
@@ -9,30 +10,101 @@ export const mutations = {
     state.orderedGoods = goods;
   },
 
+  setOrderedGoodsInfo (state, goodsInfo) {
+    state.orderedGoodsInfo = goodsInfo;
+  },
+
+  setItemStatus (state, item) {
+    item.status = 'available';
+  },
+
+  pushGoodToList (state, good) {
+    state.orderedGoods.push(good);
+  },
+
+  pushOrderedGoodsInfo (state, goodInfo) {
+    state.orderedGoodsInfo.push(goodInfo);
+  },
+
   Delete_Ordered_Good (state, id) {
     const index = state.orderedGoods.findIndex(item => item._id === id);
     state.orderedGoods.splice(index, 1);
   },
 
-  setItemStatus (state, item) {
-    item.status = 'available';
-    console.log(item, 'nskfjhskfjshdfkj');
+  removeGoodFromList (state, goodId) {
+    const index = state.orderedGoods.findIndex(item => item.goodId === goodId);
+    state.orderedGoods.splice(index, 1);
+    state.orderedGoodsInfo.splice(index, 1);
   }
+
 };
 
 export const actions = {
-  async deleteOrderedGood ({ commit }, { id, item }) {
-    commit('setItemStatus', item);
-    await this.$axios.$put(`${serverApiUrl} + item._id, item`);
-    const newData = this.$auth.$storage.getLocalStorage(this.$auth.user._id);
-    newData.forEach((el) => {
-      if (el.good._id === id) {
-        const index = newData.findIndex(item => item.good._id === id);
-        newData.splice(index, 1);
-        this.$auth.$storage.removeLocalStorage(this.$auth.user._id);
-        this.$auth.$storage.setLocalStorage(this.$auth.user._id, newData);
-      };
+  async getUserOrders ({ state, commit }, userId) {
+    const { data } = await this.$axios.get(
+      `${serverApiUrl}orders?userId=${userId}`
+    );
+    commit('setOrderedGoods', data.goods);
+  },
+
+  async getOrderedGoodsInfo ({ state, commit }) {
+    for (const item of state.orderedGoods) {
+      const { data } = await this.$axios.get(`${serverApiUrl}products/${item.goodId}`);
+      commit('pushOrderedGoodsInfo', data);
+    }
+  },
+
+  async addGoodToOrderList ({ state, commit }, { userId, good }) {
+    // get list of goods
+    const { data } = await this.$axios.get(
+      `${serverApiUrl}orders?userId=${userId}`
+    );
+    commit('setOrderedGoods', data.goods);
+    if (state.orderedGoods) {
+      // push to end good and update all list
+      commit('pushGoodToList', good);
+      await this.$axios.$put(
+        `${serverApiUrl}orders?userId=${userId}`,
+        {
+          goods: state.orderedGoods
+        }
+      );
+    } else {
+      // create new orders list and add good
+      await this.$axios.$post(
+        `${serverApiUrl}orders`,
+        {
+          userId,
+          goods: [
+            good
+          ]
+        });
+    }
+  },
+
+  async removeOrdersList ({ state, commit }, { userId, goods }) {
+    // update status of all goods in orders list
+    for (const good of goods) {
+      await this.$axios.$put(`${serverApiUrl}products/${good.goodId}`, {
+        status: 'available'
+      });
+    }
+    // delete orders list
+    await this.$axios.$delete(`${serverApiUrl}orders?userId=${userId}`);
+  },
+
+  async removeGood ({ state, commit }, { userId, goodId }) {
+    // // remove good from list
+    commit('removeGoodFromList', goodId);
+    // update orders list
+    await this.$axios.$put(
+      `${serverApiUrl}orders?userId=${userId}`, {
+        goods: state.orderedGoods
+      }
+    );
+    // update good's status
+    await this.$axios.$put(`${serverApiUrl}products/${goodId}`, {
+      status: 'available'
     });
-    commit('Delete_Ordered_Good', id);
   }
 };

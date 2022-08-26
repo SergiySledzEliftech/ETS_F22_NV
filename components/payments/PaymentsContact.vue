@@ -2,7 +2,7 @@
   <div class="col m-r-7">
     <div class="payments__list-title">
       <p class="payments__title-text">
-        Сontacts
+        Contacts
       </p>
     </div>
     <div class="payments__contact m-b-2">
@@ -83,7 +83,7 @@
 
 <script>
 import { Vue, Component, Watch } from 'nuxt-property-decorator';
-import { phoneNumberValidation, emptyValidation, lengthValidation } from '../../helpers/validators';
+import { phoneNumberValidation, emptyValidation, lengthValidation } from '~/helpers/validators';
 
 export default @Component({
   name: 'PaymentsContact',
@@ -112,11 +112,7 @@ class PaymentsContact extends Vue {
         inputsValid.push(item.valid);
       }
     });
-    if (inputsValid.length === inputsForm.length) {
-      this.showFormBorder = true;
-    } else {
-      this.showFormBorder = false;
-    }
+    this.showFormBorder = inputsValid.length === inputsForm.length;
   }
 
   methods () {
@@ -163,7 +159,7 @@ $bradius: 10;
     align-items: center;
     margin-bottom: 15px;
     @media only screen and (max-width: 820px){
-      margin-bottom: 0px;
+      margin-bottom: 0;
       padding-top: 0;
     }
   }
@@ -181,10 +177,7 @@ $bradius: 10;
   &__contact{
     margin-left: $gap * 3 * -1px;
     margin-right: $gap * 3 * -1px;
-    padding-left: $gap * 3 * 1px;
-    padding-right: $gap * 3 * 1px;
-    padding-top: $gap * 3 * 1px;
-    padding-bottom: $gap * 3 * 1px;
+    padding: $gap * 3 * 1px;
     border-radius: $bradius * 1px;
     background: #fff;
   }
@@ -237,6 +230,7 @@ $bradius: 10;
 }
 
 .form-row{
+  display: flex;
   flex-direction: column;
 }
 .form-col{

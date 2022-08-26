@@ -581,15 +581,14 @@ class HeaderComponent extends Vue {
         transition: all 0.2s ease;
       }
       .header .navbar.active {
-        left: 0rem;
+        left: 0;
         opacity: 1;
         visibility: visible;
       }
       .header .menu {
         width: 100%;
         height: auto;
-        margin: 1rem 0;
-        margin-right: 10px;
+        margin: 1rem 10px 1rem 0;
 
         @media only screen and (max-width: 992px) {
           margin-right: 0;

@@ -155,7 +155,7 @@
                         @change="updateImg($event)"
                       />
                     </div>
-                    <div v-for="(n,index) in numberOfBoxes - imgUrl.length" :key="index + Math.random()" class="advertisement__form-box">
+                    <div v-for="(n, index) in numberOfBoxes - imgUrl.length" :key="index + Math.random()" class="advertisement__form-box">
                       <label class="advertisement__form-photo" for="img">
                         <img src="../../assets/img/photo-camera-svgrepo-com.svg" alt="">
                       </label>
@@ -339,7 +339,7 @@
               Back
             </v-btn>
             <v-spacer />
-            <template v-if="step == 6">
+            <template v-if="step === 6">
               <v-btn color="primary" dark @click="step = 1">
                 Clear
               </v-btn>
@@ -365,7 +365,8 @@ import categoryCard from '../../components/new-advertisement/category-card.vue';
 
 export default @Component({
   name: 'CreateNewAnnouncement',
-  components: { categoryCard }
+  components: { categoryCard },
+  auth: true
 })
 
 class CreateNewAnnouncement extends Vue {
@@ -510,14 +511,13 @@ class CreateNewAnnouncement extends Vue {
       background: #fff;
       width: 159px;
       height: 120px;
-      padding: 0px 20px;
+      padding: 0 20px;
       font-size: 14px;
       font-weight: 500;
       text-align: center;
       justify-content: center;
       align-items: center;
       display: flex;
-      position: relative;
       position: relative;
       &::after{
           position: absolute;

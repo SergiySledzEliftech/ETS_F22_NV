@@ -30,7 +30,7 @@
             <div class="orders__item-description m-b-2">
               {{ item.description }}
             </div>
-            <div class="orders__item-actions" @click="deleteOrderedGoodFromList(item._id, item)">
+            <div class="orders__item-actions" @click="deleteOrderedGoodFromList(item._id)">
               <fa icon="trash-can" />
             </div>
           </div>
@@ -42,7 +42,7 @@
       class="btn--pay"
       outlined
       color="indigo"
-      :disabled="BtnDisabled"
+      :disabled="BtnDisabled || !orderedGoods"
       @click="showModalCard"
     >
       PAY
@@ -51,7 +51,8 @@
 </template>
 
 <script>
-import { Vue, Component, Prop, namespace } from 'nuxt-property-decorator';
+import { Component, namespace, Prop, Vue } from 'nuxt-property-decorator';
+
 const { State, Mutation, Action } = namespace('ordered');
 
 export default @Component({
@@ -61,22 +62,20 @@ export default @Component({
 
 class PaymentsOrders extends Vue {
   @Prop() BtnDisabled;
+
   @Prop() orderGoods
 
   @State orderedGoods;
+  @Mutation removeGoodFromList;
   @Mutation setOrderedGoods;
-  @Mutation setItemStatus;
-  @Action deleteOrderedGood;
+  @Action removeGood;
 
   get totalCost () {
-    let resalt = 0;
+    let result = 0;
     this.orderGoods.forEach((element) => {
-      resalt = resalt + element.price;
+      result = result + element.price;
     });
-    return resalt;
-  }
-
-  methods () {
+    return result;
   }
 
   showModalCard () {
@@ -87,8 +86,15 @@ class PaymentsOrders extends Vue {
     this.$emit('modalCardVisible', true, bill);
   }
 
-  deleteOrderedGoodFromList (id, item) {
-    this.deleteOrderedGood({ id, item });
+  deleteOrderedGoodFromList (goodId) {
+    try {
+      this.removeGood({
+        userId: this.$auth.user._id,
+        goodId
+      });
+    } catch (err) {
+      console.error(err);
+    }
   }
 
   openItem (id) {
@@ -113,10 +119,7 @@ $bradius: 10
     margin-left: $gap * 3 * -1px
     margin-right: $gap * 3 * -1px
     margin-top: $gap * 3 * -1px
-    padding-left: $gap * 3 * 1px
-    padding-right: $gap * 3 * 1px
-    padding-top: $gap * 3 * 1px
-    padding-bottom: $gap * 3 * 1px
+    padding: $gap * 3 * 1px
     border-radius: $bradius * 1px
     background: #fff
 .orders
@@ -138,6 +141,7 @@ $bradius: 10
     padding: $gap * 2 * 1px
 
   &__item
+    position: relative
     border-color: #dadae8
     box-shadow: 0 1px 10px #dadae8
     padding: $gap * 2 * 1px
@@ -153,10 +157,7 @@ $bradius: 10
     img
       max-width: 100%
       max-height: 100%
-      margin-bottom: auto
-      margin-top: auto
-      margin-left: auto
-      margin-right: auto
+      margin: auto
 
   &__item-content
     width: 65%
@@ -165,9 +166,10 @@ $bradius: 10
     display: flex
     justify-content: space-between
   &__item-name
-    font-size: 40px
+    font-size: 25px
     font-weight: 400
     cursor: pointer
+    margin-top: 25px
     @media only screen and (max-width: 820px)
       font-size: 24px
   &__item-price
@@ -184,9 +186,9 @@ $bradius: 10
     @media only screen and (max-width: 820px)
       font-size: 14px
   &__item-actions
-    position: relative
     svg
       position: absolute
+      top: 5px
       right: 10px
       height: 25px
       opacity: 0.2
@@ -197,13 +199,10 @@ $bradius: 10
   &--pay
     font-size: 25px
     text-transform: none
-    padding: 20px 0px!important
+    padding: 20px 0 !important
 .col
   width: 100%
-  padding-left: $gap * 3 * 1px
-  padding-right: $gap * 3 * 1px
-  padding-bottom: $gap * 3 * 1px
-  padding-top: $gap * 3 * 1px
+  padding: $gap * 3 * 1px
   min-height: 100%
 .col-desktop-2-5
   max-width: 100 / 2 * 1%
